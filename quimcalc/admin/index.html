@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuimCalc — Panel de publicación</title>
+
+  <style>
+    /* ── VARIABLES (paleta del sitio) ── */
+    :root {
+      --color-fondo:        #F7F5F0;
+      --color-fondo-card:   #EDEAE2;
+      --color-acento:       #1A5C38;
+      --color-acento-hover: #134529;
+      --color-acento-claro: #E8F2EC;
+      --color-texto:        #1C1A17;
+      --color-texto-suave:  #5C5649;
+      --color-borde:        #D4CFC4;
+      --color-error:        #B83232;
+      --color-header-bg:    #1C2E22;
+      --color-header-texto: #F0EDE6;
+      --radio-sm: 4px;
+      --radio-md: 8px;
+      --radio-lg: 12px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+    /* ── LOGIN ── */
+    #pantalla-login {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-header-bg);
+    }
+
+    .login-box {
+      background-color: var(--color-fondo);
+      border-radius: var(--radio-lg);
+      padding: 40px;
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+    }
+
+    .login-box__logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--color-texto);
+      margin-bottom: 4px;
+    }
+
+    .login-box__logo span { color: var(--color-acento); }
+
+    .login-box__subtitulo {
+      font-size: 0.85rem;
+      color: var(--color-texto-suave);
+      margin-bottom: 28px;
+    }
+
+    .login-box input[type="password"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--color-borde);
+      border-radius: var(--radio-sm);
+      font-size: 1rem;
+      font-family: inherit;
+      color: var(--color-texto);
+      background: #fff;
+      margin-bottom: 12px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .login-box input[type="password"]:focus {
+      border-color: var(--color-acento);
+    }
+
+    .login-box__error {
+      font-size: 0.82rem;
+      color: var(--color-error);
+      margin-bottom: 10px;
+      min-height: 18px;
+    }
+
+    /* ── PANEL PRINCIPAL ── */
+    #panel-cms { display: none; }
+
+    .cms-header {
+      background-color: var(--color-header-bg);
+      padding: 0 32px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cms-header__logo {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-header-texto);
+    }
+
+    .cms-header__logo span { color: #6EBF8B; }
+
+    .cms-header__badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      background-color: rgba(110, 191, 139, 0.2);
+      color: #6EBF8B;
+      padding: 3px 10px;
+      border-radius: 99px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .cms-body {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 0;
+      min-height: calc(100vh - 56px);
+    }
+
+    /* ── FORMULARIO (columna izquierda) ── */
+    .cms-form {
+      padding: 32px;
+      overflow-y: auto;
+      border-right: 1px solid var(--color-borde);
+    }
+
+    /* ── PREVIEW (columna derecha) ── */
+    .cms-preview {
+      padding: 32px 24px;
+      overflow-y: auto;
+      background-color: var(--color-fondo-card);
+    }
+
+    .cms-preview__titulo {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-texto-suave);
+      margin-bottom: 16px;
+    }
+
+    .preview-codigo {
+      background-color: var(--color-header-bg);
+      color: #a8d5b5;
+      border-radius: var(--radio-md);
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: calc(100vh - 180px);
+      overflow-y: auto;
+    }
+
+    /* ── GRUPOS DE FORMULARIO ── */
+    .form-seccion {
+      margin-bottom: 28px;
+    }
+
+    .form-seccion__titulo {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-texto-suave);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--color-borde);
+    }
+
+    .campo {
+      margin-bottom: 14px;
+    }
+
+    .campo label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--color-texto);
+      margin-bottom: 5px;
+    }
+
+    .campo input,
+    .campo select,
+    .campo textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1.5px solid var(--color-borde);
+      border-radius: var(--radio-sm);
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: var(--color-texto);
+      background: var(--color-fondo);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .campo input:focus,
+    .campo select:focus,
+    .campo textarea:focus {
+      border-color: var(--color-acento);
+    }
+
+    .campo textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .campo-fila {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    /* ── SECCIONES DEL POST (bloques dinámicos) ── */
+    .secciones-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .bloque-seccion {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      overflow: hidden;
+    }
+
+    .bloque-seccion__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background-color: var(--color-fondo-card);
+      cursor: pointer;
+      user-select: none;
+      gap: 10px;
+    }
+
+    .bloque-seccion__tipo {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 2px 8px;
+      border-radius: 99px;
+    }
+
+    .tipo-texto    { background-color: #DBEAFE; color: #1E40AF; }
+    .tipo-formula  { background-color: var(--color-acento-claro); color: var(--color-acento); }
+    .tipo-ejemplo  { background-color: #FEF3C7; color: #92400E; }
+    .tipo-faq      { background-color: #F3E8FF; color: #6B21A8; }
+    .tipo-lista    { background-color: #FCE7F3; color: #9D174D; }
+    .tipo-subtitulo { background-color: #E0F2FE; color: #075985; }
+
+    .bloque-seccion__preview-texto {
+      flex: 1;
+      font-size: 0.82rem;
+      color: var(--color-texto-suave);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .bloque-seccion__acciones {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .btn-icono {
+      background: none;
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-sm);
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-texto-suave);
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    .btn-icono:hover { background-color: var(--color-fondo); color: var(--color-texto); }
+    .btn-icono--eliminar:hover { border-color: var(--color-error); color: var(--color-error); }
+
+    .btn-icono svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .bloque-seccion__body {
+      padding: 12px 14px;
+      border-top: 1px solid var(--color-borde);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bloque-seccion__body.colapsado { display: none; }
+
+    /* ── BOTONES DE AGREGAR BLOQUE ── */
+    .agregar-bloque-menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .btn-agregar {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 99px;
+      border: 1.5px dashed var(--color-borde);
+      background: none;
+      cursor: pointer;
+      color: var(--color-texto-suave);
+      transition: border-color 0.15s, color 0.15s, background-color 0.15s;
+    }
+
+    .btn-agregar:hover {
+      border-color: var(--color-acento);
+      color: var(--color-acento);
+      background-color: var(--color-acento-claro);
+    }
+
+    /* ── CHECKBOXES DE HERRAMIENTAS ── */
+    .herramientas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.82rem;
+      color: var(--color-texto-suave);
+      cursor: pointer;
+    }
+
+    .check-item input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--color-acento);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* ── POSTS RELACIONADOS ── */
+    .posts-relacionados-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .post-relacionado-item {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .post-relacionado-item input {
+      flex: 1;
+    }
+
+    .btn-quitar {
+      background: none;
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-sm);
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      color: var(--color-texto-suave);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .btn-quitar:hover { border-color: var(--color-error); color: var(--color-error); }
+
+    /* ── BOTONES PRINCIPALES ── */
+    .btn-generar {
+      background-color: var(--color-acento);
+      color: #F7F5F0;
+      border: none;
+      border-radius: var(--radio-sm);
+      padding: 13px 24px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.15s;
+      margin-bottom: 10px;
+    }
+
+    .btn-generar:hover { background-color: var(--color-acento-hover); }
+
+    .btn-descargar {
+      background-color: transparent;
+      color: var(--color-acento);
+      border: 2px solid var(--color-acento);
+      border-radius: var(--radio-sm);
+      padding: 11px 24px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.15s;
+      display: none;
+    }
+
+    .btn-descargar:hover { background-color: var(--color-acento-claro); }
+    .btn-descargar.visible { display: block; }
+
+    /* ── MENSAJE DE ÉXITO ── */
+    .mensaje-exito {
+      background-color: var(--color-acento-claro);
+      border: 1px solid var(--color-acento);
+      border-radius: var(--radio-md);
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      color: var(--color-acento);
+      font-weight: 600;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .mensaje-exito.visible { display: block; }
+
+    /* ── NOMBRE DE ARCHIVO GENERADO ── */
+    .nombre-archivo {
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-sm);
+      padding: 6px 10px;
+      color: var(--color-texto-suave);
+      margin-top: 8px;
+      display: none;
+    }
+
+    .nombre-archivo.visible { display: block; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .cms-body { grid-template-columns: 1fr; }
+      .cms-preview { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     PANTALLA DE LOGIN
+═══════════════════════════════════════════════════════ -->
+<div id="pantalla-login">
+  <div class="login-box">
+    <p class="login-box__logo">Quim<span>Calc</span></p>
+    <p class="login-box__subtitulo">Panel de publicación — solo acceso autorizado</p>
+    <input type="password" id="input-clave" placeholder="Contraseña" autocomplete="current-password">
+    <p class="login-box__error" id="login-error"></p>
+    <button
+      style="background-color: var(--color-acento); color: #F7F5F0; border: none; border-radius: 4px; padding: 12px; width: 100%; font-family: inherit; font-size: 0.92rem; font-weight: 700; cursor: pointer;"
+      onclick="verificarLogin()"
+    >Ingresar</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL CMS
+═══════════════════════════════════════════════════════ -->
+<div id="panel-cms">
+
+  <header class="cms-header">
+    <span class="cms-header__logo">Quim<span>Calc</span></span>
+    <span class="cms-header__badge">Panel de publicación</span>
+  </header>
+
+  <div class="cms-body">
+
+    <!-- ── FORMULARIO ── -->
+    <div class="cms-form">
+
+      <!-- METADATOS -->
+      <div class="form-seccion">
+        <p class="form-seccion__titulo">Metadatos del post</p>
+
+        <div class="campo">
+          <label for="titulo">Título del post *</label>
+          <input type="text" id="titulo" placeholder="ej: Cómo calcular el LOD por el método de la señal/ruido">
+        </div>
+
+        <div class="campo-fila">
+          <div class="campo">
+            <label for="categoria">Categoría *</label>
+            <select id="categoria">
+              <option value="">— Elegí una —</option>
+              <option value="Química básica"      data-color="#1A5C38">Química básica</option>
+              <option value="Agua y medio ambiente" data-color="#059669">Agua y medio ambiente</option>
+              <option value="Análisis volumétrico" data-color="#D97706">Análisis volumétrico</option>
+              <option value="Instrumentación"     data-color="#7C3AED">Instrumentación</option>
+              <option value="Normativa y calidad" data-color="#DC2626">Normativa y calidad</option>
+              <option value="Laboratorio industrial" data-color="#0369A1">Laboratorio industrial</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="tiempo-lectura">Tiempo de lectura</label>
+            <input type="text" id="tiempo-lectura" placeholder="ej: 8 min lectura">
+          </div>
+        </div>
+
+        <div class="campo-fila">
+          <div class="campo">
+            <label for="fecha-iso">Fecha (ISO) *</label>
+            <input type="date" id="fecha-iso">
+          </div>
+          <div class="campo">
+            <label for="fecha-legible">Fecha visible</label>
+            <input type="text" id="fecha-legible" placeholder="ej: Enero 2025">
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="resumen-meta">Resumen SEO (meta description) *</label>
+          <textarea id="resumen-meta" rows="2" placeholder="Máximo 160 caracteres. Este texto aparece en Google."></textarea>
+        </div>
+
+        <div class="campo">
+          <label for="resumen-post">Resumen visible en el post *</label>
+          <textarea id="resumen-post" rows="3" placeholder="2-3 oraciones que aparecen debajo del título en el artículo."></textarea>
+        </div>
+
+        <div class="campo">
+          <label for="nombre-archivo">Nombre del archivo HTML</label>
+          <input type="text" id="nombre-archivo" placeholder="ej: como-calcular-lod-loq (sin .html, sin espacios)">
+        </div>
+      </div>
+
+      <!-- SECCIONES DEL CUERPO -->
+      <div class="form-seccion">
+        <p class="form-seccion__titulo">Cuerpo del artículo</p>
+
+        <div class="secciones-lista" id="secciones-lista">
+          <!-- Los bloques se insertan aquí dinámicamente -->
+        </div>
+
+        <div class="agregar-bloque-menu">
+          <button class="btn-agregar" onclick="agregarBloque('texto')">+ Párrafo / Sección h2</button>
+          <button class="btn-agregar" onclick="agregarBloque('subtitulo')">+ Subtítulo h3</button>
+          <button class="btn-agregar" onclick="agregarBloque('formula')">+ Fórmula</button>
+          <button class="btn-agregar" onclick="agregarBloque('ejemplo')">+ Ejemplo resuelto</button>
+          <button class="btn-agregar" onclick="agregarBloque('faq')">+ Pregunta FAQ</button>
+          <button class="btn-agregar" onclick="agregarBloque('lista')">+ Lista de puntos</button>
+        </div>
+      </div>
+
+      <!-- HERRAMIENTAS RELACIONADAS -->
+      <div class="form-seccion">
+        <p class="form-seccion__titulo">Herramientas relacionadas (sidebar)</p>
+        <div class="herramientas-grid" id="herramientas-grid">
+          <!-- Se genera con JS -->
+        </div>
+      </div>
+
+      <!-- POSTS RELACIONADOS -->
+      <div class="form-seccion">
+        <p class="form-seccion__titulo">Posts relacionados (sidebar)</p>
+        <div class="posts-relacionados-lista" id="posts-relacionados-lista">
+          <!-- Se genera con JS -->
+        </div>
+        <button class="btn-agregar" onclick="agregarPostRelacionado()">+ Agregar post relacionado</button>
+      </div>
+
+      <!-- ACCIONES -->
+      <div class="form-seccion">
+        <button class="btn-generar" onclick="generarHTML()">Generar HTML del post</button>
+        <button class="btn-descargar" id="btn-descargar" onclick="descargarHTML()">⬇ Descargar archivo HTML</button>
+        <div class="nombre-archivo" id="nombre-archivo-generado"></div>
+        <div class="mensaje-exito" id="mensaje-exito">
+          ✓ HTML generado correctamente. Descargalo y subilo a /blog/posts/ en Hostinger.
+        </div>
+      </div>
+
+    </div><!-- /cms-form -->
+
+    <!-- ── PREVIEW DEL CÓDIGO ── -->
+    <div class="cms-preview">
+      <p class="cms-preview__titulo">Vista previa del código generado</p>
+      <pre class="preview-codigo" id="preview-codigo">El HTML aparecerá aquí cuando hagas clic en "Generar".</pre>
+    </div>
+
+  </div><!-- /cms-body -->
+</div><!-- /panel-cms -->
+
+<script>
+/* ══════════════════════════════════════════════════════
+   CONFIGURACIÓN
+   IMPORTANTE: cambiá esta contraseña antes de subir.
+   No es un sistema de seguridad robusto, pero es
+   suficiente para un panel personal estático.
+═══════════════════════════════════════════════════════ */
+const CLAVE_ADMIN = 'quimcalc2025'; // ← CAMBIÁ ESTO
+
+/* ══════════════════════════════════════════════════════
+   DATOS DEL SITIO
+═══════════════════════════════════════════════════════ */
+
+// Las 15 herramientas del sitio
+const HERRAMIENTAS = [
+  { label: 'Molaridad y masa',          href: 'calculadora-molaridad.html' },
+  { label: 'Diluciones C₁V₁=C₂V₂',     href: 'calculadora-diluciones.html' },
+  { label: 'Conversor ppm/mg/L/N',      href: 'conversor-ppm-mgl.html' },
+  { label: 'Calculadora de pH',         href: 'calculadora-ph.html' },
+  { label: '% Rendimiento',             href: 'calculadora-rendimiento.html' },
+  { label: 'Temperatura °C/°F/K',       href: 'conversor-temperatura.html' },
+  { label: 'Concentración % p/p',       href: 'concentracion-pp.html' },
+  { label: 'Masa Molar',                href: 'masa-molar.html' },
+  { label: 'Buffers Henderson-H.',      href: 'calculadora-buffers.html' },
+  { label: 'Diluciones seriadas',       href: 'diluciones-seriadas.html' },
+  { label: 'Dureza del agua',           href: 'dureza-agua.html' },
+  { label: 'Titulación volumétrica',    href: 'calculadora-titulacion.html' },
+  { label: 'Curva de calibración',      href: 'curva-calibracion.html' },
+  { label: 'LOD y LOQ',                 href: 'lod-loq.html' },
+  { label: 'Incertidumbre GUM',         href: 'incertidumbre.html' },
+];
+
+// Mapa de colores por categoría
+const COLORES_CATEGORIA = {
+  'Química básica':       '#1A5C38',
+  'Agua y medio ambiente':'#059669',
+  'Análisis volumétrico': '#D97706',
+  'Instrumentación':      '#7C3AED',
+  'Normativa y calidad':  '#DC2626',
+  'Laboratorio industrial':'#0369A1',
+};
+
+/* ══════════════════════════════════════════════════════
+   LOGIN
+═══════════════════════════════════════════════════════ */
+function verificarLogin() {
+  const clave = document.getElementById('input-clave').value;
+  if (clave === CLAVE_ADMIN) {
+    document.getElementById('pantalla-login').style.display = 'none';
+    document.getElementById('panel-cms').style.display = 'block';
+    inicializarPanel();
+  } else {
+    document.getElementById('login-error').textContent = 'Contraseña incorrecta.';
+    document.getElementById('input-clave').value = '';
+  }
+}
+
+// También permite presionar Enter en el input
+document.getElementById('input-clave').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') verificarLogin();
+});
+
+/* ══════════════════════════════════════════════════════
+   INICIALIZACIÓN DEL PANEL
+═══════════════════════════════════════════════════════ */
+function inicializarPanel() {
+  // Poner fecha de hoy por defecto
+  const hoy = new Date().toISOString().split('T')[0];
+  document.getElementById('fecha-iso').value = hoy;
+
+  // Fecha legible por defecto (ej: "Abril 2026")
+  const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                  'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const ahora = new Date();
+  document.getElementById('fecha-legible').value = meses[ahora.getMonth()] + ' ' + ahora.getFullYear();
+
+  // Renderizar checkboxes de herramientas
+  const grid = document.getElementById('herramientas-grid');
+  grid.innerHTML = HERRAMIENTAS.map((h, i) => `
+    <label class="check-item">
+      <input type="checkbox" data-href="${h.href}" data-label="${h.label}" id="herr-${i}">
+      ${h.label}
+    </label>
+  `).join('');
+
+  // Agregar un bloque de texto inicial para que no quede vacío
+  agregarBloque('texto');
+}
+
+/* ══════════════════════════════════════════════════════
+   GESTIÓN DE BLOQUES DE CONTENIDO
+═══════════════════════════════════════════════════════ */
+let contadorBloques = 0;
+
+// Configuración de cada tipo de bloque
+const TIPOS_BLOQUE = {
+  texto: {
+    label: 'Párrafo / H2',
+    clase: 'tipo-texto',
+    campos: `
+      <div class="campo">
+        <label>Título de sección (H2) — dejar vacío si es solo párrafo</label>
+        <input type="text" class="campo-h2" placeholder="ej: ¿Cómo se calcula el LOD?">
+      </div>
+      <div class="campo">
+        <label>Contenido (párrafos) *</label>
+        <textarea class="campo-contenido" rows="4" placeholder="Escribí el texto de esta sección. Para múltiples párrafos, separá con una línea en blanco."></textarea>
+      </div>
+    `
+  },
+  subtitulo: {
+    label: 'Subtítulo H3',
+    clase: 'tipo-subtitulo',
+    campos: `
+      <div class="campo">
+        <label>Texto del subtítulo (H3) *</label>
+        <input type="text" class="campo-h3" placeholder="ej: Método de la señal/ruido">
+      </div>
+      <div class="campo">
+        <label>Contenido debajo del subtítulo</label>
+        <textarea class="campo-contenido" rows="3" placeholder="Párrafo que va debajo del H3 (opcional)."></textarea>
+      </div>
+    `
+  },
+  formula: {
+    label: 'Fórmula',
+    clase: 'tipo-formula',
+    campos: `
+      <div class="campo">
+        <label>Fórmula o ecuación *</label>
+        <input type="text" class="campo-formula" placeholder="ej: LOD = 3.3 × σ / S">
+      </div>
+    `
+  },
+  ejemplo: {
+    label: 'Ejemplo resuelto',
+    clase: 'tipo-ejemplo',
+    campos: `
+      <div class="campo">
+        <label>Título del ejemplo *</label>
+        <input type="text" class="campo-titulo-ejemplo" placeholder="ej: Ejemplo resuelto">
+      </div>
+      <div class="campo">
+        <label>Contenido del ejemplo *</label>
+        <textarea class="campo-contenido" rows="5" placeholder="Datos del problema, desarrollo y resultado. Para múltiples párrafos, separá con una línea en blanco."></textarea>
+      </div>
+    `
+  },
+  faq: {
+    label: 'Pregunta FAQ',
+    clase: 'tipo-faq',
+    campos: `
+      <div class="campo">
+        <label>Pregunta *</label>
+        <input type="text" class="campo-pregunta" placeholder="ej: ¿Cuál es la diferencia entre LOD y LOQ?">
+      </div>
+      <div class="campo">
+        <label>Respuesta *</label>
+        <textarea class="campo-contenido" rows="3" placeholder="Respuesta clara y directa."></textarea>
+      </div>
+    `
+  },
+  lista: {
+    label: 'Lista de puntos',
+    clase: 'tipo-lista',
+    campos: `
+      <div class="campo">
+        <label>Ítems de la lista (uno por línea) *</label>
+        <textarea class="campo-lista" rows="5" placeholder="Primer punto&#10;Segundo punto&#10;Tercer punto"></textarea>
+      </div>
+    `
+  }
+};
+
+function agregarBloque(tipo) {
+  const id = contadorBloques++;
+  const config = TIPOS_BLOQUE[tipo];
+  const lista = document.getElementById('secciones-lista');
+
+  const div = document.createElement('div');
+  div.className = 'bloque-seccion';
+  div.dataset.tipo = tipo;
+  div.dataset.id = id;
+
+  div.innerHTML = `
+    <div class="bloque-seccion__header" onclick="toggleBloque(${id})">
+      <span class="bloque-seccion__tipo ${config.clase}">${config.label}</span>
+      <span class="bloque-seccion__preview-texto" id="preview-bloque-${id}">Nuevo bloque</span>
+      <div class="bloque-seccion__acciones" onclick="event.stopPropagation()">
+        <button class="btn-icono" onclick="moverBloque(${id}, -1)" title="Subir">
+          <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+        </button>
+        <button class="btn-icono" onclick="moverBloque(${id}, 1)" title="Bajar">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <button class="btn-icono btn-icono--eliminar" onclick="eliminarBloque(${id})" title="Eliminar">
+          <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="bloque-seccion__body" id="body-bloque-${id}">
+      ${config.campos}
+    </div>
+  `;
+
+  lista.appendChild(div);
+
+  // Actualizar preview del bloque al escribir
+  div.querySelectorAll('input, textarea').forEach(el => {
+    el.addEventListener('input', () => actualizarPreviewBloque(id));
+  });
+}
+
+function actualizarPreviewBloque(id) {
+  const bloque = document.querySelector(`[data-id="${id}"]`);
+  if (!bloque) return;
+  const primerInput = bloque.querySelector('input, textarea');
+  const preview = document.getElementById(`preview-bloque-${id}`);
+  if (primerInput && primerInput.value) {
+    preview.textContent = primerInput.value.substring(0, 60) + (primerInput.value.length > 60 ? '…' : '');
+  }
+}
+
+function toggleBloque(id) {
+  const body = document.getElementById(`body-bloque-${id}`);
+  body.classList.toggle('colapsado');
+}
+
+function eliminarBloque(id) {
+  const bloque = document.querySelector(`[data-id="${id}"]`);
+  if (bloque) bloque.remove();
+}
+
+function moverBloque(id, direccion) {
+  const bloque = document.querySelector(`[data-id="${id}"]`);
+  const lista = document.getElementById('secciones-lista');
+  const bloques = Array.from(lista.children);
+  const idx = bloques.indexOf(bloque);
+  const nuevoIdx = idx + direccion;
+  if (nuevoIdx < 0 || nuevoIdx >= bloques.length) return;
+  if (direccion === -1) {
+    lista.insertBefore(bloque, bloques[nuevoIdx]);
+  } else {
+    lista.insertBefore(bloques[nuevoIdx], bloque);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   POSTS RELACIONADOS
+═══════════════════════════════════════════════════════ */
+function agregarPostRelacionado() {
+  const lista = document.getElementById('posts-relacionados-lista');
+  const div = document.createElement('div');
+  div.className = 'post-relacionado-item';
+  div.innerHTML = `
+    <input type="text" class="post-rel-titulo" placeholder="Título del post">
+    <input type="text" class="post-rel-href" placeholder="nombre-del-archivo.html" style="max-width: 220px;">
+    <button class="btn-quitar" onclick="this.parentElement.remove()" title="Quitar">×</button>
+  `;
+  lista.appendChild(div);
+}
+
+/* ══════════════════════════════════════════════════════
+   GENERADOR DE HTML
+═══════════════════════════════════════════════════════ */
+let htmlGenerado = '';
+
+function generarHTML() {
+  // Leer metadatos
+  const titulo       = document.getElementById('titulo').value.trim();
+  const categoria    = document.getElementById('categoria').value;
+  const tiempoLectura= document.getElementById('tiempo-lectura').value.trim() || '5 min lectura';
+  const fechaISO     = document.getElementById('fecha-iso').value || new Date().toISOString().split('T')[0];
+  const fechaLegible = document.getElementById('fecha-legible').value.trim();
+  const resumenMeta  = document.getElementById('resumen-meta').value.trim();
+  const resumenPost  = document.getElementById('resumen-post').value.trim();
+  const nombreArch   = document.getElementById('nombre-archivo').value.trim()
+                       || slugificar(titulo);
+
+  // Validación básica
+  if (!titulo) { alert('Faltó el título del post.'); return; }
+  if (!categoria) { alert('Elegí una categoría.'); return; }
+  if (!resumenMeta) { alert('Faltó el resumen SEO.'); return; }
+
+  const colorCategoria = COLORES_CATEGORIA[categoria] || '#1A5C38';
+
+  // Generar cuerpo del artículo
+  const cuerpoHTML = generarCuerpo();
+
+  // Generar sidebar — herramientas seleccionadas
+  const herramientasSeleccionadas = Array.from(
+    document.querySelectorAll('#herramientas-grid input[type="checkbox"]:checked')
+  ).map(cb => `              <li><a href="../../herramientas/${cb.dataset.href}">→ ${cb.dataset.label}</a></li>`).join('\n');
+
+  // Generar sidebar — posts relacionados
+  const postsRelacionados = Array.from(
+    document.querySelectorAll('.post-relacionado-item')
+  ).map(item => {
+    const t = item.querySelector('.post-rel-titulo').value.trim();
+    const h = item.querySelector('.post-rel-href').value.trim();
+    if (t && h) return `              <li><a href="${h}">→ ${t}</a></li>`;
+    return '';
+  }).filter(Boolean).join('\n');
+
+  // Generar tabla de contenidos desde los h2
+  const toc = generarTOC();
+
+  // ── TEMPLATE FINAL ──
+  htmlGenerado = `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escaparHTML(titulo)} | QuimCalc</title>
+  <meta name="description" content="${escaparHTML(resumenMeta)}">
+  <meta name="author" content="QuimCalc">
+  <meta name="article:published_time" content="${fechaISO}">
+  <link rel="stylesheet" href="../../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "${escaparHTML(titulo)}",
+    "description": "${escaparHTML(resumenMeta)}",
+    "datePublished": "${fechaISO}",
+    "dateModified": "${fechaISO}",
+    "author": { "@type": "Organization", "name": "QuimCalc" },
+    "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.netlify.app" }
+  }
+  <\/script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../../index.html#herramientas">Herramientas</a>
+          <a href="../index.html" class="activo">Blog</a>
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="contenedor">
+
+      <!-- Miga de pan -->
+      <nav class="breadcrumb" style="padding-top: var(--espacio-xl);" aria-label="Ubicación en el sitio">
+        <a href="../../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="../index.html">Blog</a>
+        <span aria-hidden="true">›</span>
+        <span>${escaparHTML(titulo)}</span>
+      </nav>
+
+      <div class="post-layout">
+
+        <!-- ARTÍCULO -->
+        <article>
+          <header class="post-header">
+            <p class="post-header__categoria">
+              <span style="color: ${colorCategoria};">${escaparHTML(categoria)}</span>
+            </p>
+            <h1 class="post-header__titulo">${escaparHTML(titulo)}</h1>
+            <p class="post-header__resumen">${escaparHTML(resumenPost)}</p>
+            <div class="post-header__meta">
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                ${escaparHTML(fechaLegible)}
+              </span>
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                ${escaparHTML(tiempoLectura)}
+              </span>
+            </div>
+          </header>
+
+          <div class="post-contenido">
+${cuerpoHTML}
+          </div>
+        </article>
+
+        <!-- SIDEBAR -->
+        <aside class="post-sidebar" aria-label="Contenido relacionado">
+
+          <!-- Tabla de contenidos -->
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">En este artículo</p>
+            <ul class="toc-lista" role="list">
+${toc}
+            </ul>
+          </div>
+${herramientasSeleccionadas ? `
+          <!-- Herramientas relacionadas -->
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">Herramientas relacionadas</p>
+            <ul class="herramientas-relacionadas" role="list">
+${herramientasSeleccionadas}
+            </ul>
+          </div>` : ''}
+${postsRelacionados ? `
+          <!-- Posts relacionados -->
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">También te puede interesar</p>
+            <ul class="herramientas-relacionadas" role="list">
+${postsRelacionados}
+            </ul>
+          </div>` : ''}
+
+        </aside>
+
+      </div><!-- /post-layout -->
+    </div><!-- /contenedor -->
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>`;
+
+  // Mostrar en el preview
+  document.getElementById('preview-codigo').textContent = htmlGenerado;
+
+  // Mostrar botón de descarga y mensaje
+  const btnDesc = document.getElementById('btn-descargar');
+  btnDesc.classList.add('visible');
+  btnDesc.dataset.filename = nombreArch + '.html';
+
+  document.getElementById('mensaje-exito').classList.add('visible');
+
+  const nombreArchDiv = document.getElementById('nombre-archivo-generado');
+  nombreArchDiv.textContent = '📁 Subir a: /blog/posts/' + nombreArch + '.html';
+  nombreArchDiv.classList.add('visible');
+}
+
+// Genera el HTML del cuerpo iterando los bloques
+function generarCuerpo() {
+  const bloques = document.querySelectorAll('#secciones-lista .bloque-seccion');
+  let html = '';
+
+  bloques.forEach(bloque => {
+    const tipo = bloque.dataset.tipo;
+
+    if (tipo === 'texto') {
+      const h2 = bloque.querySelector('.campo-h2')?.value.trim();
+      const contenido = bloque.querySelector('.campo-contenido')?.value.trim();
+      const id = h2 ? slugificar(h2) : '';
+
+      if (h2) {
+        html += `\n            <h2 id="${id}">${escaparHTML(h2)}</h2>\n`;
+      }
+      if (contenido) {
+        contenido.split(/\n{2,}/).forEach(parrafo => {
+          if (parrafo.trim()) {
+            html += `            <p>${escaparHTML(parrafo.trim())}</p>\n`;
+          }
+        });
+      }
+
+    } else if (tipo === 'subtitulo') {
+      const h3 = bloque.querySelector('.campo-h3')?.value.trim();
+      const contenido = bloque.querySelector('.campo-contenido')?.value.trim();
+
+      if (h3) html += `\n            <h3>${escaparHTML(h3)}</h3>\n`;
+      if (contenido) {
+        html += `            <p>${escaparHTML(contenido)}</p>\n`;
+      }
+
+    } else if (tipo === 'formula') {
+      const formula = bloque.querySelector('.campo-formula')?.value.trim();
+      if (formula) {
+        html += `\n            <div class="post-formula" role="note" aria-label="Fórmula">\n`;
+        html += `              ${escaparHTML(formula)}\n`;
+        html += `            </div>\n`;
+      }
+
+    } else if (tipo === 'ejemplo') {
+      const tituloEj = bloque.querySelector('.campo-titulo-ejemplo')?.value.trim() || 'Ejemplo resuelto';
+      const contenido = bloque.querySelector('.campo-contenido')?.value.trim();
+
+      html += `\n            <div class="ejemplo-bloque">\n`;
+      html += `              <strong>${escaparHTML(tituloEj)}</strong>\n`;
+      if (contenido) {
+        contenido.split(/\n{2,}/).forEach(parrafo => {
+          if (parrafo.trim()) {
+            html += `              <p>${escaparHTML(parrafo.trim())}</p>\n`;
+          }
+        });
+      }
+      html += `            </div>\n`;
+
+    } else if (tipo === 'faq') {
+      const pregunta = bloque.querySelector('.campo-pregunta')?.value.trim();
+      const respuesta = bloque.querySelector('.campo-contenido')?.value.trim();
+
+      if (pregunta) {
+        html += `\n            <div class="faq-item">\n`;
+        html += `              <h3>${escaparHTML(pregunta)}</h3>\n`;
+        if (respuesta) html += `              <p>${escaparHTML(respuesta)}</p>\n`;
+        html += `            </div>\n`;
+      }
+
+    } else if (tipo === 'lista') {
+      const items = bloque.querySelector('.campo-lista')?.value.trim();
+      if (items) {
+        html += `\n            <ul>\n`;
+        items.split('\n').forEach(item => {
+          if (item.trim()) html += `              <li>${escaparHTML(item.trim())}</li>\n`;
+        });
+        html += `            </ul>\n`;
+      }
+    }
+  });
+
+  return html;
+}
+
+// Genera los ítems de la tabla de contenidos en base a los h2 creados
+function generarTOC() {
+  const bloques = document.querySelectorAll('#secciones-lista .bloque-seccion[data-tipo="texto"]');
+  let items = [];
+
+  bloques.forEach(bloque => {
+    const h2 = bloque.querySelector('.campo-h2')?.value.trim();
+    if (h2) {
+      const id = slugificar(h2);
+      items.push(`              <li><a href="#${id}">${escaparHTML(h2)}</a></li>`);
+    }
+  });
+
+  // Si no hay h2, poner un placeholder
+  if (items.length === 0) {
+    items.push('              <li><a href="#">Introducción</a></li>');
+  }
+
+  return items.join('\n');
+}
+
+/* ══════════════════════════════════════════════════════
+   DESCARGA DEL ARCHIVO
+═══════════════════════════════════════════════════════ */
+function descargarHTML() {
+  if (!htmlGenerado) return;
+  const btn = document.getElementById('btn-descargar');
+  const filename = btn.dataset.filename || 'post.html';
+  const blob = new Blob([htmlGenerado], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* ══════════════════════════════════════════════════════
+   UTILIDADES
+═══════════════════════════════════════════════════════ */
+
+// Convierte un texto en slug para usar como id o nombre de archivo
+function slugificar(texto) {
+  return texto
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Saca tildes
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .substring(0, 80);
+}
+
+// Escapa caracteres HTML para evitar problemas en el template
+function escaparHTML(texto) {
+  if (!texto) return '';
+  return texto
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de Incertidumbre de Medición | QuimCalc</title>
+  <meta name="description" content="Calculá la incertidumbre de medición según el método GUM (ISO/IEC Guide 98-3). Componentes Tipo A y Tipo B, incertidumbre combinada y expandida. Para ISO 17025.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Calculadora de Incertidumbre de Medición GUM",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Calculá incertidumbre de medición según GUM (ISO/IEC Guide 98-3). Componentes Tipo A y Tipo B. Para validación de métodos ISO 17025.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+  }
+  </script>
+
+  <style>
+    /* Componente de incertidumbre agregado */
+    .componente-item {
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-md);
+      margin-bottom: var(--espacio-sm);
+      background-color: var(--color-fondo);
+    }
+
+    .componente-item__header {
+      display: flex;
+      align-items: center;
+      gap: var(--espacio-sm);
+      margin-bottom: var(--espacio-xs);
+    }
+
+    .componente-item__nombre {
+      flex: 1;
+      font-size: 0.9rem;
+    }
+
+    .componente-item__desc {
+      font-size: 0.8rem;
+      color: var(--color-texto-suave);
+      font-family: 'Courier New', monospace;
+      margin-bottom: 4px;
+    }
+
+    .componente-item__u {
+      font-size: 0.85rem;
+      color: var(--color-texto-suave);
+    }
+
+    /* Badges Tipo A / Tipo B */
+    .badge-tipo {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+
+    .badge-tipo--a {
+      background-color: #DBEAFE;
+      color: #1D4ED8;
+    }
+
+    .badge-tipo--b {
+      background-color: #D1FAE5;
+      color: #065F46;
+    }
+
+    /* Botón eliminar componente */
+    .btn-eliminar-comp {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-error);
+      font-size: 1rem;
+      padding: 4px 8px;
+      border-radius: var(--radio-sm);
+      transition: background-color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .btn-eliminar-comp:hover {
+      background-color: #FEE2E2;
+    }
+
+    /* Lista de componentes */
+    #lista-componentes {
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-md);
+      min-height: 80px;
+      background-color: var(--color-fondo-card);
+    }
+
+    /* Tabla de desglose */
+    .tabla-desglose {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-top: var(--espacio-md);
+    }
+
+    .tabla-desglose th {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      padding: 8px 10px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.78rem;
+      color: var(--color-texto-suave);
+    }
+
+    .tabla-desglose td {
+      border: 1px solid var(--color-borde);
+      padding: 8px 10px;
+      color: var(--color-texto-suave);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Cajas de resultado final */
+    .resultado-gum {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--espacio-md);
+      margin-bottom: var(--espacio-lg);
+    }
+
+    .gum-card {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-lg);
+      text-align: center;
+    }
+
+    .gum-card--principal {
+      border-top: 4px solid var(--color-acento);
+      grid-column: 1 / -1;
+    }
+
+    .gum-card__label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-texto-suave);
+      margin-bottom: var(--espacio-sm);
+    }
+
+    .gum-card__valor {
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      color: var(--color-acento);
+    }
+
+    .gum-card__sub {
+      font-size: 0.8rem;
+      color: var(--color-texto-suave);
+      margin-top: 4px;
+    }
+
+    .btn--secundario {
+      background-color: var(--color-fondo-card);
+      color: var(--color-texto);
+      border: 1.5px solid var(--color-borde);
+    }
+
+    .btn--secundario:hover {
+      background-color: var(--color-borde);
+    }
+
+    @media (max-width: 640px) {
+      .resultado-gum { grid-template-columns: 1fr; }
+      .gum-card--principal { grid-column: auto; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Incertidumbre de Medición</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Calculadora de Incertidumbre de Medición</h1>
+        <p class="pagina-herramienta__descripcion">
+          Calculá el presupuesto de incertidumbre completo según el método GUM (ISO/IEC Guide 98-3). Agregá componentes Tipo A y Tipo B, y obtené la incertidumbre combinada y expandida para informes acreditados bajo ISO 17025.
+        </p>
+      </div>
+
+      <div class="calculadora" role="region" aria-label="Calculadora de incertidumbre GUM">
+
+        <!-- ── AGREGAR COMPONENTE ─────────────────────────── -->
+        <p style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-texto-suave);margin-bottom:var(--espacio-md);">
+          PASO 1 — AGREGAR COMPONENTE DE INCERTIDUMBRE
+        </p>
+
+        <div class="campo-grupo">
+          <label for="nombre-componente">Nombre de la componente</label>
+          <input
+            type="text"
+            id="nombre-componente"
+            placeholder="Ej: Repetibilidad del instrumento, Calibración de la balanza..."
+          >
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--espacio-sm);">
+          <div class="campo-grupo" style="margin-bottom:0;">
+            <label for="tipo-componente">Tipo de evaluación</label>
+            <select id="tipo-componente">
+              <option value="A">Tipo A — Estadístico (repetibilidad)</option>
+              <option value="B">Tipo B — Especificación / Certificado</option>
+            </select>
+          </div>
+          <div class="campo-grupo" style="margin-bottom:0;">
+            <label for="coef-sensibilidad">Coeficiente de sensibilidad (ci)</label>
+            <input
+              type="number"
+              id="coef-sensibilidad"
+              value="1"
+              step="any"
+              aria-describedby="ayuda-ci"
+            >
+          </div>
+        </div>
+        <span class="ayuda" id="ayuda-ci" style="display:block;margin-bottom:var(--espacio-md);">
+          ci = 1 en la mayoría de los casos. Usá otro valor si la magnitud influye con un factor diferente en el resultado.
+        </span>
+
+        <!-- Panel Tipo A -->
+        <div id="panel-tipo-a" style="border:1px solid #BFDBFE;border-radius:var(--radio-md);padding:var(--espacio-md);background:#EFF6FF;margin-bottom:var(--espacio-md);">
+          <p style="font-size:0.8rem;font-weight:600;color:#1D4ED8;margin-bottom:var(--espacio-sm);">TIPO A — ingresá las lecturas repetidas</p>
+          <div class="campo-grupo" style="margin-bottom:0;">
+            <label for="lecturas-tipo-a">Lecturas (separadas por coma, punto y coma o nueva línea)</label>
+            <textarea
+              id="lecturas-tipo-a"
+              style="font-family:monospace;font-size:0.875rem;border:1.5px solid var(--color-borde);border-radius:var(--radio-sm);padding:10px;width:100%;min-height:80px;resize:vertical;outline:none;background:white;"
+              placeholder="Ej: 10.23, 10.25, 10.22, 10.24, 10.26, 10.23"
+            ></textarea>
+            <span class="ayuda">u = s/√n (desviación estándar de la media)</span>
+          </div>
+        </div>
+
+        <!-- Panel Tipo B -->
+        <div id="panel-tipo-b" style="border:1px solid #A7F3D0;border-radius:var(--radio-md);padding:var(--espacio-md);background:#ECFDF5;margin-bottom:var(--espacio-md);" hidden>
+          <p style="font-size:0.8rem;font-weight:600;color:#065F46;margin-bottom:var(--espacio-sm);">TIPO B — ingresá el semirango y la distribución</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--espacio-sm);">
+            <div class="campo-grupo" style="margin-bottom:0;">
+              <label for="semirango">Semirango (a) — mitad del intervalo de incertidumbre</label>
+              <input
+                type="number"
+                id="semirango"
+                placeholder="Ej: 0.001"
+                min="0"
+                step="any"
+                aria-describedby="ayuda-semirango"
+              >
+              <span class="ayuda" id="ayuda-semirango">Ej: certificado dice ±0.001 → a = 0.001</span>
+            </div>
+
+            <div class="campo-grupo" style="margin-bottom:0;">
+              <label for="distribucion">Distribución de probabilidad</label>
+              <select id="distribucion">
+                <option value="rectangular">Rectangular (k=√3) — límites sin info de distribución</option>
+                <option value="normal">Normal (k=1) — certificado da desviación estándar directa</option>
+                <option value="triangular">Triangular (k=√6) — valor central más probable</option>
+                <option value="u">En U (k=√2) — efectos tipo histéresis</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <button id="btn-agregar-componente" class="btn btn--primario" type="button">
+          + Agregar componente
+        </button>
+
+        <!-- ── LISTA DE COMPONENTES ───────────────────────── -->
+        <div style="margin-top:var(--espacio-xl);">
+          <p style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-texto-suave);margin-bottom:var(--espacio-sm);">
+            PASO 2 — COMPONENTES AGREGADAS
+          </p>
+          <div id="lista-componentes"></div>
+        </div>
+
+        <!-- ── FACTOR DE COBERTURA ───────────────────────── -->
+        <div style="margin-top:var(--espacio-xl);">
+          <p style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-texto-suave);margin-bottom:var(--espacio-md);">
+            PASO 3 — FACTOR DE COBERTURA
+          </p>
+          <div class="campo-grupo">
+            <label for="factor-cobertura">Factor de cobertura (k)</label>
+            <select id="factor-cobertura">
+              <option value="2">k = 2 — Nivel de confianza ~95% (el más usado en ISO 17025)</option>
+              <option value="3">k = 3 — Nivel de confianza ~99.7%</option>
+              <option value="1">k = 1 — Nivel de confianza ~68%</option>
+              <option value="2.576">k = 2.576 — Nivel de confianza ~99%</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="btn-calcular" class="btn btn--primario" type="button">
+          Calcular incertidumbre →
+        </button>
+
+        <!-- ── RESULTADO ──────────────────────────────────── -->
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta">Presupuesto de incertidumbre (GUM)</p>
+
+          <div class="resultado-gum">
+            <div class="gum-card gum-card--principal">
+              <p class="gum-card__label">Incertidumbre expandida U = k × uc</p>
+              <p class="gum-card__valor" id="res-u">—</p>
+              <p class="gum-card__sub">Factor k = <span id="res-kp">—</span> · Nivel de confianza <span id="res-nivel">—</span></p>
+            </div>
+
+            <div class="gum-card">
+              <p class="gum-card__label">Incertidumbre combinada uc</p>
+              <p class="gum-card__valor" id="res-uc" style="font-size:1.1rem;color:var(--color-texto);">—</p>
+            </div>
+
+            <div class="gum-card">
+              <p class="gum-card__label">Cómo reportar el resultado</p>
+              <p class="gum-card__valor" style="font-size:0.9rem;color:var(--color-texto);">
+                Resultado ± <span id="res-u-inline">U</span>
+              </p>
+              <p class="gum-card__sub">Con k = <span id="res-kp-inline">k</span> y NC ≈ 95%</p>
+            </div>
+          </div>
+
+          <!-- Tabla desglose -->
+          <p style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-texto-suave);margin-bottom:var(--espacio-sm);">
+            DESGLOSE POR COMPONENTE
+          </p>
+          <div style="overflow-x:auto;">
+            <table class="tabla-desglose" role="table">
+              <thead>
+                <tr>
+                  <th>Componente</th>
+                  <th>Tipo</th>
+                  <th>u(xi)</th>
+                  <th>ci</th>
+                  <th>ci × u(xi)</th>
+                  <th>% contribución</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-desglose"></tbody>
+            </table>
+          </div>
+
+          <button id="btn-exportar" class="btn btn--secundario" type="button" style="margin-top:var(--espacio-lg);">
+            Exportar presupuesto de incertidumbre
+          </button>
+        </div>
+
+      </div><!-- /calculadora -->
+
+      <!-- ── SECCIÓN EDUCATIVA ──────────────────────────── -->
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">¿Qué es el método GUM?</h2>
+        <p>
+          El GUM (Guide to the Expression of Uncertainty in Measurement, ISO/IEC Guide 98-3) es el documento internacional que establece cómo calcular y expresar la incertidumbre de medición. Es el estándar de referencia para laboratorios acreditados bajo ISO 17025.
+        </p>
+
+        <h2>Componentes Tipo A y Tipo B</h2>
+        <p>
+          <strong>Tipo A</strong> son las componentes evaluadas estadísticamente: tomás varias mediciones repetidas y calculás la desviación estándar. La incertidumbre es u = s/√n (desviación estándar de la media).
+        </p>
+        <p>
+          <strong>Tipo B</strong> son las componentes evaluadas por otros medios: certificados de calibración, especificaciones del fabricante, literatura científica, o experiencia del laboratorio. La incertidumbre se calcula dividiendo el semirango por el factor divisor de la distribución asumida.
+        </p>
+
+        <div class="ejemplo-bloque">
+          <strong>Distribuciones más usadas en Tipo B</strong>
+          <p>Rectangular (k=√3): cuando solo sabés que el valor está dentro de un intervalo, sin información adicional. Ej: resolución de un instrumento digital.</p>
+          <p>Normal (k=1): cuando el certificado ya da directamente la desviación estándar.</p>
+          <p>Triangular (k=√6): cuando el valor central es más probable que los extremos. Ej: ajuste de temperatura de un horno.</p>
+        </div>
+
+        <h2>Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿Cuántas componentes debo incluir?</h3>
+          <p>
+            Todas las que contribuyan de forma no despreciable al resultado final. Como mínimo: repetibilidad del instrumento (Tipo A), calibración del instrumento o material de referencia (Tipo B), y resolución del instrumento (Tipo B). Para procesos más complejos se suman: pureza del patrón, preparación de soluciones, temperatura, efecto del operador, etc.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Qué factor de cobertura (k) uso para ISO 17025?</h3>
+          <p>
+            La mayoría de los laboratorios y organismos de acreditación (OAA en Argentina, ENAC en España) exigen k = 2 con un nivel de confianza aproximado del 95%. Esto es lo que deberías usar salvo que el método específico indique otro valor.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿El coeficiente de sensibilidad (ci) siempre es 1?</h3>
+          <p>
+            No siempre. ci representa cuánto afecta la componente de incertidumbre al resultado final. Si el resultado es directamente la magnitud medida, ci = 1. Si hay un factor de dilución de 10, ci = 10 para las componentes previas a la dilución. Si la magnitud entra en una ecuación no lineal (como el pH), ci es la derivada parcial de esa ecuación respecto a esa componente.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/incertidumbre.js"></script>
+
+  <!-- Sincronizar U en el bloque de "cómo reportar" -->
+  <script>
+    document.getElementById('btn-calcular').addEventListener('click', function () {
+      setTimeout(function () {
+        const u = document.getElementById('res-u').textContent;
+        const k = document.getElementById('res-kp').textContent;
+        document.getElementById('res-u-inline').textContent = u;
+        document.getElementById('res-kp-inline').textContent = k;
+      }, 50);
+    });
+  </script>
+
+</body>
+</html>

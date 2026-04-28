@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de % de Rendimiento | QuimCalc</title>
+  <meta name="description" content="Calculá el porcentaje de rendimiento de una reacción química. Dejá un campo vacío y la calculadora resuelve la incógnita. Gratis y sin registro.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Calculadora de Porcentaje de Rendimiento",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Calculá el porcentaje de rendimiento de reacciones químicas. Resuelve cualquier incógnita entre masa obtenida, masa teórica y % rendimiento.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+  }
+  </script>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>% de Rendimiento</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Calculadora de % de Rendimiento</h1>
+        <p class="pagina-herramienta__descripcion">
+          Completá dos de los tres campos y dejá vacío el que querés calcular. Funciona para el rendimiento, la masa teórica o la masa obtenida.
+        </p>
+      </div>
+
+      <div class="calculadora" role="region" aria-label="Calculadora de rendimiento">
+
+        <div class="ejemplo-bloque" style="margin-bottom: var(--espacio-lg);">
+          <strong>¿Cómo usar?</strong>
+          <p>Completá dos campos y dejá <strong>vacío</strong> el que querés calcular. Luego presioná "Calcular".</p>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="masa-obtenida">Masa obtenida (g)</label>
+          <input
+            type="number"
+            id="masa-obtenida"
+            name="masa-obtenida"
+            placeholder="Dejá vacío si es la incógnita"
+            min="0"
+            step="any"
+            aria-describedby="ayuda-obtenida"
+          >
+          <span class="ayuda" id="ayuda-obtenida">Masa real que obtuviste al final de la reacción o proceso</span>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="masa-teorica">Masa teórica (g)</label>
+          <input
+            type="number"
+            id="masa-teorica"
+            name="masa-teorica"
+            placeholder="Dejá vacío si es la incógnita"
+            min="0"
+            step="any"
+            aria-describedby="ayuda-teorica"
+          >
+          <span class="ayuda" id="ayuda-teorica">Masa máxima posible según la estequiometría de la reacción</span>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="rendimiento">% de Rendimiento</label>
+          <input
+            type="number"
+            id="rendimiento"
+            name="rendimiento"
+            placeholder="Dejá vacío si es la incógnita"
+            min="0"
+            max="100"
+            step="any"
+          >
+          <span class="ayuda">Valor entre 0 y 100</span>
+        </div>
+
+        <button id="btn-calcular" class="btn btn--primario" type="button">
+          Calcular →
+        </button>
+
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta" id="resultado-etiqueta">Resultado</p>
+          <p class="resultado__valor"    id="resultado-valor">—</p>
+          <p class="resultado__formula"  id="resultado-formula"></p>
+        </div>
+
+      </div>
+
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">¿Qué es el rendimiento de una reacción?</h2>
+        <p>
+          En la práctica, ninguna reacción química produce exactamente la cantidad de producto que predice la estequiometría. Siempre hay pérdidas por reacciones secundarias, productos que quedan adheridos al material de vidrio, errores en la filtración, etc. El <strong>porcentaje de rendimiento</strong> mide qué fracción del máximo teórico se obtuvo realmente.
+        </p>
+
+        <div class="ejemplo-bloque">
+          <strong>Fórmula</strong>
+          <p>% Rendimiento = (masa obtenida / masa teórica) × 100</p>
+        </div>
+
+        <div class="ejemplo-bloque">
+          <strong>Ejemplo: síntesis de aspirina</strong>
+          <p>Masa teórica calculada por estequiometría: 5.20 g</p>
+          <p>Masa obtenida tras filtración y secado: 4.35 g</p>
+          <p>% Rendimiento = (4.35 / 5.20) × 100 = <strong>83.65%</strong></p>
+        </div>
+
+        <h2>Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿Un rendimiento del 100% es posible?</h3>
+          <p>
+            Teóricamente sí, pero en la práctica es prácticamente imposible. Incluso en procesos industriales optimizados, siempre hay pérdidas menores. Un rendimiento mayor al 100% indica un error en los datos: la masa obtenida no puede superar la teórica.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Cómo calculo la masa teórica?</h3>
+          <p>
+            A partir de la estequiometría de la reacción: calculás los moles del reactivo limitante, los multiplicás por el coeficiente estequiométrico del producto, y los convertís a gramos usando el peso molecular del producto. Si necesitás ayuda con ese cálculo, usá nuestra <a href="calculadora-molaridad.html">calculadora de molaridad y masa</a>.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/rendimiento.js"></script>
+
+</body>
+</html>

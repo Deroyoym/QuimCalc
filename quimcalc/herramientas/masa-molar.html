@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de Masa Molar | QuimCalc</title>
+  <meta name="description" content="Calculá la masa molar de cualquier compuesto ingresando su fórmula química. Soporta paréntesis y muestra el desglose por elemento. Gratis y sin registro.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Calculadora de Masa Molar",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Calculá la masa molar de cualquier compuesto ingresando su fórmula química. Soporta H2SO4, Ca(OH)2 y más.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+  }
+  </script>
+
+  <style>
+    /* Grilla de ejemplos de fórmulas para hacer clic */
+    .ejemplos-formulas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--espacio-sm);
+      margin-top: var(--espacio-sm);
+    }
+
+    .ejemplo-formula-btn {
+      background: var(--color-fondo);
+      border: 1.5px solid var(--color-borde);
+      border-radius: var(--radio-sm);
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-family: 'Courier New', monospace;
+      cursor: pointer;
+      color: var(--color-acento);
+      font-weight: 600;
+      transition: background-color 0.15s, border-color 0.15s;
+    }
+
+    .ejemplo-formula-btn:hover {
+      background-color: #EFF6FF;
+      border-color: var(--color-acento);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Calculadora de Masa Molar</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Calculadora de Masa Molar</h1>
+        <p class="pagina-herramienta__descripcion">
+          Ingresá la fórmula química y obtené la masa molar con el desglose por elemento. Soporta paréntesis como en Ca(OH)₂ o Al₂(SO₄)₃.
+        </p>
+      </div>
+
+      <div class="calculadora" role="region" aria-label="Calculadora de masa molar">
+
+        <div class="campo-grupo">
+          <label for="formula">Fórmula química</label>
+          <input
+            type="text"
+            id="formula"
+            name="formula"
+            placeholder="Ej: H2SO4"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            aria-describedby="ayuda-formula"
+          >
+          <span class="ayuda" id="ayuda-formula">
+            Usá mayúscula para la primera letra de cada elemento y minúscula para la segunda (Fe, Ca, Mg). Podés presionar Enter para calcular.
+          </span>
+        </div>
+
+        <!-- Atajos de fórmulas frecuentes -->
+        <div>
+          <p style="font-size:0.8rem; font-weight:600; color:var(--color-texto-suave); margin-bottom:var(--espacio-xs);">
+            FÓRMULAS FRECUENTES — hacé clic para cargar:
+          </p>
+          <div class="ejemplos-formulas" role="list">
+            <button class="ejemplo-formula-btn" type="button" data-formula="H2O"       role="listitem">H₂O</button>
+            <button class="ejemplo-formula-btn" type="button" data-formula="NaCl"      role="listitem">NaCl</button>
+            <button class="ejemplo-formula-btn" type="button" data-formula="H2SO4"     role="listitem">H₂SO₄</button>
+            <button class="ejemplo-formula-btn" type="button" data-formula="HCl"       role="listitem">HCl</button>
+            <button class="ejemplo-formula-btn" type="button" data-formula="NaOH"      role="listitem">NaOH</button>
+            <button class="ejemplo-formula-btn" type="button" data-formula="Ca(OH)2"   role="listitem">Ca(OH)₂</button>
+            <button class="ejemplo-formula-btn" type="button" data-formula="CaCO3"     role="listitem">CaCO₃</button>
+            <button class="ejemplo-formula-btn" type="button" data-formula="Al2(SO4)3" role="listitem">Al₂(SO₄)₃</button>
+            <button class="ejemplo-formula-btn" type="button" data-formula="KMnO4"     role="listitem">KMnO₄</button>
+            <button class="ejemplo-formula-btn" type="button" data-formula="Na2CO3"    role="listitem">Na₂CO₃</button>
+            <button class="ejemplo-formula-btn" type="button" data-formula="FeCl3"     role="listitem">FeCl₃</button>
+            <button class="ejemplo-formula-btn" type="button" data-formula="C6H12O6"   role="listitem">C₆H₁₂O₆</button>
+          </div>
+        </div>
+
+        <button id="btn-calcular" class="btn btn--primario" type="button" style="margin-top:var(--espacio-lg);">
+          Calcular masa molar →
+        </button>
+
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta" id="resultado-etiqueta">Resultado</p>
+          <p class="resultado__valor"    id="resultado-valor">—</p>
+          <p class="resultado__formula"  id="resultado-formula"></p>
+          <!-- Desglose por elemento -->
+          <div id="resultado-desglose" style="margin-top: var(--espacio-sm); padding-top: var(--espacio-sm); border-top: 1px solid rgba(37,99,235,0.2); display:flex; flex-direction:column; gap:4px;"></div>
+        </div>
+
+      </div>
+
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">¿Qué es la masa molar?</h2>
+        <p>
+          La masa molar es la masa de un mol de una sustancia, expresada en gramos por mol (g/mol). Numéricamente es igual a la masa atómica o molecular de la sustancia expresada en unidades de masa atómica (uma).
+        </p>
+        <p>
+          Es fundamental en química porque conecta la escala macroscópica (gramos que pesamos en la balanza) con la escala atómica (moles y moléculas). La fórmula básica es: <strong>moles = masa (g) / masa molar (g/mol)</strong>.
+        </p>
+
+        <div class="ejemplo-bloque">
+          <strong>Ejemplo: Masa molar del ácido sulfúrico H₂SO₄</strong>
+          <p>H: 2 × 1.008 = 2.016 g/mol</p>
+          <p>S: 1 × 32.065 = 32.065 g/mol</p>
+          <p>O: 4 × 15.999 = 63.996 g/mol</p>
+          <p><strong>Total: 98.077 g/mol</strong></p>
+        </div>
+
+        <h2>Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿Cómo escribo una fórmula con paréntesis?</h3>
+          <p>
+            Usá paréntesis comunes seguidos del subíndice. Por ejemplo: hidróxido de calcio Ca(OH)₂ se escribe <code>Ca(OH)2</code>, sulfato de aluminio Al₂(SO₄)₃ se escribe <code>Al2(SO4)3</code>. La calculadora resuelve el multiplicador automáticamente.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Qué elementos están disponibles?</h3>
+          <p>
+            La calculadora incluye los elementos más usados en química inorgánica y analítica: H, He, Li, Be, B, C, N, O, F, Ne, Na, Mg, Al, Si, P, S, Cl, Ar, K, Ca, Fe, Cu, Zn, Br, Ag, I, Ba, Pb, Hg, Au, y más. Si un elemento no está disponible, la calculadora lo indica.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿La masa molar es lo mismo que el peso molecular?</h3>
+          <p>
+            En la práctica se usan como sinónimos, pero técnicamente son distintos. El peso molecular (PM) es adimensional y se expresa en uma (unidades de masa atómica). La masa molar tiene unidades de g/mol. Numéricamente son iguales: el PM del agua es 18.015 uma y su masa molar es 18.015 g/mol.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/masa-molar.js"></script>
+
+  <!-- Script inline para los botones de fórmulas de ejemplo -->
+  <script>
+    document.querySelectorAll('.ejemplo-formula-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.getElementById('formula').value = btn.dataset.formula;
+        document.getElementById('formula').focus();
+        /* Calculamos automáticamente al hacer clic */
+        document.getElementById('btn-calcular').click();
+      });
+    });
+  </script>
+
+</body>
+</html>

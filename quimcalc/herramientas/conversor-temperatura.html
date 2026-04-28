@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Conversor de Temperatura °C °F K | QuimCalc</title>
+  <meta name="description" content="Convertí entre grados Celsius, Fahrenheit y Kelvin. Conversor de temperatura online gratuito para laboratorio químico.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Conversor de Temperatura",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Convertí entre °C, °F y Kelvin. Gratis, sin registro.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+  }
+  </script>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+  
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Conversor de Temperatura</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Conversor de Temperatura</h1>
+        <p class="pagina-herramienta__descripcion">
+          Convertí entre grados Celsius (°C), Fahrenheit (°F) y Kelvin (K) al instante.
+        </p>
+      </div>
+
+      <div class="calculadora" role="region" aria-label="Conversor de temperatura">
+
+        <div class="campo-grupo">
+          <label for="valor-temp">Valor a convertir</label>
+          <input
+            type="number"
+            id="valor-temp"
+            name="valor-temp"
+            placeholder="Ej: 100"
+            step="any"
+            aria-describedby="ayuda-temp"
+          >
+          <span class="ayuda" id="ayuda-temp">Ingresá el valor numérico de la temperatura</span>
+        </div>
+
+        <div class="campo-fila" style="align-items: flex-start;">
+          <div class="campo-grupo" style="flex:1;">
+            <label for="unidad-de">De</label>
+            <select id="unidad-de" name="unidad-de">
+              <option value="C">°C — Celsius</option>
+              <option value="F">°F — Fahrenheit</option>
+              <option value="K">K — Kelvin</option>
+            </select>
+          </div>
+          <div class="campo-grupo" style="flex:1;">
+            <label for="unidad-a">A</label>
+            <select id="unidad-a" name="unidad-a">
+              <option value="F">°F — Fahrenheit</option>
+              <option value="K">K — Kelvin</option>
+              <option value="C">°C — Celsius</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="btn-calcular" class="btn btn--primario" type="button">
+          Convertir →
+        </button>
+
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta" id="resultado-etiqueta">Resultado</p>
+          <p class="resultado__valor"    id="resultado-valor">—</p>
+          <p class="resultado__formula"  id="resultado-formula"></p>
+        </div>
+
+      </div>
+
+      <!-- ── TABLA DE REFERENCIA RÁPIDA ─────────────────── -->
+      <section class="seccion-educativa" aria-labelledby="titulo-tabla">
+
+        <h2 id="titulo-tabla">Valores de referencia comunes</h2>
+
+        <div class="ejemplo-bloque">
+          <strong>Puntos de referencia importantes</strong>
+          <p>Cero absoluto: −273.15 °C = −459.67 °F = 0 K</p>
+          <p>Punto de congelación del agua: 0 °C = 32 °F = 273.15 K</p>
+          <p>Temperatura ambiente estándar: 25 °C = 77 °F = 298.15 K</p>
+          <p>Punto de ebullición del agua (1 atm): 100 °C = 212 °F = 373.15 K</p>
+          <p>Autoclave (esterilización): 121 °C = 249.8 °F = 394.15 K</p>
+        </div>
+
+        <h2 id="titulo-explicacion">¿Cuándo se usa cada escala?</h2>
+        <p>
+          <strong>Celsius (°C)</strong> es la escala de uso cotidiano en la mayoría de los países y en la práctica de laboratorio. Es la escala del Sistema Internacional (SI) para temperatura cotidiana.
+        </p>
+        <p>
+          <strong>Kelvin (K)</strong> es la unidad base del SI para temperatura termodinámica. Se usa en cálculos científicos (gases ideales, termodinámica, espectroscopía) porque el cero absoluto corresponde al 0 K, lo que evita valores negativos en las ecuaciones.
+        </p>
+        <p>
+          <strong>Fahrenheit (°F)</strong> se usa principalmente en Estados Unidos y en algunos equipos importados. En laboratorios argentinos es menos frecuente, pero aparece en especificaciones técnicas de equipos y en protocolos de origen anglosajón.
+        </p>
+
+        <h2>Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿Por qué los científicos usan Kelvin y no Celsius?</h3>
+          <p>
+            Porque la escala Kelvin es absoluta: el 0 K es el cero absoluto, la temperatura más baja posible en el universo. Esto es fundamental en ecuaciones como la ley de los gases ideales (PV = nRT), donde T debe estar en Kelvin para que la ecuación sea válida. Si usaras 0 °C (= 273.15 K), la ecuación funciona. Si usaras 0 en Celsius directamente, obtendrías resultados incorrectos.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Cuál es la única temperatura igual en °C y °F?</h3>
+          <p>
+            −40°. Es el único punto donde las dos escalas se cruzan: −40 °C = −40 °F. Se puede verificar con la fórmula: °F = (−40 × 9/5) + 32 = −72 + 32 = −40.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/temperatura.js"></script>
+
+</body>
+</html>

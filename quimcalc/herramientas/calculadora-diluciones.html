@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de Diluciones C₁V₁=C₂V₂ | QuimCalc</title>
+  <meta name="description" content="Calculadora de diluciones basada en C₁V₁ = C₂V₂. Dejá un campo vacío y la calculadora resuelve la incógnita automáticamente. Gratis y sin registro.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Calculadora de Diluciones C1V1=C2V2",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Calculadora de diluciones para laboratorio. Resuelve cualquier incógnita de la ecuación C1V1 = C2V2.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+  }
+  </script>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Calculadora de Diluciones</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Calculadora de Diluciones</h1>
+        <p class="pagina-herramienta__descripcion">
+          Completá tres de los cuatro campos y dejá vacío el que querés calcular. La herramienta resuelve la incógnita usando C₁V₁ = C₂V₂.
+        </p>
+      </div>
+
+      <!-- ── FORMULARIO ──────────────────────────────────── -->
+      <div class="calculadora" role="region" aria-label="Calculadora de diluciones">
+
+        <!-- Aclaración visual sobre cómo usar la herramienta -->
+        <div class="ejemplo-bloque" style="margin-bottom: var(--espacio-lg);">
+          <strong>¿Cómo usar esta calculadora?</strong>
+          <p>Completá los tres valores que conocés y dejá <strong>vacío</strong> el campo que querés calcular. Luego presioná "Calcular".</p>
+        </div>
+
+        <!-- Campo C1 -->
+        <div class="campo-grupo">
+          <label for="c1">C₁ — Concentración inicial (solución madre)</label>
+          <input
+            type="number"
+            id="c1"
+            name="c1"
+            placeholder="Dejá vacío si es la incógnita"
+            min="0"
+            step="any"
+            aria-describedby="ayuda-c1"
+          >
+          <span class="ayuda" id="ayuda-c1">Concentración de la solución de partida (cualquier unidad: M, ppm, mg/L, etc.)</span>
+        </div>
+
+        <!-- Campo V1 -->
+        <div class="campo-grupo">
+          <label for="v1">V₁ — Volumen a tomar de la solución madre</label>
+          <input
+            type="number"
+            id="v1"
+            name="v1"
+            placeholder="Dejá vacío si es la incógnita"
+            min="0"
+            step="any"
+            aria-describedby="ayuda-v1"
+          >
+          <span class="ayuda" id="ayuda-v1">Usá siempre la misma unidad de volumen en V₁ y V₂ (ej: ambos en mL)</span>
+        </div>
+
+        <!-- Campo C2 -->
+        <div class="campo-grupo">
+          <label for="c2">C₂ — Concentración final deseada</label>
+          <input
+            type="number"
+            id="c2"
+            name="c2"
+            placeholder="Dejá vacío si es la incógnita"
+            min="0"
+            step="any"
+          >
+          <span class="ayuda">Debe estar en la misma unidad que C₁</span>
+        </div>
+
+        <!-- Campo V2 -->
+        <div class="campo-grupo">
+          <label for="v2">V₂ — Volumen final deseado</label>
+          <input
+            type="number"
+            id="v2"
+            name="v2"
+            placeholder="Dejá vacío si es la incógnita"
+            min="0"
+            step="any"
+          >
+          <span class="ayuda">Debe estar en la misma unidad que V₁</span>
+        </div>
+
+        <button id="btn-calcular" class="btn btn--primario" type="button">
+          Calcular incógnita →
+        </button>
+
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta" id="resultado-etiqueta">Resultado</p>
+          <p class="resultado__valor"    id="resultado-valor">—</p>
+          <p class="resultado__formula"  id="resultado-formula"></p>
+        </div>
+
+      </div><!-- /calculadora -->
+
+
+      <!-- ── SECCIÓN EDUCATIVA ──────────────────────────── -->
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">¿Qué es C₁V₁ = C₂V₂?</h2>
+
+        <p>
+          La ecuación de diluciones expresa un principio simple: cuando diluimos una solución, <strong>la cantidad de soluto no cambia</strong>, solo aumenta el volumen de solvente. En otras palabras, los moles de soluto antes y después de la dilución son iguales.
+        </p>
+
+        <p>
+          La fórmula tiene cuatro variables: concentración inicial (C₁), volumen tomado (V₁), concentración final (C₂) y volumen final (V₂). Si conocemos tres de ellas, podemos calcular la cuarta.
+        </p>
+
+        <h2 id="titulo-ejemplo">Ejemplo de uso real</h2>
+
+        <div class="ejemplo-bloque">
+          <strong>Ejemplo: Preparar 100 mL de HCl 0.01 M a partir de HCl 0.1 M</strong>
+          <p><strong>Datos:</strong> C₁ = 0.1 M · C₂ = 0.01 M · V₂ = 100 mL · V₁ = ?</p>
+          <p><strong>Cálculo:</strong> V₁ = (C₂ × V₂) / C₁ = (0.01 × 100) / 0.1 = <strong>10 mL</strong></p>
+          <p><strong>Procedimiento:</strong> Tomá 10 mL de la solución madre con pipeta aforada y llevá a 100 mL en matraz aforado con agua destilada.</p>
+        </div>
+
+        <h2 id="titulo-faq">Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿Las unidades tienen que ser las mismas?</h3>
+          <p>
+            Sí. C₁ y C₂ deben estar en la misma unidad de concentración (ambas en mol/L, o ambas en mg/L, etc.). V₁ y V₂ deben estar en la misma unidad de volumen (ambos en mL, o ambos en L). La calculadora no hace conversiones de unidades automáticamente.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Esta ecuación aplica para cualquier tipo de concentración?</h3>
+          <p>
+            Sí, siempre que la concentración sea proporcional a la cantidad de soluto (molaridad, normalidad, ppm, mg/L, % p/v). No aplica directamente para diluciones de soluciones muy concentradas donde la densidad cambia significativamente, como ácidos puros al 96%.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Qué significa "factor de dilución"?</h3>
+          <p>
+            El factor de dilución es la relación V₂/V₁. Si tomás 10 mL y llevás a 100 mL, el factor es 10× (también escrito 1:10). La concentración final es siempre igual a la concentración inicial dividida por ese factor.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/diluciones.js"></script>
+
+</body>
+</html>

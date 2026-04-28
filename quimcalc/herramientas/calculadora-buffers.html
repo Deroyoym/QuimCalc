@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de Buffers Henderson-Hasselbalch | QuimCalc</title>
+  <meta name="description" content="Calculá el pH de soluciones buffer usando la ecuación de Henderson-Hasselbalch. También calculá la relación base/ácido para un pH objetivo. Gratis y sin registro.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Calculadora de Buffers Henderson-Hasselbalch",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Calculá el pH de buffers o la relación base/ácido necesaria para un pH objetivo usando Henderson-Hasselbalch.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+  }
+  </script>
+
+  <style>
+    /* Tabla de pKa de referencia */
+    .tabla-pka {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-top: var(--espacio-md);
+    }
+
+    .tabla-pka th {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--color-texto);
+    }
+
+    .tabla-pka td {
+      border: 1px solid var(--color-borde);
+      padding: 8px 12px;
+      color: var(--color-texto-suave);
+    }
+
+    .tabla-pka tr:nth-child(even) td {
+      background-color: #FAFAFA;
+    }
+
+    .tabla-pka td:last-child {
+      font-family: 'Courier New', monospace;
+      font-weight: 600;
+      color: var(--color-acento);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Calculadora de Buffers</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Calculadora de Buffers</h1>
+        <p class="pagina-herramienta__descripcion">
+          Usá la ecuación de Henderson-Hasselbalch para calcular el pH del buffer, la relación base/ácido necesaria para un pH objetivo, o el pKa del sistema.
+        </p>
+      </div>
+
+      <div class="calculadora" role="region" aria-label="Calculadora de buffers">
+
+        <!-- Selector de incógnita -->
+        <div class="campo-grupo">
+          <label for="incognita">¿Qué querés calcular?</label>
+          <select id="incognita" name="incognita">
+            <option value="ph">pH del buffer</option>
+            <option value="relacion">Relación [A⁻]/[HA] para un pH objetivo</option>
+            <option value="pka">pKa del ácido</option>
+          </select>
+        </div>
+
+        <!-- pH -->
+        <div id="campo-ph" class="campo-grupo" hidden>
+          <label for="ph">pH objetivo</label>
+          <input type="number" id="ph" name="ph" placeholder="Ej: 4.76" min="0" max="14" step="any">
+          <span class="ayuda">El pH que querés lograr con el buffer</span>
+        </div>
+
+        <!-- pKa -->
+        <div id="campo-pka" class="campo-grupo">
+          <label for="pka">pKa del ácido débil</label>
+          <input type="number" id="pka" name="pka" placeholder="Ej: 4.76 (ácido acético)" step="any"
+                 aria-describedby="ayuda-pka">
+          <span class="ayuda" id="ayuda-pka">Consultá la tabla de referencia más abajo si no sabés el pKa</span>
+        </div>
+
+        <!-- Concentración base conjugada [A⁻] -->
+        <div id="campo-base" class="campo-grupo">
+          <label for="conc-base">Concentración de la base conjugada [A⁻] (mol/L)</label>
+          <input type="number" id="conc-base" name="conc-base" placeholder="Ej: 0.1" min="0" step="any"
+                 aria-describedby="ayuda-base">
+          <span class="ayuda" id="ayuda-base">Ej: acetato de sodio (CH₃COONa) en un buffer acetato</span>
+        </div>
+
+        <!-- Concentración ácido débil [HA] -->
+        <div id="campo-acido" class="campo-grupo">
+          <label for="conc-acido">Concentración del ácido débil [HA] (mol/L)</label>
+          <input type="number" id="conc-acido" name="conc-acido" placeholder="Ej: 0.1" min="0" step="any"
+                 aria-describedby="ayuda-acido">
+          <span class="ayuda" id="ayuda-acido">Ej: ácido acético (CH₃COOH) en un buffer acetato</span>
+        </div>
+
+        <button id="btn-calcular" class="btn btn--primario" type="button">
+          Calcular →
+        </button>
+
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta" id="resultado-etiqueta">Resultado</p>
+          <p class="resultado__valor"    id="resultado-valor">—</p>
+          <p class="resultado__formula"  id="resultado-formula"></p>
+        </div>
+
+      </div>
+
+      <!-- ── SECCIÓN EDUCATIVA ──────────────────────────── -->
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">¿Qué es la ecuación de Henderson-Hasselbalch?</h2>
+        <p>
+          Es una simplificación de la ecuación de disociación de ácidos débiles que permite calcular el pH de soluciones buffer de forma directa. Relaciona el pH de la solución con el pKa del ácido débil y la relación de concentraciones entre la base conjugada y el ácido.
+        </p>
+
+        <div class="ejemplo-bloque">
+          <strong>Fórmula</strong>
+          <p>pH = pKa + log ( [A⁻] / [HA] )</p>
+          <p>Donde [A⁻] es la base conjugada y [HA] es el ácido débil.</p>
+        </div>
+
+        <div class="ejemplo-bloque">
+          <strong>Ejemplo: Buffer acetato pH 4.76</strong>
+          <p>pKa del ácido acético = 4.76 · [CH₃COO⁻] = 0.1 M · [CH₃COOH] = 0.1 M</p>
+          <p>pH = 4.76 + log(0.1 / 0.1) = 4.76 + log(1) = 4.76 + 0 = <strong>4.76</strong></p>
+          <p>Cuando la relación es 1:1, el pH del buffer es igual al pKa. Es el punto de máxima capacidad buffer.</p>
+        </div>
+
+        <!-- Tabla de pKa de referencia -->
+        <h2 id="titulo-tabla">Tabla de pKa de ácidos de uso común en laboratorio</h2>
+
+        <table class="tabla-pka" role="table">
+          <thead>
+            <tr>
+              <th scope="col">Ácido débil</th>
+              <th scope="col">Par ácido / base conjugada</th>
+              <th scope="col">pKa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Ácido fórmico</td>      <td>HCOOH / HCOO⁻</td>             <td>3.75</td></tr>
+            <tr><td>Ácido acético</td>      <td>CH₃COOH / CH₃COO⁻</td>        <td>4.76</td></tr>
+            <tr><td>Ácido succínico (pKa1)</td><td>H₂Succ / HSucc⁻</td>       <td>4.21</td></tr>
+            <tr><td>Ácido succínico (pKa2)</td><td>HSucc⁻ / Succ²⁻</td>       <td>5.64</td></tr>
+            <tr><td>Ácido fosfórico (pKa1)</td><td>H₃PO₄ / H₂PO₄⁻</td>       <td>2.15</td></tr>
+            <tr><td>Ácido fosfórico (pKa2)</td><td>H₂PO₄⁻ / HPO₄²⁻</td>      <td>7.20</td></tr>
+            <tr><td>Ácido fosfórico (pKa3)</td><td>HPO₄²⁻ / PO₄³⁻</td>       <td>12.35</td></tr>
+            <tr><td>Ácido carbónico (pKa1)</td><td>H₂CO₃ / HCO₃⁻</td>        <td>6.35</td></tr>
+            <tr><td>Ácido carbónico (pKa2)</td><td>HCO₃⁻ / CO₃²⁻</td>        <td>10.33</td></tr>
+            <tr><td>TRIS</td>               <td>TRISH⁺ / TRIS</td>             <td>8.06</td></tr>
+            <tr><td>Ácido bórico</td>       <td>H₃BO₃ / H₂BO₃⁻</td>          <td>9.24</td></tr>
+            <tr><td>Amoniaco</td>           <td>NH₄⁺ / NH₃</td>               <td>9.25</td></tr>
+            <tr><td>Ácido cítrico (pKa1)</td><td>H₃Cit / H₂Cit⁻</td>         <td>3.13</td></tr>
+            <tr><td>Ácido cítrico (pKa2)</td><td>H₂Cit⁻ / HCit²⁻</td>        <td>4.76</td></tr>
+            <tr><td>Ácido cítrico (pKa3)</td><td>HCit²⁻ / Cit³⁻</td>         <td>6.40</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿En qué rango de pH funciona un buffer?</h3>
+          <p>
+            Un buffer es efectivo cuando el pH se encuentra dentro de ± 1 unidad del pKa del ácido. Fuera de ese rango, la capacidad de neutralizar ácidos o bases adicionados cae significativamente. Por eso, para preparar un buffer de pH 7.2, el par H₂PO₄⁻/HPO₄²⁻ (pKa = 7.20) es ideal.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Puedo usar cualquier ácido débil para preparar un buffer?</h3>
+          <p>
+            Técnicamente sí, pero en la práctica se elige el ácido cuyo pKa esté lo más cerca posible del pH objetivo. Además, para uso biológico o analítico se prefieren ácidos que no sean tóxicos, no interfieran con la reacción de interés y sean estables a la temperatura de trabajo.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/buffers.js"></script>
+
+</body>
+</html>

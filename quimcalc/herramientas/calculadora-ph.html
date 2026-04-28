@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de pH | QuimCalc</title>
+  <meta name="description" content="Calculá el pH de ácidos fuertes, bases fuertes, ácidos débiles y bases débiles. Herramienta online gratuita para laboratorio químico.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Calculadora de pH",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Calculá el pH de ácidos y bases fuertes y débiles. Gratis, sin registro.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+  }
+  </script>
+
+  <style>
+    /* Indicador visual de acidez/basicidad */
+    .escala-ph {
+      margin-top: var(--espacio-lg);
+      padding: var(--espacio-md);
+      background: linear-gradient(to right,
+        #e53e3e 0%,       /* pH 0 — muy ácido */
+        #ed8936 15%,
+        #ecc94b 28%,
+        #68d391 50%,      /* pH 7 — neutro */
+        #63b3ed 72%,
+        #7f9cf5 85%,
+        #9f7aea 100%      /* pH 14 — muy básico */
+      );
+      border-radius: var(--radio-md);
+      height: 16px;
+      position: relative;
+    }
+
+    .escala-ph__etiquetas {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--color-texto-suave);
+      margin-top: var(--espacio-xs);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Calculadora de pH</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Calculadora de pH</h1>
+        <p class="pagina-herramienta__descripcion">
+          Calculá el pH de ácidos fuertes, bases fuertes, ácidos débiles y bases débiles a partir de la concentración molar.
+        </p>
+      </div>
+
+      <!-- ── FORMULARIO ──────────────────────────────────── -->
+      <div class="calculadora" role="region" aria-label="Calculadora de pH">
+
+        <!-- Tipo de sustancia -->
+        <div class="campo-grupo">
+          <label for="tipo-sustancia">Tipo de sustancia</label>
+          <select id="tipo-sustancia" name="tipo-sustancia">
+            <option value="acido-fuerte">Ácido fuerte (HCl, HNO₃, H₂SO₄...)</option>
+            <option value="base-fuerte">Base fuerte (NaOH, KOH, Ca(OH)₂...)</option>
+            <option value="acido-debil">Ácido débil (CH₃COOH, HF, HNO₂...)</option>
+            <option value="base-debil">Base débil (NH₃, aminas...)</option>
+          </select>
+        </div>
+
+        <!-- Concentración -->
+        <div class="campo-grupo">
+          <label for="concentracion">Concentración (mol/L)</label>
+          <input
+            type="number"
+            id="concentracion"
+            name="concentracion"
+            placeholder="Ej: 0.1"
+            min="0"
+            step="any"
+            aria-describedby="ayuda-conc"
+          >
+          <span class="ayuda" id="ayuda-conc">Concentración molar de la solución</span>
+        </div>
+
+        <!-- Ka / Kb (solo visible para ácidos/bases débiles) -->
+        <div id="campo-ka" class="campo-grupo" hidden>
+          <label for="ka">Ka (constante de acidez)</label>
+          <input
+            type="number"
+            id="ka"
+            name="ka"
+            placeholder="Ej: 0.000018"
+            min="0"
+            step="any"
+            aria-describedby="ayuda-ka"
+          >
+          <span class="ayuda" id="ayuda-ka">Ej: Ka del ácido acético = 1.8 × 10⁻⁵ → ingresá 0.000018</span>
+        </div>
+
+        <!-- Escala visual de pH -->
+        <div class="escala-ph" aria-hidden="true" title="Escala de pH: 0 (ácido) a 14 (básico)"></div>
+        <div class="escala-ph__etiquetas" aria-hidden="true">
+          <span>0 — Ácido</span>
+          <span>7 — Neutro</span>
+          <span>14 — Básico</span>
+        </div>
+
+        <button id="btn-calcular" class="btn btn--primario" type="button" style="margin-top: var(--espacio-lg);">
+          Calcular pH →
+        </button>
+
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta" id="resultado-etiqueta">Resultado</p>
+          <p class="resultado__valor"    id="resultado-valor">—</p>
+          <p class="resultado__formula"  id="resultado-formula"></p>
+        </div>
+
+      </div><!-- /calculadora -->
+
+      <!-- ── SECCIÓN EDUCATIVA ──────────────────────────── -->
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">¿Qué es el pH?</h2>
+        <p>
+          El pH es una escala logarítmica que mide la acidez o basicidad de una solución acuosa. Va de 0 a 14: valores menores a 7 indican soluciones ácidas, 7 es neutro (agua pura a 25°C) y valores mayores a 7 son básicos o alcalinos.
+        </p>
+        <p>
+          Matemáticamente, pH = -log₁₀[H⁺], donde [H⁺] es la concentración de iones hidrógeno en mol/L. Al ser logarítmica, cada unidad de pH representa una diferencia de 10 veces en la concentración de H⁺.
+        </p>
+
+        <h2>Ácidos fuertes vs. ácidos débiles</h2>
+        <p>
+          Los <strong>ácidos fuertes</strong> (HCl, H₂SO₄, HNO₃) se disocian completamente en agua. Si la concentración es 0.1 M, entonces [H⁺] = 0.1 M y el cálculo es directo. Los <strong>ácidos débiles</strong> (ácido acético, HF) solo se disocian parcialmente, por eso necesitamos la constante de acidez Ka para estimar cuánto H⁺ se libera.
+        </p>
+
+        <div class="ejemplo-bloque">
+          <strong>Ejemplo: HCl 0.05 M (ácido fuerte)</strong>
+          <p>pH = -log(0.05) = <strong>1.30</strong></p>
+        </div>
+
+        <div class="ejemplo-bloque">
+          <strong>Ejemplo: Ácido acético 0.1 M (Ka = 1.8 × 10⁻⁵)</strong>
+          <p>pKa = -log(1.8 × 10⁻⁵) = 4.74</p>
+          <p>pH = ½ × (4.74 − log(0.1)) = ½ × (4.74 + 1) = <strong>2.87</strong></p>
+        </div>
+
+        <h2>Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿Por qué esta calculadora usa una aproximación para ácidos débiles?</h3>
+          <p>
+            La fórmula exacta requiere resolver una ecuación cuadrática. La aproximación pH = ½(pKa − log C) es válida cuando C/Ka &gt; 100, es decir cuando la disociación es menor al 5%. En la práctica de laboratorio, esta condición se cumple en casi todos los casos relevantes.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Qué pasa si el resultado es menor a 0 o mayor a 14?</h3>
+          <p>
+            Aunque teóricamente posible en soluciones muy concentradas, valores fuera del rango 0–14 generalmente indican que los datos ingresados tienen algún error. La calculadora avisa si esto ocurre.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/calculadora-ph.js"></script>
+
+</body>
+</html>

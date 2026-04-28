@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>¿Qué es el pKa y cómo se usa para preparar buffers? | QuimCalc</title>
+  <meta name="description" content="Explicación completa del pKa: qué mide, por qué importa en la preparación de buffers, cómo usar la ecuación de Henderson-Hasselbalch y ejemplos resueltos paso a paso.">
+  <meta name="author" content="QuimCalc">
+  <meta name="article:published_time" content="2025-01-27">
+
+  <link rel="stylesheet" href="../../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "¿Qué es el pKa y cómo se usa para preparar buffers?",
+    "description": "Explicación completa del pKa, su relación con la disociación de ácidos débiles y cómo usarlo con Henderson-Hasselbalch para preparar soluciones buffer.",
+    "datePublished": "2025-01-27",
+    "dateModified": "2025-01-27",
+    "author": { "@type": "Organization", "name": "QuimCalc" },
+    "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.netlify.app" }
+  }
+  </script>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../../index.html#herramientas">Herramientas</a>
+          <a href="../index.html" class="activo">Blog</a>
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="contenedor">
+
+      <nav class="breadcrumb" style="padding-top: var(--espacio-xl);" aria-label="Ubicación en el sitio">
+        <a href="../../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="../index.html">Blog</a>
+        <span aria-hidden="true">›</span>
+        <span>¿Qué es el pKa?</span>
+      </nav>
+
+      <div class="post-layout">
+
+        <article>
+
+          <header class="post-header">
+            <p class="post-header__categoria">
+              <span style="color: var(--color-acento);">Química básica</span>
+            </p>
+            <h1 class="post-header__titulo">
+              ¿Qué es el pKa y cómo se usa para preparar buffers?
+            </h1>
+            <p class="post-header__resumen">
+              El pKa es uno de los conceptos más útiles de la química ácido-base. Determina a qué pH un ácido está a la mitad de su disociación, cuándo es efectivo como buffer, y es el dato clave para usar la ecuación de Henderson-Hasselbalch. En esta guía explicamos todo desde los fundamentos hasta la aplicación práctica en el laboratorio.
+            </p>
+            <div class="post-header__meta">
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Enero 2025
+              </span>
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                11 min lectura
+              </span>
+            </div>
+          </header>
+
+          <div class="post-contenido">
+
+            <h2 id="ka-pka">Ka y pKa: qué miden exactamente</h2>
+
+            <p>
+              Cuando un ácido débil HA se disuelve en agua, no se disocia completamente. Establece un equilibrio entre la forma sin disociar (HA) y su base conjugada (A⁻):
+            </p>
+
+            <div class="post-formula">
+              HA + H₂O ⇌ H₃O⁺ + A⁻
+            </div>
+
+            <p>
+              La constante de acidez Ka cuantifica ese equilibrio. Cuanto mayor es Ka, más se disocia el ácido y más fuerte es:
+            </p>
+
+            <div class="post-formula">
+              Ka = [H₃O⁺] × [A⁻] / [HA]
+            </div>
+
+            <p>
+              Como los valores de Ka suelen ser números muy pequeños (10⁻⁵, 10⁻¹⁰), se trabaja con el logaritmo negativo, igual que con el pH:
+            </p>
+
+            <div class="post-formula">
+              pKa = −log₁₀(Ka)
+            </div>
+
+            <p>
+              Un pKa <strong>bajo</strong> indica un ácido más fuerte (más disociado). Un pKa <strong>alto</strong> indica un ácido más débil. El ácido acético tiene pKa = 4.76, el ácido fosfórico tiene pKa₁ = 2.15, y el amonio tiene pKa = 9.25.
+            </p>
+
+            <h2 id="significado">¿Qué significa el pKa en la práctica?</h2>
+
+            <p>
+              El pKa tiene un significado físico muy concreto: es el pH al que el ácido está exactamente a la mitad de su disociación, es decir, cuando la concentración de la forma ácida (HA) es igual a la de la base conjugada (A⁻).
+            </p>
+
+            <p>
+              Esto se deduce directamente de Henderson-Hasselbalch. Cuando [A⁻] = [HA], el logaritmo de la relación es cero y el pH es igual al pKa:
+            </p>
+
+            <div class="post-formula">
+              pH = pKa + log([A⁻]/[HA])
+              <br>
+              Si [A⁻] = [HA] → log(1) = 0 → pH = pKa
+            </div>
+
+            <p>
+              Este punto —pH = pKa— es además el de <strong>máxima capacidad buffer</strong>: la solución resiste mejor los cambios de pH cuando está justo en ese valor.
+            </p>
+
+            <div class="ejemplo-bloque">
+              <strong>Ejemplo mental: el ácido acético a distintos pH</strong>
+              <p>pKa del ácido acético = 4.76</p>
+              <p>A pH 3.76 (1 unidad por debajo del pKa): predomina la forma ácida CH₃COOH. La relación [A⁻]/[HA] = 0.1, es decir, 90% ácido y 10% base conjugada.</p>
+              <p>A pH 4.76 (igual al pKa): 50% ácido y 50% base conjugada. Máxima capacidad buffer.</p>
+              <p>A pH 5.76 (1 unidad por encima del pKa): predomina el acetato CH₃COO⁻. La relación [A⁻]/[HA] = 10, es decir, 10% ácido y 90% base conjugada.</p>
+            </div>
+
+            <h2 id="henderson">La ecuación de Henderson-Hasselbalch</h2>
+
+            <p>
+              Henderson-Hasselbalch es la fórmula que relaciona el pH de una solución buffer con el pKa del ácido débil y la relación entre las concentraciones de la base conjugada y el ácido:
+            </p>
+
+            <div class="post-formula">
+              pH = pKa + log ( [A⁻] / [HA] )
+            </div>
+
+            <p>
+              Es una simplificación de la ecuación exacta de disociación, válida cuando la concentración de las especies es suficientemente alta como para que la disociación del agua no sea relevante (lo cual es cierto en la inmensa mayoría de los buffers de laboratorio).
+            </p>
+
+            <p>
+              Con esta ecuación podemos resolver tres tipos de problemas:
+            </p>
+
+            <ul>
+              <li><strong>Calcular el pH</strong> de un buffer dado su composición</li>
+              <li><strong>Calcular la relación [A⁻]/[HA]</strong> necesaria para lograr un pH objetivo</li>
+              <li><strong>Calcular el pKa</strong> del sistema si conocemos el pH y la composición</li>
+            </ul>
+
+            <h2 id="elegir-acido">Cómo elegir el ácido débil correcto para un buffer</h2>
+
+            <p>
+              La regla básica es simple: el pKa del ácido débil debe estar lo más cerca posible del pH objetivo. El buffer es efectivo dentro de un rango de ±1 unidad de pH alrededor del pKa. Fuera de ese rango, la capacidad de neutralización cae drásticamente.
+            </p>
+
+            <div class="ejemplo-bloque">
+              <strong>Regla práctica para elegir el sistema buffer</strong>
+              <p>pH objetivo 3.5 – 5.5 → ácido acético / acetato (pKa = 4.76)</p>
+              <p>pH objetivo 6.2 – 8.2 → dihidrogenofosfato / hidrogenofosfato (pKa = 7.20)</p>
+              <p>pH objetivo 7.1 – 9.1 → TRIS (pKa = 8.06)</p>
+              <p>pH objetivo 8.3 – 10.3 → amonio / amoniaco (pKa = 9.25)</p>
+              <p>pH objetivo 9.2 – 11.2 → borato (pKa = 9.24)</p>
+            </div>
+
+            <h2 id="preparar">Cómo preparar un buffer paso a paso</h2>
+
+            <p>
+              Supongamos que necesitamos 500 mL de un buffer de acetato a pH 5.0, con una concentración total de 0.1 mol/L.
+            </p>
+
+            <p>
+              <strong>Paso 1:</strong> verificamos que el sistema es adecuado. pH 5.0 está a 0.24 unidades del pKa del ácido acético (4.76). Correcto, estamos dentro del rango efectivo.
+            </p>
+
+            <p>
+              <strong>Paso 2:</strong> calculamos la relación [A⁻]/[HA] con Henderson-Hasselbalch:
+            </p>
+
+            <div class="post-formula">
+              5.0 = 4.76 + log([A⁻]/[HA])
+              <br>
+              log([A⁻]/[HA]) = 0.24
+              <br>
+              [A⁻]/[HA] = 10^0.24 = 1.74
+            </div>
+
+            <p>
+              <strong>Paso 3:</strong> con la relación 1.74 y la concentración total 0.1 mol/L, resolvemos el sistema:
+            </p>
+
+            <div class="post-formula">
+              [A⁻] + [HA] = 0.1 mol/L
+              <br>
+              [A⁻] = 1.74 × [HA]
+              <br>
+              → [HA] = 0.1 / (1 + 1.74) = 0.0365 mol/L
+              <br>
+              → [A⁻] = 0.0635 mol/L
+            </div>
+
+            <p>
+              <strong>Paso 4:</strong> calculamos las masas para 500 mL (0.5 L):
+            </p>
+
+            <div class="ejemplo-bloque">
+              <strong>Cantidades para 500 mL de buffer acetato pH 5.0, 0.1 mol/L</strong>
+              <p>Ácido acético (CH₃COOH, PM = 60.05 g/mol):</p>
+              <p>n = 0.0365 mol/L × 0.5 L = 0.01825 mol → masa = 0.01825 × 60.05 = <strong>1.096 g</strong></p>
+              <p>Acetato de sodio (CH₃COONa, PM = 82.03 g/mol):</p>
+              <p>n = 0.0635 mol/L × 0.5 L = 0.03175 mol → masa = 0.03175 × 82.03 = <strong>2.604 g</strong></p>
+              <p>Procedimiento: disolver ambas sales en ~400 mL de agua destilada, verificar el pH con electrodo, ajustar si es necesario con gotas de HCl o NaOH diluidos, llevar a 500 mL en matraz aforado.</p>
+            </div>
+
+            <h2 id="verificar">Por qué siempre hay que verificar el pH con electrodo</h2>
+
+            <p>
+              Henderson-Hasselbalch es una aproximación. En la práctica, la fuerza iónica de la solución, la temperatura, la actividad de los iones y las impurezas del agua pueden hacer que el pH real difiera del calculado en 0.05 a 0.1 unidades. Para trabajos analíticos donde el pH importa, siempre se verifica con un electrodo calibrado y se ajusta si es necesario.
+            </p>
+
+            <p>
+              La verificación no invalida el cálculo: sirve para preparar la composición aproximada y luego afinar. Si la corrección requerida es mayor a 0.2 unidades, conviene revisar la calidad de los reactivos y la calibración del electrodo.
+            </p>
+
+            <h2 id="faq">Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+              <h3>¿Un buffer puede prepararse con cualquier relación [A⁻]/[HA]?</h3>
+              <p>
+                Técnicamente sí, pero la capacidad buffer disminuye cuando la relación se aleja de 1:1. Se considera que un buffer es efectivo cuando la relación está entre 1:10 y 10:1, lo que corresponde a un rango de pH = pKa ± 1. Fuera de ese rango, la solución tiene poca resistencia a los cambios de pH.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿El pKa cambia con la temperatura?</h3>
+              <p>
+                Sí, y en algunos sistemas el cambio es significativo. El TRIS, por ejemplo, tiene un pKa que varía aproximadamente −0.031 unidades por cada grado Celsius. A 25°C su pKa es 8.06, pero a 37°C (temperatura corporal) es ≈ 7.74. Para buffers usados en condiciones distintas a 25°C, siempre verificá el pKa a la temperatura de trabajo.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Qué diferencia hay entre un buffer y una solución tampón?</h3>
+              <p>
+                Son exactamente lo mismo: "tampón" es la traducción al español de "buffer". Ambos términos se usan en la literatura científica en español, aunque "buffer" está más extendido en el lenguaje del laboratorio cotidiano en Argentina.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Puedo usar Henderson-Hasselbalch para ácidos fuertes?</h3>
+              <p>
+                No. La ecuación asume que el ácido se disocia parcialmente y establece un equilibrio. Los ácidos fuertes se disocian completamente, por lo que no existe la forma HA sin disociar en solución y la ecuación no aplica. Para ácidos fuertes, el pH se calcula directamente como pH = −log[H⁺].
+              </p>
+            </div>
+
+          </div>
+
+        </article>
+
+        <aside class="post-sidebar" aria-label="Contenido relacionado">
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">En este artículo</p>
+            <ul class="toc-lista" role="list">
+              <li><a href="#ka-pka">Ka y pKa: qué miden</a></li>
+              <li><a href="#significado">Significado práctico del pKa</a></li>
+              <li><a href="#henderson">Ecuación de Henderson-Hasselbalch</a></li>
+              <li><a href="#elegir-acido">Cómo elegir el ácido débil</a></li>
+              <li><a href="#preparar">Preparar un buffer paso a paso</a></li>
+              <li><a href="#verificar">Por qué verificar con electrodo</a></li>
+              <li><a href="#faq">Preguntas frecuentes</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">Herramientas relacionadas</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="../../herramientas/calculadora-buffers.html">→ Calculadora de buffers (H-H)</a></li>
+              <li><a href="../../herramientas/calculadora-ph.html">→ Calculadora de pH</a></li>
+              <li><a href="../../herramientas/calculadora-molaridad.html">→ Molaridad y masa</a></li>
+              <li><a href="../../herramientas/masa-molar.html">→ Masa molar</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">También te puede interesar</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="normalidad-vs-molaridad.html">→ Normalidad vs. Molaridad</a></li>
+              <li><a href="que-es-la-molaridad.html">→ ¿Qué es la molaridad?</a></li>
+              <li><a href="errores-comunes-titulacion.html">→ Errores comunes en titulaciones</a></li>
+            </ul>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

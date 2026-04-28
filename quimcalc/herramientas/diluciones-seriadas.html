@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de Diluciones Seriadas | QuimCalc</title>
+  <meta name="description" content="Generá la tabla completa de una serie de diluciones 1:10, 1:5 o cualquier factor. Calculá los volúmenes de transferencia y solvente para cada tubo. Gratis.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Calculadora de Diluciones Seriadas",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Genera la tabla completa de diluciones seriadas con concentraciones y volúmenes para cada tubo.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+  }
+  </script>
+
+  <style>
+    /* Tabla de resultados de la serie */
+    .tabla-serie {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-top: var(--espacio-lg);
+    }
+
+    .tabla-serie th {
+      background-color: var(--color-acento);
+      color: #FFFFFF;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .tabla-serie td {
+      border: 1px solid var(--color-borde);
+      padding: 10px 12px;
+      color: var(--color-texto-suave);
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+    }
+
+    .tabla-serie tr:first-child td {
+      background-color: #EFF6FF;
+      color: var(--color-texto);
+      font-weight: 600;
+      font-family: var(--fuente-principal);
+    }
+
+    .tabla-serie tr:nth-child(even) td {
+      background-color: #FAFAFA;
+    }
+
+    /* Contenedor con scroll horizontal en mobile */
+    #contenedor-tabla {
+      display: none;
+      overflow-x: auto;
+      margin-top: var(--espacio-lg);
+      border-radius: var(--radio-md);
+      border: 1px solid var(--color-borde);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Diluciones Seriadas</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Calculadora de Diluciones Seriadas</h1>
+        <p class="pagina-herramienta__descripcion">
+          Ingresá los parámetros de la serie y obtené la tabla completa con concentraciones y volúmenes para cada tubo.
+        </p>
+      </div>
+
+      <div class="calculadora" role="region" aria-label="Calculadora de diluciones seriadas">
+
+        <!-- Concentración inicial -->
+        <div class="campo-grupo">
+          <label for="conc-inicial">Concentración inicial (solución madre)</label>
+          <div class="campo-fila">
+            <input
+              type="number"
+              id="conc-inicial"
+              name="conc-inicial"
+              placeholder="Ej: 1000"
+              min="0"
+              step="any"
+            >
+            <select id="unidad-conc" name="unidad-conc" aria-label="Unidad de concentración">
+              <option value="mg/L">mg/L</option>
+              <option value="ppm">ppm</option>
+              <option value="mol/L">mol/L</option>
+              <option value="µg/mL">µg/mL</option>
+              <option value="ng/mL">ng/mL</option>
+              <option value="%">%</option>
+            </select>
+          </div>
+          <span class="ayuda">Concentración de la solución de partida antes de la primera dilución</span>
+        </div>
+
+        <!-- Factor de dilución -->
+        <div class="campo-grupo">
+          <label for="factor">Factor de dilución</label>
+          <input
+            type="number"
+            id="factor"
+            name="factor"
+            placeholder="Ej: 10 (para diluciones 1:10)"
+            min="2"
+            step="any"
+            aria-describedby="ayuda-factor"
+          >
+          <span class="ayuda" id="ayuda-factor">
+            Factor constante entre pasos: 10 para 1:10 · 5 para 1:5 · 2 para 1:2
+          </span>
+        </div>
+
+        <!-- Número de pasos -->
+        <div class="campo-grupo">
+          <label for="pasos">Número de diluciones (pasos)</label>
+          <input
+            type="number"
+            id="pasos"
+            name="pasos"
+            placeholder="Ej: 5"
+            min="1"
+            max="20"
+            step="1"
+            aria-describedby="ayuda-pasos"
+          >
+          <span class="ayuda" id="ayuda-pasos">Máximo 20 pasos</span>
+        </div>
+
+        <!-- Volumen final de cada tubo -->
+        <div class="campo-grupo">
+          <label for="vol-final">Volumen final de cada tubo (mL)</label>
+          <input
+            type="number"
+            id="vol-final"
+            name="vol-final"
+            placeholder="Ej: 10"
+            min="0"
+            step="any"
+            aria-describedby="ayuda-vol"
+          >
+          <span class="ayuda" id="ayuda-vol">
+            El volumen total en cada tubo después de agregar la alícuota y el solvente
+          </span>
+        </div>
+
+        <button id="btn-calcular" class="btn btn--primario" type="button">
+          Generar tabla →
+        </button>
+
+        <!-- Resultado resumen -->
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta" id="resultado-etiqueta">Resultado</p>
+          <p class="resultado__valor"    id="resultado-valor">—</p>
+          <p class="resultado__formula"  id="resultado-formula"></p>
+        </div>
+
+      </div><!-- /calculadora -->
+
+      <!-- Tabla generada por JS -->
+      <div id="contenedor-tabla" role="region" aria-label="Tabla de diluciones seriadas"></div>
+
+      <!-- ── SECCIÓN EDUCATIVA ──────────────────────────── -->
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">¿Qué son las diluciones seriadas?</h2>
+        <p>
+          Una dilución seriada es una secuencia de diluciones en la que cada paso usa la solución resultante del paso anterior como punto de partida. El factor de dilución se aplica de forma acumulativa, lo que permite obtener concentraciones muy bajas a partir de una solución concentrada de manera reproducible y con mínimo error acumulado.
+        </p>
+
+        <div class="ejemplo-bloque">
+          <strong>Ejemplo: serie 1:10 con 5 pasos, volumen 10 mL, C₀ = 1000 mg/L</strong>
+          <p>Volumen de transferencia = 10 mL / 10 = 1 mL</p>
+          <p>Volumen de solvente = 10 − 1 = 9 mL</p>
+          <p>Tubo 1: 100 mg/L · Tubo 2: 10 mg/L · Tubo 3: 1 mg/L · Tubo 4: 0.1 mg/L · Tubo 5: 0.01 mg/L</p>
+        </div>
+
+        <h2>Aplicaciones comunes</h2>
+        <p>
+          Las diluciones seriadas se usan en microbiología para recuento de colonias (UFC/mL), en química analítica para preparar curvas de calibración, en serología para titulación de anticuerpos, y en toxicología para preparar estándares de trabajo a partir de soluciones madre certificadas.
+        </p>
+
+        <h2>Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿Por qué es importante que el volumen final sea siempre el mismo en cada tubo?</h3>
+          <p>
+            Para que el factor de dilución sea constante entre pasos. Si el volumen final varía de tubo a tubo, la concentración no se reduce de forma uniforme y la serie deja de ser logarítmica. Siempre usá el mismo volumen y la misma pipeta calibrada para las transferencias.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Cuántos pasos necesito para llegar a una concentración objetivo?</h3>
+          <p>
+            Usá la fórmula: n = log(C₀/Cf) / log(factor). Por ejemplo, para ir de 1000 mg/L a 0.01 mg/L con factor 10: n = log(1000/0.01) / log(10) = log(100.000) / 1 = 5 pasos.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/diluciones-serie.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Normalidad vs. Molaridad: diferencias, fórmulas y cuándo usar cada una | QuimCalc</title>
+  <meta name="description" content="Guía completa sobre normalidad y molaridad: qué las diferencia, cómo se calculan, cuándo usar cada una en el laboratorio y ejemplos resueltos para ácidos, bases y oxidantes.">
+  <meta name="author" content="QuimCalc">
+  <meta name="article:published_time" content="2025-01-20">
+
+  <link rel="stylesheet" href="../../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Normalidad vs. Molaridad: diferencias, fórmulas y cuándo usar cada una",
+    "description": "Guía completa sobre normalidad y molaridad: diferencias, fórmulas, ejemplos resueltos y cuándo conviene usar cada unidad en el laboratorio.",
+    "datePublished": "2025-01-20",
+    "dateModified": "2025-01-20",
+    "author": { "@type": "Organization", "name": "QuimCalc" },
+    "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.netlify.app" }
+  }
+  </script>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../../index.html#herramientas">Herramientas</a>
+          <a href="../index.html" class="activo">Blog</a>
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="contenedor">
+
+      <nav class="breadcrumb" style="padding-top: var(--espacio-xl);" aria-label="Ubicación en el sitio">
+        <a href="../../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="../index.html">Blog</a>
+        <span aria-hidden="true">›</span>
+        <span>Normalidad vs. Molaridad</span>
+      </nav>
+
+      <div class="post-layout">
+
+        <article>
+
+          <header class="post-header">
+            <p class="post-header__categoria">
+              <span style="color: var(--color-acento);">Química básica</span>
+            </p>
+            <h1 class="post-header__titulo">
+              Normalidad vs. Molaridad: diferencias, fórmulas y cuándo usar cada una
+            </h1>
+            <p class="post-header__resumen">
+              Molaridad y normalidad son las dos unidades de concentración más usadas en química analítica. Muchos técnicos las confunden o las usan indistintamente sin saber cuándo corresponde cada una. En esta guía explicamos las diferencias, las fórmulas y los casos prácticos donde una es mejor que la otra.
+            </p>
+            <div class="post-header__meta">
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Enero 2025
+              </span>
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                10 min lectura
+              </span>
+            </div>
+          </header>
+
+          <div class="post-contenido">
+
+            <h2 id="molaridad">¿Qué es la molaridad?</h2>
+
+            <p>
+              La <strong>molaridad</strong> (M) expresa cuántos moles de soluto hay por litro de solución. Es la unidad de concentración más usada en química porque está directamente ligada a la cantidad de sustancia en el sentido del Sistema Internacional, y porque simplifica los cálculos estequiométricos.
+            </p>
+
+            <div class="post-formula">
+              M = n / V(L)
+              <br>
+              n = moles de soluto &nbsp;·&nbsp; V = volumen de la solución en litros
+            </div>
+
+            <p>
+              Para calcular cuánto pesar de un reactivo sólido:
+            </p>
+
+            <div class="post-formula">
+              masa (g) = M × V(L) × PM
+            </div>
+
+            <p>
+              La molaridad no depende de la reacción química en la que participa el soluto. Un frasco de H₂SO₄ 1 M es 1 M sin importar si lo vamos a usar para titular una base, para disolver un metal o para preparar un buffer.
+            </p>
+
+            <h2 id="normalidad">¿Qué es la normalidad?</h2>
+
+            <p>
+              La <strong>normalidad</strong> (N) expresa cuántos <em>equivalentes</em> de soluto hay por litro de solución. Un equivalente es la cantidad de sustancia que reacciona con un mol de H⁺ (en reacciones ácido-base), con un mol de e⁻ (en reacciones redox), o con un mol de catión (en reacciones de precipitación).
+            </p>
+
+            <div class="post-formula">
+              N = n_eq / V(L) = M × f_eq
+              <br>
+              f_eq = factor de equivalencia (número de equivalentes por mol)
+            </div>
+
+            <p>
+              A diferencia de la molaridad, la normalidad <strong>depende de la reacción</strong>. El mismo compuesto puede tener diferentes normalidades según el proceso en el que participe.
+            </p>
+
+            <h2 id="factor">El factor de equivalencia: la clave de todo</h2>
+
+            <p>
+              El factor de equivalencia (f_eq) es el número de equivalentes que aporta cada mol del compuesto en una reacción determinada. Es lo que convierte molaridad en normalidad:
+            </p>
+
+            <div class="post-formula">
+              N = M × f_eq
+            </div>
+
+            <p>
+              Para calcularlo hay que mirar cuántos H⁺, e⁻ o cargas intercambia la molécula en la reacción específica:
+            </p>
+
+            <ul>
+              <li><strong>Ácidos:</strong> f_eq = número de H⁺ que puede ceder (protones ionizables)</li>
+              <li><strong>Bases:</strong> f_eq = número de OH⁻ que puede liberar</li>
+              <li><strong>Oxidantes/reductores:</strong> f_eq = número de electrones que transfiere por mol</li>
+              <li><strong>Sales en precipitación:</strong> f_eq = carga del catión o anión relevante</li>
+            </ul>
+
+            <div class="ejemplo-bloque">
+              <strong>Tabla de factores de equivalencia comunes</strong>
+              <p>HCl → f_eq = 1 &nbsp;(cede 1 H⁺) &nbsp;→ 1 M = 1 N</p>
+              <p>H₂SO₄ → f_eq = 2 (cede 2 H⁺) → 1 M = 2 N</p>
+              <p>H₃PO₄ → f_eq = 3 (cede 3 H⁺) → 1 M = 3 N (si reacciona completa)</p>
+              <p>NaOH → f_eq = 1 &nbsp;(libera 1 OH⁻) → 1 M = 1 N</p>
+              <p>Ca(OH)₂ → f_eq = 2 (libera 2 OH⁻) → 1 M = 2 N</p>
+              <p>KMnO₄ (medio ácido) → f_eq = 5 (gana 5 e⁻) → 1 M = 5 N</p>
+              <p>K₂Cr₂O₇ → f_eq = 6 (gana 6 e⁻) → 1 M = 6 N</p>
+              <p>Na₂S₂O₃ → f_eq = 1 (cede 1 e⁻) → 1 M = 1 N</p>
+            </div>
+
+            <h2 id="diferencia-practica">La diferencia práctica: un ejemplo con H₃PO₄</h2>
+
+            <p>
+              El ácido fosfórico (H₃PO₄) tiene tres protones ionizables, pero no siempre los cede todos. Dependiendo del pH de la reacción y del sistema, puede comportarse como ácido monoprótico, diprótico o triprótico:
+            </p>
+
+            <ul>
+              <li>Si titulamos hasta el primer punto de equivalencia (pH ≈ 4.5): f_eq = 1 → N = M</li>
+              <li>Si titulamos hasta el segundo punto de equivalencia (pH ≈ 9.7): f_eq = 2 → N = 2M</li>
+              <li>Si titulamos hasta el tercer punto de equivalencia: f_eq = 3 → N = 3M</li>
+            </ul>
+
+            <p>
+              Una solución de H₃PO₄ 0.1 M es simultáneamente 0.1 N, 0.2 N o 0.3 N dependiendo de la reacción en la que la usemos. Esto muestra por qué la normalidad no es una propiedad absoluta del compuesto sino del sistema reacción-compuesto.
+            </p>
+
+            <h2 id="cuando-usar">¿Cuándo usar molaridad y cuándo normalidad?</h2>
+
+            <p>
+              <strong>Usá molaridad cuando:</strong>
+            </p>
+            <ul>
+              <li>Preparás soluciones estándar de concentración conocida</li>
+              <li>Hacés cálculos estequiométricos a partir de la ecuación química balanceada</li>
+              <li>Trabajás con métodos instrumentales (espectrofotometría, cromatografía)</li>
+              <li>El protocolo del método indica molaridad (métodos ISO, EPA, AOAC modernos)</li>
+            </ul>
+
+            <p>
+              <strong>Usá normalidad cuando:</strong>
+            </p>
+            <ul>
+              <li>Hacés titulaciones volumétricas clásicas (la ecuación N₁V₁ = N₂V₂ simplifica los cálculos)</li>
+              <li>Trabajás con métodos que ya están expresados en N (muchos métodos de acidez, alcalinidad, dureza)</li>
+              <li>Comparás la capacidad reactiva de distintos compuestos en la misma reacción</li>
+              <li>El protocolo del laboratorio lo requiere (normativas más antiguas suelen usar N)</li>
+            </ul>
+
+            <h2 id="titulacion">La ventaja de la normalidad en titulaciones</h2>
+
+            <p>
+              En el punto de equivalencia de una titulación, los equivalentes del titulante igualan a los del analito:
+            </p>
+
+            <div class="post-formula">
+              N₁ × V₁ = N₂ × V₂
+            </div>
+
+            <p>
+              Esta ecuación funciona para <em>cualquier</em> reacción sin necesidad de conocer los coeficientes estequiométricos. Con molaridad, en cambio, habría que ajustar según los coeficientes:
+            </p>
+
+            <div class="ejemplo-bloque">
+              <strong>Comparación: titular NaOH con H₂SO₄</strong>
+              <p><strong>Con normalidad:</strong> N(H₂SO₄) × V(H₂SO₄) = N(NaOH) × V(NaOH)</p>
+              <p>Si H₂SO₄ 0.05 N gasta 20 mL para titular 10 mL de NaOH:</p>
+              <p>N(NaOH) = (0.05 × 20) / 10 = <strong>0.1 N</strong></p>
+              <p><br><strong>Con molaridad:</strong> habría que escribir 2×M(NaOH)×V = M(H₂SO₄)×V porque la estequiometría es H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O</p>
+              <p>La normalidad elimina ese paso automáticamente.</p>
+            </div>
+
+            <h2 id="conversion">Conversión entre molaridad y normalidad</h2>
+
+            <p>
+              La conversión es directa una vez que conocés el factor de equivalencia:
+            </p>
+
+            <div class="post-formula">
+              N = M × f_eq &nbsp;&nbsp;&nbsp;&nbsp; M = N / f_eq
+            </div>
+
+            <div class="ejemplo-bloque">
+              <strong>Ejemplo 1: H₂SO₄ 0.5 M → Normalidad en titulación ácido-base</strong>
+              <p>f_eq = 2 (cede 2 H⁺)</p>
+              <p>N = 0.5 M × 2 = <strong>1.0 N</strong></p>
+            </div>
+
+            <div class="ejemplo-bloque">
+              <strong>Ejemplo 2: KMnO₄ 0.02 N en medio ácido → Molaridad</strong>
+              <p>f_eq = 5 (Mn⁷⁺ → Mn²⁺, gana 5 electrones)</p>
+              <p>M = 0.02 N / 5 = <strong>0.004 M</strong></p>
+            </div>
+
+            <h2 id="faq">Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+              <h3>¿La normalidad está cayendo en desuso?</h3>
+              <p>
+                Sí, en parte. Los métodos modernos de organismos como ISO, IUPAC y EPA tienden a expresar todo en molaridad porque es más precisa y no depende de la reacción. Sin embargo, en laboratorios argentinos e iberoamericanos siguen vigentes muchos métodos clásicos expresados en normalidad, especialmente en análisis de agua, suelos y alimentos. Un técnico de laboratorio necesita manejar ambas unidades.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Puedo usar indistintamente M y N cuando f_eq = 1?</h3>
+              <p>
+                Numéricamente sí, porque N = M × 1 = M. Es el caso de HCl, NaOH, NaCl, Na₂S₂O₃ y muchos otros compuestos monovalentes. Pero es buena práctica indicar siempre la unidad correcta según el contexto para que el informe sea inequívoco.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Por qué el KMnO₄ tiene f_eq diferente en distintos medios?</h3>
+              <p>
+                Porque el permanganato se reduce a distintos productos según el pH del medio. En medio ácido (Mn⁷⁺ → Mn²⁺): gana 5 e⁻, f_eq = 5. En medio neutro o básico (Mn⁷⁺ → MnO₂): gana 3 e⁻, f_eq = 3. El método de análisis siempre especifica el medio de reacción, lo que define el f_eq a usar.
+              </p>
+            </div>
+
+          </div>
+
+        </article>
+
+        <aside class="post-sidebar" aria-label="Contenido relacionado">
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">En este artículo</p>
+            <ul class="toc-lista" role="list">
+              <li><a href="#molaridad">¿Qué es la molaridad?</a></li>
+              <li><a href="#normalidad">¿Qué es la normalidad?</a></li>
+              <li><a href="#factor">El factor de equivalencia</a></li>
+              <li><a href="#diferencia-practica">Diferencia práctica: H₃PO₄</a></li>
+              <li><a href="#cuando-usar">¿Cuándo usar cada una?</a></li>
+              <li><a href="#titulacion">Ventaja en titulaciones</a></li>
+              <li><a href="#conversion">Conversión M ↔ N</a></li>
+              <li><a href="#faq">Preguntas frecuentes</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">Herramientas relacionadas</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="../../herramientas/conversor-ppm-mgl.html">→ Conversor Molaridad ↔ Normalidad</a></li>
+              <li><a href="../../herramientas/calculadora-molaridad.html">→ Calculadora de molaridad y masa</a></li>
+              <li><a href="../../herramientas/calculadora-diluciones.html">→ Diluciones C₁V₁ = C₂V₂</a></li>
+              <li><a href="../../herramientas/calculadora-titulacion.html">→ Calculadora de titulación</a></li>
+              <li><a href="../../herramientas/masa-molar.html">→ Calculadora de masa molar</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">También te puede interesar</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="que-es-la-molaridad.html">→ ¿Qué es la molaridad?</a></li>
+              <li><a href="errores-comunes-titulacion.html">→ Errores comunes en titulaciones</a></li>
+              <li><a href="que-es-el-pka-y-como-usar-buffers.html">→ ¿Qué es el pKa?</a></li>
+            </ul>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

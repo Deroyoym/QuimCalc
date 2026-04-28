@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Incertidumbre de medición para no estadísticos: guía práctica | QuimCalc</title>
+  <meta name="description" content="Qué es la incertidumbre de medición, cómo calcularla con el método GUM, qué son los componentes Tipo A y Tipo B, y cómo reportarla en informes de laboratorio acreditado ISO 17025.">
+  <meta name="author" content="QuimCalc">
+  <meta name="article:published_time" content="2025-02-17">
+
+  <link rel="stylesheet" href="../../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Incertidumbre de medición para no estadísticos: guía práctica con ejemplos reales",
+    "description": "Guía práctica sobre incertidumbre de medición según el método GUM para laboratorios bajo ISO 17025. Componentes Tipo A y Tipo B, incertidumbre combinada y expandida.",
+    "datePublished": "2025-02-17",
+    "dateModified": "2025-02-17",
+    "author": { "@type": "Organization", "name": "QuimCalc" },
+    "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.netlify.app" }
+  }
+  </script>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../../index.html#herramientas">Herramientas</a>
+          <a href="../index.html" class="activo">Blog</a>
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <div class="contenedor">
+
+      <nav class="breadcrumb" style="padding-top: var(--espacio-xl);" aria-label="Ubicación en el sitio">
+        <a href="../../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="../index.html">Blog</a>
+        <span aria-hidden="true">›</span>
+        <span>Incertidumbre para no estadísticos</span>
+      </nav>
+
+      <div class="post-layout">
+
+        <article>
+
+          <header class="post-header">
+            <p class="post-header__categoria">
+              <span style="color: #DC2626;">Normativa y calidad</span>
+            </p>
+            <h1 class="post-header__titulo">
+              Incertidumbre de medición para no estadísticos: guía práctica con ejemplos reales
+            </h1>
+            <p class="post-header__resumen">
+              La incertidumbre de medición es uno de los requisitos más temidos de ISO 17025, pero no es tan compleja como parece. En esta guía explicamos desde cero qué es, por qué importa, cómo se calcula siguiendo el método GUM, y cómo se reporta correctamente en un informe de laboratorio. Con un ejemplo resuelto completo.
+            </p>
+            <div class="post-header__meta">
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Febrero 2025
+              </span>
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                14 min lectura
+              </span>
+            </div>
+          </header>
+
+          <div class="post-contenido">
+
+            <h2 id="que-es">¿Qué es la incertidumbre de medición?</h2>
+
+            <p>
+              Cada vez que medimos algo en el laboratorio — la concentración de un analito, el pH de una muestra, la masa de un reactivo — obtenemos un número. Pero ese número no es el valor verdadero: es una estimación. La <strong>incertidumbre de medición</strong> cuantifica cuánto puede diferir esa estimación del valor verdadero.
+            </p>
+
+            <p>
+              Dicho de otra forma: si el resultado de un análisis es 45.3 mg/L con una incertidumbre expandida de ±2.1 mg/L (k=2), esto significa que el valor verdadero de la concentración probablemente está entre 43.2 y 47.4 mg/L, con un nivel de confianza del 95%.
+            </p>
+
+            <p>
+              Sin la incertidumbre, el número aislado es incompleto. No sabemos si es preciso o impreciso, ni si las diferencias entre dos resultados son reales o solo ruido de medición.
+            </p>
+
+            <h2 id="por-que-importa">¿Por qué ISO 17025 la exige?</h2>
+
+            <p>
+              ISO 17025 es la norma internacional para laboratorios de ensayo y calibración. En su versión 2017, el punto 7.6 establece que el laboratorio debe identificar las contribuciones a la incertidumbre y calcular la incertidumbre de medición para todos sus métodos cuantitativos.
+            </p>
+
+            <p>
+              La razón es práctica: un resultado sin incertidumbre no permite tomar decisiones informadas. Si un agua da 9.8 mg/L de nitrato y el límite legal es 10 mg/L, ¿está dentro del límite? Depende de la incertidumbre. Si U = ±0.3 mg/L, probablemente sí. Si U = ±1.5 mg/L, no podemos saberlo con certeza.
+            </p>
+
+            <h2 id="fuentes">Fuentes de incertidumbre en un análisis químico</h2>
+
+            <p>
+              La incertidumbre no viene de un solo lugar. En un análisis típico contribuyen:
+            </p>
+
+            <ul>
+              <li><strong>Repetibilidad del instrumento:</strong> si repetís la misma medición 10 veces, los resultados varían levemente. Esa variabilidad es incertidumbre.</li>
+              <li><strong>Calibración del instrumento:</strong> el instrumento fue calibrado con un patrón que tiene su propia incertidumbre (indicada en el certificado).</li>
+              <li><strong>Pureza del patrón de calibración:</strong> el patrón no es 100% puro. El certificado indica el % de pureza y su incertidumbre.</li>
+              <li><strong>Preparación de soluciones:</strong> las pipetas y matraces aforados tienen tolerancias. Una pipeta de 10 mL clase A tiene tolerancia de ±0.02 mL.</li>
+              <li><strong>Temperatura:</strong> los volúmenes cambian con la temperatura. En análisis de precisión, la variación de temperatura durante la preparación contribuye a la incertidumbre.</li>
+              <li><strong>Efecto de la matriz:</strong> la muestra real no es igual a los estándares de calibración, y esa diferencia puede afectar la respuesta del instrumento.</li>
+            </ul>
+
+            <h2 id="tipo-a-b">Componentes Tipo A y Tipo B</h2>
+
+            <p>
+              El GUM (Guía para la Expresión de la Incertidumbre en la Medición, ISO/IEC Guide 98-3) clasifica las componentes de incertidumbre en dos tipos según cómo se evalúan:
+            </p>
+
+            <h3>Tipo A: evaluación estadística</h3>
+            <p>
+              Son las componentes que se calculan a partir de mediciones repetidas. Si medís 10 veces la misma muestra y obtenés una desviación estándar s, la incertidumbre Tipo A es:
+            </p>
+
+            <div class="post-formula">
+              u_A = s / √n
+              <br>
+              (desviación estándar de la media)
+            </div>
+
+            <p>
+              Cuantas más repeticiones, menor es u_A. La repetibilidad del instrumento, la variabilidad del operador y las fluctuaciones de corto plazo son fuentes Tipo A típicas.
+            </p>
+
+            <h3>Tipo B: evaluación por otros medios</h3>
+            <p>
+              Son las componentes que no se calculan de mediciones repetidas sino de información externa: certificados de calibración, especificaciones del fabricante, normas, literatura técnica o experiencia acumulada del laboratorio.
+            </p>
+
+            <p>
+              La incertidumbre Tipo B se calcula dividiendo el semirango del intervalo de incertidumbre (a) por el factor divisor (k) que corresponde a la distribución de probabilidad asumida:
+            </p>
+
+            <div class="post-formula">
+              u_B = a / k
+              <br>
+              k = √3 para distribución rectangular (la más común)
+              <br>
+              k = 1 para distribución normal (cuando el certificado da directamente la desv. estándar)
+            </div>
+
+            <div class="ejemplo-bloque">
+              <strong>¿Cuándo usar distribución rectangular?</strong>
+              <p>Cuando solo sabés que el valor está dentro de un intervalo, pero no tenés información sobre qué valores dentro de ese intervalo son más probables. Es la distribución más conservadora y la más usada para especificaciones de equipos y material volumétrico.</p>
+              <p>Ejemplo: una pipeta de 10 mL clase A tiene tolerancia ±0.02 mL. El error puede ser cualquier valor dentro de ese intervalo con igual probabilidad → distribución rectangular → u = 0.02 / √3 = 0.0115 mL</p>
+            </div>
+
+            <h2 id="combinada">Incertidumbre combinada y expandida</h2>
+
+            <p>
+              Las componentes individuales (Tipo A y Tipo B) se combinan cuadráticamente. Esto se debe a que los errores independientes se suman en cuadratura, no linealmente:
+            </p>
+
+            <div class="post-formula">
+              u_c = √( (c₁·u₁)² + (c₂·u₂)² + ... + (cₙ·uₙ)² )
+              <br>
+              cᵢ = coeficiente de sensibilidad (usualmente = 1)
+            </div>
+
+            <p>
+              La <strong>incertidumbre expandida</strong> U es la que se reporta en los informes. Se obtiene multiplicando la incertidumbre combinada por el factor de cobertura k:
+            </p>
+
+            <div class="post-formula">
+              U = k × u_c
+              <br>
+              k = 2 → nivel de confianza ≈ 95% (el más usado en ISO 17025)
+            </div>
+
+            <h2 id="ejemplo">Ejemplo completo resuelto</h2>
+
+            <p>
+              Determinación de cloruros en agua por volumetría de Mohr. Resultado: 125 mg/L Cl⁻.
+            </p>
+
+            <div class="ejemplo-bloque">
+              <strong>Componente 1 (Tipo A): Repetibilidad de la titulación</strong>
+              <p>10 determinaciones del mismo patrón: s = 0.8 mg/L</p>
+              <p>u_A = 0.8 / √10 = 0.253 mg/L</p>
+            </div>
+
+            <div class="ejemplo-bloque">
+              <strong>Componente 2 (Tipo B): Pureza del patrón de NaCl</strong>
+              <p>Certificado: NaCl 99.9% ± 0.05% (distribución rectangular)</p>
+              <p>Efecto sobre la concentración del estándar: a = 0.05% de 1000 mg/L = 0.5 mg/L</p>
+              <p>u_B2 = 0.5 / √3 = 0.289 mg/L</p>
+            </div>
+
+            <div class="ejemplo-bloque">
+              <strong>Componente 3 (Tipo B): Volumen de la bureta (50 mL clase A)</strong>
+              <p>Tolerancia: ±0.05 mL. Efecto sobre la concentración para una muestra de 100 mL:</p>
+              <p>a = 0.05 mL × (125 mg/L / volumen titulante promedio ≈ 10 mL) = 0.625 mg/L</p>
+              <p>u_B3 = 0.625 / √3 = 0.361 mg/L</p>
+            </div>
+
+            <div class="ejemplo-bloque">
+              <strong>Incertidumbre combinada y expandida</strong>
+              <p>u_c = √(0.253² + 0.289² + 0.361²) = √(0.064 + 0.084 + 0.130) = √0.278 = 0.527 mg/L</p>
+              <p>U = 2 × 0.527 = <strong>1.05 mg/L</strong> (k=2, NC ≈ 95%)</p>
+              <p>Resultado a reportar: <strong>125 ± 1 mg/L Cl⁻</strong> (k=2)</p>
+            </div>
+
+            <h2 id="reportar">Cómo reportar la incertidumbre en un informe</h2>
+
+            <p>
+              ISO 17025 no exige un formato único, pero sí que el informe incluya suficiente información para que el cliente interprete correctamente el resultado. La forma más completa es:
+            </p>
+
+            <div class="post-formula">
+              Resultado: 125 mg/L Cl⁻
+              <br>
+              Incertidumbre expandida: ± 1 mg/L
+              <br>
+              Factor de cobertura: k = 2
+              <br>
+              Nivel de confianza: aproximadamente 95%
+            </div>
+
+            <p>
+              Si el informe es para un cliente no técnico, puede simplificarse a "125 ± 1 mg/L" con una nota al pie explicando qué significa el ± y con qué nivel de confianza. Lo que no puede omitirse es el valor de k o el nivel de confianza, porque sin eso el intervalo no tiene interpretación estadística clara.
+            </p>
+
+            <h2 id="faq">Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+              <h3>¿La incertidumbre es lo mismo que el error?</h3>
+              <p>
+                No. El error es la diferencia entre el valor medido y el valor verdadero (que generalmente no conocemos). La incertidumbre es una estimación de cuán grande puede ser ese error, expresada como un intervalo. Podemos calcular la incertidumbre sin conocer el valor verdadero, usando las fuentes de variabilidad identificadas en el proceso de medición.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Cuántas componentes de incertidumbre debo incluir?</h3>
+              <p>
+                Todas las que sean significativas. Una regla práctica: si una componente contribuye menos del 1% a la varianza total (es decir, su cuadrado es menos del 1% de la suma de cuadrados), puede despreciarse. En la práctica, entre 3 y 6 componentes suelen cubrir más del 95% de la incertidumbre total en análisis químicos típicos.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Tengo que calcular la incertidumbre para cada muestra?</h3>
+              <p>
+                No. La incertidumbre se calcula por método y por rango de concentración, no muestra a muestra. Lo que sí puede variar es el resultado numérico si la muestra está en un rango diferente al de la evaluación original. En ese caso, el laboratorio debe verificar si la incertidumbre calculada sigue siendo representativa.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Qué hago si no tengo certificado de calibración del instrumento?</h3>
+              <p>
+                Usás las especificaciones del fabricante como estimación conservadora para la componente Tipo B correspondiente. Es preferible a no incluirla. Dicho esto, ISO 17025 requiere que los equipos que afectan al resultado estén calibrados con trazabilidad metrológica, así que a largo plazo necesitás el certificado de todos modos.
+              </p>
+            </div>
+
+          </div>
+
+        </article>
+
+        <aside class="post-sidebar" aria-label="Contenido relacionado">
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">En este artículo</p>
+            <ul class="toc-lista" role="list">
+              <li><a href="#que-es">¿Qué es la incertidumbre?</a></li>
+              <li><a href="#por-que-importa">¿Por qué la exige ISO 17025?</a></li>
+              <li><a href="#fuentes">Fuentes de incertidumbre</a></li>
+              <li><a href="#tipo-a-b">Tipo A y Tipo B</a></li>
+              <li><a href="#combinada">Incertidumbre combinada</a></li>
+              <li><a href="#ejemplo">Ejemplo completo resuelto</a></li>
+              <li><a href="#reportar">Cómo reportarla</a></li>
+              <li><a href="#faq">Preguntas frecuentes</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">Herramientas relacionadas</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="../../herramientas/incertidumbre.html">→ Calculadora de incertidumbre GUM</a></li>
+              <li><a href="../../herramientas/curva-calibracion.html">→ Curva de calibración</a></li>
+              <li><a href="../../herramientas/lod-loq.html">→ LOD y LOQ</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">También te puede interesar</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="espectrofotometria-curva-calibracion.html">→ Espectrofotometría UV-Vis</a></li>
+              <li><a href="errores-comunes-titulacion.html">→ Errores comunes en titulaciones</a></li>
+              <li><a href="normalidad-vs-molaridad.html">→ Normalidad vs. Molaridad</a></li>
+            </ul>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

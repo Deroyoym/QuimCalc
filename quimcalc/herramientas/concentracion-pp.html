@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de Concentración % p/p | QuimCalc</title>
+  <meta name="description" content="Calculá la concentración en % peso/peso (p/p), la masa del soluto o del solvente. Herramienta online gratuita para laboratorio químico.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Calculadora de Concentración % p/p",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Calculá la concentración % p/p (peso en peso), la masa de soluto o solvente. Resuelve la incógnita dejando un campo vacío.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+  }
+  </script>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Concentración % p/p</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Calculadora de Concentración % p/p</h1>
+        <p class="pagina-herramienta__descripcion">
+          Completá dos campos y dejá vacío el que querés calcular: porcentaje peso/peso, masa del soluto o masa del solvente.
+        </p>
+      </div>
+
+      <div class="calculadora" role="region" aria-label="Calculadora % p/p">
+
+        <div class="ejemplo-bloque" style="margin-bottom: var(--espacio-lg);">
+          <strong>¿Cómo usar?</strong>
+          <p>Completá dos campos y dejá <strong>vacío</strong> el que querés calcular. Luego presioná "Calcular".</p>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="masa-soluto">Masa del soluto (g)</label>
+          <input
+            type="number"
+            id="masa-soluto"
+            name="masa-soluto"
+            placeholder="Dejá vacío si es la incógnita"
+            min="0"
+            step="any"
+            aria-describedby="ayuda-soluto"
+          >
+          <span class="ayuda" id="ayuda-soluto">Masa de la sustancia que disolvés (el reactivo, sal, etc.)</span>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="masa-solvente">Masa del solvente (g)</label>
+          <input
+            type="number"
+            id="masa-solvente"
+            name="masa-solvente"
+            placeholder="Dejá vacío si es la incógnita"
+            min="0"
+            step="any"
+            aria-describedby="ayuda-solvente"
+          >
+          <span class="ayuda" id="ayuda-solvente">Masa del líquido en que disolvés (agua, etanol, etc.)</span>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="porc-pp">% p/p (porcentaje peso/peso)</label>
+          <input
+            type="number"
+            id="porc-pp"
+            name="porc-pp"
+            placeholder="Dejá vacío si es la incógnita"
+            min="0"
+            max="100"
+            step="any"
+          >
+          <span class="ayuda">Valor entre 0 y 100</span>
+        </div>
+
+        <button id="btn-calcular" class="btn btn--primario" type="button">
+          Calcular →
+        </button>
+
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta" id="resultado-etiqueta">Resultado</p>
+          <p class="resultado__valor"    id="resultado-valor">—</p>
+          <p class="resultado__formula"  id="resultado-formula"></p>
+        </div>
+
+      </div>
+
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">¿Qué es el % p/p y en qué se diferencia del % p/v?</h2>
+        <p>
+          El <strong>porcentaje peso/peso (% p/p)</strong> expresa cuántos gramos de soluto hay por cada 100 gramos de <em>solución total</em> (soluto + solvente). Es una relación de masas puras, independiente de la temperatura y la densidad.
+        </p>
+        <p>
+          El <strong>% p/v</strong> (peso/volumen), en cambio, expresa gramos de soluto por cada 100 mL de solución. Es más práctico en laboratorio porque el volumen es fácil de medir, pero depende de la temperatura (el volumen cambia con T).
+        </p>
+
+        <div class="ejemplo-bloque">
+          <strong>Ejemplo: agua salada al 5% p/p</strong>
+          <p>Queremos 500 g de solución al 5% p/p.</p>
+          <p>Masa de sal = (5 × 500) / 100 = <strong>25 g de NaCl</strong></p>
+          <p>Masa de agua = 500 − 25 = <strong>475 g de agua</strong></p>
+          <p>Verificación: (25 / 500) × 100 = 5% ✓</p>
+        </div>
+
+        <div class="ejemplo-bloque">
+          <strong>¿Cuándo conviene usar % p/p?</strong>
+          <p>Es la unidad preferida cuando trabajás con reactivos muy concentrados (ácido sulfúrico 98%, HCl 37%), cuando pesás solvente en lugar de medirlo en volumen, y en formulaciones de sólidos o pastas donde medir volumen es difícil.</p>
+        </div>
+
+        <h2>Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿El solvente es la solución o solo el líquido?</h3>
+          <p>
+            El <strong>solvente</strong> es solo el líquido en que disolvés (agua, etanol, etc.). La <strong>solución</strong> es el total: solvente + soluto. Esta calculadora trabaja con la masa del solvente (solo el líquido), no con la masa total de la solución.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Cómo convierto % p/p a % p/v?</h3>
+          <p>
+            Necesitás conocer la densidad de la solución: % p/v = % p/p × densidad (g/mL). Para soluciones diluidas en agua, la densidad es ≈ 1 g/mL y ambos porcentajes son prácticamente iguales. Para soluciones concentradas, la densidad puede diferir significativamente.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/concentracion-pp.js"></script>
+
+</body>
+</html>

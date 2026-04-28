@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <title>Calculadora de Molaridad y Masa | QuimCalc</title>
+  <meta name="description" content="Calculá la masa de soluto necesaria para preparar soluciones de concentración específica. Incluye corrección por pureza del reactivo. Gratis y sin registro.">
+  <meta name="author" content="QuimCalc">
+
+  <!-- CSS compartido. Las rutas relativas suben un nivel con "../" -->
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- JSON-LD: esquema de datos estructurados para Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Calculadora de Molaridad y Masa",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Calculá la masa de soluto necesaria para preparar soluciones de concentración específica. Ideal para laboratorios químicos e industriales.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "ARS"
+    }
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────── -->
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── CONTENIDO PRINCIPAL ────────────────────────────── -->
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <!-- Miga de pan: le muestra al usuario dónde está dentro del sitio -->
+      <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Calculadora de Molaridad</span>
+      </nav>
+
+      <!-- Título y descripción de la herramienta -->
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Calculadora de Molaridad y Masa</h1>
+        <p class="pagina-herramienta__descripcion">
+          Ingresá los datos de la solución y calculá cuántos gramos de reactivo necesitás pesar.
+        </p>
+      </div>
+
+      <!-- ── FORMULARIO DE CÁLCULO ───────────────────────── -->
+      <div class="calculadora" role="region" aria-label="Calculadora">
+
+        <!-- Campo 1: Concentración deseada -->
+        <div class="campo-grupo">
+          <label for="molaridad">Concentración deseada (mol/L)</label>
+          <input
+            type="number"
+            id="molaridad"
+            name="molaridad"
+            placeholder="Ej: 0.1"
+            min="0"
+            step="any"
+            aria-describedby="ayuda-molaridad"
+          >
+          <span class="ayuda" id="ayuda-molaridad">Ingresá la molaridad final que necesitás (M)</span>
+        </div>
+
+        <!-- Campo 2: Volumen final (con selector de unidad) -->
+        <div class="campo-grupo">
+          <label for="volumen">Volumen final</label>
+          <!-- Esta fila pone el input de número y el selector de unidad lado a lado -->
+          <div class="campo-fila">
+            <input
+              type="number"
+              id="volumen"
+              name="volumen"
+              placeholder="Ej: 500"
+              min="0"
+              step="any"
+            >
+            <select id="unidad-volumen" name="unidad-volumen" aria-label="Unidad de volumen">
+              <option value="mL">mL</option>
+              <option value="L">L</option>
+            </select>
+          </div>
+          <span class="ayuda">Cantidad de solución que necesitás preparar</span>
+        </div>
+
+        <!-- Campo 3: Peso Molecular -->
+        <div class="campo-grupo">
+          <label for="peso-molecular">Peso Molecular del soluto (g/mol)</label>
+          <input
+            type="number"
+            id="peso-molecular"
+            name="peso-molecular"
+            placeholder="Ej: 40.00 (NaOH)"
+            min="0"
+            step="any"
+          >
+          <span class="ayuda">Consultá la etiqueta del reactivo o la tabla periódica</span>
+        </div>
+
+        <!-- Campo 4: Pureza del reactivo -->
+        <div class="campo-grupo">
+          <label for="pureza">Pureza del reactivo (% p/p)</label>
+          <input
+            type="number"
+            id="pureza"
+            name="pureza"
+            placeholder="Ej: 98"
+            min="1"
+            max="100"
+            step="any"
+            value="100"
+          >
+          <span class="ayuda">Si el reactivo es puro al 100%, dejá el valor por defecto</span>
+        </div>
+
+        <!-- Botón de cálculo -->
+        <button id="btn-calcular" class="btn btn--primario" type="button">
+          Calcular masa →
+        </button>
+
+        <!-- Bloque de resultado (oculto hasta que se calcule) -->
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta" id="resultado-etiqueta">Resultado</p>
+          <p class="resultado__valor"    id="resultado-valor">—</p>
+          <p class="resultado__formula"  id="resultado-formula"></p>
+        </div>
+
+      </div><!-- /calculadora -->
+
+
+      <!-- ── SECCIÓN EDUCATIVA ────────────────────────────── -->
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">¿Cómo funciona la fórmula?</h2>
+
+        <p>
+          La molaridad (M) es una medida de concentración que indica cuántos <strong>moles de soluto</strong> hay por cada litro de solución. Para preparar una solución de concentración conocida, necesitamos calcular cuánta masa de reactivo pesar, usando esta fórmula:
+        </p>
+
+        <div class="ejemplo-bloque">
+          <strong>Fórmula</strong>
+          <p>masa (g) = Molaridad (mol/L) × Volumen (L) × Peso Molecular (g/mol) / (Pureza / 100)</p>
+        </div>
+
+        <p>
+          El factor de <strong>pureza</strong> es necesario porque los reactivos de laboratorio rara vez son 100% puros. Si un reactivo tiene 98% de pureza, significa que el 2% restante es agua u otras impurezas. Al dividir por la pureza expresada como fracción, compensamos esa diferencia y pesamos un poco más para asegurarnos de tener la cantidad correcta de sustancia activa.
+        </p>
+
+        <h2 id="titulo-ejemplo">Ejemplo de uso real</h2>
+
+        <div class="ejemplo-bloque">
+          <strong>Ejemplo: Preparar 500 mL de NaOH 0.1 M con pureza del 98%</strong>
+          <p><strong>Datos:</strong> Molaridad = 0.1 mol/L · Volumen = 500 mL (= 0.5 L) · PM NaOH = 40.00 g/mol · Pureza = 98%</p>
+          <p><strong>Cálculo:</strong> masa = (0.1 × 0.5 × 40.00) / (98 / 100) = 2 / 0.98 = <strong>2.0408 g</strong></p>
+          <p><strong>Procedimiento:</strong> Pesá 2.0408 g de NaOH, disolvé en una pequeña cantidad de agua destilada y llevá a volumen en un matraz aforado de 500 mL.</p>
+        </div>
+
+        <h2 id="titulo-faq">Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿Qué hago si no sé el Peso Molecular del reactivo?</h3>
+          <p>
+            El Peso Molecular (PM) figura siempre en la etiqueta del envase del reactivo y en la ficha técnica del proveedor. También podés consultarlo en la hoja de datos de seguridad (MSDS/SDS) o calcularlo sumando los pesos atómicos de la fórmula molecular usando una tabla periódica.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Por qué el resultado varía mucho si cambio la pureza de 100% a 98%?</h3>
+          <p>
+            Aunque parezca una diferencia pequeña, en análisis químico esa diferencia es importante. Al dividir por 0.98 en lugar de 1.00, la masa necesaria aumenta un 2%. En soluciones de alta precisión (como patrones para calibración), usar el valor de pureza correcto evita errores sistemáticos en todos los análisis posteriores.
+          </p>
+        </div>
+
+      </section><!-- /seccion-educativa -->
+
+    </div><!-- /contenedor -->
+  </main>
+
+  <!-- ── FOOTER ──────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">
+          © 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.
+        </p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS de la calculadora. Va al final del body para que el HTML cargue primero. -->
+  <script src="./js/molaridad.js"></script>
+
+</body>
+</html>

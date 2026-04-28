@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Espectrofotometría UV-Vis y curva de calibración: guía práctica | QuimCalc</title>
+  <meta name="description" content="Cómo funciona la espectrofotometría UV-Vis, qué es la Ley de Beer-Lambert, cómo construir una curva de calibración correctamente y cómo interpretar el R² y la ecuación de la recta.">
+  <meta name="author" content="QuimCalc">
+  <meta name="article:published_time" content="2025-02-10">
+
+  <link rel="stylesheet" href="../../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Espectrofotometría UV-Vis y curva de calibración: guía práctica",
+    "description": "Guía práctica de espectrofotometría: ley de Beer-Lambert, cómo construir una curva de calibración, interpretar R² y calcular concentraciones de muestras desconocidas.",
+    "datePublished": "2025-02-10",
+    "dateModified": "2025-02-10",
+    "author": { "@type": "Organization", "name": "QuimCalc" },
+    "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.netlify.app" }
+  }
+  </script>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../../index.html#herramientas">Herramientas</a>
+          <a href="../index.html" class="activo">Blog</a>
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="contenedor">
+
+      <nav class="breadcrumb" style="padding-top: var(--espacio-xl);" aria-label="Ubicación en el sitio">
+        <a href="../../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="../index.html">Blog</a>
+        <span aria-hidden="true">›</span>
+        <span>Espectrofotometría y curva de calibración</span>
+      </nav>
+
+      <div class="post-layout">
+
+        <article>
+
+          <header class="post-header">
+            <p class="post-header__categoria">
+              <span style="color: #7C3AED;">Instrumentación</span>
+            </p>
+            <h1 class="post-header__titulo">
+              Espectrofotometría UV-Vis y curva de calibración: guía práctica
+            </h1>
+            <p class="post-header__resumen">
+              La espectrofotometría UV-Vis es una de las técnicas analíticas más usadas en laboratorio. Su fundamento es la ley de Beer-Lambert, y su aplicación práctica depende de construir bien la curva de calibración. En esta guía explicamos los principios, el procedimiento paso a paso y cómo interpretar los resultados.
+            </p>
+            <div class="post-header__meta">
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Febrero 2025
+              </span>
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                12 min lectura
+              </span>
+            </div>
+          </header>
+
+          <div class="post-contenido">
+
+            <h2 id="principio">¿Cómo funciona la espectrofotometría?</h2>
+
+            <p>
+              Un espectrofotómetro UV-Vis hace pasar un haz de luz monocromática (de longitud de onda específica) a través de la muestra y mide cuánta luz llega al detector. La diferencia entre la luz que entró y la que llegó al detector es la luz absorbida por el analito.
+            </p>
+
+            <p>
+              La <strong>absorbancia</strong> (A) es la medida de esa absorción, expresada en una escala logarítmica. El instrumento calcula:
+            </p>
+
+            <div class="post-formula">
+              A = log₁₀ (I₀ / I)
+              <br>
+              I₀ = intensidad de la luz incidente &nbsp;·&nbsp; I = intensidad de la luz transmitida
+            </div>
+
+            <p>
+              Cuando A = 0, toda la luz pasa (no hay absorción). Cuando A = 1, solo el 10% de la luz llega al detector. Cuando A = 2, solo el 1%. La escala es logarítmica porque así la absorbancia resulta proporcional a la concentración.
+            </p>
+
+            <h2 id="beer-lambert">La ley de Beer-Lambert</h2>
+
+            <p>
+              La ley de Beer-Lambert establece que la absorbancia es proporcional a la concentración del analito y al camino óptico (longitud de la celda):
+            </p>
+
+            <div class="post-formula">
+              A = ε × l × c
+              <br>
+              ε = absortividad molar (L·mol⁻¹·cm⁻¹) &nbsp;·&nbsp; l = camino óptico (cm) &nbsp;·&nbsp; c = concentración (mol/L)
+            </div>
+
+            <p>
+              Esta proporcionalidad lineal entre A y c es la base de toda cuantificación por espectrofotometría. Si graficamos A vs. c para soluciones de concentración conocida, obtenemos una recta que pasa por el origen. Esa recta es la curva de calibración.
+            </p>
+
+            <h3>Cuándo la ley de Beer-Lambert no se cumple</h3>
+
+            <p>
+              La linealidad tiene límites. A concentraciones muy altas, la absorbancia deja de crecer proporcionalmente porque:
+            </p>
+
+            <ul>
+              <li>Las moléculas del analito empiezan a interactuar entre sí, cambiando su comportamiento óptico</li>
+              <li>La luz dispersada por partículas en suspensión contribuye a la señal aparente</li>
+              <li>El instrumento pierde precisión a absorbancias muy altas (por encima de A ≈ 1.5–2.0)</li>
+            </ul>
+
+            <p>
+              Por eso el rango de trabajo de una curva de calibración debe establecerse experimentalmente. No basta con asumir que Beer-Lambert aplica a cualquier concentración.
+            </p>
+
+            <h2 id="construccion">Cómo construir una curva de calibración correctamente</h2>
+
+            <h3>1. Preparar los estándares de calibración</h3>
+
+            <p>
+              Los estándares son soluciones de concentración conocida del analito, preparadas en la misma matriz que las muestras (mismo solvente, mismo pH, mismos reactivos de color si aplica). Se preparan al menos 5 puntos distribuidos uniformemente en el rango de trabajo esperado, más el blanco (concentración = 0).
+            </p>
+
+            <div class="ejemplo-bloque">
+              <strong>Ejemplo: estándares de nitrato por método colorimétrico</strong>
+              <p>Rango de trabajo: 0 – 10 mg/L NO₃⁻-N</p>
+              <p>Estándares: 0 / 2 / 4 / 6 / 8 / 10 mg/L (6 puntos incluyendo el blanco)</p>
+              <p>Cada estándar se prepara por dilución de una solución madre de 1000 mg/L certificada</p>
+            </div>
+
+            <h3>2. Seleccionar la longitud de onda</h3>
+
+            <p>
+              La longitud de onda de trabajo (λ) es aquella a la que el analito absorbe máximamente. Se determina escaneando el espectro de absorción de una solución del analito y seleccionando el pico de máxima absorbancia (λ_max). Medir en λ_max maximiza la sensibilidad y minimiza las interferencias de otras especies que absorben a longitudes de onda distintas.
+            </p>
+
+            <h3>3. Medir la absorbancia de cada estándar</h3>
+
+            <p>
+              Se mide siempre partiendo del blanco (A = 0 de referencia) y avanzando de menor a mayor concentración. Entre mediciones de soluciones muy distintas conviene enjuagar la celda. Si el instrumento tiene celda de flujo, el enjuague es parte del protocolo automático.
+            </p>
+
+            <h3>4. Construir la recta de regresión lineal</h3>
+
+            <p>
+              Con los pares de datos (concentración, absorbancia) se calcula la regresión lineal por mínimos cuadrados:
+            </p>
+
+            <div class="post-formula">
+              A = m × c + b
+              <br>
+              m = pendiente &nbsp;·&nbsp; b = ordenada al origen (idealmente ≈ 0)
+            </div>
+
+            <p>
+              La pendiente m es el producto ε × l de Beer-Lambert: cuánto aumenta la absorbancia por cada unidad de concentración. La ordenada al origen b idealmente es cero (sin analito, sin absorción), pero en la práctica puede ser distinta de cero por el blanco de la matriz o ligeras derivas del instrumento.
+            </p>
+
+            <h2 id="r2">Interpretación del R²</h2>
+
+            <p>
+              El coeficiente de determinación R² indica qué fracción de la variabilidad de la absorbancia es explicada por los cambios de concentración. Un R² = 0.9998 significa que el 99.98% de la variación se debe a la concentración, y solo el 0.02% al ruido experimental.
+            </p>
+
+            <div class="ejemplo-bloque">
+              <strong>Criterios de aceptación habituales</strong>
+              <p>R² ≥ 0.9990 → Curva excelente. Aceptable para la mayoría de los métodos analíticos.</p>
+              <p>R² ≥ 0.9950 → Aceptable para métodos de rutina con menor exigencia.</p>
+              <p>R² &lt; 0.9950 → Revisar preparación de estándares, limpieza de celda, y estabilidad del instrumento.</p>
+            </div>
+
+            <p>
+              Un R² bajo no siempre indica un problema con el instrumento. Con frecuencia se debe a errores en la preparación de los estándares (diluciones mal hechas, material volumétrico sin calibrar) o a que el rango de trabajo incluye concentraciones donde la linealidad ya no se cumple.
+            </p>
+
+            <h2 id="calcular-concentracion">Cómo calcular la concentración de una muestra desconocida</h2>
+
+            <p>
+              Una vez obtenida la ecuación de la recta, la concentración de cualquier muestra se calcula despejando c:
+            </p>
+
+            <div class="post-formula">
+              c = (A_muestra − b) / m
+            </div>
+
+            <div class="ejemplo-bloque">
+              <strong>Ejemplo completo: determinación de fósforo total</strong>
+              <p>Curva de calibración: A = 0.0521 × c + 0.0012 &nbsp;(R² = 0.9997)</p>
+              <p>Absorbancia de la muestra: A = 0.312</p>
+              <p>Concentración = (0.312 − 0.0012) / 0.0521 = <strong>5.96 mg/L P</strong></p>
+              <p>Como la muestra fue diluida 1:5 antes de medir: concentración real = 5.96 × 5 = <strong>29.8 mg/L P</strong></p>
+            </div>
+
+            <h2 id="errores">Errores comunes en espectrofotometría</h2>
+
+            <ul>
+              <li><strong>Celda sucia o con burbujas:</strong> genera absorbancias erráticas y no reproducibles. La celda debe limpiarse entre muestras y secarse por fuera con papel óptico, no con papel común.</li>
+              <li><strong>Estándares preparados con agua de red:</strong> los minerales disueltos pueden interferir o reaccionar con el reactivo de color. Siempre usá agua destilada o desionizada.</li>
+              <li><strong>No esperar el tiempo de desarrollo del color:</strong> muchos métodos colorimétricos requieren un tiempo de reacción antes de leer. Medir antes de ese tiempo da absorbancias bajas y no reproducibles.</li>
+              <li><strong>Medir fuera del rango lineal:</strong> si la absorbancia supera 1.5, la muestra debe diluirse y volver a medir.</li>
+              <li><strong>No usar el blanco de la matriz:</strong> el blanco debe prepararse con los mismos reactivos que los estándares, excepto el analito. Usar agua pura como blanco cuando la matriz tiene color propio introduce error sistemático.</li>
+            </ul>
+
+            <h2 id="faq">Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+              <h3>¿Cuántos estándares necesito para una curva de calibración?</h3>
+              <p>
+                El mínimo estadístico es 3 puntos para calcular una recta. En la práctica, los métodos normalizados (APHA, EPA, ISO) requieren entre 5 y 7 puntos incluyendo el blanco. Más puntos permiten detectar desviaciones de la linealidad y dan una estimación más confiable del error. Para métodos bajo ISO 17025, es habitual documentar el rango de trabajo con al menos 6 puntos.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Con qué frecuencia hay que recalibrar el instrumento?</h3>
+              <p>
+                Depende del método y del uso. Para análisis de rutina, muchos laboratorios recalibran al inicio de cada jornada o cada vez que se cambia de lote de reactivos. Algunos métodos requieren verificar la curva con un estándar de control cada 10 o 20 muestras. El procedimiento de control de calidad del laboratorio debe definir la frecuencia de calibración y los criterios de aceptación del estándar de control.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿La curva de calibración debe pasar por el origen?</h3>
+              <p>
+                No necesariamente. Si el blanco de la matriz tiene absorbancia distinta de cero (por color propio, reactivos, etc.), la ordenada al origen b será distinta de cero y eso es correcto. Lo importante es que la recta esté bien ajustada (R² alto) y que el blanco sea representativo de la matriz de las muestras. Forzar la recta a pasar por el origen cuando el blanco real no es cero introduce error sistemático.
+              </p>
+            </div>
+
+          </div>
+
+        </article>
+
+        <aside class="post-sidebar" aria-label="Contenido relacionado">
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">En este artículo</p>
+            <ul class="toc-lista" role="list">
+              <li><a href="#principio">¿Cómo funciona?</a></li>
+              <li><a href="#beer-lambert">Ley de Beer-Lambert</a></li>
+              <li><a href="#construccion">Construcción de la curva</a></li>
+              <li><a href="#r2">Interpretación del R²</a></li>
+              <li><a href="#calcular-concentracion">Calcular concentración</a></li>
+              <li><a href="#errores">Errores comunes</a></li>
+              <li><a href="#faq">Preguntas frecuentes</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">Herramientas relacionadas</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="../../herramientas/curva-calibracion.html">→ Generador de curva de calibración</a></li>
+              <li><a href="../../herramientas/lod-loq.html">→ Calculadora de LOD y LOQ</a></li>
+              <li><a href="../../herramientas/calculadora-diluciones.html">→ Diluciones C₁V₁ = C₂V₂</a></li>
+              <li><a href="../../herramientas/incertidumbre.html">→ Incertidumbre de medición</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">También te puede interesar</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="incertidumbre-para-no-estadisticos.html">→ Incertidumbre para no estadísticos</a></li>
+              <li><a href="errores-comunes-titulacion.html">→ Errores comunes en titulaciones</a></li>
+            </ul>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

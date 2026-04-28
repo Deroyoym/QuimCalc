@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sobre el Proyecto | QuimCalc</title>
+  <meta name="description" content="QuimCalc es una suite de herramientas online gratuitas para analistas y técnicos de laboratorio químico del Gran Rosario y toda Argentina.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Estilos extra solo para esta página -->
+  <style>
+    /* Sección con fondo alternado */
+    .seccion-sobre {
+      padding: var(--espacio-xl) 0;
+    }
+
+    .seccion-sobre + .seccion-sobre {
+      border-top: 1px solid var(--color-borde);
+    }
+
+    .seccion-sobre h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: var(--espacio-md);
+    }
+
+    .seccion-sobre p {
+      color: var(--color-texto-suave);
+      line-height: 1.75;
+      margin-bottom: var(--espacio-md);
+      max-width: 680px;
+    }
+
+    .seccion-sobre p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Lista de principios */
+    .lista-principios {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--espacio-md);
+      max-width: 680px;
+    }
+
+    .lista-principios li {
+      display: flex;
+      gap: var(--espacio-md);
+      align-items: flex-start;
+    }
+
+    .lista-principios__icono {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .lista-principios__texto strong {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--color-texto);
+      margin-bottom: 4px;
+    }
+
+    .lista-principios__texto p {
+      margin-bottom: 0;
+      font-size: 0.9rem;
+    }
+
+    /* Franja del stack tecnológico */
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--espacio-sm);
+      margin-top: var(--espacio-md);
+    }
+
+    .stack__tag {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-sm);
+      padding: 6px var(--espacio-md);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--color-texto);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="index.html#herramientas">Herramientas</a>
+          <a href="blog/index.html">Blog</a>
+          <a href="sobre-el-proyecto.html" class="activo">Sobre el proyecto</a>
+          <a href="contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero de la página -->
+    <section class="hero" style="padding-bottom: var(--espacio-lg);">
+      <div class="contenedor">
+        <h1 class="hero__titulo">Sobre el proyecto</h1>
+        <p class="hero__subtitulo">
+          QuimCalc nació de una necesidad concreta: tener a mano, rápido y sin vueltas, las herramientas de cálculo que se usan todos los días en el laboratorio.
+        </p>
+      </div>
+    </section>
+
+    <!-- Secciones de contenido -->
+    <div class="contenedor">
+
+      <!-- ¿Para quién? -->
+      <section class="seccion-sobre" aria-labelledby="titulo-para-quien">
+        <h2 id="titulo-para-quien">¿Para quién está pensado?</h2>
+        <p>
+          Para <strong>analistas y técnicos de laboratorio</strong> que trabajan en plantas industriales, laboratorios de control de calidad, empresas de agua potable, tratamiento de efluentes y sectores afines de la zona del Gran Rosario y toda Argentina.
+        </p>
+        <p>
+          En el trabajo cotidiano, hay cálculos que se repiten: ¿cuánto peso de este reactivo necesito? ¿qué volumen tomo para la dilución? ¿cómo paso de ppm a mg/L? QuimCalc da respuesta a esas preguntas en segundos, sin abrir Excel ni buscar la fórmula en apuntes viejos.
+        </p>
+      </section>
+
+      <!-- Principios del proyecto -->
+      <section class="seccion-sobre" aria-labelledby="titulo-principios">
+        <h2 id="titulo-principios">Principios del proyecto</h2>
+        <ul class="lista-principios">
+
+          <li>
+            <span class="lista-principios__icono" aria-hidden="true">⚡</span>
+            <div class="lista-principios__texto">
+              <strong>Velocidad real</strong>
+              <p>El sitio carga rápido porque no usa frameworks ni librerías externas. HTML, CSS y JavaScript puro. Sin dependencias que ralenticen la experiencia.</p>
+            </div>
+          </li>
+
+          <li>
+            <span class="lista-principios__icono" aria-hidden="true">💸</span>
+            <div class="lista-principios__texto">
+              <strong>Gratis para usar</strong>
+              <p>Todas las herramientas de cálculo son de acceso libre y gratuito. Abrís el sitio, ingresás los datos y obtenés el resultado al instante.</p>
+            </div>
+          </li>
+
+          <li>
+            <span class="lista-principios__icono" aria-hidden="true">🎯</span>
+            <div class="lista-principios__texto">
+              <strong>La herramienta es el foco</strong>
+              <p>El diseño está pensado para que los cálculos sean lo primero. Sin formularios innecesarios ni pasos intermedios que interrumpan el flujo de trabajo.</p>
+            </div>
+          </li>
+
+          <li>
+            <span class="lista-principios__icono" aria-hidden="true">📱</span>
+            <div class="lista-principios__texto">
+              <strong>Funciona en cualquier dispositivo</strong>
+              <p>El diseño se adapta a pantallas de celular, tablet y escritorio. Útil tanto desde la computadora del laboratorio como desde el teléfono en planta.</p>
+            </div>
+          </li>
+
+          <li>
+            <span class="lista-principios__icono" aria-hidden="true">📖</span>
+            <div class="lista-principios__texto">
+              <strong>Con contexto educativo</strong>
+              <p>Cada herramienta incluye la fórmula que usa, un ejemplo práctico y una sección de preguntas frecuentes. No es solo una calculadora: también explica el por qué.</p>
+            </div>
+          </li>
+
+        </ul>
+      </section>
+
+      <!-- Stack tecnológico -->
+      <section class="seccion-sobre" aria-labelledby="titulo-stack">
+        <h2 id="titulo-stack">¿Con qué está hecho?</h2>
+        <p>
+          El sitio está construido con tecnologías web estándar, sin ninguna dependencia externa. Todo el código es legible y está comentado en español para facilitar el aprendizaje y el mantenimiento.
+        </p>
+        <div class="stack" role="list">
+          <span class="stack__tag" role="listitem">HTML5 semántico</span>
+          <span class="stack__tag" role="listitem">CSS3 con Variables</span>
+          <span class="stack__tag" role="listitem">JavaScript vanilla (ES6)</span>
+          <span class="stack__tag" role="listitem">BEM (nomenclatura de clases)</span>
+          <span class="stack__tag" role="listitem">JSON-LD (SEO estructurado)</span>
+          <span class="stack__tag" role="listitem">Sin frameworks</span>
+          <span class="stack__tag" role="listitem">Sin dependencias externas</span>
+        </div>
+      </section>
+
+      <!-- Roadmap / próximas herramientas -->
+      <section class="seccion-sobre" aria-labelledby="titulo-roadmap">
+        <h2 id="titulo-roadmap">Herramientas disponibles y roadmap</h2>
+        <p>
+          Las 15 herramientas actuales cubren los cálculos más frecuentes del laboratorio analítico e industrial. Estas son las próximas incorporaciones planificadas:
+        </p>
+
+        <div class="ejemplo-bloque">
+          <strong>Próximamente</strong>
+          <p>⚗️ <strong>Dilución desde reactivo comercial</strong> — calculá el volumen a tomar conociendo título, pureza y densidad del reactivo.</p>
+          <p>📈 <strong>Estadística básica para laboratorio</strong> — promedio, mediana, desvío estándar, coeficiente de variación (CV%) y detección de outliers.</p>
+          <p>🔁 <strong>Conversor de unidades de concentración ampliado</strong> — g/L, mol/m³, mg/dL, μg/mL, μg/L y más, en un único conversor.</p>
+          <p>✅ <strong>Porcentaje de recuperación y error sistemático</strong> — para validación de métodos según ISO 17025 y EURACHEM.</p>
+          <p>🧮 <strong>Calculadora de soluciones a partir de sólido</strong> — masa → concentración final considerando pureza y agua de cristalización.</p>
+        </div>
+
+        <p>
+          Si usás QuimCalc en tu trabajo y necesitás una herramienta que no está en la lista, podés sugerirla a través de la <a href="contacto.html">sección de contacto</a>.
+        </p>
+      </section>
+      
+    </div><!-- /contenedor -->
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="politicas-de-privacidad.html">Privacidad</a>
+          <a href="terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

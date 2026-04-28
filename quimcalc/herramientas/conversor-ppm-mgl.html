@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Conversor de Unidades de Concentración | QuimCalc</title>
+  <meta name="description" content="Convertí entre ppm y mg/L, porcentaje p/v y g/L, molaridad y normalidad. Conversor online gratuito para laboratorio químico.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Conversor de Unidades de Concentración",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Convertí entre ppm y mg/L, % p/v y g/L, molaridad y normalidad. Gratis para laboratorio químico.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+  }
+  </script>
+
+  <!-- Estilo extra solo para esta página: oculta paneles inactivos -->
+  <style>
+    /* Espacio entre el selector de tipo y el panel de inputs */
+    .panel-conversion {
+      margin-top: var(--espacio-md);
+      padding-top: var(--espacio-md);
+      border-top: 1px solid var(--color-borde);
+    }
+    /* Etiqueta de tipo de conversión activa */
+    .conversion-activa {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-acento);
+      margin-bottom: var(--espacio-md);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Conversor de Unidades</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Conversor de Unidades de Concentración</h1>
+        <p class="pagina-herramienta__descripcion">
+          Elegí el tipo de conversión, ingresá el valor y obtené el resultado al instante.
+        </p>
+      </div>
+
+      <!-- ── FORMULARIO ──────────────────────────────────── -->
+      <div class="calculadora" role="region" aria-label="Conversor de unidades">
+
+        <!-- Selector de tipo de conversión -->
+        <div class="campo-grupo">
+          <label for="tipo-conversion">Tipo de conversión</label>
+          <select id="tipo-conversion" name="tipo-conversion">
+            <option value="ppm">ppm ↔ mg/L</option>
+            <option value="porc">% p/v ↔ g/L</option>
+            <option value="norm">Molaridad ↔ Normalidad</option>
+          </select>
+        </div>
+
+        <!-- ────────────────────────────────────────────────
+             PANEL 1: ppm ↔ mg/L
+             El atributo "hidden" lo hace invisible por defecto.
+             El JS lo muestra/oculta según lo que elija el usuario.
+             ─────────────────────────────────────────────── -->
+        <div id="panel-ppm" class="panel-conversion">
+          <p class="conversion-activa">ppm ↔ mg/L</p>
+
+          <div class="campo-grupo">
+            <label for="dir-ppm">Dirección de la conversión</label>
+            <select id="dir-ppm" name="dir-ppm">
+              <option value="ppm-a-mgl">ppm → mg/L</option>
+              <option value="mgl-a-ppm">mg/L → ppm</option>
+            </select>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="valor-ppm">Valor a convertir</label>
+            <input
+              type="number"
+              id="valor-ppm"
+              name="valor-ppm"
+              placeholder="Ej: 50"
+              min="0"
+              step="any"
+              aria-describedby="ayuda-ppm"
+            >
+            <span class="ayuda" id="ayuda-ppm">En soluciones acuosas diluidas: 1 ppm = 1 mg/L (conversión directa)</span>
+          </div>
+        </div>
+
+        <!-- ────────────────────────────────────────────────
+             PANEL 2: % p/v ↔ g/L
+             ─────────────────────────────────────────────── -->
+        <div id="panel-porcentaje" class="panel-conversion" hidden>
+          <p class="conversion-activa">% p/v ↔ g/L</p>
+
+          <div class="campo-grupo">
+            <label for="dir-porc">Dirección de la conversión</label>
+            <select id="dir-porc" name="dir-porc">
+              <option value="porc-a-gl">% p/v → g/L</option>
+              <option value="gl-a-porc">g/L → % p/v</option>
+            </select>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="valor-porc">Valor a convertir</label>
+            <input
+              type="number"
+              id="valor-porc"
+              name="valor-porc"
+              placeholder="Ej: 5"
+              min="0"
+              step="any"
+              aria-describedby="ayuda-porc"
+            >
+            <span class="ayuda" id="ayuda-porc">1% p/v = 1 g/100 mL = 10 g/L</span>
+          </div>
+        </div>
+
+        <!-- ────────────────────────────────────────────────
+             PANEL 3: Molaridad ↔ Normalidad
+             ─────────────────────────────────────────────── -->
+        <div id="panel-normalidad" class="panel-conversion" hidden>
+          <p class="conversion-activa">Molaridad ↔ Normalidad</p>
+
+          <div class="campo-grupo">
+            <label for="dir-norm">Dirección de la conversión</label>
+            <select id="dir-norm" name="dir-norm">
+              <option value="mol-a-norm">Molaridad (M) → Normalidad (N)</option>
+              <option value="norm-a-mol">Normalidad (N) → Molaridad (M)</option>
+            </select>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="valor-mol">Valor a convertir</label>
+            <input
+              type="number"
+              id="valor-mol"
+              name="valor-mol"
+              placeholder="Ej: 1"
+              min="0"
+              step="any"
+            >
+          </div>
+
+          <div class="campo-grupo">
+            <label for="valencia">Valencia / número de equivalentes</label>
+            <input
+              type="number"
+              id="valencia"
+              name="valencia"
+              placeholder="Ej: 2 (para H₂SO₄)"
+              min="1"
+              step="1"
+              aria-describedby="ayuda-valencia"
+            >
+            <span class="ayuda" id="ayuda-valencia">
+              Ejemplos: HCl = 1, H₂SO₄ = 2, H₃PO₄ = 3, NaOH = 1, Ca(OH)₂ = 2
+            </span>
+          </div>
+        </div>
+
+        <!-- Botón de cálculo -->
+        <button id="btn-calcular" class="btn btn--primario" type="button">
+          Convertir →
+        </button>
+
+        <!-- Bloque de resultado -->
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta" id="resultado-etiqueta">Resultado</p>
+          <p class="resultado__valor"    id="resultado-valor">—</p>
+          <p class="resultado__formula"  id="resultado-formula"></p>
+        </div>
+
+      </div><!-- /calculadora -->
+
+
+      <!-- ── SECCIÓN EDUCATIVA ──────────────────────────── -->
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">Guía de conversiones</h2>
+
+        <!-- ppm y mg/L -->
+        <h2>ppm y mg/L: ¿son lo mismo?</h2>
+        <p>
+          En soluciones acuosas diluidas (la mayoría de las muestras ambientales e industriales), sí: <strong>1 ppm equivale exactamente a 1 mg/L</strong>. Esto se debe a que la densidad del agua es ≈ 1 g/mL, por lo que 1 mg de soluto en 1 litro (= 1.000 g) es 1 mg/1.000.000 mg, o sea 1 parte por millón.
+        </p>
+        <p>
+          Esta equivalencia deja de ser exacta en soluciones muy concentradas o en matrices no acuosas (aceites, suelos), donde la densidad difiere significativamente de 1 g/mL.
+        </p>
+
+        <div class="ejemplo-bloque">
+          <strong>Ejemplo ppm ↔ mg/L</strong>
+          <p>Un informe de calidad de agua indica 35 ppm de sólidos disueltos. ¿Cuánto es en mg/L?</p>
+          <p><strong>Resultado:</strong> 35 ppm = 35 mg/L (conversión directa en agua)</p>
+        </div>
+
+        <!-- % p/v y g/L -->
+        <h2>Porcentaje p/v y g/L</h2>
+        <p>
+          El porcentaje peso/volumen (% p/v) expresa cuántos gramos de soluto hay en 100 mL de solución. Al pasar a g/L (gramos por litro), multiplicamos por 10 porque hay 10 veces 100 mL en un litro.
+        </p>
+
+        <div class="ejemplo-bloque">
+          <strong>Ejemplo % p/v ↔ g/L</strong>
+          <p>Un buffer de fosfato está preparado al 0.5% p/v. ¿Cuánto es en g/L?</p>
+          <p><strong>Resultado:</strong> 0.5% p/v × 10 = <strong>5 g/L</strong></p>
+        </div>
+
+        <!-- Molaridad y Normalidad -->
+        <h2>Molaridad y Normalidad</h2>
+        <p>
+          La normalidad (N) es una unidad de concentración que considera la <strong>capacidad reactiva</strong> de la sustancia, no solo la cantidad de moles. Se calcula multiplicando la molaridad por la valencia (número de equivalentes por mol).
+        </p>
+
+        <div class="ejemplo-bloque">
+          <strong>Ejemplo: H₂SO₄ 1 M → Normalidad</strong>
+          <p>El ácido sulfúrico (H₂SO₄) tiene valencia = 2 porque puede ceder 2 protones (H⁺).</p>
+          <p><strong>Resultado:</strong> N = 1 M × 2 = <strong>2 N</strong></p>
+        </div>
+
+        <h2>Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿Cuándo uso ppm y cuándo mg/L?</h3>
+          <p>
+            Ambas unidades se usan indistintamente para concentraciones muy bajas en muestras acuosas. Los análisis ambientales (efluentes, agua potable) suelen expresar resultados en mg/L. Los métodos analíticos más antiguos y algunos equipos de campo usan ppm. En agua, son intercambiables.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Para qué sirve la normalidad en la práctica?</h3>
+          <p>
+            La normalidad es especialmente útil en volumetrías ácido-base y redox. En una titulación, el punto de equivalencia se alcanza cuando los equivalentes de titulante igualan a los del analito. Usar normalidad simplifica esos cálculos: en el punto de equivalencia, N₁ × V₁ = N₂ × V₂.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/conversor.js"></script>
+
+</body>
+</html>

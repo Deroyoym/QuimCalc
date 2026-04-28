@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Generador de Curva de Calibración | QuimCalc</title>
+  <meta name="description" content="Generá la curva de calibración de tu espectrofotómetro o cualquier equipo analítico. Regresión lineal, R², ecuación y gráfico. Exportable para informes. Gratis.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Generador de Curva de Calibración",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Generá curvas de calibración con regresión lineal, R² y gráfico. Ideal para espectrofotometría y análisis instrumental.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+  }
+  </script>
+
+  <style>
+    /* Layout de dos columnas: entrada de datos + gráfico */
+    .calibracion-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: var(--espacio-xl);
+      align-items: start;
+    }
+
+    /* Panel izquierdo: formulario */
+    .panel-entrada {
+      display: flex;
+      flex-direction: column;
+      gap: var(--espacio-lg);
+    }
+
+    /* Tabla de puntos ingresados */
+    .tabla-puntos-wrapper {
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      overflow: hidden;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .tabla-puntos {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .tabla-puntos th {
+      background-color: var(--color-fondo-card);
+      border-bottom: 1px solid var(--color-borde);
+      padding: 8px 10px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--color-texto-suave);
+      font-size: 0.8rem;
+      position: sticky;
+      top: 0;
+    }
+
+    .tabla-puntos td {
+      border-bottom: 1px solid var(--color-borde);
+      padding: 7px 10px;
+      color: var(--color-texto);
+      font-family: 'Courier New', monospace;
+    }
+
+    .tabla-puntos tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Panel derecho: gráfico + resultados */
+    .panel-grafico {
+      display: flex;
+      flex-direction: column;
+      gap: var(--espacio-lg);
+    }
+
+    /* Canvas del gráfico */
+    #grafico {
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      background-color: #FAFAFA;
+      display: block;
+    }
+
+    /* Bloque de resultados de la regresión */
+    .resultado-regresion {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--espacio-sm);
+    }
+
+    .resultado-item {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-md);
+    }
+
+    .resultado-item--full {
+      grid-column: 1 / -1;
+    }
+
+    .resultado-item__label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-texto-suave);
+      margin-bottom: 4px;
+    }
+
+    .resultado-item__valor {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-texto);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Bloque de R² con color dinámico */
+    #bloque-r2 {
+      border-left: 4px solid var(--color-acento);
+    }
+
+    /* Fila de input con dos campos */
+    .fila-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--espacio-sm);
+    }
+
+    /* Botones de acción secundarios */
+    .btn--secundario {
+      background-color: var(--color-fondo-card);
+      color: var(--color-texto);
+      border: 1.5px solid var(--color-borde);
+    }
+
+    .btn--secundario:hover {
+      background-color: var(--color-borde);
+    }
+
+    .btn--peligro {
+      background-color: #FEF2F2;
+      color: var(--color-error);
+      border: 1.5px solid #FECACA;
+    }
+
+    .btn--peligro:hover {
+      background-color: #FEE2E2;
+    }
+
+    .botones-accion {
+      display: flex;
+      gap: var(--espacio-sm);
+      flex-wrap: wrap;
+    }
+
+    .botones-accion .btn {
+      flex: 1;
+    }
+
+    /* Bloque de interpolación */
+    .interpolacion-resultado {
+      background-color: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      border-left: 4px solid var(--color-acento);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-lg);
+    }
+
+    @media (max-width: 900px) {
+      .calibracion-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .resultado-regresion {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Curva de Calibración</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Generador de Curva de Calibración</h1>
+        <p class="pagina-herramienta__descripcion">
+          Ingresá los pares de datos concentración / señal, obtené la ecuación de la recta, el coeficiente R² y el gráfico. Interpolá muestras desconocidas directamente desde la curva.
+        </p>
+      </div>
+
+      <!-- ── ETIQUETAS DE EJES (personalizables) ─────────── -->
+      <div class="calculadora" style="margin-bottom: var(--espacio-lg);">
+        <p style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-texto-suave);margin-bottom:var(--espacio-md);">
+          PERSONALIZAR EJES DEL GRÁFICO
+        </p>
+        <div class="fila-inputs" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--espacio-sm);">
+          <div class="campo-grupo" style="margin-bottom:0;">
+            <label for="label-eje-x">Nombre del eje X</label>
+            <input type="text" id="label-eje-x" placeholder="Ej: Concentración (mg/L)" value="Concentración (mg/L)">
+          </div>
+          <div class="campo-grupo" style="margin-bottom:0;">
+            <label for="label-eje-y">Nombre del eje Y</label>
+            <input type="text" id="label-eje-y" placeholder="Ej: Absorbancia" value="Absorbancia">
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LAYOUT PRINCIPAL ────────────────────────────── -->
+      <div class="calibracion-layout">
+
+        <!-- Panel izquierdo: ingreso de datos -->
+        <div class="panel-entrada">
+
+          <div class="calculadora">
+            <p style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-texto-suave);margin-bottom:var(--espacio-md);">
+              INGRESAR PUNTOS
+            </p>
+
+            <div class="fila-inputs" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--espacio-sm);">
+              <div class="campo-grupo" style="margin-bottom:0;">
+                <label for="input-x">Concentración (X)</label>
+                <input type="number" id="input-x" placeholder="Ej: 0.5" step="any">
+              </div>
+              <div class="campo-grupo" style="margin-bottom:0;">
+                <label for="input-y">Señal (Y)</label>
+                <input type="number" id="input-y" placeholder="Ej: 0.123" step="any">
+              </div>
+            </div>
+
+            <p style="font-size:0.8rem;color:var(--color-texto-suave);margin:var(--espacio-sm) 0;">
+              Presioná <strong>Enter</strong> en cualquier campo o el botón para agregar el punto.
+            </p>
+
+            <div class="botones-accion">
+              <button id="btn-agregar" class="btn btn--primario" type="button">+ Agregar punto</button>
+              <button id="btn-limpiar" class="btn btn--peligro" type="button">Limpiar todo</button>
+            </div>
+          </div>
+
+          <!-- Tabla de puntos -->
+          <div>
+            <p style="font-size:0.875rem;font-weight:500;margin-bottom:var(--espacio-sm);">
+              Puntos ingresados
+            </p>
+            <div class="tabla-puntos-wrapper">
+              <table class="tabla-puntos" role="table" aria-label="Puntos de la curva de calibración">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">X</th>
+                    <th scope="col">Y</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-puntos"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Botón calcular -->
+          <button id="btn-calcular" class="btn btn--primario" type="button">
+            Calcular curva →
+          </button>
+
+          <!-- Interpolación -->
+          <div class="calculadora" id="seccion-interpolacion">
+            <p style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-texto-suave);margin-bottom:var(--espacio-md);">
+              INTERPOLAR MUESTRA DESCONOCIDA
+            </p>
+            <div class="campo-grupo">
+              <label for="senal-desconocida">Señal de la muestra (Y conocido)</label>
+              <input type="number" id="senal-desconocida" placeholder="Ej: 0.245" step="any">
+              <span class="ayuda">La herramienta calcula la concentración correspondiente</span>
+            </div>
+            <button id="btn-interpolar" class="btn btn--primario" type="button">
+              Calcular concentración →
+            </button>
+
+            <!-- Resultado de interpolación -->
+            <div id="resultado-interpolacion" class="interpolacion-resultado" style="display:none; margin-top:var(--espacio-md);">
+              <p style="font-size:0.8rem;font-weight:600;text-transform:uppercase;color:var(--color-acento);margin-bottom:4px;">
+                Concentración calculada
+              </p>
+              <p style="font-size:1.4rem;font-weight:700;color:var(--color-texto);margin-bottom:4px;">
+                <span id="interp-concentracion">—</span>
+              </p>
+              <p style="font-size:0.85rem;color:var(--color-texto-suave);font-family:monospace;">
+                Para señal = <span id="interp-senal">—</span> → <span id="interp-formula">—</span>
+              </p>
+            </div>
+
+            <!-- Workaround: add display toggle via inline style -->
+            <style>
+              #resultado-interpolacion.visible { display: block !important; }
+            </style>
+          </div>
+
+        </div><!-- /panel-entrada -->
+
+        <!-- Panel derecho: gráfico + resultados -->
+        <div class="panel-grafico">
+
+          <!-- Canvas del gráfico -->
+          <canvas
+            id="grafico"
+            width="600"
+            height="400"
+            role="img"
+            aria-label="Gráfico de la curva de calibración"
+          ></canvas>
+
+          <!-- Resultados de la regresión -->
+          <div id="resultado" class="resultado" style="display:none;">
+            <style>#resultado.visible { display: block !important; }</style>
+
+            <div class="resultado-regresion">
+
+              <div class="resultado-item resultado-item--full">
+                <p class="resultado-item__label">Ecuación de la recta</p>
+                <p class="resultado-item__valor" id="res-ecuacion">—</p>
+              </div>
+
+              <div class="resultado-item" id="bloque-r2">
+                <p class="resultado-item__label">R² (coef. de determinación)</p>
+                <p class="resultado-item__valor" id="res-r2">—</p>
+              </div>
+
+              <div class="resultado-item">
+                <p class="resultado-item__label">R (coef. de correlación)</p>
+                <p class="resultado-item__valor" id="res-r">—</p>
+              </div>
+
+              <div class="resultado-item resultado-item--full">
+                <p class="resultado-item__label">Se (error estándar de la regresión)</p>
+                <p class="resultado-item__valor" id="res-se">—</p>
+              </div>
+
+            </div>
+
+            <!-- Botón exportar -->
+            <button id="btn-exportar" class="btn btn--secundario" type="button" style="margin-top:var(--espacio-md);">
+              Exportar para informe
+            </button>
+          </div>
+
+        </div><!-- /panel-grafico -->
+      </div><!-- /calibracion-layout -->
+
+
+      <!-- ── SECCIÓN EDUCATIVA ──────────────────────────── -->
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">¿Cómo usar esta herramienta?</h2>
+        <p>
+          Ingresá los datos de tus estándares de calibración: en X la concentración conocida, en Y la señal medida (absorbancia, área de pico, mV, etc.). Podés agregar los puntos uno a uno. Con al menos 3 puntos la curva se calcula automáticamente.
+        </p>
+        <p>
+          Una vez calculada la curva, podés ingresar la señal de una muestra desconocida en la sección de interpolación para obtener su concentración directamente desde la ecuación de la recta.
+        </p>
+
+        <h2>¿Qué indica el R²?</h2>
+
+        <div class="ejemplo-bloque">
+          <strong>Criterios de aceptación habituales en ISO 17025</strong>
+          <p>R² ≥ 0.9990 → Ajuste excelente (indicador verde)</p>
+          <p>R² ≥ 0.9950 → Ajuste aceptable para muchos métodos (indicador naranja)</p>
+          <p>R² &lt; 0.9950 → Revisar datos, posible error experimental (indicador rojo)</p>
+        </div>
+
+        <p>
+          El <strong>R²</strong> (coeficiente de determinación) indica qué fracción de la variabilidad de la señal es explicada por la concentración. Un R² de 0.9995 significa que el 99.95% de la variación en la señal se debe a cambios en la concentración, y el 0.05% restante es ruido o error experimental.
+        </p>
+
+        <h2>Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿Cuántos puntos necesito para una curva de calibración válida?</h3>
+          <p>
+            El mínimo absoluto es 3 puntos para poder calcular una recta y estimar el error. En la práctica, los métodos normalizados (AOAC, EPA, ISO) generalmente requieren entre 5 y 7 puntos incluyendo el blanco, distribuidos de forma uniforme en el rango de trabajo. Más puntos dan una estimación más confiable del error estándar.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Debo incluir el blanco (0, 0) en la curva?</h3>
+          <p>
+            Depende del método. Si el instrumento ya corrige por el blanco antes de leer las muestras, no se incluye. Si la lectura del blanco no es cero (hay señal de fondo), sí se incluye como el primer punto. Incluirlo o no afecta la ordenada al origen (b) de la ecuación.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Qué hago si el R² es bajo?</h3>
+          <p>
+            Primero verificá si hay algún punto "aberrante" (outlier) visualmente alejado de la recta. Luego revisá si todos los estándares fueron preparados correctamente y si el instrumento fue estabilizado antes de la lectura. Un R² bajo también puede indicar que la relación no es lineal en ese rango, y habría que reducir el rango de la curva o aplicar otro modelo.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/curva-calibracion.js"></script>
+
+</body>
+</html>

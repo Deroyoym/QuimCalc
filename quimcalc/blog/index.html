@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Blog de Química | QuimCalc</title>
+  <meta name="description" content="Artículos sobre química analítica, laboratorio industrial, conceptos fundamentales y aplicaciones prácticas. Para técnicos, estudiantes y profesionales.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* Layout del índice del blog: lista principal + sidebar */
+    .blog-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: var(--espacio-2xl);
+      padding: var(--espacio-xl) 0 var(--espacio-2xl);
+      align-items: start;
+    }
+
+    /* Lista de posts: columna principal */
+    .lista-posts {
+      display: flex;
+      flex-direction: column;
+      gap: var(--espacio-xl);
+    }
+
+    /* Card horizontal de post (para la lista) */
+    .post-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--espacio-sm);
+      padding-bottom: var(--espacio-xl);
+      border-bottom: 1px solid var(--color-borde);
+      text-decoration: none;
+      color: var(--color-texto);
+    }
+
+    .post-card:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .post-card:hover {
+      text-decoration: none;
+    }
+
+    .post-card__categoria {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-acento);
+      display: flex;
+      align-items: center;
+      gap: var(--espacio-xs);
+    }
+
+    .post-card__titulo {
+      font-family: var(--fuente-titulo);
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--color-texto);
+      transition: color 0.15s;
+    }
+
+    .post-card:hover .post-card__titulo {
+      color: var(--color-acento);
+    }
+
+    .post-card__resumen {
+      font-size: 0.95rem;
+      color: var(--color-texto-suave);
+      line-height: 1.7;
+    }
+
+    .post-card__meta {
+      display: flex;
+      align-items: center;
+      gap: var(--espacio-md);
+      font-size: 0.8rem;
+      color: var(--color-texto-suave);
+      margin-top: var(--espacio-xs);
+    }
+
+    .post-card__meta svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .post-card__leer-mas {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-acento);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: var(--espacio-xs);
+    }
+
+    /* Sidebar */
+    .blog-sidebar {
+      position: sticky;
+      top: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--espacio-lg);
+    }
+
+    /* Filtro por categoría */
+    .categorias-lista {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .categorias-lista a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      color: var(--color-texto-suave);
+      padding: 6px var(--espacio-sm);
+      border-radius: var(--radio-sm);
+      transition: color 0.15s, background-color 0.15s;
+      text-decoration: none;
+    }
+
+    .categorias-lista a:hover {
+      color: var(--color-acento);
+      background-color: #EFF6FF;
+    }
+
+    .categorias-lista .count {
+      font-size: 0.75rem;
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: 999px;
+      padding: 1px 8px;
+      color: var(--color-texto-suave);
+    }
+
+    @media (max-width: 768px) {
+      .blog-layout {
+        grid-template-columns: 1fr;
+      }
+      .blog-sidebar {
+        position: static;
+      }
+      .post-card__titulo {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="index.html" class="activo">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero del blog -->
+    <section class="hero hero--index" style="padding-bottom: var(--espacio-lg);">
+      <div class="contenedor">
+        <h1 class="hero__titulo">Blog</h1>
+        <p class="hero__subtitulo">
+          Artículos sobre química analítica, laboratorio industrial y conceptos fundamentales. Para técnicos, estudiantes y profesionales.
+        </p>
+      </div>
+    </section>
+
+    <div class="contenedor">
+      <div class="blog-layout">
+
+        <!-- ── LISTA DE POSTS ──────────────────────────── -->
+        <section aria-label="Artículos del blog">
+          <div class="lista-posts">
+
+            <!-- Post 1 -->
+            <article>
+              <a href="posts/que-es-la-molaridad.html" class="post-card">
+                <span class="post-card__categoria">Química básica</span>
+                <h2 class="post-card__titulo">¿Qué es la molaridad y cómo se calcula?</h2>
+                <p class="post-card__resumen">
+                  Guía completa sobre la concentración molar: definición, fórmula, ejemplos resueltos y los errores más comunes en la preparación de soluciones en el laboratorio.
+                </p>
+                <div class="post-card__meta">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span>Enero 2025</span>
+                  <span>·</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>8 min lectura</span>
+                </div>
+                <span class="post-card__leer-mas">Leer artículo →</span>
+              </a>
+            </article>
+
+            <!-- Post 2 -->
+            <article>
+              <a href="posts/dureza-agua-gran-rosario.html" class="post-card">
+                <span class="post-card__categoria" style="color:#059669;">Agua y medio ambiente</span>
+                <h2 class="post-card__titulo">Dureza del agua en el Gran Rosario: ¿qué dicen los datos?</h2>
+                <p class="post-card__resumen">
+                  Análisis de los niveles de dureza típicos en la región, su impacto en calderas, intercambiadores y redes industriales, y qué establece el Código Alimentario Argentino.
+                </p>
+                <div class="post-card__meta">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span>Enero 2025</span>
+                  <span>·</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>6 min lectura</span>
+                </div>
+                <span class="post-card__leer-mas">Leer artículo →</span>
+              </a>
+            </article>
+
+            <!-- Post 3 -->
+            <article>
+              <a href="posts/errores-comunes-titulacion.html" class="post-card">
+                <span class="post-card__categoria" style="color:#D97706;">Análisis volumétrico</span>
+                <h2 class="post-card__titulo">Los 5 errores más comunes en titulaciones y cómo evitarlos</h2>
+                <p class="post-card__resumen">
+                  Desde la preparación del titulante hasta la detección del punto de equivalencia: los errores sistemáticos que más afectan la exactitud en volumetrías ácido-base y redox.
+                </p>
+                <div class="post-card__meta">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span>Febrero 2025</span>
+                  <span>·</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>10 min lectura</span>
+                </div>
+                <span class="post-card__leer-mas">Leer artículo →</span>
+              </a>
+            </article>
+
+            <!-- Post 4 -->
+            <article>
+              <a href="posts/normalidad-vs-molaridad.html" class="post-card">
+                <span class="post-card__categoria">Química básica</span>
+                <h2 class="post-card__titulo">Normalidad vs. Molaridad: diferencias, fórmulas y cuándo usar cada una</h2>
+                <p class="post-card__resumen">
+                  Molaridad y normalidad son las dos unidades de concentración más usadas. Muchos técnicos las confunden. Explicamos las diferencias, los factores de equivalencia y cuándo corresponde cada una.
+                </p>
+                <div class="post-card__meta">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span>Enero 2025</span>
+                  <span>·</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>10 min lectura</span>
+                </div>
+                <span class="post-card__leer-mas">Leer artículo →</span>
+              </a>
+            </article>
+
+            <!-- Post 5 -->
+            <article>
+              <a href="posts/que-es-el-pka-y-como-usar-buffers.html" class="post-card">
+                <span class="post-card__categoria">Química básica</span>
+                <h2 class="post-card__titulo">¿Qué es el pKa y cómo se usa para preparar buffers?</h2>
+                <p class="post-card__resumen">
+                  El pKa determina a qué pH un ácido está a la mitad de su disociación y cuándo es efectivo como buffer. Todo sobre Henderson-Hasselbalch con ejemplos resueltos paso a paso.
+                </p>
+                <div class="post-card__meta">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span>Enero 2025</span>
+                  <span>·</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>11 min lectura</span>
+                </div>
+                <span class="post-card__leer-mas">Leer artículo →</span>
+              </a>
+            </article>
+
+            <!-- Post 6 -->
+            <article>
+              <a href="posts/espectrofotometria-curva-calibracion.html" class="post-card">
+                <span class="post-card__categoria" style="color:#7C3AED;">Instrumentación</span>
+                <h2 class="post-card__titulo">Espectrofotometría UV-Vis y curva de calibración: guía práctica</h2>
+                <p class="post-card__resumen">
+                  Ley de Beer-Lambert, cómo construir una curva de calibración correctamente, cómo interpretar el R² y calcular concentraciones de muestras desconocidas.
+                </p>
+                <div class="post-card__meta">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span>Febrero 2025</span>
+                  <span>·</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>12 min lectura</span>
+                </div>
+                <span class="post-card__leer-mas">Leer artículo →</span>
+              </a>
+            </article>
+
+            <!-- Post 7 -->
+            <article>
+              <a href="posts/incertidumbre-para-no-estadisticos.html" class="post-card">
+                <span class="post-card__categoria" style="color:#DC2626;">Normativa y calidad</span>
+                <h2 class="post-card__titulo">Incertidumbre de medición para no estadísticos: guía práctica</h2>
+                <p class="post-card__resumen">
+                  Qué es la incertidumbre, por qué la exige ISO 17025, componentes Tipo A y Tipo B, incertidumbre combinada y expandida. Con un ejemplo completo resuelto paso a paso.
+                </p>
+                <div class="post-card__meta">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span>Febrero 2025</span>
+                  <span>·</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>14 min lectura</span>
+                </div>
+                <span class="post-card__leer-mas">Leer artículo →</span>
+              </a>
+            </article>
+
+            <!-- Post 8 -->
+            <article>
+              <a href="posts/errores-comunes-titulacion.html" class="post-card">
+                <span class="post-card__categoria" style="color:#D97706;">Análisis volumétrico</span>
+                <h2 class="post-card__titulo">Los 5 errores más comunes en titulaciones y cómo evitarlos</h2>
+                <p class="post-card__resumen">
+                  Desde la preparación del titulante hasta la detección del punto de equivalencia: los errores sistemáticos que más afectan la exactitud en volumetrías ácido-base y redox.
+                </p>
+                <div class="post-card__meta">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span>Febrero 2025</span>
+                  <span>·</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>10 min lectura</span>
+                </div>
+                <span class="post-card__leer-mas">Leer artículo →</span>
+              </a>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- ── SIDEBAR ──────────────────────────────────── -->
+        <aside class="blog-sidebar" aria-label="Sidebar del blog">
+
+          <!-- Categorías -->
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">Categorías</p>
+            <ul class="categorias-lista" role="list">
+              <li>
+                <a href="#">Química básica <span class="count">3</span></a>
+              </li>
+              <li>
+                <a href="#">Agua y medio ambiente <span class="count">2</span></a>
+              </li>
+              <li>
+                <a href="#">Análisis volumétrico <span class="count">1</span></a>
+              </li>
+              <li>
+                <a href="#">Instrumentación <span class="count">1</span></a>
+              </li>
+              <li>
+                <a href="#">Normativa y calidad <span class="count">1</span></a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Herramientas relacionadas -->
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">Herramientas disponibles</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="../herramientas/calculadora-molaridad.html">→ Molaridad y masa</a></li>
+              <li><a href="../herramientas/calculadora-ph.html">→ Calculadora de pH</a></li>
+              <li><a href="../herramientas/dureza-agua.html">→ Dureza del agua</a></li>
+              <li><a href="../herramientas/calculadora-titulacion.html">→ Titulación volumétrica</a></li>
+              <li><a href="../herramientas/masa-molar.html">→ Masa Molar</a></li>
+            </ul>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--
+  ================================================================
+  PLANTILLA DE POST — QuimCalc
+  ================================================================
+  INSTRUCCIONES PARA USAR ESTA PLANTILLA:
+  
+  1. Copiá este archivo a /blog/posts/nombre-del-articulo.html
+     (usá guiones en vez de espacios, todo en minúsculas)
+  
+  2. Reemplazá TODO lo que está entre corchetes [ASÍ]
+  
+  3. Agregá el post al índice del blog (blog/index.html)
+     copiando una de las cards existentes y actualizando
+     título, resumen, fecha y enlace.
+  
+  4. Si el post tiene herramientas relacionadas, actualizá
+     la sección del sidebar.
+  ================================================================
+  -->
+
+  <!-- SEO: cambiá estos tres para cada post -->
+  <title>[TÍTULO DEL POST] | QuimCalc</title>
+  <meta name="description" content="[RESUMEN DEL POST EN 1-2 ORACIONES — máximo 160 caracteres. Este texto aparece en Google.]">
+  <meta name="author" content="QuimCalc">
+
+  <!-- Fecha de publicación para Google (formato ISO 8601) -->
+  <meta name="article:published_time" content="2025-01-01">
+
+  <link rel="stylesheet" href="../../styles.css">
+
+  <!-- JSON-LD: datos estructurados del artículo para Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "[TÍTULO DEL POST]",
+    "description": "[RESUMEN BREVE DEL POST]",
+    "datePublished": "2025-01-01",
+    "dateModified": "2025-01-01",
+    "author": {
+      "@type": "Organization",
+      "name": "QuimCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "QuimCalc",
+      "url": "https://quimcalc.netlify.app"
+    }
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────── -->
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../../index.html#herramientas">Herramientas</a>
+          <a href="../index.html" class="activo">Blog</a>
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="contenedor">
+
+      <!-- Miga de pan -->
+      <nav class="breadcrumb" style="padding-top: var(--espacio-xl);" aria-label="Ubicación en el sitio">
+        <a href="../../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="../index.html">Blog</a>
+        <span aria-hidden="true">›</span>
+        <span>[TÍTULO CORTO DEL POST]</span>
+      </nav>
+
+      <div class="post-layout">
+
+        <!-- ── ARTÍCULO PRINCIPAL ──────────────────────── -->
+        <article>
+
+          <!-- Encabezado del post -->
+          <header class="post-header">
+
+            <!-- Categoría — elegí una y cambiá el color si querés -->
+            <p class="post-header__categoria">
+              <!--
+                CATEGORÍAS DISPONIBLES Y SUS COLORES:
+                  Química básica         → color: var(--color-acento)   #2563EB azul
+                  Agua y medio ambiente  → color: #059669               verde
+                  Análisis volumétrico   → color: #D97706               naranja
+                  Laboratorio industrial → color: #7C3AED               violeta
+                  Normativa y calidad    → color: #DC2626               rojo
+
+                Copiá el color que corresponda en el style="" de abajo.
+              -->
+              <span style="color: var(--color-acento);">[CATEGORÍA DEL POST]</span>
+            </p>
+
+            <!-- Título principal — puede ser largo, Playfair se ve bien -->
+            <h1 class="post-header__titulo">
+              [TÍTULO COMPLETO DEL POST]
+            </h1>
+
+            <!-- Resumen destacado (opcional pero recomendado) -->
+            <p class="post-header__resumen">
+              [UN PÁRRAFO DE INTRODUCCIÓN — 2 a 3 oraciones que resumen
+              de qué trata el artículo y por qué es útil para el lector.]
+            </p>
+
+            <!-- Metadatos: fecha y tiempo de lectura -->
+            <div class="post-header__meta">
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                [MES AÑO — ej: Enero 2025]
+              </span>
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                [X min lectura]
+              </span>
+            </div>
+
+          </header>
+
+          <!-- ── CUERPO DEL ARTÍCULO ─────────────────────
+               REFERENCIA RÁPIDA DE ELEMENTOS DISPONIBLES:
+
+               <h2>            → Título de sección (Playfair serif)
+               <h3>            → Subtítulo de sección
+               <p>             → Párrafo de texto
+               <strong>        → Texto en negrita
+               <ul> / <ol>     → Listas
+               .post-formula   → Bloque de fórmula / ecuación
+               .ejemplo-bloque → Bloque de ejemplo con fondo gris
+               .faq-item       → Pregunta y respuesta
+          ───────────────────────────────────────────────── -->
+          <div class="post-contenido">
+
+            <!-- EJEMPLO DE SECCIÓN CON TODOS LOS ELEMENTOS -->
+
+            <h2 id="seccion-1">[PRIMER TÍTULO DE SECCIÓN]</h2>
+
+            <p>
+              [Párrafo introductorio de la sección. Explicá el concepto de forma
+              clara. El texto está en color gris suave para facilitar la lectura
+              en pantalla.]
+            </p>
+
+            <p>
+              [Podés tener varios párrafos seguidos. Cada párrafo tiene margen
+              inferior automático.]
+            </p>
+
+            <!-- Fórmula o ecuación -->
+            <div class="post-formula" role="note" aria-label="Fórmula">
+              [Fórmula o ecuación aquí — ej: M = n / V(L)]
+            </div>
+
+            <h2 id="seccion-2">[SEGUNDO TÍTULO DE SECCIÓN]</h2>
+
+            <p>
+              [Texto de la segunda sección.]
+            </p>
+
+            <!-- Bloque de ejemplo -->
+            <div class="ejemplo-bloque">
+              <strong>[TÍTULO DEL EJEMPLO — ej: Ejemplo resuelto]</strong>
+              <p>[Datos del problema o caso práctico.]</p>
+              <p>[Desarrollo paso a paso.]</p>
+              <p>[Resultado final en negrita.]</p>
+            </div>
+
+            <h3>[SUBTÍTULO DENTRO DE UNA SECCIÓN]</h3>
+
+            <p>[Contenido del subtítulo.]</p>
+
+            <!-- Lista de puntos -->
+            <ul>
+              <li>[Primer punto de la lista]</li>
+              <li>[Segundo punto de la lista]</li>
+              <li>[Tercer punto de la lista]</li>
+            </ul>
+
+            <h2 id="seccion-3">Preguntas frecuentes</h2>
+            <!-- Podés agregar tantos faq-item como quieras -->
+
+            <div class="faq-item">
+              <h3>[Pregunta frecuente 1]</h3>
+              <p>[Respuesta clara y directa.]</p>
+            </div>
+
+            <div class="faq-item">
+              <h3>[Pregunta frecuente 2]</h3>
+              <p>[Respuesta.]</p>
+            </div>
+
+          </div><!-- /post-contenido -->
+
+        </article>
+
+        <!-- ── SIDEBAR ──────────────────────────────────── -->
+        <aside class="post-sidebar" aria-label="Contenido relacionado">
+
+          <!-- Tabla de contenidos -->
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">En este artículo</p>
+            <!--
+              INSTRUCCIÓN: cada <a> debe apuntar al id del <h2> correspondiente
+              en el cuerpo del artículo. Actualizá esto con tus secciones reales.
+            -->
+            <ul class="toc-lista" role="list">
+              <li><a href="#seccion-1">[Nombre de la sección 1]</a></li>
+              <li><a href="#seccion-2">[Nombre de la sección 2]</a></li>
+              <li><a href="#seccion-3">Preguntas frecuentes</a></li>
+            </ul>
+          </div>
+
+          <!-- Herramientas relacionadas con el post -->
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">Herramientas relacionadas</p>
+            <!--
+              INSTRUCCIÓN: listá solo las herramientas que sean relevantes
+              para el tema del artículo. Eliminá las que no correspondan.
+            -->
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="../../herramientas/calculadora-molaridad.html">→ Molaridad y masa</a></li>
+              <li><a href="../../herramientas/calculadora-diluciones.html">→ Diluciones C₁V₁=C₂V₂</a></li>
+              <li><a href="../../herramientas/calculadora-ph.html">→ Calculadora de pH</a></li>
+              <li><a href="../../herramientas/masa-molar.html">→ Masa Molar</a></li>
+              <li><a href="../../herramientas/calculadora-buffers.html">→ Buffers</a></li>
+              <li><a href="../../herramientas/calculadora-titulacion.html">→ Titulación</a></li>
+              <li><a href="../../herramientas/dureza-agua.html">→ Dureza del agua</a></li>
+              <li><a href="../../herramientas/diluciones-seriadas.html">→ Diluciones seriadas</a></li>
+              <li><a href="../../herramientas/conversor-ppm-mgl.html">→ Conversor ppm/mg/L</a></li>
+              <li><a href="../../herramientas/conversor-temperatura.html">→ Temperatura</a></li>
+              <li><a href="../../herramientas/calculadora-rendimiento.html">→ % Rendimiento</a></li>
+              <li><a href="../../herramientas/concentracion-pp.html">→ % p/p</a></li>
+            </ul>
+          </div>
+
+          <!-- Posts relacionados (opcional) -->
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">También te puede interesar</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <!--
+                INSTRUCCIÓN: listá 2 o 3 posts relacionados por tema.
+                Si no hay posts relacionados todavía, eliminá esta card.
+              -->
+              <li><a href="[RUTA-AL-POST].html">→ [Título del post relacionado]</a></li>
+              <li><a href="[RUTA-AL-POST].html">→ [Título del post relacionado]</a></li>
+            </ul>
+          </div>
+
+        </aside>
+
+      </div><!-- /post-layout -->
+    </div><!-- /contenedor -->
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

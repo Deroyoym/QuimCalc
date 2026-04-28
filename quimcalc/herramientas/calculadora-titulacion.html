@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de Titulación Volumétrica | QuimCalc</title>
+  <meta name="description" content="Calculá la concentración del analito a partir del volumen de titulante gastado. También calculá masa del analito y % en muestra sólida. Gratis y sin registro.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Calculadora de Titulación Volumétrica",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Calculá la concentración del analito, masa en muestra y porcentaje a partir de los datos de una titulación volumétrica.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+  }
+  </script>
+
+  <style>
+    /* Separador visual entre resultado principal y extras */
+    #resultado-extra:not(:empty) {
+      margin-top: 0;
+    }
+
+    /* Campo de solo lectura (modo calcular V titulante) */
+    input[readonly] {
+      background-color: var(--color-fondo-card);
+      color: var(--color-texto-suave);
+      cursor: not-allowed;
+    }
+
+    /* Sección de datos opcionales */
+    .seccion-opcionales {
+      margin-top: var(--espacio-lg);
+      padding-top: var(--espacio-lg);
+      border-top: 1px dashed var(--color-borde);
+    }
+
+    .seccion-opcionales__titulo {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-texto-suave);
+      margin-bottom: var(--espacio-md);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Calculadora de Titulación</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Calculadora de Titulación Volumétrica</h1>
+        <p class="pagina-herramienta__descripcion">
+          Calculá la concentración del analito a partir del volumen de titulante gastado. Opcionalmente, obtené también la masa del analito y el porcentaje en muestra sólida.
+        </p>
+      </div>
+
+      <div class="calculadora" role="region" aria-label="Calculadora de titulación">
+
+        <!-- Modo de cálculo -->
+        <div class="campo-grupo">
+          <label for="modo">¿Qué querés calcular?</label>
+          <select id="modo" name="modo">
+            <option value="conc">Concentración del analito (uso más frecuente)</option>
+            <option value="vtit">Volumen de titulante esperado (para verificación)</option>
+          </select>
+        </div>
+
+        <!-- Normalidad del titulante -->
+        <div class="campo-grupo">
+          <label for="n-titulante">Normalidad del titulante (N)</label>
+          <input
+            type="number"
+            id="n-titulante"
+            name="n-titulante"
+            placeholder="Ej: 0.1"
+            min="0"
+            step="any"
+            aria-describedby="ayuda-ntit"
+          >
+          <span class="ayuda" id="ayuda-ntit">Concentración del titulante en equivalentes por litro</span>
+        </div>
+
+        <!-- Volumen de titulante -->
+        <div id="campo-vtit" class="campo-grupo">
+          <label for="v-titulante">Volumen de titulante gastado (mL)</label>
+          <input
+            type="number"
+            id="v-titulante"
+            name="v-titulante"
+            placeholder="Ej: 12.5"
+            min="0"
+            step="any"
+          >
+        </div>
+
+        <!-- Normalidad del analito (solo en modo calcular V tit) -->
+        <div id="campo-nanalito" class="campo-grupo" hidden>
+          <label for="n-analito-conocida">Normalidad del analito (N)</label>
+          <input
+            type="number"
+            id="n-analito-conocida"
+            name="n-analito-conocida"
+            placeholder="Ej: 0.05"
+            min="0"
+            step="any"
+          >
+        </div>
+
+        <!-- Volumen de la muestra -->
+        <div class="campo-grupo">
+          <label for="v-muestra">Volumen de la muestra (mL)</label>
+          <input
+            type="number"
+            id="v-muestra"
+            name="v-muestra"
+            placeholder="Ej: 25"
+            min="0"
+            step="any"
+            aria-describedby="ayuda-vmuestra"
+          >
+          <span class="ayuda" id="ayuda-vmuestra">Alícuota tomada para la titulación</span>
+        </div>
+
+        <!-- Campos opcionales para cálculos adicionales -->
+        <div id="grupo-opcionales" class="seccion-opcionales">
+          <p class="seccion-opcionales__titulo">Datos opcionales — para calcular masa y porcentaje</p>
+
+          <div class="campo-grupo">
+            <label for="valencia-analito">Valencia del analito</label>
+            <input
+              type="number"
+              id="valencia-analito"
+              name="valencia-analito"
+              placeholder="Ej: 2 (para Ca²⁺)"
+              min="1"
+              step="1"
+              aria-describedby="ayuda-valencia"
+            >
+            <span class="ayuda" id="ayuda-valencia">Necesaria para calcular la concentración molar desde la normalidad</span>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="pm-analito">Peso Molecular del analito (g/mol)</label>
+            <input
+              type="number"
+              id="pm-analito"
+              name="pm-analito"
+              placeholder="Ej: 100.09 (CaCO₃)"
+              min="0"
+              step="any"
+            >
+          </div>
+
+          <div class="campo-grupo">
+            <label for="masa-muestra">Masa de la muestra sólida (g)</label>
+            <input
+              type="number"
+              id="masa-muestra"
+              name="masa-muestra"
+              placeholder="Ej: 0.5 (solo si la muestra es sólida)"
+              min="0"
+              step="any"
+              aria-describedby="ayuda-masa"
+            >
+            <span class="ayuda" id="ayuda-masa">Solo si querés calcular el % del analito en una muestra sólida</span>
+          </div>
+        </div>
+
+        <button id="btn-calcular" class="btn btn--primario" type="button">
+          Calcular →
+        </button>
+
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta" id="resultado-etiqueta">Resultado</p>
+          <p class="resultado__valor"    id="resultado-valor">—</p>
+          <p class="resultado__formula"  id="resultado-formula"></p>
+          <div id="resultado-extra"></div>
+        </div>
+
+      </div>
+
+      <!-- ── SECCIÓN EDUCATIVA ──────────────────────────── -->
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">¿Cómo funciona el cálculo de titulación?</h2>
+        <p>
+          En el punto de equivalencia de una titulación, los equivalentes del titulante igualan a los del analito. La ecuación fundamental es:
+        </p>
+
+        <div class="ejemplo-bloque">
+          <strong>Fórmula base</strong>
+          <p>N(titulante) × V(titulante) = N(analito) × V(muestra)</p>
+          <p>Despejando: N(analito) = (N(tit) × V(tit)) / V(muestra)</p>
+        </div>
+
+        <div class="ejemplo-bloque">
+          <strong>Ejemplo completo: determinación de acidez total en vinagre</strong>
+          <p>Titulante: NaOH 0.1 N · V gastado: 18.50 mL · V muestra: 10 mL · PM ácido acético: 60.05 g/mol · Valencia: 1</p>
+          <p>N(ácido) = (0.1 × 18.50) / 10 = <strong>0.1850 N</strong></p>
+          <p>M(ácido) = 0.1850 / 1 = <strong>0.1850 mol/L</strong></p>
+          <p>Masa en alícuota = 0.1850 × 0.010 L × 60.05 = <strong>0.1111 g</strong></p>
+        </div>
+
+        <h2>Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿Cuál es la diferencia entre usar normalidad y molaridad en titulaciones?</h3>
+          <p>
+            En titulaciones, la normalidad simplifica los cálculos porque N(tit) × V(tit) = N(analito) × V(muestra) siempre es válido sin importar las relaciones estequiométricas. Con molaridad, necesitarías ajustar la ecuación según los coeficientes de la reacción. Por eso la normalidad sigue siendo la unidad preferida en análisis volumétrico clásico.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Cómo sé la normalidad de mi titulante?</h3>
+          <p>
+            La normalidad = molaridad × número de equivalentes. Para HCl (1 equivalente ácido): 0.1 M = 0.1 N. Para H₂SO₄ (2 equivalentes): 0.1 M = 0.2 N. Para KMnO₄ en medio ácido (5 equivalentes de oxidación): 0.1 M = 0.5 N. Los titulantes de calidad analítica tienen la normalidad certificada en su etiqueta.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/titulacion.js"></script>
+
+  <!-- Mostramos/ocultamos el campo de N analito según el modo -->
+  <script>
+    document.getElementById('modo').addEventListener('change', function () {
+      const campoNanalito = document.getElementById('campo-nanalito');
+      campoNanalito.hidden = this.value !== 'vtit';
+    });
+  </script>
+
+</body>
+</html>

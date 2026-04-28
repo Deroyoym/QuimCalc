@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Conversor de Dureza del Agua | QuimCalc</title>
+  <meta name="description" content="Convertí la dureza del agua entre mg/L CaCO₃, ppm, grados franceses, alemanes, ingleses, mEq/L y gpg. Clasificación OMS incluida. Gratis y sin registro.">
+  <meta name="author" content="QuimCalc">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Conversor de Dureza del Agua",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Convertí la dureza del agua entre todas las unidades usadas en laboratorio: mg/L CaCO₃, grados franceses, alemanes, ingleses, mEq/L y gpg.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+  }
+  </script>
+
+  <style>
+    /* Tabla de resultados */
+    .tabla-dureza {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-top: var(--espacio-md);
+    }
+
+    .tabla-dureza th {
+      background-color: var(--color-acento);
+      color: #FFFFFF;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .tabla-dureza td {
+      border: 1px solid var(--color-borde);
+      padding: 10px 12px;
+      color: var(--color-texto-suave);
+    }
+
+    .tabla-dureza td:last-child {
+      font-family: 'Courier New', monospace;
+      font-weight: 600;
+      color: var(--color-texto);
+    }
+
+    /* Fila de la unidad de origen resaltada */
+    .tabla-dureza tr.fila-origen td {
+      background-color: #EFF6FF;
+      color: var(--color-acento);
+      font-weight: 600;
+    }
+
+    .tabla-dureza tr.fila-origen td:last-child {
+      color: var(--color-acento);
+    }
+
+    /* Badge "origen" */
+    .badge-origen {
+      display: inline-block;
+      background-color: var(--color-acento);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Clasificación OMS */
+    .clasificacion-dureza {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-sm);
+      padding: var(--espacio-md);
+      margin-bottom: var(--espacio-md);
+      font-size: 0.9rem;
+      color: var(--color-texto);
+    }
+
+    #contenedor-resultados {
+      display: none;
+      margin-top: var(--espacio-lg);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Conversor de Dureza del Agua</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Conversor de Dureza del Agua</h1>
+        <p class="pagina-herramienta__descripcion">
+          Convertí entre mg/L CaCO₃, ppm, grados franceses, alemanes, ingleses, mEq/L y gpg. Incluye clasificación de dureza según criterios OMS.
+        </p>
+      </div>
+
+      <div class="calculadora" role="region" aria-label="Conversor de dureza">
+
+        <div class="campo-grupo">
+          <label for="valor-dureza">Valor a convertir</label>
+          <input
+            type="number"
+            id="valor-dureza"
+            name="valor-dureza"
+            placeholder="Ej: 150"
+            min="0"
+            step="any"
+            aria-describedby="ayuda-dureza"
+          >
+          <span class="ayuda" id="ayuda-dureza">Ingresá el valor numérico de la dureza medida</span>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="unidad-de">Unidad de origen</label>
+          <select id="unidad-de" name="unidad-de">
+            <option value="mgl">mg/L CaCO₃  (más usada en laboratorio argentino)</option>
+            <option value="ppm">ppm CaCO₃</option>
+            <option value="mmol">mmol/L CaCO₃</option>
+            <option value="meq">mEq/L</option>
+            <option value="fr">°F — Grados franceses</option>
+            <option value="de">°d — Grados alemanes (Deutsche Härte)</option>
+            <option value="en">°e — Grados ingleses (Clark)</option>
+            <option value="gpg">gpg — Grains per gallon (EE.UU.)</option>
+          </select>
+        </div>
+
+        <button id="btn-calcular" class="btn btn--primario" type="button">
+          Convertir →
+        </button>
+
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta" id="resultado-etiqueta">Resultado</p>
+          <p class="resultado__valor"    id="resultado-valor">—</p>
+          <p class="resultado__formula"  id="resultado-formula"></p>
+        </div>
+
+      </div>
+
+      <!-- Tabla generada por JS -->
+      <div id="contenedor-resultados" role="region" aria-label="Tabla de conversión de dureza"></div>
+
+      <!-- ── SECCIÓN EDUCATIVA ──────────────────────────── -->
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">¿Qué es la dureza del agua?</h2>
+        <p>
+          La dureza del agua es la concentración de iones metálicos divalentes disueltos, principalmente calcio (Ca²⁺) y magnesio (Mg²⁺). Se expresa como si toda esa dureza fuera carbonato de calcio (CaCO₃), lo que permite comparar resultados entre distintos métodos de medición.
+        </p>
+        <p>
+          En la zona del Gran Rosario y Santa Fe, el agua subterránea suele tener dureza elevada (150–400 mg/L CaCO₃), lo que tiene impacto directo en calderas, intercambiadores de calor, redes de distribución y procesos industriales.
+        </p>
+
+        <h2>Clasificación de dureza del agua (OMS)</h2>
+
+        <div class="ejemplo-bloque">
+          <strong>Rangos de clasificación</strong>
+          <p>Agua blanda: 0 – 60 mg/L CaCO₃</p>
+          <p>Agua moderadamente dura: 60 – 120 mg/L CaCO₃</p>
+          <p>Agua dura: 120 – 180 mg/L CaCO₃</p>
+          <p>Agua muy dura: &gt; 180 mg/L CaCO₃</p>
+        </div>
+
+        <h2>¿Por qué hay tantas unidades?</h2>
+        <p>
+          Las distintas unidades de dureza son herencia de sistemas de medición nacionales. Los <strong>grados franceses</strong> (°F) son los más usados en Europa continental y en la normativa argentina (1°F = 10 mg/L CaCO₃). Los <strong>grados alemanes</strong> (°d) son comunes en equipos importados de Alemania. Los <strong>grains per gallon</strong> (gpg) aparecen en equipos ablandadores de origen estadounidense.
+        </p>
+        <p>
+          En laboratorios argentinos, la unidad de referencia es <strong>mg/L CaCO₃</strong>, alineada con la normativa del INAL (Instituto Nacional de Alimentos) y el CAA (Código Alimentario Argentino), que establece un límite de 400 mg/L CaCO₃ para agua potable.
+        </p>
+
+        <h2>Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿Dureza total, cálcica y magnésica son lo mismo?</h3>
+          <p>
+            No. La <strong>dureza total</strong> es la suma de la dureza cálcica (por Ca²⁺) y la magnésica (por Mg²⁺). Este conversor trabaja con dureza total expresada como CaCO₃. Para obtener la dureza individual de cada ion necesitás los resultados analíticos separados de Ca²⁺ y Mg²⁺.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Qué diferencia hay entre dureza temporal y permanente?</h3>
+          <p>
+            La <strong>dureza temporal</strong> (o carbonatada) se debe a bicarbonatos de Ca²⁺ y Mg²⁺ y desaparece al hervir el agua. La <strong>dureza permanente</strong> (no carbonatada) se debe a sulfatos y cloruros y no se elimina por ebullición. La suma de ambas es la dureza total.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/dureza-agua.js"></script>
+
+</body>
+</html>
