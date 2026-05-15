@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# No indexar el panel de administración
+Disallow: /admin/
+
+Sitemap: https://quimcalc.com/sitemap.xml
