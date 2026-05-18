@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabla Periódica Interactiva | QuimCalc</title>
+  <meta name="description" content="Tabla periódica interactiva con configuración electrónica, electronegatividad, estados de oxidación, estructura cristalina e isótopos. Hacé clic en cualquier elemento para ver todos sus detalles.">
+  <meta name="author" content="QuimCalc">
+  <link rel="stylesheet" href="../styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Tabla Periódica Interactiva — QuimCalc",
+    "description": "Tabla periódica interactiva con configuración electrónica, electronegatividad, estados de oxidación, estructura cristalina e isótopos de los 118 elementos.",
+    "applicationCategory": "EducationalApplication",
+    "author": { "@type": "Organization", "name": "QuimCalc" },
+    "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
+  }
+  </script>
+
+  <style>
+    /* ── BÚSQUEDA ─────────────────────────────────────────── */
+    .tp-busqueda {
+      margin-bottom: var(--espacio-lg);
+    }
+
+    .tp-input {
+      width: 100%;
+      font-family: var(--fuente-principal);
+      font-size: 0.9rem;
+      color: var(--color-texto);
+      background-color: var(--color-fondo);
+      border: 1.5px solid var(--color-borde);
+      border-radius: var(--radio-sm);
+      padding: 10px var(--espacio-md);
+      outline: none;
+      min-height: 48px;
+      box-sizing: border-box;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .tp-input:focus {
+      border-color: var(--color-acento);
+      box-shadow: var(--sombra-resultado);
+    }
+
+    /* ── GRILLA ───────────────────────────────────────────── */
+    .tp-overflow {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: var(--espacio-md);
+    }
+
+    .tp-grilla {
+      display: grid;
+      grid-template-columns: repeat(18, minmax(32px, 1fr));
+      grid-auto-rows: auto;
+      gap: 2px;
+      min-width: 590px;
+    }
+
+    /* ── CELDA DE ELEMENTO ────────────────────────────────── */
+    .el-cel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2px 1px;
+      border-radius: 3px;
+      cursor: pointer;
+      min-height: 50px;
+      border: 1.5px solid transparent;
+      transition: transform 0.12s, box-shadow 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .el-cel:hover {
+      transform: scale(1.2);
+      z-index: 20;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.28);
+    }
+
+    .el-cel.sel {
+      border-color: var(--color-texto) !important;
+      z-index: 10;
+      box-shadow: 0 0 0 3px rgba(26,92,56,0.35);
+      transform: scale(1.08);
+    }
+
+    .el-cel.dim {
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .el-n  { font-size: 7px;   line-height: 1;   opacity: 0.8; align-self: flex-start; padding-left: 2px; }
+    .el-s  { font-size: 14px;  font-weight: 600; line-height: 1.1; }
+    .el-nm { font-size: 5.5px; opacity: 0.75;    line-height: 1; text-align: center; }
+
+    /* ── PLACEHOLDERS Y ETIQUETAS ─────────────────────────── */
+    .el-ph {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      font-size: 7px;
+      color: var(--color-texto-suave);
+      border: 1px dashed var(--color-borde);
+      border-radius: 3px;
+    }
+
+    .el-lbl {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      min-height: 50px;
+      font-size: 6.5px;
+      font-style: italic;
+      color: var(--color-texto-suave);
+      padding-right: 3px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .tp-sep {
+      grid-column: 1 / span 18;
+      height: 8px;
+    }
+
+    /* ── LEYENDA DE CATEGORÍAS ────────────────────────────── */
+    .tp-leyenda {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: var(--espacio-xl);
+    }
+
+    .ley-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.75rem;
+      color: var(--color-texto-suave);
+      cursor: pointer;
+      padding: 3px 8px;
+      border-radius: var(--radio-sm);
+      border: 1px solid transparent;
+      transition: all 0.15s;
+      user-select: none;
+    }
+
+    .ley-item:hover,
+    .ley-item.activo {
+      border-color: var(--color-borde);
+      color: var(--color-texto);
+      background: var(--color-fondo-card);
+    }
+
+    .ley-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── INSTRUCCIÓN INICIAL ──────────────────────────────── */
+    .tp-instruccion {
+      display: flex;
+      align-items: center;
+      gap: var(--espacio-md);
+      padding: var(--espacio-lg);
+      background: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      margin-bottom: var(--espacio-xl);
+      color: var(--color-texto-suave);
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
+    .tp-instruccion svg {
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    /* ── ZONA DE LA TARJETA INTERACTIVA ───────────────────── */
+    .feature-zona {
+      perspective: 900px;
+      margin-bottom: var(--espacio-2xl);
+      display: none;
+    }
+
+    .feature-zona.visible {
+      display: block;
+    }
+
+    .feature-card {
+      width: 100%;
+      max-width: 680px;
+      height: 270px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .feature-card.volteada {
+      transform: rotateY(180deg);
+    }
+
+    /* Ambas caras */
+    .feature-frente,
+    .feature-dorso {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radio-lg);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border: 1px solid var(--color-borde);
+      overflow: hidden;
+    }
+
+    /* ── FRENTE ───────────────────────────────────────────── */
+    .feature-frente {
+      background: var(--color-fondo-card);
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      align-items: center;
+    }
+
+    .feat-bloque-sym {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: var(--espacio-lg) var(--espacio-md);
+    }
+
+    .feat-z {
+      font-size: 0.75rem;
+      font-weight: 600;
+      opacity: 0.7;
+      margin-bottom: 4px;
+    }
+
+    .feat-simbolo {
+      font-family: var(--fuente-titulo);
+      font-size: 3.8rem;
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1;
+    }
+
+    .feat-masa {
+      font-size: 0.7rem;
+      margin-top: 6px;
+      opacity: 0.65;
+    }
+
+    .feat-info {
+      padding: var(--espacio-lg) var(--espacio-xl) var(--espacio-lg) var(--espacio-md);
+      border-left: 1px solid var(--color-borde);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--espacio-sm);
+    }
+
+    .feat-nombre {
+      font-family: var(--fuente-titulo);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-texto);
+      line-height: 1.15;
+    }
+
+    .feat-cat-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 2px 8px;
+      border-radius: 20px;
+      width: fit-content;
+    }
+
+    .feat-props-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px var(--espacio-lg);
+      margin-top: 4px;
+    }
+
+    .feat-prop {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .feat-prop-l {
+      font-size: 0.65rem;
+      color: var(--color-texto-suave);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .feat-prop-v {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-texto);
+    }
+
+    /* ── DORSO ────────────────────────────────────────────── */
+    .feature-dorso {
+      background: var(--color-header-bg);
+      transform: rotateY(180deg);
+      color: var(--color-header-texto);
+      display: grid;
+      grid-template-columns: 110px 1fr;
+    }
+
+    .dorso-lateral {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--espacio-lg) var(--espacio-md);
+      background: rgba(255,255,255,0.04);
+      border-right: 1px solid rgba(240,237,230,0.12);
+      gap: 4px;
+    }
+
+    .dorso-sym {
+      font-family: var(--fuente-titulo);
+      font-size: 3.2rem;
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1;
+      color: #6EBF8B;
+    }
+
+    .dorso-nombre {
+      font-size: 0.65rem;
+      opacity: 0.55;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .dorso-contenido {
+      padding: var(--espacio-lg) var(--espacio-lg) var(--espacio-lg) var(--espacio-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .dorso-titulo {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.45;
+      margin-bottom: 2px;
+    }
+
+    .dorso-props {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px var(--espacio-xl);
+    }
+
+    .dp-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .dp-label {
+      font-size: 0.6rem;
+      opacity: 0.5;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .dp-val {
+      font-size: 0.8rem;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--color-header-texto);
+    }
+
+    .dp-val.cfg {
+      font-size: 0.75rem;
+      font-family: 'Courier New', monospace;
+      color: #A8D5B5;
+    }
+
+    /* Hint de volteo */
+    .flip-hint {
+      font-size: 0.75rem;
+      color: var(--color-texto-suave);
+      margin-top: var(--espacio-sm);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .flip-hint::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235C5649' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 4v6h6'/%3E%3Cpath d='M3.51 15a9 9 0 1 0 .49-3.6'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      flex-shrink: 0;
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .feature-card      { height: 340px; }
+      .feature-frente    { grid-template-columns: 90px 1fr; }
+      .feature-dorso     { grid-template-columns: 80px 1fr; }
+      .feat-simbolo      { font-size: 2.8rem; }
+      .feat-nombre       { font-size: 1.2rem; }
+      .feat-props-grid   { grid-template-columns: 1fr; gap: 6px; }
+      .dorso-sym         { font-size: 2.4rem; }
+      .dorso-props       { grid-template-columns: 1fr; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ───────────────────────────────────────────── -->
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas" class="activo">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="contenedor">
+
+      <!-- BREADCRUMB -->
+      <nav class="breadcrumb" style="padding-top: var(--espacio-xl);" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Tabla periódica interactiva</span>
+      </nav>
+
+      <!-- ENCABEZADO -->
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Tabla Periódica Interactiva</h1>
+        <p class="pagina-herramienta__descripcion">
+          Los 118 elementos con configuración electrónica, electronegatividad, estados de oxidación, estructura cristalina e isótopos. Hacé clic en cualquier elemento y luego volteá la tarjeta para ver todos los detalles.
+        </p>
+      </div>
+
+      <!-- BÚSQUEDA -->
+      <div class="tp-busqueda">
+        <input
+          type="text"
+          id="tp-buscar"
+          class="tp-input"
+          placeholder="Buscar por nombre, símbolo o número atómico…"
+          aria-label="Buscar elemento en la tabla periódica"
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- GRILLA DE ELEMENTOS -->
+      <div class="tp-overflow">
+        <div class="tp-grilla" id="tp-grilla" role="list" aria-label="Tabla periódica de los elementos"></div>
+      </div>
+
+      <!-- LEYENDA DE CATEGORÍAS -->
+      <div class="tp-leyenda" id="tp-leyenda" role="list" aria-label="Categorías de elementos químicos"></div>
+
+      <!-- INSTRUCCIÓN INICIAL (se oculta al seleccionar) -->
+      <div class="tp-instruccion" id="tp-instruccion">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span>Seleccioná cualquier elemento de la tabla para ver sus propiedades básicas. Luego hacé clic en la tarjeta para voltearla y ver la configuración electrónica, electronegatividad, estructura cristalina e isótopos.</span>
+      </div>
+
+      <!-- TARJETA INTERACTIVA CON FLIP -->
+      <div class="feature-zona" id="feature-zona">
+        <div
+          class="feature-card"
+          id="feature-card"
+          role="button"
+          aria-label="Tarjeta del elemento — hacé clic para voltear"
+          tabindex="0"
+        >
+          <div class="feature-frente" id="feature-frente"></div>
+          <div class="feature-dorso"  id="feature-dorso"></div>
+        </div>
+        <p class="flip-hint" id="flip-hint">Hacé clic en la tarjeta para ver configuración electrónica y más detalles</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // ── CATEGORÍAS ──────────────────────────────────────────────
+  // [clave, nombre, fondo, texto]
+  const CAT = [
+    ['alkali',     'Metal alcalino',         '#fef3c7', '#78350f'],
+    ['alkaline',   'Alcalinotérreo',         '#fde68a', '#78350f'],
+    ['transition', 'Metal de transición',    '#bfdbfe', '#1e3a5f'],
+    ['post',       'Metal post-trans.',      '#a7f3d0', '#064e3b'],
+    ['metalloid',  'Metaloide',              '#d9f99d', '#365314'],
+    ['nonmetal',   'No metal',               '#fed7aa', '#7c2d12'],
+    ['halogen',    'Halógeno',               '#fbcfe8', '#831843'],
+    ['noble',      'Gas noble',              '#e9d5ff', '#4c1d95'],
+    ['lanthanide', 'Lantánido',              '#fca5a5', '#7f1d1d'],
+    ['actinide',   'Actínido',               '#fecdd3', '#881337'],
+  ];
+
+  // ── ESTRUCTURAS CRISTALINAS ─────────────────────────────────
+  const CSTRUCT = {
+    'CC':  'Cúbica CC (BCC)',
+    'FCC': 'Cúbica FCC',
+    'HCP': 'Hexagonal compacta',
+    'DIA': 'Cúbica diamante',
+    'ORT': 'Ortorrómbica',
+    'ROM': 'Romboédrica',
+    'MON': 'Monoclínica',
+    'TET': 'Tetragonal',
+    'TRI': 'Trigonal',
+    'CUB': 'Cúbica simple',
+    'HEX': 'Hexagonal (molecular)',
+    '?':   '—',
+  };
+
+  // ── ESTADO FÍSICO ───────────────────────────────────────────
+  const ESTADO = { s: 'Sólido', l: 'Líquido', g: 'Gas' };
+
+  // ── DATOS DE LOS 118 ELEMENTOS ─────────────────────────────
+  // Índices: [0]num [1]sym [2]nombre [3]masa [4]catIdx [5]col [6]fila
+  //          [7]estado [8]EN [9]oxidacion [10]config [11]cristal [12]año [13]isótopos
+  const EL = [
+    [1,'H','Hidrógeno','1.008',5,1,1,'g',2.20,'+1, −1','1s¹','HEX',1766,'2 estables (¹H, ²H)'],
+    [2,'He','Helio','4.003',7,18,1,'g',null,'0','1s²','FCC',1895,'2 estables (³He, ⁴He)'],
+    [3,'Li','Litio','6.941',0,1,2,'s',0.98,'+1','[He] 2s¹','CC',1817,'2 estables (⁶Li, ⁷Li)'],
+    [4,'Be','Berilio','9.012',1,2,2,'s',1.57,'+2','[He] 2s²','HCP',1797,'1 estable (⁹Be)'],
+    [5,'B','Boro','10.81',4,13,2,'s',2.04,'+3','[He] 2s²2p¹','ROM',1808,'2 estables (¹⁰B, ¹¹B)'],
+    [6,'C','Carbono','12.01',5,14,2,'s',2.55,'+4, −4','[He] 2s²2p²','DIA',null,'3 estables (¹²C, ¹³C, ¹⁴C*)'],
+    [7,'N','Nitrógeno','14.01',5,15,2,'g',3.04,'−3, +3, +5','[He] 2s²2p³','HEX',1772,'2 estables (¹⁴N, ¹⁵N)'],
+    [8,'O','Oxígeno','16.00',5,16,2,'g',3.44,'−2','[He] 2s²2p⁴','CUB',1774,'3 estables (¹⁶O, ¹⁷O, ¹⁸O)'],
+    [9,'F','Flúor','19.00',6,17,2,'g',3.98,'−1','[He] 2s²2p⁵','MON',1886,'1 estable (¹⁹F)'],
+    [10,'Ne','Neón','20.18',7,18,2,'g',null,'0','[He] 2s²2p⁶','FCC',1898,'3 estables (²⁰Ne, ²¹Ne, ²²Ne)'],
+    [11,'Na','Sodio','22.99',0,1,3,'s',0.93,'+1','[Ne] 3s¹','CC',1807,'1 estable (²³Na)'],
+    [12,'Mg','Magnesio','24.31',1,2,3,'s',1.31,'+2','[Ne] 3s²','HCP',1755,'3 estables (²⁴Mg, ²⁵Mg, ²⁶Mg)'],
+    [13,'Al','Aluminio','26.98',3,13,3,'s',1.61,'+3','[Ne] 3s²3p¹','FCC',1825,'1 estable (²⁷Al)'],
+    [14,'Si','Silicio','28.09',4,14,3,'s',1.90,'+4, −4','[Ne] 3s²3p²','DIA',1824,'3 estables (²⁸Si, ²⁹Si, ³⁰Si)'],
+    [15,'P','Fósforo','30.97',5,15,3,'s',2.19,'−3, +3, +5','[Ne] 3s²3p³','ORT',1669,'1 estable (³¹P)'],
+    [16,'S','Azufre','32.06',5,16,3,'s',2.58,'−2, +4, +6','[Ne] 3s²3p⁴','ORT',null,'4 estables (³²S–³⁶S)'],
+    [17,'Cl','Cloro','35.45',6,17,3,'g',3.16,'−1, +1, +5, +7','[Ne] 3s²3p⁵','ORT',1774,'2 estables (³⁵Cl, ³⁷Cl)'],
+    [18,'Ar','Argón','39.95',7,18,3,'g',null,'0','[Ne] 3s²3p⁶','FCC',1894,'3 estables (³⁶Ar, ³⁸Ar, ⁴⁰Ar)'],
+    [19,'K','Potasio','39.10',0,1,4,'s',0.82,'+1','[Ar] 4s¹','CC',1807,'3 estables (³⁹K, ⁴⁰K*, ⁴¹K)'],
+    [20,'Ca','Calcio','40.08',1,2,4,'s',1.00,'+2','[Ar] 4s²','FCC',1808,'6 estables (⁴⁰Ca–⁴⁸Ca)'],
+    [21,'Sc','Escandio','44.96',2,3,4,'s',1.36,'+3','[Ar] 3d¹4s²','HCP',1879,'1 estable (⁴⁵Sc)'],
+    [22,'Ti','Titanio','47.87',2,4,4,'s',1.54,'+2, +3, +4','[Ar] 3d²4s²','HCP',1791,'5 estables (⁴⁶Ti–⁵⁰Ti)'],
+    [23,'V','Vanadio','50.94',2,5,4,'s',1.63,'+2, +3, +4, +5','[Ar] 3d³4s²','CC',1801,'2 estables (⁵⁰V, ⁵¹V)'],
+    [24,'Cr','Cromo','52.00',2,6,4,'s',1.66,'+2, +3, +6','[Ar] 3d⁵4s¹','CC',1797,'4 estables (⁵⁰Cr, ⁵²Cr, ⁵³Cr, ⁵⁴Cr)'],
+    [25,'Mn','Manganeso','54.94',2,7,4,'s',1.55,'+2, +4, +7','[Ar] 3d⁵4s²','CUB',1774,'1 estable (⁵⁵Mn)'],
+    [26,'Fe','Hierro','55.85',2,8,4,'s',1.83,'+2, +3','[Ar] 3d⁶4s²','CC',null,'4 estables (⁵⁴Fe, ⁵⁶Fe, ⁵⁷Fe, ⁵⁸Fe)'],
+    [27,'Co','Cobalto','58.93',2,9,4,'s',1.88,'+2, +3','[Ar] 3d⁷4s²','HCP',1735,'1 estable (⁵⁹Co)'],
+    [28,'Ni','Níquel','58.69',2,10,4,'s',1.91,'+2','[Ar] 3d⁸4s²','FCC',1751,'5 estables (⁵⁸Ni, ⁶⁰Ni, ⁶¹Ni, ⁶²Ni, ⁶⁴Ni)'],
+    [29,'Cu','Cobre','63.55',2,11,4,'s',1.90,'+1, +2','[Ar] 3d¹⁰4s¹','FCC',null,'2 estables (⁶³Cu, ⁶⁵Cu)'],
+    [30,'Zn','Zinc','65.38',2,12,4,'s',1.65,'+2','[Ar] 3d¹⁰4s²','HCP',1746,'5 estables (⁶⁴Zn–⁷⁰Zn)'],
+    [31,'Ga','Galio','69.72',3,13,4,'s',1.81,'+3','[Ar] 3d¹⁰4s²4p¹','ORT',1875,'2 estables (⁶⁹Ga, ⁷¹Ga)'],
+    [32,'Ge','Germanio','72.63',4,14,4,'s',2.01,'+2, +4','[Ar] 3d¹⁰4s²4p²','DIA',1886,'5 estables (⁷⁰Ge–⁷⁶Ge)'],
+    [33,'As','Arsénico','74.92',4,15,4,'s',2.18,'−3, +3, +5','[Ar] 3d¹⁰4s²4p³','ROM',1250,'1 estable (⁷⁵As)'],
+    [34,'Se','Selenio','78.97',5,16,4,'s',2.55,'−2, +4, +6','[Ar] 3d¹⁰4s²4p⁴','TRI',1817,'6 estables (⁷⁴Se–⁸²Se)'],
+    [35,'Br','Bromo','79.90',6,17,4,'l',2.96,'−1, +1, +5','[Ar] 3d¹⁰4s²4p⁵','ORT',1826,'2 estables (⁷⁹Br, ⁸¹Br)'],
+    [36,'Kr','Kriptón','83.80',7,18,4,'g',3.00,'0, +2','[Ar] 3d¹⁰4s²4p⁶','FCC',1898,'6 estables (⁷⁸Kr–⁸⁶Kr)'],
+    [37,'Rb','Rubidio','85.47',0,1,5,'s',0.82,'+1','[Kr] 5s¹','CC',1861,'2 estables (⁸⁵Rb, ⁸⁷Rb*)'],
+    [38,'Sr','Estroncio','87.62',1,2,5,'s',0.95,'+2','[Kr] 5s²','FCC',1790,'4 estables (⁸⁴Sr–⁸⁸Sr)'],
+    [39,'Y','Itrio','88.91',2,3,5,'s',1.22,'+3','[Kr] 4d¹5s²','HCP',1794,'1 estable (⁸⁹Y)'],
+    [40,'Zr','Circonio','91.22',2,4,5,'s',1.33,'+4','[Kr] 4d²5s²','HCP',1789,'5 estables (⁹⁰Zr–⁹⁶Zr)'],
+    [41,'Nb','Niobio','92.91',2,5,5,'s',1.60,'+3, +5','[Kr] 4d⁴5s¹','CC',1801,'1 estable (⁹³Nb)'],
+    [42,'Mo','Molibdeno','95.96',2,6,5,'s',2.16,'+4, +6','[Kr] 4d⁵5s¹','CC',1778,'7 estables (⁹²Mo–¹⁰⁰Mo)'],
+    [43,'Tc','Tecnecio','(98)',2,7,5,'s',1.90,'+4, +7','[Kr] 4d⁵5s²','HCP',1937,'Radiactivo (⁹⁸Tc, t½ = 4.2 Ma)'],
+    [44,'Ru','Rutenio','101.1',2,8,5,'s',2.20,'+2, +3, +4','[Kr] 4d⁷5s¹','HCP',1844,'7 estables (⁹⁶Ru–¹⁰⁴Ru)'],
+    [45,'Rh','Rodio','102.9',2,9,5,'s',2.28,'+2, +3','[Kr] 4d⁸5s¹','FCC',1803,'1 estable (¹⁰³Rh)'],
+    [46,'Pd','Paladio','106.4',2,10,5,'s',2.20,'+2, +4','[Kr] 4d¹⁰','FCC',1803,'6 estables (¹⁰²Pd–¹¹⁰Pd)'],
+    [47,'Ag','Plata','107.9',2,11,5,'s',1.93,'+1','[Kr] 4d¹⁰5s¹','FCC',null,'2 estables (¹⁰⁷Ag, ¹⁰⁹Ag)'],
+    [48,'Cd','Cadmio','112.4',2,12,5,'s',1.69,'+2','[Kr] 4d¹⁰5s²','HCP',1817,'8 estables (¹⁰⁶Cd–¹¹⁶Cd)'],
+    [49,'In','Indio','114.8',3,13,5,'s',1.78,'+3','[Kr] 4d¹⁰5s²5p¹','TET',1863,'2 estables (¹¹³In, ¹¹⁵In*)'],
+    [50,'Sn','Estaño','118.7',3,14,5,'s',1.96,'+2, +4','[Kr] 4d¹⁰5s²5p²','TET',null,'10 estables (¹¹²Sn–¹²⁴Sn)'],
+    [51,'Sb','Antimonio','121.8',4,15,5,'s',2.05,'+3, +5','[Kr] 4d¹⁰5s²5p³','ROM',null,'2 estables (¹²¹Sb, ¹²³Sb)'],
+    [52,'Te','Teluro','127.6',4,16,5,'s',2.10,'−2, +4, +6','[Kr] 4d¹⁰5s²5p⁴','TRI',1782,'8 estables (¹²⁰Te–¹³⁰Te)'],
+    [53,'I','Yodo','126.9',6,17,5,'s',2.66,'−1, +1, +5, +7','[Kr] 4d¹⁰5s²5p⁵','ORT',1811,'1 estable (¹²⁷I)'],
+    [54,'Xe','Xenón','131.3',7,18,5,'g',2.60,'0, +2, +4, +6','[Kr] 4d¹⁰5s²5p⁶','FCC',1898,'9 estables (¹²⁴Xe–¹³⁶Xe)'],
+    [55,'Cs','Cesio','132.9',0,1,6,'s',0.79,'+1','[Xe] 6s¹','CC',1860,'1 estable (¹³³Cs)'],
+    [56,'Ba','Bario','137.3',1,2,6,'s',0.89,'+2','[Xe] 6s²','CC',1808,'7 estables (¹³⁰Ba–¹³⁸Ba)'],
+    [57,'La','Lantano','138.9',8,3,9,'s',1.10,'+3','[Xe] 5d¹6s²','HCP',1839,'2 estables (¹³⁸La*, ¹³⁹La)'],
+    [58,'Ce','Cerio','140.1',8,4,9,'s',1.12,'+3, +4','[Xe] 4f¹5d¹6s²','FCC',1803,'4 estables (¹³⁶Ce–¹⁴²Ce)'],
+    [59,'Pr','Praseodimio','140.9',8,5,9,'s',1.13,'+3, +4','[Xe] 4f³6s²','HCP',1885,'1 estable (¹⁴¹Pr)'],
+    [60,'Nd','Neodimio','144.2',8,6,9,'s',1.14,'+3','[Xe] 4f⁴6s²','HCP',1885,'7 estables (¹⁴²Nd–¹⁵⁰Nd)'],
+    [61,'Pm','Prometio','(145)',8,7,9,'s',null,'+3','[Xe] 4f⁵6s²','HCP',1945,'Radiactivo (¹⁴⁵Pm, t½ = 17.7 a)'],
+    [62,'Sm','Samario','150.4',8,8,9,'s',1.17,'+2, +3','[Xe] 4f⁶6s²','ROM',1879,'7 estables (¹⁴⁴Sm–¹⁵⁴Sm)'],
+    [63,'Eu','Europio','152.0',8,9,9,'s',null,'+2, +3','[Xe] 4f⁷6s²','CC',1901,'2 estables (¹⁵¹Eu, ¹⁵³Eu)'],
+    [64,'Gd','Gadolinio','157.3',8,10,9,'s',1.20,'+3','[Xe] 4f⁷5d¹6s²','HCP',1880,'7 estables (¹⁵²Gd–¹⁶⁰Gd)'],
+    [65,'Tb','Terbio','158.9',8,11,9,'s',null,'+3, +4','[Xe] 4f⁹6s²','HCP',1843,'1 estable (¹⁵⁹Tb)'],
+    [66,'Dy','Disprosio','162.5',8,12,9,'s',1.22,'+3','[Xe] 4f¹⁰6s²','HCP',1886,'7 estables (¹⁵⁶Dy–¹⁶⁴Dy)'],
+    [67,'Ho','Holmio','164.9',8,13,9,'s',1.23,'+3','[Xe] 4f¹¹6s²','HCP',1867,'1 estable (¹⁶⁵Ho)'],
+    [68,'Er','Erbio','167.3',8,14,9,'s',1.24,'+3','[Xe] 4f¹²6s²','HCP',1843,'6 estables (¹⁶²Er–¹⁷⁰Er)'],
+    [69,'Tm','Tulio','168.9',8,15,9,'s',1.25,'+3','[Xe] 4f¹³6s²','HCP',1879,'1 estable (¹⁶⁹Tm)'],
+    [70,'Yb','Iterbio','173.0',8,16,9,'s',null,'+2, +3','[Xe] 4f¹⁴6s²','FCC',1878,'7 estables (¹⁶⁸Yb–¹⁷⁶Yb)'],
+    [71,'Lu','Lutecio','175.0',8,17,9,'s',1.27,'+3','[Xe] 4f¹⁴5d¹6s²','HCP',1907,'2 estables (¹⁷⁵Lu, ¹⁷⁶Lu*)'],
+    [72,'Hf','Hafnio','178.5',2,4,6,'s',1.30,'+4','[Xe] 4f¹⁴5d²6s²','HCP',1923,'6 estables (¹⁷⁴Hf–¹⁸⁰Hf)'],
+    [73,'Ta','Tántalo','180.9',2,5,6,'s',1.50,'+5','[Xe] 4f¹⁴5d³6s²','CC',1802,'2 estables (¹⁸⁰Ta, ¹⁸¹Ta)'],
+    [74,'W','Wolframio','183.8',2,6,6,'s',2.36,'+4, +6','[Xe] 4f¹⁴5d⁴6s²','CC',1783,'5 estables (¹⁸⁰W–¹⁸⁶W)'],
+    [75,'Re','Renio','186.2',2,7,6,'s',1.90,'+4, +7','[Xe] 4f¹⁴5d⁵6s²','HCP',1925,'2 estables (¹⁸⁵Re, ¹⁸⁷Re*)'],
+    [76,'Os','Osmio','190.2',2,8,6,'s',2.20,'+4, +8','[Xe] 4f¹⁴5d⁶6s²','HCP',1803,'7 estables (¹⁸⁴Os–¹⁹²Os)'],
+    [77,'Ir','Iridio','192.2',2,9,6,'s',2.20,'+3, +4','[Xe] 4f¹⁴5d⁷6s²','FCC',1803,'2 estables (¹⁹¹Ir, ¹⁹³Ir)'],
+    [78,'Pt','Platino','195.1',2,10,6,'s',2.28,'+2, +4','[Xe] 4f¹⁴5d⁹6s¹','FCC',1735,'6 estables (¹⁹⁰Pt–¹⁹⁸Pt)'],
+    [79,'Au','Oro','197.0',2,11,6,'s',2.54,'+1, +3','[Xe] 4f¹⁴5d¹⁰6s¹','FCC',null,'1 estable (¹⁹⁷Au)'],
+    [80,'Hg','Mercurio','200.6',2,12,6,'l',2.00,'+1, +2','[Xe] 4f¹⁴5d¹⁰6s²','ROM',null,'7 estables (¹⁹⁶Hg–²⁰⁴Hg)'],
+    [81,'Tl','Talio','204.4',3,13,6,'s',1.62,'+1, +3','[Xe] 4f¹⁴5d¹⁰6s²6p¹','HCP',1861,'2 estables (²⁰³Tl, ²⁰⁵Tl)'],
+    [82,'Pb','Plomo','207.2',3,14,6,'s',2.33,'+2, +4','[Xe] 4f¹⁴5d¹⁰6s²6p²','FCC',null,'4 estables (²⁰⁴Pb–²⁰⁸Pb)'],
+    [83,'Bi','Bismuto','209.0',3,15,6,'s',2.02,'+3, +5','[Xe] 4f¹⁴5d¹⁰6s²6p³','ROM',1753,'1 estable (²⁰⁹Bi*)'],
+    [84,'Po','Polonio','(209)',4,16,6,'s',2.00,'+2, +4','[Xe] 4f¹⁴5d¹⁰6s²6p⁴','CUB',1898,'Radiactivo (²⁰⁹Po, t½ = 102 a)'],
+    [85,'At','Astato','(210)',6,17,6,'s',2.20,'−1, +1','[Xe] 4f¹⁴5d¹⁰6s²6p⁵','?',1940,'Radiactivo (²¹⁰At, t½ = 8.1 h)'],
+    [86,'Rn','Radón','(222)',7,18,6,'g',null,'0','[Xe] 4f¹⁴5d¹⁰6s²6p⁶','FCC',1900,'Radiactivo (²²²Rn, t½ = 3.8 d)'],
+    [87,'Fr','Francio','(223)',0,1,7,'s',0.70,'+1','[Rn] 7s¹','CC',1939,'Radiactivo (²²³Fr, t½ = 22 min)'],
+    [88,'Ra','Radio','(226)',1,2,7,'s',0.90,'+2','[Rn] 7s²','CC',1898,'Radiactivo (²²⁶Ra, t½ = 1600 a)'],
+    [89,'Ac','Actinio','(227)',9,3,10,'s',1.10,'+3','[Rn] 6d¹7s²','FCC',1899,'Radiactivo (²²⁷Ac, t½ = 21.8 a)'],
+    [90,'Th','Torio','232.0',9,4,10,'s',1.30,'+4','[Rn] 6d²7s²','FCC',1829,'Radiactivo (²³²Th, t½ = 14 Ga)'],
+    [91,'Pa','Protactinio','231.0',9,5,10,'s',1.50,'+5','[Rn] 5f²6d¹7s²','TET',1913,'Radiactivo (²³¹Pa, t½ = 32760 a)'],
+    [92,'U','Uranio','238.0',9,6,10,'s',1.38,'+3, +4, +5, +6','[Rn] 5f³6d¹7s²','ORT',1789,'3 estables (²³⁴U, ²³⁵U, ²³⁸U)'],
+    [93,'Np','Neptunio','(237)',9,7,10,'s',1.36,'+3, +4, +5, +6','[Rn] 5f⁴6d¹7s²','ORT',1940,'Radiactivo (²³⁷Np, t½ = 2.14 Ma)'],
+    [94,'Pu','Plutonio','(244)',9,8,10,'s',1.28,'+3, +4, +5, +6','[Rn] 5f⁶7s²','MON',1940,'Radiactivo (²⁴⁴Pu, t½ = 80 Ma)'],
+    [95,'Am','Americio','(243)',9,9,10,'s',1.13,'+3','[Rn] 5f⁷7s²','HCP',1944,'Radiactivo (²⁴³Am, t½ = 7370 a)'],
+    [96,'Cm','Curio','(247)',9,10,10,'s',1.28,'+3','[Rn] 5f⁷6d¹7s²','HCP',1944,'Radiactivo (²⁴⁷Cm, t½ = 15.6 Ma)'],
+    [97,'Bk','Berkelio','(247)',9,11,10,'s',null,'+3, +4','[Rn] 5f⁹7s²','HCP',1949,'Radiactivo (²⁴⁷Bk, t½ = 1380 a)'],
+    [98,'Cf','Californio','(251)',9,12,10,'s',null,'+3','[Rn] 5f¹⁰7s²','HCP',1950,'Radiactivo (²⁵¹Cf, t½ = 898 a)'],
+    [99,'Es','Einstenio','(252)',9,13,10,'s',null,'+3','[Rn] 5f¹¹7s²','?',1952,'Radiactivo (²⁵²Es, t½ = 1.29 a)'],
+    [100,'Fm','Fermio','(257)',9,14,10,'s',null,'+3','[Rn] 5f¹²7s²','?',1952,'Radiactivo (²⁵⁷Fm, t½ = 100.5 d)'],
+    [101,'Md','Mendelevio','(258)',9,15,10,'s',null,'+2, +3','[Rn] 5f¹³7s²','?',1955,'Radiactivo (²⁵⁸Md, t½ = 51.5 d)'],
+    [102,'No','Nobelio','(259)',9,16,10,'s',null,'+2, +3','[Rn] 5f¹⁴7s²','?',1958,'Radiactivo (²⁵⁹No, t½ = 58 min)'],
+    [103,'Lr','Laurencio','(266)',9,17,10,'s',null,'+3','[Rn] 5f¹⁴7s²7p¹','?',1961,'Radiactivo (²⁶²Lr, t½ = 3.6 h)'],
+    [104,'Rf','Rutherfordio','(267)',2,4,7,'s',null,'+4','[Rn] 5f¹⁴6d²7s²','?',1964,'Radiactivo (²⁶⁷Rf, t½ = 1.3 h)'],
+    [105,'Db','Dubnio','(268)',2,5,7,'s',null,'+5','[Rn] 5f¹⁴6d³7s²','?',1970,'Radiactivo (²⁶⁸Db, t½ = 29 h)'],
+    [106,'Sg','Seaborgio','(271)',2,6,7,'s',null,'+6','[Rn] 5f¹⁴6d⁴7s²','?',1974,'Radiactivo (²⁷¹Sg, t½ = 2.4 min)'],
+    [107,'Bh','Bohrio','(272)',2,7,7,'s',null,'+7','[Rn] 5f¹⁴6d⁵7s²','?',1981,'Radiactivo (²⁷²Bh, t½ = 9.8 s)'],
+    [108,'Hs','Hassio','(270)',2,8,7,'s',null,'+8','[Rn] 5f¹⁴6d⁶7s²','?',1984,'Radiactivo (²⁷⁰Hs, t½ = 22 s)'],
+    [109,'Mt','Meitnerio','(278)',2,9,7,'s',null,'—','[Rn] 5f¹⁴6d⁷7s²','?',1982,'Radiactivo (²⁷⁸Mt, t½ = 7.6 s)'],
+    [110,'Ds','Darmstadtio','(281)',2,10,7,'s',null,'—','[Rn] 5f¹⁴6d⁸7s²','?',1994,'Radiactivo (²⁸¹Ds, t½ = 12.7 s)'],
+    [111,'Rg','Roentgenio','(282)',2,11,7,'s',null,'—','[Rn] 5f¹⁴6d⁹7s²','?',1994,'Radiactivo (²⁸²Rg, t½ = 100 s)'],
+    [112,'Cn','Copernicio','(285)',2,12,7,'s',null,'—','[Rn] 5f¹⁴6d¹⁰7s²','?',1996,'Radiactivo (²⁸⁵Cn, t½ = 29 s)'],
+    [113,'Nh','Nihonio','(286)',3,13,7,'s',null,'—','[Rn] 5f¹⁴6d¹⁰7s²7p¹','?',2004,'Radiactivo (²⁸⁶Nh, t½ = 9.5 s)'],
+    [114,'Fl','Flerovio','(289)',3,14,7,'s',null,'—','[Rn] 5f¹⁴6d¹⁰7s²7p²','?',1999,'Radiactivo (²⁸⁹Fl, t½ = 2.6 s)'],
+    [115,'Mc','Moscovio','(290)',3,15,7,'s',null,'—','[Rn] 5f¹⁴6d¹⁰7s²7p³','?',2003,'Radiactivo (²⁹⁰Mc, t½ = 0.65 s)'],
+    [116,'Lv','Livermorio','(293)',3,16,7,'s',null,'—','[Rn] 5f¹⁴6d¹⁰7s²7p⁴','?',2000,'Radiactivo (²⁹³Lv, t½ = 61 ms)'],
+    [117,'Ts','Teneso','(294)',6,17,7,'s',null,'—','[Rn] 5f¹⁴6d¹⁰7s²7p⁵','?',2010,'Radiactivo (²⁹⁴Ts, t½ = 51 ms)'],
+    [118,'Og','Oganesón','(294)',7,18,7,'s',null,'—','[Rn] 5f¹⁴6d¹⁰7s²7p⁶','?',2002,'Radiactivo (²⁹⁴Og, t½ = 0.69 ms)'],
+  ];
+
+  // ── REFERENCIAS AL DOM ──────────────────────────────────────
+  const grilla       = document.getElementById('tp-grilla');
+  const leyendaEl    = document.getElementById('tp-leyenda');
+  const buscarInput  = document.getElementById('tp-buscar');
+  const featureZona  = document.getElementById('feature-zona');
+  const featureCard  = document.getElementById('feature-card');
+  const featureFrente = document.getElementById('feature-frente');
+  const featureDorso  = document.getElementById('feature-dorso');
+  const flipHint     = document.getElementById('flip-hint');
+  const instruccion  = document.getElementById('tp-instruccion');
+
+  const cells = {};
+  let celSeleccionada = null;
+  let catActiva = null;
+
+  // ── CONSTRUIR CELDAS ────────────────────────────────────────
+  EL.forEach(e => {
+    const [num, sym, name, , ci, col, fila] = e;
+    const d = document.createElement('div');
+    d.className = 'el-cel';
+    d.setAttribute('role', 'listitem');
+    d.setAttribute('aria-label', `${name}, número atómico ${num}`);
+    d.title = `${name} (${sym})  Z = ${num}`;
+    d.style.cssText = `grid-column:${col};grid-row:${fila};background:${CAT[ci][2]};color:${CAT[ci][3]}`;
+    const disp = name.length > 9 ? name.slice(0, 8) + '…' : name;
+    d.innerHTML = `<span class="el-n">${num}</span><span class="el-s">${sym}</span><span class="el-nm">${disp}</span>`;
+    d.addEventListener('click', () => seleccionar(e, d));
+    grilla.appendChild(d);
+    cells[num] = d;
+  });
+
+  // Placeholders de lantánidos/actínidos en la tabla principal
+  [[3,6,'57–71'],[3,7,'89–103']].forEach(([c,r,lbl]) => {
+    const p = document.createElement('div');
+    p.className = 'el-ph';
+    p.style.cssText = `grid-column:${c};grid-row:${r}`;
+    p.textContent = lbl;
+    grilla.appendChild(p);
+  });
+
+  // Etiquetas de series en las filas separadas
+  [['Lantánidos',1,9],['Actínidos',1,10]].forEach(([lbl,c,r]) => {
+    const lb = document.createElement('div');
+    lb.className = 'el-lbl';
+    lb.style.cssText = `grid-column:${c}/span 2;grid-row:${r}`;
+    lb.textContent = lbl;
+    grilla.appendChild(lb);
+  });
+
+  // Separador visual entre períodos y series internas
+  const sep = document.createElement('div');
+  sep.className = 'tp-sep';
+  sep.style.cssText = 'grid-column:1/span 18;grid-row:8';
+  grilla.appendChild(sep);
+
+  // ── CONSTRUIR LEYENDA ───────────────────────────────────────
+  CAT.forEach(([, nombre, bg], i) => {
+    const li = document.createElement('div');
+    li.className = 'ley-item';
+    li.setAttribute('role', 'listitem');
+    li.innerHTML = `<span class="ley-color" style="background:${bg}"></span>${nombre}`;
+    li.addEventListener('click', () => {
+      if (catActiva === i) {
+        catActiva = null;
+        li.classList.remove('activo');
+      } else {
+        document.querySelectorAll('.ley-item').forEach(x => x.classList.remove('activo'));
+        catActiva = i;
+        li.classList.add('activo');
+      }
+      filtrar();
+    });
+    leyendaEl.appendChild(li);
+  });
+
+  // ── FILTRADO ─────────────────────────────────────────────────
+  function filtrar() {
+    const q = buscarInput.value.toLowerCase().trim();
+    EL.forEach(e => {
+      const [num, sym, name, , ci] = e;
+      const cel = cells[num];
+      if (!cel) return;
+      const mq = !q || sym.toLowerCase().includes(q) || name.toLowerCase().includes(q) || String(num).includes(q);
+      const mc = catActiva === null || ci === catActiva;
+      cel.classList.toggle('dim', !(mq && mc));
+    });
+
+    // Si queda un solo elemento visible, mostrarlo automáticamente
+    if (q.length >= 2) {
+      const visibles = EL.filter(e => {
+        const cel = cells[e[0]];
+        return cel && !cel.classList.contains('dim');
+      });
+      if (visibles.length === 1) {
+        seleccionar(visibles[0], cells[visibles[0][0]]);
+      }
+    }
+  }
+
+  buscarInput.addEventListener('input', filtrar);
+
+  // ── SELECCIONAR ELEMENTO ─────────────────────────────────────
+  function seleccionar(e, cel) {
+    // Actualizar selección en la grilla
+    if (celSeleccionada) celSeleccionada.classList.remove('sel');
+    celSeleccionada = cel;
+    cel.classList.add('sel');
+
+    const [num, sym, name, masa, ci, col, fila, estado, en, ox, cfg, cristal, year, isos] = e;
+    const periodo = fila > 7 ? (fila === 9 ? 6 : 7) : fila;
+    const grupo   = (ci === 8 || ci === 9) ? '—' : col;
+    const bg  = CAT[ci][2];
+    const tx  = CAT[ci][3];
+    const yearStr = year === null ? 'Prehistórico' : String(year);
+
+    // ── FRENTE: información básica ──────────────────────────
+    featureFrente.innerHTML = `
+      <div class="feat-bloque-sym" style="background:${bg};color:${tx}">
+        <span class="feat-z">Z = ${num}</span>
+        <span class="feat-simbolo">${sym}</span>
+        <span class="feat-masa">${masa} u</span>
+      </div>
+      <div class="feat-info">
+        <div>
+          <div class="feat-nombre">${name}</div>
+          <div class="feat-cat-badge" style="background:${bg};color:${tx}">${CAT[ci][1]}</div>
+        </div>
+        <div class="feat-props-grid">
+          <div class="feat-prop">
+            <span class="feat-prop-l">Estado a 25 °C</span>
+            <span class="feat-prop-v">${ESTADO[estado]}</span>
+          </div>
+          <div class="feat-prop">
+            <span class="feat-prop-l">Período / Grupo</span>
+            <span class="feat-prop-v">${periodo} / ${grupo}</span>
+          </div>
+          <div class="feat-prop">
+            <span class="feat-prop-l">Masa atómica</span>
+            <span class="feat-prop-v">${masa} u</span>
+          </div>
+          <div class="feat-prop">
+            <span class="feat-prop-l">Electroneg. Pauling</span>
+            <span class="feat-prop-v">${en !== null ? en.toFixed(2) : '—'}</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // ── DORSO: propiedades avanzadas ────────────────────────
+    featureDorso.innerHTML = `
+      <div class="dorso-lateral">
+        <span class="dorso-sym">${sym}</span>
+        <span class="dorso-nombre">${name}</span>
+      </div>
+      <div class="dorso-contenido">
+        <div class="dorso-titulo">Propiedades del elemento · ${CAT[ci][1]}</div>
+        <div class="dorso-props">
+          <div class="dp-item" style="grid-column: 1 / span 2">
+            <span class="dp-label">Configuración electrónica</span>
+            <span class="dp-val cfg">${cfg}</span>
+          </div>
+          <div class="dp-item">
+            <span class="dp-label">Estados de oxidación</span>
+            <span class="dp-val">${ox}</span>
+          </div>
+          <div class="dp-item">
+            <span class="dp-label">Estructura cristalina</span>
+            <span class="dp-val">${CSTRUCT[cristal] || '—'}</span>
+          </div>
+          <div class="dp-item">
+            <span class="dp-label">Isótopos</span>
+            <span class="dp-val">${isos}</span>
+          </div>
+          <div class="dp-item">
+            <span class="dp-label">Descubrimiento</span>
+            <span class="dp-val">${yearStr}</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Mostrar zona y resetear al frente
+    featureCard.classList.remove('volteada');
+    featureZona.classList.add('visible');
+    instruccion.style.display = 'none';
+    flipHint.textContent = 'Hacé clic en la tarjeta para ver la configuración electrónica y más detalles';
+
+    // Scroll suave hacia la tarjeta
+    setTimeout(() => {
+      featureZona.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 80);
+  }
+
+  // ── VOLTEO DE LA TARJETA ─────────────────────────────────────
+  featureCard.addEventListener('click', () => {
+    featureCard.classList.toggle('volteada');
+    const volteada = featureCard.classList.contains('volteada');
+    flipHint.textContent = volteada
+      ? 'Hacé clic para volver a la vista básica'
+      : 'Hacé clic en la tarjeta para ver la configuración electrónica y más detalles';
+  });
+
+  featureCard.addEventListener('keydown', ev => {
+    if (ev.key === 'Enter' || ev.key === ' ') {
+      ev.preventDefault();
+      featureCard.click();
+    }
+  });
+  </script>
+
+</body>
+</html>
