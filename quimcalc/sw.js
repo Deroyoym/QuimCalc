@@ -38,8 +38,8 @@ const PRECACHE_URLS = [
   '/herramientas/js/dureza-agua.js',
 
   // Íconos de la PWA
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
+  '/assets/android-chrome-192x192.png',
+  '/assets/android-chrome-512x512.png',
 
   // Página offline de respaldo
   '/offline.html',
