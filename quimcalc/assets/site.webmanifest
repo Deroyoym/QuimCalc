@@ -24,28 +24,28 @@
       "short_name": "Molaridad",
       "description": "Calculá molaridad, masa y volumen de soluciones",
       "url": "/herramientas/calculadora-molaridad.html",
-      "icons": [{ "src": "/icons/shortcut-molaridad.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/assets/shortcut-molaridad.png", "sizes": "96x96" }]
     },
     {
       "name": "Diluciones C₁V₁=C₂V₂",
       "short_name": "Diluciones",
       "description": "Calculá volúmenes para diluciones simples",
       "url": "/herramientas/calculadora-diluciones.html",
-      "icons": [{ "src": "/icons/shortcut-diluciones.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/assets/shortcut-diluciones.png", "sizes": "96x96" }]
     },
     {
       "name": "Calculadora de pH",
       "short_name": "pH",
       "description": "pH de ácidos y bases fuertes y débiles",
       "url": "/herramientas/calculadora-ph.html",
-      "icons": [{ "src": "/icons/shortcut-ph.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/assets/shortcut-ph.png", "sizes": "96x96" }]
     },
     {
       "name": "Masa Molar",
       "short_name": "Masa Molar",
       "description": "Calculá la masa molar de cualquier compuesto químico",
       "url": "/herramientas/masa-molar.html",
-      "icons": [{ "src": "/icons/shortcut-masa.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/assets/shortcut-masa.png", "sizes": "96x96" }]
     }
   ]
 }
