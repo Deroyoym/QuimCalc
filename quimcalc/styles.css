@@ -1065,4 +1065,58 @@ a:hover {
     margin-left: auto;
     margin-right: auto;
   }
+
+   /* ── BOTONES DE COMPARTIR (posts del blog) ───────────────── */
+.compartir {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-md);
+  margin-top: var(--espacio-xl);
+  padding-top: var(--espacio-lg);
+  border-top: 1px solid var(--color-borde);
+  flex-wrap: wrap;
+}
+
+.compartir__etiqueta {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-texto-suave);
+  margin: 0;
+}
+
+.compartir__botones {
+  display: flex;
+  gap: var(--espacio-sm);
+}
+
+.compartir__btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.compartir__btn:hover {
+  opacity: 0.85;
+  transform: scale(1.1);
+  text-decoration: none;
+  color: #fff;
+}
+
+.compartir__btn svg {
+  width: 17px;
+  height: 17px;
+  fill: #fff;
+  stroke: none;
+}
+
+.compartir__btn--fb { background-color: #1877F2; }
+.compartir__btn--x  { background-color: #000;    }
+.compartir__btn--li { background-color: #0A66C2; }
+.compartir__btn--wa { background-color: #25D366; }
 }
