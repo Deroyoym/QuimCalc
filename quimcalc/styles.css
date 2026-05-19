@@ -1097,6 +1097,7 @@ a:hover {
   align-items: center;
   justify-content: center;
   color: #fff;
+  overflow: hidden;
   text-decoration: none;
   transition: opacity 0.15s, transform 0.15s;
 }
