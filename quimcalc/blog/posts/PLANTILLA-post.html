@@ -267,6 +267,25 @@
           
             </div>
           </div>
+          <script>
+            // Rellena los links de compartir con la URL y título del post actual
+            (function () {
+              var url    = encodeURIComponent(window.location.href);
+              var titulo = encodeURIComponent(document.title);
+          
+              var mapa = {
+                'compartir__btn--fb': 'https://www.facebook.com/sharer/sharer.php?u=' + url,
+                'compartir__btn--x' : 'https://twitter.com/intent/tweet?url=' + url + '&text=' + titulo,
+                'compartir__btn--li': 'https://www.linkedin.com/sharing/share-offsite/?url=' + url,
+                'compartir__btn--wa': 'https://wa.me/?text=' + titulo + '%20' + url,
+              };
+          
+              Object.keys(mapa).forEach(function (clase) {
+                var btn = document.querySelector('.' + clase);
+                if (btn) btn.href = mapa[clase];
+              });
+            })();
+          </script>
 
         </article>
 
