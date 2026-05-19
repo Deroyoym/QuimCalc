@@ -1065,7 +1065,7 @@ a:hover {
     margin-left: auto;
     margin-right: auto;
   }
-
+}
    /* ── BOTONES DE COMPARTIR (posts del blog) ───────────────── */
 .compartir {
   display: flex;
@@ -1120,4 +1120,4 @@ a:hover {
 .compartir__btn--x  { background-color: #000;    }
 .compartir__btn--li { background-color: #0A66C2; }
 .compartir__btn--wa { background-color: #25D366; }
-}
+
