@@ -19,17 +19,32 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="QuimCalc">
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Calculadora de Diluciones Seriadas",
-    "applicationCategory": "EducationalApplication",
-    "operatingSystem": "Web",
-    "description": "Genera la tabla completa de diluciones seriadas con concentraciones y volúmenes para cada tubo.",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Calculadora de Diluciones Seriadas",
+  "description": "Calculá las concentraciones de cada paso en una dilución seriada de laboratorio.",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Web",
+  "inLanguage": "es-AR",
+  "isAccessibleForFree": true,
+  "url": "https://quimcalc.com/herramientas/diluciones-seriadas.html",
+  "featureList": ["Calcula concentración en cada paso de la serie",
+               "Factor de dilución configurable",
+               "Muestra tabla de resultados completa"],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "ARS"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "QuimCalc",
+    "url": "https://quimcalc.com"
   }
-  </script>
+}
+</script>
 
   <style>
     /* Tabla de resultados de la serie */

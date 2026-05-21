@@ -851,6 +851,14 @@ a:hover {
   flex-shrink: 0;
 }
 
+/* Imagen de la card del blog */
+.card-blog__imagen {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
 /* ── SECCIÓN DEL INDEX (espaciado) ───────────────────────────*/
 .seccion-index {
   padding: var(--espacio-xl) 0;
