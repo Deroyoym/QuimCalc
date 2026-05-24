@@ -244,6 +244,40 @@
       .paso__numero { margin-top: 0; }
       .descarga-card { flex-direction: column; }
     }
+    @media (max-width: 768px) {
+
+    /* Oculta el sidebar — los links de descarga
+     ya están dos veces en el cuerpo del artículo */
+    .post-sidebar {
+      display: none;
+    }
+
+    /* Menos espacio entre pasos */
+    .separador-pasos {
+      margin: var(--espacio-md) 0;
+    }
+
+    /* Número del paso un poco más chico */
+    .paso__numero {
+      width: 32px;
+      height: 32px;
+      font-size: 0.875rem;
+    }
+
+    /* Card de descarga: ocultar el icono emoji en mobile
+       para que el botón y el texto tengan más espacio */
+    .descarga-card__icono {
+      display: none;
+    }
+
+    /* Que el botón de descarga ocupe todo el ancho */
+    .btn--descarga {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+    }
+
+    }
   </style>
 </head>
 
@@ -384,7 +418,7 @@
                   <img
                     src="img/captura1.webp"
                     alt="Vista general de la calculadora de curva de calibración en QuimCalc con los campos de entrada vacíos"
-                    class="card-blog__imagen"
+                    class="captura-img"
                     loading="lazy"
                     width="1200"
                     height="700"
@@ -406,7 +440,7 @@
 
                 <div class="captura-wrapper">
                   <img
-                    src="img/captura2.webp"
+                    src="img/Captura2.webp"
                     alt="Tabla de la herramienta con los estándares de calibración cargados: concentración en la primera columna y señal en la segunda"
                     class="captura-img"
                     loading="lazy"
@@ -473,7 +507,7 @@
                 </div>
                 <div class="captura-wrapper">
                   <img
-                    src="img/captura4.webp"
+                    src="img/Captura4.webp"
                     alt="Sección de interpolación con la señal de una muestra desconocida ingresada y la concentración calculada como resultado"
                     class="captura-img"
                     loading="lazy"
@@ -499,7 +533,7 @@
                 </p>
                 <div class="captura-wrapper">
                   <img
-                    src="img/captura5.webp"
+                    src="img/Captura5.webp"
                     alt="Botón Exportar para informe en la calculadora de QuimCalc con confirmación de texto copiado al portapapeles"
                     class="captura-img"
                     loading="lazy"
