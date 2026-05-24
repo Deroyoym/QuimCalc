@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>¿Qué es el límite de detección (LOD) y cómo se calcula? | QuimCalc</title>
+  <meta name="description" content="Guía completa sobre LOD y LOQ: qué significan, los tres métodos de cálculo más usados en química analítica y cómo interpretarlos en el laboratorio.">
+  <meta name="author" content="QuimCalc">
+  <meta name="article:published_time" content="2026-05-21">
+
+  <link rel="preload" href="../../styles.css" as="style">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16x16.png">
+  <link rel="manifest" href="../../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "¿Qué es el límite de detección (LOD) y cómo se calcula?",
+    "description": "Guía completa sobre LOD y LOQ: qué significan, los tres métodos de cálculo más usados en química analítica y cómo interpretarlos en el laboratorio.",
+    "datePublished": "2026-05-21",
+    "dateModified": "2026-05-21",
+    "author": {
+      "@type": "Organization",
+      "name": "QuimCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "QuimCalc",
+      "url": "https://quimcalc.com"
+    }
+  }
+  </script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JPQ3QTH9BN');
+</script>
+
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────── -->
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../../index.html#herramientas">Herramientas</a>
+          <a href="../index.html" class="activo">Blog</a>
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="contenedor">
+
+      <!-- Miga de pan -->
+      <nav class="breadcrumb" style="padding-top: var(--espacio-xl);" aria-label="Ubicación en el sitio">
+        <a href="../../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="../index.html">Blog</a>
+        <span aria-hidden="true">›</span>
+        <span>Límite de detección (LOD y LOQ)</span>
+      </nav>
+
+      <div class="post-layout">
+
+        <!-- ── ARTÍCULO PRINCIPAL ──────────────────────── -->
+        <article>
+
+          <header class="post-header">
+
+            <p class="post-header__categoria">
+              <span style="color: #DC2626;">Normativa y calidad</span>
+            </p>
+
+            <h1 class="post-header__titulo">
+              ¿Qué es el límite de detección (LOD) y cómo se calcula?
+            </h1>
+
+            <p class="post-header__resumen">
+              El LOD y el LOQ son dos parámetros clave en la validación de métodos analíticos. Saber calcularlos correctamente es fundamental para demostrar que tu método puede detectar y cuantificar un analito a bajas concentraciones, algo que exigen normas como ISO 17025 y EURACHEM.
+            </p>
+
+            <div class="post-header__meta">
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Mayo 2026
+              </span>
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                8 min lectura
+              </span>
+            </div>
+
+          </header>
+
+          <div class="post-contenido">
+
+            <h2 id="que-son">¿Qué son el LOD y el LOQ?</h2>
+
+            <p>
+              El <strong>LOD (Limit of Detection — límite de detección)</strong> es la concentración mínima de un analito que puede distinguirse con certeza estadística del ruido de fondo o del blanco. Es el punto a partir del cual el método "ve" que hay algo, aunque no pueda cuantificarlo de forma confiable.
+            </p>
+
+            <p>
+              El <strong>LOQ (Limit of Quantification — límite de cuantificación)</strong> es la concentración mínima que puede medirse con precisión y exactitud aceptables. Es siempre mayor que el LOD: si el LOD te indica que detectás algo, el LOQ te dice desde qué concentración podés reportar un número válido con respaldo estadístico.
+            </p>
+
+            <div class="ejemplo-bloque">
+              <strong>Analogía práctica</strong>
+              <p>Imaginá que estás escuchando una conversación en una habitación ruidosa. El LOD sería el momento en que empezás a notar que alguien está hablando, aunque no entiendas qué dice. El LOQ sería el punto a partir del cual podés entender y repetir exactamente lo que escuchaste.</p>
+            </div>
+
+            <h2 id="diferencia">¿Cuál es la diferencia entre LOD y LOQ?</h2>
+
+            <p>
+              La relación matemática entre ambos es directa: el LOQ es entre 3 y 4 veces mayor que el LOD. Esto se debe a los factores estadísticos que se aplican en cada caso.
+            </p>
+
+            <ul>
+              <li><strong>LOD:</strong> concentración donde la señal es 3,3 veces la desviación estándar del ruido de fondo</li>
+              <li><strong>LOQ:</strong> concentración donde la señal es 10 veces la desviación estándar del ruido de fondo</li>
+            </ul>
+
+            <p>
+              En la práctica, los resultados que están entre el LOD y el LOQ se reportan como "detectado pero no cuantificable". Los que están por debajo del LOD se reportan como "no detectado (&lt; LOD)". Solo los que superan el LOQ tienen un valor numérico reportable en un informe acreditado.
+            </p>
+
+            <h2 id="metodos">Los tres métodos de cálculo más usados</h2>
+
+            <p>
+              Existen varios enfoques para calcular el LOD y el LOQ. Los tres más usados en laboratorios analíticos son el método de señal/ruido, el método de la desviación estándar del blanco y el método de la curva de calibración.
+            </p>
+
+            <h3>Método 1: Señal/ruido (S/N)</h3>
+
+            <p>
+              Es el más intuitivo. Se mide la señal del analito y el ruido de fondo del instrumento, y se aplica una relación directa. Este método se usa principalmente en cromatografía (HPLC, GC) y espectrometría de masa.
+            </p>
+
+            <div class="post-formula" role="note" aria-label="Fórmula señal/ruido">
+              LOD  →  S/N = 3 : 1<br>
+              LOQ  →  S/N = 10 : 1
+            </div>
+
+            <p>
+              El ruido se mide en una zona de la línea de base donde no hay señal del analito. Si la señal de una muestra diluida es 3 veces el ruido, esa concentración es el LOD. Si es 10 veces, es el LOQ.
+            </p>
+
+            <h3>Método 2: Desviación estándar del blanco</h3>
+
+            <p>
+              Se preparan múltiples mediciones del blanco reactivo (sin analito, mínimo 7 a 10 repeticiones) y se calcula la desviación estándar. Este método es el recomendado por EURACHEM para métodos de rutina.
+            </p>
+
+            <div class="post-formula" role="note" aria-label="Fórmula desviación estándar del blanco">
+              LOD = ȳ<sub>blanco</sub> + 3 × s<sub>blanco</sub><br>
+              LOQ = ȳ<sub>blanco</sub> + 10 × s<sub>blanco</sub>
+            </div>
+
+            <p>
+              Donde <strong>ȳ<sub>blanco</sub></strong> es el promedio de las lecturas del blanco y <strong>s<sub>blanco</sub></strong> es su desviación estándar. Cuánto más estable sea el blanco, más bajo será el LOD resultante.
+            </p>
+
+            <h3>Método 3: Curva de calibración (IUPAC)</h3>
+
+            <p>
+              Es el método más completo y el preferido cuando ya se dispone de una curva de calibración construida. Aprovecha la pendiente de la recta de regresión para vincular el LOD directamente con el rendimiento del método.
+            </p>
+
+            <div class="post-formula" role="note" aria-label="Fórmula curva de calibración IUPAC">
+              LOD = 3,3 × (s / S)<br>
+              LOQ = 10 × (s / S)
+            </div>
+
+            <p>
+              Donde <strong>s</strong> es la desviación estándar de los residuos de la curva (o del blanco) y <strong>S</strong> es la pendiente de la recta de calibración. Una pendiente mayor indica mayor sensibilidad y resulta en un LOD más bajo.
+            </p>
+
+            <div class="ejemplo-bloque">
+              <strong>Ejemplo resuelto — Método de la curva de calibración</strong>
+              <p>Datos: pendiente de la curva S = 0,045 AU·L/mg; desviación estándar del blanco s = 0,0012 AU.</p>
+              <p>LOD = 3,3 × (0,0012 / 0,045) = 3,3 × 0,0267 = <strong>0,088 mg/L</strong></p>
+              <p>LOQ = 10 × (0,0012 / 0,045) = 10 × 0,0267 = <strong>0,267 mg/L</strong></p>
+              <p>Interpretación: el método detecta el analito desde 0,088 mg/L y puede cuantificarlo de forma confiable desde 0,267 mg/L.</p>
+            </div>
+
+            <h2 id="practica">Cómo se usan en la práctica</h2>
+
+            <p>
+              Una vez calculados, el LOD y el LOQ definen el rango operativo de tu método analítico. Cualquier resultado por debajo del LOQ no debe reportarse como un número, independientemente de lo que muestre la pantalla del equipo.
+            </p>
+
+            <p>
+              En laboratorios acreditados bajo ISO 17025, los LOD y LOQ deben estar documentados en el procedimiento validado y verificados periódicamente. Si el laboratorio modifica alguna condición del método —reactivos, instrumento, operador— los límites deben recalcularse.
+            </p>
+
+            <ul>
+              <li>Resultado <strong>&lt; LOD</strong> → reportar como "No detectado (&lt; X mg/L)"</li>
+              <li>Resultado <strong>entre LOD y LOQ</strong> → reportar como "Detectado, no cuantificable"</li>
+              <li>Resultado <strong>&gt; LOQ</strong> → reportar el valor numérico con su incertidumbre asociada</li>
+            </ul>
+
+            <p>
+              Si querés calcular el LOD y LOQ de tu método de forma rápida, podés usar la <a href="../../herramientas/lod-loq.html">calculadora de LOD y LOQ de QuimCalc</a>, que implementa los tres métodos descritos en este artículo.
+            </p>
+
+            <h2 id="faq">Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+              <h3>¿El LOD siempre es menor que el LOQ?</h3>
+              <p>Sí, siempre. El LOQ es por definición mayor que el LOD. Si tu cálculo arroja un LOQ menor que el LOD, hay un error en los datos o en la metodología aplicada.</p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Qué pasa si mido una muestra con concentración entre el LOD y el LOQ?</h3>
+              <p>Podés indicar que el analito está presente, pero no podés reportar un valor numérico confiable. En informes acreditados ese resultado se clasifica como "trazas" o "detectado, no cuantificable".</p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿El LOD depende del instrumento o del método?</h3>
+              <p>De ambos. El instrumento determina el ruido de fondo, pero el método completo —preparación de muestra, diluciones, reactivos— también afecta la sensibilidad final. Por eso el LOD debe calcularse en las condiciones reales de trabajo, no en las del fabricante del equipo.</p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Cada cuánto hay que recalcular el LOD?</h3>
+              <p>No hay una frecuencia fija, pero se recalcula cada vez que cambia algo significativo: nuevo lote de reactivos, cambio de columna cromatográfica, reparación del instrumento o cambio de operador. En métodos acreditados ISO 17025 suele hacerse al menos una vez al año dentro del plan de verificación.</p>
+            </div>
+
+          </div><!-- /post-contenido -->
+
+          <!-- Botones de compartir -->
+          <div class="compartir">
+            <p class="compartir__etiqueta">Compartir:</p>
+            <div class="compartir__botones">
+
+              <a class="compartir__btn compartir__btn--fb"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en Facebook">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+                </svg>
+              </a>
+
+              <a class="compartir__btn compartir__btn--x"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en X (Twitter)">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+
+              <a class="compartir__btn compartir__btn--li"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en LinkedIn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+
+              <a class="compartir__btn compartir__btn--wa"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir por WhatsApp">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+                </svg>
+              </a>
+
+            </div>
+          </div>
+          <script>
+            /* Rellena los links de compartir con la URL y título del post actual */
+            (function () {
+              var url    = encodeURIComponent(window.location.href);
+              var titulo = encodeURIComponent(document.title);
+              var mapa = {
+                'compartir__btn--fb': 'https://www.facebook.com/sharer/sharer.php?u=' + url,
+                'compartir__btn--x' : 'https://twitter.com/intent/tweet?url=' + url + '&text=' + titulo,
+                'compartir__btn--li': 'https://www.linkedin.com/sharing/share-offsite/?url=' + url,
+                'compartir__btn--wa': 'https://wa.me/?text=' + titulo + '%20' + url,
+              };
+              Object.keys(mapa).forEach(function (clase) {
+                var btn = document.querySelector('.' + clase);
+                if (btn) btn.href = mapa[clase];
+              });
+            })();
+          </script>
+
+        </article>
+
+        <!-- ── SIDEBAR ──────────────────────────────────── -->
+        <aside class="post-sidebar" aria-label="Contenido relacionado">
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">En este artículo</p>
+            <ul class="toc-lista" role="list">
+              <li><a href="#que-son">¿Qué son el LOD y el LOQ?</a></li>
+              <li><a href="#diferencia">Diferencia entre LOD y LOQ</a></li>
+              <li><a href="#metodos">Los tres métodos de cálculo</a></li>
+              <li><a href="#practica">Cómo se usan en la práctica</a></li>
+              <li><a href="#faq">Preguntas frecuentes</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">Herramientas relacionadas</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="../../herramientas/lod-loq.html">→ Calculadora LOD y LOQ</a></li>
+              <li><a href="../../herramientas/curva-calibracion.html">→ Curva de calibración</a></li>
+              <li><a href="../../herramientas/incertidumbre.html">→ Incertidumbre de medición</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">También te puede interesar</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="incertidumbre-para-no-estadisticos.html">→ Incertidumbre para no estadísticos</a></li>
+              <li><a href="espectrofotometria-curva-calibracion.html">→ Espectrofotometría y curva de calibración</a></li>
+            </ul>
+          </div>
+
+        </aside>
+
+      </div><!-- /post-layout -->
+    </div><!-- /contenedor -->
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vercel Speed Insights -->
+  <script type="module" src="../../js/init-speed-insights.js"></script>
+  <script src="../../js/pwa-register.js"></script>
+
+</body>
+</html>
