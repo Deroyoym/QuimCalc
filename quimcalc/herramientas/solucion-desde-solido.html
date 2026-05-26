@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preparación de solución desde sólido con pureza | QuimCalc</title>
+  <meta name="description" content="Calculá la masa exacta a pesar de un reactivo sólido considerando su grado de pureza para preparar una solución de concentración y volumen determinados.">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/herramientas/solucion-desde-solido.html">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Preparación de solución desde sólido con pureza",
+    "description": "Calculá la masa exacta a pesar de un reactivo sólido considerando su grado de pureza para preparar soluciones de concentración y volumen determinados.",
+    "url": "https://quimcalc.com/herramientas/solucion-desde-solido.html",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "isAccessibleForFree": true,
+    "inLanguage": "es",
+    "featureList": ["Masa a pesar con pureza", "Masa de sustancia pura equivalente", "Pasos de preparación"],
+    "provider": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
+  }
+  </script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+  <style>
+    /* Grilla de resultados secundarios */
+    .resultados-grilla {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--espacio-md);
+      margin-top: var(--espacio-md);
+    }
+
+    .resultado-mini {
+      background-color: var(--color-fondo);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-md);
+    }
+
+    .resultado-mini__etiqueta {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-texto-suave);
+      margin-bottom: 4px;
+    }
+
+    .resultado-mini__valor {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-texto);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Pasos */
+    .pasos-preparacion {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-lg);
+      margin-top: var(--espacio-lg);
+      display: none;
+    }
+
+    .pasos-preparacion.visible { display: block; }
+
+    .pasos-preparacion__titulo {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-texto-suave);
+      margin-bottom: var(--espacio-md);
+    }
+
+    .pasos-lista {
+      list-style: none;
+      counter-reset: paso;
+      display: flex;
+      flex-direction: column;
+      gap: var(--espacio-sm);
+    }
+
+    .pasos-lista li {
+      counter-increment: paso;
+      display: flex;
+      gap: var(--espacio-md);
+      align-items: flex-start;
+      font-size: 0.9rem;
+      color: var(--color-texto);
+      line-height: 1.5;
+    }
+
+    .pasos-lista li::before {
+      content: counter(paso);
+      background-color: var(--color-acento);
+      color: #fff;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Indicador de pureza */
+    .pureza-bar-wrapper {
+      margin-top: var(--espacio-xs);
+    }
+
+    .pureza-bar {
+      height: 6px;
+      border-radius: 3px;
+      background: linear-gradient(to right, var(--color-acento) var(--pureza-pct, 99%), var(--color-borde) var(--pureza-pct, 99%));
+      transition: background 0.3s;
+    }
+
+    .pureza-label {
+      font-size: 0.75rem;
+      color: var(--color-texto-suave);
+      margin-top: 2px;
+    }
+
+    @media (max-width: 640px) {
+      .resultados-grilla { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JPQ3QTH9BN');
+</script>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas" class="activo">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="pagina-herramienta">
+      <div class="contenedor">
+
+        <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+          <a href="../index.html">Inicio</a>
+          <span aria-hidden="true">›</span>
+          <a href="../index.html#herramientas">Herramientas</a>
+          <span aria-hidden="true">›</span>
+          <span>Solución desde sólido con pureza</span>
+        </nav>
+
+        <div class="pagina-herramienta__encabezado">
+          <h1 class="pagina-herramienta__titulo">Preparación de solución desde sólido con pureza</h1>
+          <p class="pagina-herramienta__descripcion">
+            Calculá la masa exacta a pesar de un reactivo sólido considerando su grado de pureza. Indispensable cuando el reactivo no es de calidad absoluta (p.a. 100 %).
+          </p>
+        </div>
+
+        <div class="calculadora" role="form" aria-label="Calculadora de solución desde sólido con pureza">
+
+          <!-- Solución a preparar -->
+          <fieldset style="border:none;padding:0;margin:0 0 var(--espacio-lg);">
+            <legend style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-texto-suave);margin-bottom:var(--espacio-md);">
+              Solución a preparar
+            </legend>
+
+            <div class="campo-grupo">
+              <label for="c-deseada">Concentración deseada</label>
+              <div class="campo-fila">
+                <input type="number" id="c-deseada" min="0" step="any"
+                       placeholder="ej: 0.1" aria-required="true">
+                <select id="unidad-c" aria-label="Unidad de concentración">
+                  <option value="mol/L">mol/L</option>
+                  <option value="g/L">g/L</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="campo-grupo">
+              <label for="v-final">Volumen final</label>
+              <div class="campo-fila">
+                <input type="number" id="v-final" min="0" step="any"
+                       placeholder="ej: 500" aria-required="true">
+                <select id="unidad-v" aria-label="Unidad de volumen">
+                  <option value="mL">mL</option>
+                  <option value="L">L</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Reactivo sólido -->
+          <fieldset style="border:none;padding:0;margin:0 0 var(--espacio-lg);">
+            <legend style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-texto-suave);margin-bottom:var(--espacio-md);">
+              Reactivo sólido
+            </legend>
+
+            <div class="campo-grupo">
+              <label for="masa-molar">Masa molar (g/mol)</label>
+              <input type="number" id="masa-molar" min="0" step="0.01"
+                     placeholder="ej: 58.44 (NaCl)" aria-required="true">
+            </div>
+
+            <div class="campo-grupo">
+              <label for="pureza">Pureza del reactivo (%)</label>
+              <input type="number" id="pureza" min="0" max="100" step="0.1"
+                     placeholder="ej: 99.5" value="99.5"
+                     oninput="actualizarBarra(this.value)" aria-required="true">
+              <div class="pureza-bar-wrapper">
+                <div class="pureza-bar" id="pureza-bar" style="--pureza-pct:99.5%"></div>
+                <p class="pureza-label" id="pureza-label">Pureza: 99,5 % — Impurezas: 0,5 %</p>
+              </div>
+              <span class="ayuda">Figura en el certificado de análisis (CoA) o en la etiqueta del frasco.</span>
+            </div>
+          </fieldset>
+
+          <button class="btn btn--primario" onclick="calcular()">Calcular</button>
+
+          <!-- Resultado principal -->
+          <div class="resultado" id="resultado" role="status" aria-live="polite">
+            <p class="resultado__etiqueta">Masa a pesar del reactivo</p>
+            <p class="resultado__valor" id="res-masa">— g</p>
+            <p class="resultado__formula" id="res-formula"></p>
+
+            <div class="resultados-grilla">
+              <div class="resultado-mini">
+                <p class="resultado-mini__etiqueta">Masa de sustancia pura</p>
+                <p class="resultado-mini__valor" id="res-masa-pura">—</p>
+              </div>
+              <div class="resultado-mini">
+                <p class="resultado-mini__etiqueta">Masa extra por impurezas</p>
+                <p class="resultado-mini__valor" id="res-extra">—</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pasos de preparación -->
+          <div class="pasos-preparacion" id="pasos">
+            <p class="pasos-preparacion__titulo">Pasos de preparación</p>
+            <ol class="pasos-lista" id="lista-pasos"></ol>
+          </div>
+
+        </div><!-- /calculadora -->
+
+        <!-- Sección educativa -->
+        <div class="seccion-educativa">
+
+          <h2>¿Por qué la pureza cambia la masa a pesar?</h2>
+          <p>
+            Un reactivo "p.a." (para análisis) tiene generalmente 99–99,9 % de pureza, lo que significa que hay una fracción de impurezas. Si pesás exactamente la masa teórica sin corregir por pureza, obtenés menos moles de sustancia activa de los que necesitás, y la solución queda más diluida de lo esperado.
+          </p>
+          <p>
+            La corrección es sencilla: dividir la masa teórica por la fracción de pureza.
+          </p>
+
+          <div class="ejemplo-bloque">
+            <strong>Fórmula</strong>
+            <p>m<sub>reactivo</sub> (g) = (C × V × M) / (P / 100)</p>
+            <p>Donde C = concentración (mol/L), V = volumen (L), M = masa molar (g/mol), P = pureza (%)</p>
+          </div>
+
+          <div class="ejemplo-bloque">
+            <strong>Ejemplo resuelto — NaCl 0,1 mol/L en 500 mL, pureza 99,5 %</strong>
+            <p>Masa teórica (pureza 100 %) = 0,1 × 0,5 × 58,44 = 2,922 g</p>
+            <p>Masa corregida = 2,922 / (99,5 / 100) = <strong>2,936 g</strong></p>
+            <p>La diferencia es solo 14 mg, pero en análisis de alta precisión es crítica.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Qué pasa si no corrijo por pureza?</h3>
+            <p>La concentración real de la solución va a ser menor a la teórica. En análisis volumétrico esto introduce un error sistemático en todos los resultados. En validación de métodos ISO 17025, la preparación de patrones sin corrección por pureza es una no conformidad.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Puedo usar esta herramienta si la concentración es en g/L?</h3>
+            <p>Sí. Al elegir g/L como unidad, la herramienta usa directamente la masa molar para convertir internamente a mol/L antes de calcular. El resultado es el mismo que si hubieras convertido vos.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Qué diferencia hay entre pureza y título?</h3>
+            <p>"Pureza" se usa habitualmente para sólidos e indica la fracción másica del compuesto principal. "Título" o "riqueza" se usa más para líquidos (ácidos comerciales). Ambos expresan lo mismo: qué porcentaje del reactivo es la sustancia de interés.</p>
+          </div>
+
+        </div>
+
+        <div class="bloque-blog-relacionado">
+          <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
+          <a href="calculadora-molaridad.html" class="bloque-blog-relacionado__titulo">Molaridad y masa (sin pureza)</a>
+          <p class="bloque-blog-relacionado__descripcion">Si tu reactivo es de pureza 100 %, usá esta herramienta más simple.</p>
+        </div>
+
+        <div class="bloque-blog-relacionado" style="margin-top:var(--espacio-md)">
+          <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
+          <a href="diluciones-reactivo-comercial.html" class="bloque-blog-relacionado__titulo">Dilución desde reactivo comercial (líquido)</a>
+          <p class="bloque-blog-relacionado__descripcion">Para ácidos y bases líquidos que se diluyen con agua, usá esta calculadora.</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/init-speed-insights.js"></script>
+  <script src="../js/pwa-register.js"></script>
+
+  <script>
+    /* ── Calculadora: solución desde sólido con pureza ── */
+    document.addEventListener('DOMContentLoaded', function () {
+      var campos = ['c-deseada', 'v-final', 'masa-molar', 'pureza'];
+      campos.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener('input', limpiar);
+      });
+      document.getElementById('unidad-c').addEventListener('change', limpiar);
+      document.getElementById('unidad-v').addEventListener('change', limpiar);
+    });
+
+    function actualizarBarra(val) {
+      var pct = Math.min(100, Math.max(0, parseFloat(val) || 0));
+      var bar  = document.getElementById('pureza-bar');
+      var lbl  = document.getElementById('pureza-label');
+      bar.style.setProperty('--pureza-pct', pct + '%');
+      var impurezas = (100 - pct).toFixed(1);
+      lbl.textContent = 'Pureza: ' + pct.toFixed(1).replace('.', ',') + ' %  —  Impurezas: ' + impurezas.replace('.', ',') + ' %';
+    }
+
+    function limpiar() {
+      document.getElementById('resultado').classList.remove('visible', 'resultado--error');
+      document.getElementById('pasos').classList.remove('visible');
+    }
+
+    function mostrarError(msg) {
+      var r = document.getElementById('resultado');
+      r.className = 'resultado resultado--error visible';
+      r.querySelector('.resultado__etiqueta').textContent = 'Error';
+      r.querySelector('.resultado__valor').textContent    = msg;
+      r.querySelector('.resultado__formula').textContent  = '';
+    }
+
+    function calcular() {
+      var cDeseada  = parseFloat(document.getElementById('c-deseada').value);
+      var vFinal    = parseFloat(document.getElementById('v-final').value);
+      var masaMolar = parseFloat(document.getElementById('masa-molar').value);
+      var pureza    = parseFloat(document.getElementById('pureza').value);
+      var unidadC   = document.getElementById('unidad-c').value;
+      var unidadV   = document.getElementById('unidad-v').value;
+
+      /* Validaciones */
+      if (isNaN(cDeseada)  || cDeseada  <= 0)               return mostrarError('Ingresá una concentración válida (> 0).');
+      if (isNaN(vFinal)    || vFinal    <= 0)               return mostrarError('Ingresá un volumen válido (> 0).');
+      if (isNaN(masaMolar) || masaMolar <= 0)               return mostrarError('Ingresá una masa molar válida (> 0).');
+      if (isNaN(pureza)    || pureza <= 0 || pureza > 100)  return mostrarError('La pureza debe estar entre 0 y 100 %.');
+
+      /* Conversiones */
+      var cMolL = unidadC === 'mol/L' ? cDeseada : cDeseada / masaMolar;
+      var vL    = unidadV === 'mL'    ? vFinal / 1000 : vFinal;
+
+      /* Cálculo */
+      var masaPura    = cMolL * vL * masaMolar;           // g de sustancia pura
+      var masaReact   = masaPura / (pureza / 100);         // g de reactivo a pesar
+      var masaExtra   = masaReact - masaPura;              // g de impurezas
+
+      /* Mostrar resultado */
+      var r = document.getElementById('resultado');
+      r.className = 'resultado visible';
+      r.querySelector('.resultado__etiqueta').textContent = 'Masa a pesar del reactivo';
+      r.querySelector('.resultado__valor').textContent    = formatNum(masaReact) + ' g';
+      r.querySelector('.resultado__formula').textContent  =
+        'm = (C × V × M) / (P/100) = (' + cMolL.toFixed(4) + ' mol/L × ' +
+        (vL * 1000).toFixed(1) + ' mL × ' + masaMolar.toFixed(2) + ' g/mol) / ' +
+        (pureza / 100).toFixed(4);
+
+      document.getElementById('res-masa-pura').textContent = formatNum(masaPura) + ' g';
+      document.getElementById('res-extra').textContent     = formatNum(masaExtra) + ' g';
+
+      /* Pasos de preparación */
+      var vLabel = unidadV === 'mL' ? vFinal + ' mL' : vFinal + ' L';
+      var pasos  = document.getElementById('lista-pasos');
+
+      pasos.innerHTML = [
+        'Pesá <strong>' + formatNum(masaReact) + ' g</strong> del reactivo en una balanza analítica usando un recipiente seco y tarado.',
+        'Disolvé el reactivo en un vaso de precipitados con aproximadamente el 70–80 % del volumen final de agua destilada. Agitá hasta disolución completa.',
+        'Trasvasá cuantitativamente al matraz aforado de <strong>' + vLabel + '</strong>.',
+        'Enjuagá el vaso de precipitados 2 o 3 veces con porciones pequeñas de agua destilada y agregá los enjuagues al matraz.',
+        'Si la disolución generó calor, esperá que vuelva a temperatura ambiente.',
+        'Completá con agua destilada hasta la marca del matraz. Tapá e invertí varias veces para homogeneizar.',
+        'Etiquetá: nombre del reactivo, concentración, fecha, pureza usada y operador.'
+      ].map(function (p) { return '<li>' + p + '</li>'; }).join('');
+
+      document.getElementById('pasos').classList.add('visible');
+    }
+
+    function formatNum(n) {
+      if (n >= 100)  return n.toFixed(2);
+      if (n >= 10)   return n.toFixed(3);
+      if (n >= 1)    return n.toFixed(4);
+      return n.toFixed(4);
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabla de Indicadores Ácido-Base — Viraje y colores | QuimCalc</title>
+  <meta name="description" content="Tabla completa de indicadores ácido-base: rango de viraje, color en medio ácido y básico, pKin y uso típico en titulaciones. Fuentes: CRC Handbook y Skoog et al.">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/herramientas/tabla-indicadores.html">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "Tabla de Indicadores Ácido-Base",
+    "description": "Indicadores ácido-base: rango de viraje, colores, pKin y usos típicos en titulaciones volumétricas.",
+    "url": "https://quimcalc.com/herramientas/tabla-indicadores.html",
+    "creator": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
+  }
+  </script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+  <style>
+    .tabla-wrapper {
+      overflow-x: auto;
+      margin: var(--espacio-lg) 0;
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-lg);
+      box-shadow: var(--sombra-card);
+    }
+
+    .tabla-referencia {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      min-width: 700px;
+    }
+
+    .tabla-referencia thead tr {
+      background-color: var(--color-header-bg);
+    }
+
+    .tabla-referencia thead th {
+      padding: 12px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-header-texto);
+      white-space: nowrap;
+    }
+
+    .tabla-referencia tbody tr {
+      border-bottom: 1px solid var(--color-borde);
+      transition: background-color 0.1s;
+    }
+
+    .tabla-referencia tbody tr:last-child { border-bottom: none; }
+    .tabla-referencia tbody tr:hover { background-color: var(--color-acento-claro); }
+
+    .tabla-referencia td {
+      padding: 11px 14px;
+      color: var(--color-texto);
+      vertical-align: middle;
+      line-height: 1.4;
+    }
+
+    /* Rango pH — monoespaciado y centrado */
+    .td-rango {
+      font-family: 'Courier New', monospace;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--color-acento);
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    /* pKin */
+    .td-pkin {
+      font-family: 'Courier New', monospace;
+      font-weight: 600;
+      text-align: center;
+      color: var(--color-texto-suave);
+    }
+
+    /* Pastilla de color */
+    .color-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .color-chip__dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.12);
+    }
+
+    /* Barra visual de pH en el rango 0-14 */
+    .ph-bar-wrapper {
+      width: 100%;
+      min-width: 120px;
+      background: linear-gradient(to right,
+        #ff4444 0%, #ff4444 7.14%,
+        #ff8800 7.14%, #ff8800 21.43%,
+        #ffdd00 21.43%, #ffdd00 35.71%,
+        #88cc00 35.71%, #88cc00 50%,
+        #00aaff 50%, #00aaff 64.29%,
+        #0055cc 64.29%, #0055cc 78.57%,
+        #5500cc 78.57%, #5500cc 92.86%,
+        #220044 92.86%, #220044 100%
+      );
+      height: 6px;
+      border-radius: 3px;
+      position: relative;
+      margin-top: 4px;
+    }
+
+    .ph-bar-range {
+      position: absolute;
+      top: -2px;
+      height: 10px;
+      background: rgba(255,255,255,0.9);
+      border: 2px solid #1A5C38;
+      border-radius: 2px;
+    }
+
+    /* Tag fuente */
+    .tag-fuente {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      background-color: var(--color-acento-claro);
+      color: var(--color-acento);
+      padding: 2px 6px;
+      border-radius: var(--radio-sm);
+      white-space: nowrap;
+    }
+
+    .td-uso {
+      font-size: 0.8rem;
+      color: var(--color-texto-suave);
+      max-width: 200px;
+    }
+
+    /* Filtros */
+    .filtros-bar {
+      display: flex;
+      gap: var(--espacio-md);
+      margin-bottom: var(--espacio-lg);
+      flex-wrap: wrap;
+    }
+
+    .filtros-bar input {
+      font-family: var(--fuente-principal);
+      font-size: 0.9rem;
+      padding: 10px 14px;
+      border: 1.5px solid var(--color-borde);
+      border-radius: var(--radio-sm);
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+      outline: none;
+      transition: border-color 0.15s;
+      min-height: 44px;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .filtros-bar input:focus { border-color: var(--color-acento); }
+
+    /* Leyenda de la barra de pH */
+    .ph-leyenda {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-lg);
+      margin-bottom: var(--espacio-lg);
+    }
+
+    .ph-leyenda__titulo {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-texto-suave);
+      margin-bottom: var(--espacio-md);
+    }
+
+    .ph-escala {
+      width: 100%;
+      height: 24px;
+      border-radius: 4px;
+      background: linear-gradient(to right,
+        #ff2200 0%,
+        #ff8800 15%,
+        #ffdd00 30%,
+        #88cc00 43%,
+        #00cc88 50%,
+        #00aaff 57%,
+        #0055cc 70%,
+        #5500cc 85%,
+        #220044 100%
+      );
+      position: relative;
+      margin-bottom: 4px;
+    }
+
+    .ph-numeros {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--color-texto-suave);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Fuentes */
+    .fuentes-bloque {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-lg);
+      margin-top: var(--espacio-xl);
+      font-size: 0.85rem;
+      color: var(--color-texto-suave);
+    }
+
+    .fuentes-bloque strong {
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-texto);
+      margin-bottom: var(--espacio-sm);
+    }
+
+    .fuentes-bloque ol { padding-left: var(--espacio-xl); margin: 0; }
+    .fuentes-bloque li { margin-bottom: 4px; line-height: 1.6; }
+
+    tr.oculta { display: none; }
+  </style>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JPQ3QTH9BN');
+</script>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas" class="activo">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="pagina-herramienta">
+      <div class="contenedor">
+
+        <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+          <a href="../index.html">Inicio</a>
+          <span aria-hidden="true">›</span>
+          <span>Indicadores ácido-base</span>
+        </nav>
+
+        <div class="pagina-herramienta__encabezado">
+          <h1 class="pagina-herramienta__titulo">Tabla de indicadores ácido-base</h1>
+          <p class="pagina-herramienta__descripcion">
+            Indicadores ordenados por rango de viraje (pH), con colores en medio ácido y básico, pKin y uso típico en titulaciones volumétricas.
+            Fuentes: CRC Handbook 103.ª ed. y Skoog, West, Holler, Crouch — <em>Fundamentos de Química Analítica</em>, 9.ª ed.
+          </p>
+        </div>
+
+        <!-- Leyenda escala de pH -->
+        <div class="ph-leyenda" aria-label="Escala visual de pH de 0 a 14">
+          <p class="ph-leyenda__titulo">Escala de pH (0 – 14)</p>
+          <div class="ph-escala" role="img" aria-label="Gradiente de colores del pH ácido al básico"></div>
+          <div class="ph-numeros">
+            <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span>
+            <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+            <span>10</span><span>11</span><span>12</span><span>13</span><span>14</span>
+          </div>
+        </div>
+
+        <!-- Búsqueda -->
+        <div class="filtros-bar" role="search">
+          <input
+            type="search"
+            id="buscador"
+            placeholder="Buscar indicador…"
+            oninput="filtrar()"
+            aria-label="Buscar indicador"
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="tabla-wrapper" role="region" aria-label="Tabla de indicadores ácido-base">
+          <table class="tabla-referencia" id="tabla-principal">
+            <thead>
+              <tr>
+                <th scope="col">Indicador</th>
+                <th scope="col">Rango de viraje (pH)</th>
+                <th scope="col">Color ácido</th>
+                <th scope="col">Color básico</th>
+                <th scope="col">pKin</th>
+                <th scope="col">Uso típico</th>
+                <th scope="col">Fuente</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr>
+                <td>Timol azul (1.ª transición)</td>
+                <td class="td-rango">1,2 – 2,8</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#DC2626"></span>Rojo</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#FBBF24;border-color:#aaa"></span>Amarillo</span></td>
+                <td class="td-pkin">1,65</td>
+                <td class="td-uso">Titulaciones en medio muy ácido</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+
+              <tr>
+                <td>Tropeolina OO</td>
+                <td class="td-rango">1,3 – 3,2</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#DC2626"></span>Rojo</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#FBBF24;border-color:#aaa"></span>Amarillo</span></td>
+                <td class="td-pkin">—</td>
+                <td class="td-uso">—</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+
+              <tr>
+                <td>Amarillo de metilo</td>
+                <td class="td-rango">2,9 – 4,0</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#DC2626"></span>Rojo</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#FBBF24;border-color:#aaa"></span>Amarillo</span></td>
+                <td class="td-pkin">3,3</td>
+                <td class="td-uso">—</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+
+              <tr>
+                <td>Azul de bromofenol</td>
+                <td class="td-rango">3,0 – 4,6</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#FBBF24;border-color:#aaa"></span>Amarillo</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#4C1D95"></span>Azul-violeta</span></td>
+                <td class="td-pkin">4,0</td>
+                <td class="td-uso">Titulaciones ácido débil–base fuerte</td>
+                <td><span class="tag-fuente">CRC / Skoog</span></td>
+              </tr>
+
+              <tr>
+                <td>Anaranjado de metilo</td>
+                <td class="td-rango">3,1 – 4,4</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#DC2626"></span>Rojo</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#F97316"></span>Naranja</span></td>
+                <td class="td-pkin">3,46</td>
+                <td class="td-uso">Titulaciones ácido fuerte–base fuerte o base débil</td>
+                <td><span class="tag-fuente">CRC / Skoog</span></td>
+              </tr>
+
+              <tr>
+                <td>Rojo Congo</td>
+                <td class="td-rango">3,0 – 5,0</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#4C1D95"></span>Azul-violeta</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#DC2626"></span>Rojo</span></td>
+                <td class="td-pkin">4,0</td>
+                <td class="td-uso">—</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+
+              <tr>
+                <td>Rojo de metilo</td>
+                <td class="td-rango">4,4 – 6,2</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#DC2626"></span>Rojo</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#FBBF24;border-color:#aaa"></span>Amarillo</span></td>
+                <td class="td-pkin">5,1</td>
+                <td class="td-uso">Titulaciones ácido fuerte–base fuerte; muy usado en microbiología</td>
+                <td><span class="tag-fuente">CRC / Skoog</span></td>
+              </tr>
+
+              <tr>
+                <td>Rojo de clorofenol</td>
+                <td class="td-rango">4,8 – 6,4</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#FBBF24;border-color:#aaa"></span>Amarillo</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#DC2626"></span>Rojo</span></td>
+                <td class="td-pkin">6,0</td>
+                <td class="td-uso">—</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+
+              <tr>
+                <td>Azul de bromotimol</td>
+                <td class="td-rango">6,0 – 7,6</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#FBBF24;border-color:#aaa"></span>Amarillo</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#2563EB"></span>Azul</span></td>
+                <td class="td-pkin">7,0</td>
+                <td class="td-uso">Soluciones tampón neutras; pH cercano a 7</td>
+                <td><span class="tag-fuente">CRC / Skoog</span></td>
+              </tr>
+
+              <tr>
+                <td>Rojo de fenol</td>
+                <td class="td-rango">6,8 – 8,4</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#FBBF24;border-color:#aaa"></span>Amarillo</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#BE185D"></span>Rojo-carmín</span></td>
+                <td class="td-pkin">7,81</td>
+                <td class="td-uso">Titulaciones de sales de ácidos débiles; medios de cultivo</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+
+              <tr>
+                <td>Rojo de cresol (2.ª transición)</td>
+                <td class="td-rango">7,2 – 8,8</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#FBBF24;border-color:#aaa"></span>Amarillo</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#7C3AED"></span>Rojo-púrpura</span></td>
+                <td class="td-pkin">8,3</td>
+                <td class="td-uso">—</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+
+              <tr>
+                <td>Azul de timol (2.ª transición)</td>
+                <td class="td-rango">8,0 – 9,6</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#FBBF24;border-color:#aaa"></span>Amarillo</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#1D4ED8"></span>Azul</span></td>
+                <td class="td-pkin">8,9</td>
+                <td class="td-uso">Titulaciones de bases débiles</td>
+                <td><span class="tag-fuente">CRC / Skoog</span></td>
+              </tr>
+
+              <tr>
+                <td><strong>Fenolftaleína</strong></td>
+                <td class="td-rango">8,2 – 10,0</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#F7F5F0;border:1px solid #aaa"></span>Incoloro</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#EC4899"></span>Rosa-magenta</span></td>
+                <td class="td-pkin">9,4</td>
+                <td class="td-uso">El más usado en volumetría. Titulaciones ácido fuerte–base fuerte y ácidos débiles</td>
+                <td><span class="tag-fuente">CRC / Skoog</span></td>
+              </tr>
+
+              <tr>
+                <td>Timolftaleína</td>
+                <td class="td-rango">9,4 – 10,6</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#F7F5F0;border:1px solid #aaa"></span>Incoloro</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#1E40AF"></span>Azul</span></td>
+                <td class="td-pkin">9,9</td>
+                <td class="td-uso">Titulaciones en medio básico</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+
+              <tr>
+                <td>Amarillo de alizarina R</td>
+                <td class="td-rango">10,1 – 12,0</td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#FDE047;border-color:#aaa"></span>Amarillo</span></td>
+                <td><span class="color-chip"><span class="color-chip__dot" style="background:#EA580C"></span>Naranja-rojo</span></td>
+                <td class="td-pkin">—</td>
+                <td class="td-uso">Medios fuertemente básicos</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Fuentes -->
+        <div class="fuentes-bloque" role="note">
+          <strong>Fuentes bibliográficas</strong>
+          <ol>
+            <li>Haynes, W.M. (Ed.). <em>CRC Handbook of Chemistry and Physics</em>, 103.ª ed., Sección 8 "Analytical Chemistry". CRC Press, 2022.</li>
+            <li>Skoog, D.A.; West, D.M.; Holler, F.J.; Crouch, S.R. <em>Fundamentos de Química Analítica</em>, 9.ª ed. Cengage Learning, 2015. Apéndice 2.</li>
+          </ol>
+          <p style="margin-top:var(--espacio-sm)">
+            Los rangos de viraje son aproximados y pueden variar con la concentración del indicador, la temperatura y el disolvente.
+            El <strong>pKin</strong> es el pH al cual la mitad del indicador está en la forma ácida y la mitad en la básica (viraje visual).
+            Usá siempre la mínima cantidad de indicador necesaria para no desplazar el punto de equivalencia.
+          </p>
+        </div>
+
+        <!-- Herramientas relacionadas -->
+        <div class="bloque-blog-relacionado" style="margin-top:var(--espacio-xl)">
+          <p class="bloque-blog-relacionado__etiqueta">Herramienta relacionada</p>
+          <a href="calculadora-titulacion.html" class="bloque-blog-relacionado__titulo">Calculadora de titulación volumétrica</a>
+          <p class="bloque-blog-relacionado__descripcion">Calculá concentraciones y volúmenes en titulaciones ácido-base, redox y complejométricas.</p>
+        </div>
+
+        <div class="bloque-blog-relacionado" style="margin-top:var(--espacio-md)">
+          <p class="bloque-blog-relacionado__etiqueta">Tabla relacionada</p>
+          <a href="tabla-pka.html" class="bloque-blog-relacionado__titulo">Tabla de pKa — Constantes de disociación ácida</a>
+          <p class="bloque-blog-relacionado__descripcion">39 ácidos inorgánicos, orgánicos y buffers con sus valores de pKa a 25 °C.</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/init-speed-insights.js"></script>
+  <script src="../js/pwa-register.js"></script>
+
+  <script>
+    function filtrar() {
+      var texto = document.getElementById('buscador').value.toLowerCase().trim();
+      var filas = document.querySelectorAll('#tabla-principal tbody tr');
+      filas.forEach(function (fila) {
+        var coincide = !texto || fila.textContent.toLowerCase().includes(texto);
+        fila.classList.toggle('oculta', !coincide);
+      });
+    }
+  </script>
+
+</body>
+</html>

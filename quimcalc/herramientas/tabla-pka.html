@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabla de pKa — Constantes de disociación ácida | QuimCalc</title>
+  <meta name="description" content="Tabla de constantes de disociación ácida (pKa) a 25 °C para ácidos inorgánicos, orgánicos, fenoles, complejantes y buffers de laboratorio. Fuentes: NIST y CRC Handbook.">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/herramientas/tabla-pka.html">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "Tabla de pKa — Constantes de disociación ácida",
+    "description": "Constantes de disociación ácida (pKa) a 25 °C para compuestos de uso analítico e industrial. Fuentes: NIST Chemistry WebBook y CRC Handbook.",
+    "url": "https://quimcalc.com/herramientas/tabla-pka.html",
+    "creator": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" },
+    "license": "https://creativecommons.org/licenses/by/4.0/"
+  }
+  </script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+  <style>
+    /* ── Estilos específicos de tabla de referencia ── */
+    .tabla-wrapper {
+      overflow-x: auto;
+      margin: var(--espacio-lg) 0;
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-lg);
+      box-shadow: var(--sombra-card);
+    }
+
+    .tabla-referencia {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      min-width: 600px;
+    }
+
+    .tabla-referencia thead tr {
+      background-color: var(--color-header-bg);
+    }
+
+    .tabla-referencia thead th {
+      padding: 12px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-header-texto);
+      white-space: nowrap;
+    }
+
+    .tabla-referencia tbody tr {
+      border-bottom: 1px solid var(--color-borde);
+      transition: background-color 0.1s;
+    }
+
+    .tabla-referencia tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .tabla-referencia tbody tr:hover {
+      background-color: var(--color-acento-claro);
+    }
+
+    .tabla-referencia td {
+      padding: 10px 14px;
+      color: var(--color-texto);
+      vertical-align: middle;
+      line-height: 1.4;
+    }
+
+    .tabla-referencia td:nth-child(3),
+    .tabla-referencia td:nth-child(4),
+    .tabla-referencia td:nth-child(5) {
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-acento);
+      text-align: center;
+    }
+
+    /* Fila de categoría */
+    .fila-categoria {
+      background-color: var(--color-fondo-card) !important;
+    }
+
+    .fila-categoria td {
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-texto-suave);
+      padding: 8px 14px;
+      border-bottom: 2px solid var(--color-borde) !important;
+    }
+
+    .fila-categoria td:nth-child(3),
+    .fila-categoria td:nth-child(4),
+    .fila-categoria td:nth-child(5) {
+      color: var(--color-texto-suave);
+      font-family: inherit;
+      font-weight: 700;
+    }
+
+    /* Tag de fuente */
+    .tag-fuente {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      background-color: var(--color-acento-claro);
+      color: var(--color-acento);
+      padding: 2px 6px;
+      border-radius: var(--radio-sm);
+      white-space: nowrap;
+    }
+
+    /* Nota dentro de la celda */
+    .td-nota {
+      font-size: 0.78rem;
+      color: var(--color-texto-suave);
+      font-style: italic;
+    }
+
+    /* Barra de filtros */
+    .filtros-bar {
+      display: flex;
+      gap: var(--espacio-md);
+      margin-bottom: var(--espacio-lg);
+      flex-wrap: wrap;
+    }
+
+    .filtros-bar input,
+    .filtros-bar select {
+      font-family: var(--fuente-principal);
+      font-size: 0.9rem;
+      padding: 10px 14px;
+      border: 1.5px solid var(--color-borde);
+      border-radius: var(--radio-sm);
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+      outline: none;
+      transition: border-color 0.15s;
+      min-height: 44px;
+    }
+
+    .filtros-bar input {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .filtros-bar input:focus,
+    .filtros-bar select:focus {
+      border-color: var(--color-acento);
+    }
+
+    /* Bloque de fuentes */
+    .fuentes-bloque {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-lg);
+      margin-top: var(--espacio-xl);
+      font-size: 0.85rem;
+      color: var(--color-texto-suave);
+    }
+
+    .fuentes-bloque strong {
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-texto);
+      margin-bottom: var(--espacio-sm);
+    }
+
+    .fuentes-bloque ol {
+      padding-left: var(--espacio-xl);
+      margin: 0;
+    }
+
+    .fuentes-bloque li {
+      margin-bottom: 4px;
+      line-height: 1.6;
+    }
+
+    .contador {
+      font-size: 0.8rem;
+      color: var(--color-texto-suave);
+      margin-bottom: var(--espacio-sm);
+    }
+
+    /* Fila oculta por filtro */
+    tr.oculta { display: none; }
+  </style>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JPQ3QTH9BN');
+</script>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas" class="activo">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="pagina-herramienta">
+      <div class="contenedor">
+
+        <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+          <a href="../index.html">Inicio</a>
+          <span aria-hidden="true">›</span>
+          <span>Tabla de pKa</span>
+        </nav>
+
+        <div class="pagina-herramienta__encabezado">
+          <h1 class="pagina-herramienta__titulo">Tabla de pKa — Constantes de disociación ácida</h1>
+          <p class="pagina-herramienta__descripcion">
+            Valores de pKa a <strong>25 °C</strong> y fuerza iónica cero (solución diluida) salvo indicación contraria.
+            Fuentes primarias: NIST Chemistry WebBook y CRC Handbook of Chemistry and Physics, 103.ª ed.
+          </p>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filtros-bar" role="search" aria-label="Filtrar tabla">
+          <input
+            type="search"
+            id="buscador"
+            placeholder="Buscar por nombre o fórmula…"
+            oninput="filtrar()"
+            aria-label="Buscar compuesto"
+            autocomplete="off"
+          >
+          <select id="filtro-cat" onchange="filtrar()" aria-label="Filtrar por categoría">
+            <option value="">Todas las categorías</option>
+            <option value="inorganico">Ácidos inorgánicos</option>
+            <option value="carboxilico">Ácidos carboxílicos</option>
+            <option value="fenol">Fenoles</option>
+            <option value="complejante">Complejantes</option>
+            <option value="buffer">Buffers de laboratorio</option>
+          </select>
+        </div>
+
+        <p class="contador" id="contador">Mostrando <span id="n-visibles">39</span> de 39 compuestos</p>
+
+        <div class="tabla-wrapper" role="region" aria-label="Tabla de pKa">
+          <table class="tabla-referencia" id="tabla-principal">
+            <thead>
+              <tr>
+                <th scope="col">Compuesto</th>
+                <th scope="col">Fórmula</th>
+                <th scope="col">pKa₁</th>
+                <th scope="col">pKa₂</th>
+                <th scope="col">pKa₃</th>
+                <th scope="col">Nota</th>
+                <th scope="col">Fuente</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <!-- ÁCIDOS INORGÁNICOS -->
+              <tr class="fila-categoria" data-cat="inorganico">
+                <td colspan="7">Ácidos inorgánicos</td>
+              </tr>
+              <tr data-cat="inorganico">
+                <td>Ác. sulfúrico (2ª disoc.)</td><td>HSO₄⁻</td>
+                <td>1.99</td><td>—</td><td>—</td>
+                <td class="td-nota">pKa₁ ≪ 0 (disociación completa)</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="inorganico">
+                <td>Ác. fosfórico</td><td>H₃PO₄</td>
+                <td>2.15</td><td>7.20</td><td>12.35</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="inorganico">
+                <td>Ác. fluorhídrico</td><td>HF</td>
+                <td>3.17</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="inorganico">
+                <td>Ác. nitroso</td><td>HNO₂</td>
+                <td>3.37</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="inorganico">
+                <td>Ác. sulfuroso</td><td>H₂SO₃</td>
+                <td>1.81</td><td>6.91</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+              <tr data-cat="inorganico">
+                <td>CO₂ disuelto (ác. carbónico aparente)</td><td>CO₂ (aq)</td>
+                <td>6.35</td><td>10.33</td><td>—</td>
+                <td class="td-nota">pKa₁ aparente incluye el equilibrio de hidratación CO₂ + H₂O ⇌ H₂CO₃</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="inorganico">
+                <td>Ác. carbónico verdadero</td><td>H₂CO₃</td>
+                <td>3.60</td><td>—</td><td>—</td>
+                <td class="td-nota">Especie H₂CO₃ pura; muy baja concentración en solución acuosa</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+              <tr data-cat="inorganico">
+                <td>Ác. sulfhídrico</td><td>H₂S</td>
+                <td>6.98</td><td>—</td><td>—</td>
+                <td class="td-nota">pKa₂ muy incierto (≈ 17); no se lista por falta de consenso</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="inorganico">
+                <td>Ác. hipocloroso</td><td>HOCl</td>
+                <td>7.53</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="inorganico">
+                <td>Ác. bórico</td><td>H₃BO₃</td>
+                <td>9.24</td><td>12.74</td><td>—</td>
+                <td class="td-nota">Actúa como ácido de Lewis; la disociación involucra captación de OH⁻</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="inorganico">
+                <td>Ác. cianhídrico</td><td>HCN</td>
+                <td>9.21</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="inorganico">
+                <td>Ion amonio</td><td>NH₄⁺</td>
+                <td>9.25</td><td>—</td><td>—</td>
+                <td class="td-nota">Base conjugada: NH₃ (pKb = 4.75)</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+
+              <!-- ÁCIDOS CARBOXÍLICOS -->
+              <tr class="fila-categoria" data-cat="carboxilico">
+                <td colspan="7">Ácidos carboxílicos</td>
+              </tr>
+              <tr data-cat="carboxilico">
+                <td>Ác. oxálico</td><td>H₂C₂O₄</td>
+                <td>1.27</td><td>4.27</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="carboxilico">
+                <td>Ác. malónico</td><td>CH₂(COOH)₂</td>
+                <td>2.83</td><td>5.70</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="carboxilico">
+                <td>Ác. ftálico</td><td>C₈H₆O₄</td>
+                <td>2.98</td><td>5.28</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+              <tr data-cat="carboxilico">
+                <td>Ác. tartárico</td><td>C₄H₆O₆</td>
+                <td>2.89</td><td>4.34</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+              <tr data-cat="carboxilico">
+                <td>Ác. cítrico</td><td>C₆H₈O₇</td>
+                <td>3.13</td><td>4.76</td><td>6.40</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="carboxilico">
+                <td>Ác. salicílico</td><td>C₇H₆O₃</td>
+                <td>2.97</td><td>—</td><td>—</td>
+                <td class="td-nota">pKa₁ del grupo carboxilo; pKa OH fenólico ≈ 13.8</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="carboxilico">
+                <td>Ác. fórmico</td><td>HCOOH</td>
+                <td>3.745</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="carboxilico">
+                <td>Ác. láctico</td><td>CH₃CHOHCOOH</td>
+                <td>3.858</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="carboxilico">
+                <td>Ác. ascórbico (vitamina C)</td><td>C₆H₈O₆</td>
+                <td>4.17</td><td>11.57</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+              <tr data-cat="carboxilico">
+                <td>Ác. benzoico</td><td>C₆H₅COOH</td>
+                <td>4.204</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="carboxilico">
+                <td>Ác. acético</td><td>CH₃COOH</td>
+                <td>4.756</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="carboxilico">
+                <td>Ác. propiónico</td><td>C₂H₅COOH</td>
+                <td>4.874</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="carboxilico">
+                <td>Ác. succínico</td><td>C₄H₆O₄</td>
+                <td>4.21</td><td>5.64</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+
+              <!-- FENOLES -->
+              <tr class="fila-categoria" data-cat="fenol">
+                <td colspan="7">Fenoles</td>
+              </tr>
+              <tr data-cat="fenol">
+                <td>Fenol</td><td>C₆H₅OH</td>
+                <td>9.99</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="fenol">
+                <td>4-Nitrofenol</td><td>O₂N–C₆H₄–OH</td>
+                <td>7.15</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+              <tr data-cat="fenol">
+                <td>2-Nitrofenol</td><td>O₂N–C₆H₄–OH</td>
+                <td>7.17</td><td>—</td><td>—</td>
+                <td class="td-nota">Isómero orto</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+
+              <!-- COMPLEJANTES -->
+              <tr class="fila-categoria" data-cat="complejante">
+                <td colspan="7">Complejantes</td>
+              </tr>
+              <tr data-cat="complejante">
+                <td>EDTA (H₄Y)</td><td>C₁₀H₁₆N₂O₈</td>
+                <td>2.00</td><td>2.67</td><td>6.16 / 10.26</td>
+                <td class="td-nota">4 pKa en total; valores a I = 0,1 M (NaNO₃)</td>
+                <td><span class="tag-fuente">NIST SRD-46</span></td>
+              </tr>
+              <tr data-cat="complejante">
+                <td>Glicina</td><td>NH₂CH₂COOH</td>
+                <td>2.35</td><td>9.78</td><td>—</td>
+                <td class="td-nota">pKa₁ = –COOH; pKa₂ = –NH₃⁺</td>
+                <td><span class="tag-fuente">NIST</span></td>
+              </tr>
+              <tr data-cat="complejante">
+                <td>Ác. nitrilotriacético (NTA)</td><td>N(CH₂COOH)₃</td>
+                <td>1.89</td><td>2.49</td><td>9.73</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">CRC</span></td>
+              </tr>
+
+              <!-- BUFFERS -->
+              <tr class="fila-categoria" data-cat="buffer">
+                <td colspan="7">Buffers de laboratorio (Good's buffers)</td>
+              </tr>
+              <tr data-cat="buffer">
+                <td>MES</td><td>C₆H₁₃NO₄S</td>
+                <td>6.15</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">Good et al.</span></td>
+              </tr>
+              <tr data-cat="buffer">
+                <td>PIPES</td><td>C₈H₁₈N₂O₆S₂</td>
+                <td>6.82</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">Good et al.</span></td>
+              </tr>
+              <tr data-cat="buffer">
+                <td>MOPS</td><td>C₇H₁₅NO₄S</td>
+                <td>7.20</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">Good et al.</span></td>
+              </tr>
+              <tr data-cat="buffer">
+                <td>HEPES</td><td>C₈H₁₈N₂O₄S</td>
+                <td>7.55</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">Good et al.</span></td>
+              </tr>
+              <tr data-cat="buffer">
+                <td>TRIS</td><td>C₄H₁₁NO₃</td>
+                <td>8.07</td><td>—</td><td>—</td>
+                <td class="td-nota">Alta dependencia con T: ΔpKa/°C ≈ −0.028</td>
+                <td><span class="tag-fuente">Good et al.</span></td>
+              </tr>
+              <tr data-cat="buffer">
+                <td>BICINE</td><td>C₆H₁₃NO₄</td>
+                <td>8.35</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">Good et al.</span></td>
+              </tr>
+              <tr data-cat="buffer">
+                <td>CHES</td><td>C₈H₁₇NO₃S</td>
+                <td>9.50</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">Good et al.</span></td>
+              </tr>
+              <tr data-cat="buffer">
+                <td>CAPS</td><td>C₉H₁₉NO₃S</td>
+                <td>10.40</td><td>—</td><td>—</td>
+                <td class="td-nota">—</td>
+                <td><span class="tag-fuente">Good et al.</span></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Fuentes -->
+        <div class="fuentes-bloque" role="note" aria-label="Fuentes bibliográficas">
+          <strong>Fuentes bibliográficas</strong>
+          <ol>
+            <li>NIST Chemistry WebBook, SRD 69. National Institute of Standards and Technology. <em>webbook.nist.gov</em></li>
+            <li>Haynes, W.M. (Ed.). <em>CRC Handbook of Chemistry and Physics</em>, 103.ª ed. CRC Press, 2022.</li>
+            <li>Good, N.E. et al. "Hydrogen Ion Buffers for Biological Research". <em>Biochemistry</em>, 5(2), 467–477, 1966.</li>
+            <li>Martell, A.E.; Smith, R.M. NIST Standard Reference Database 46 — <em>Critically Selected Stability Constants of Metal Complexes</em>, v8.0.</li>
+          </ol>
+          <p style="margin-top:var(--espacio-sm)">
+            Todos los valores son a <strong>25 °C</strong> y fuerza iónica cero (solución infinitamente diluida) salvo indicación en la columna Nota.
+            Los valores de pKa dependen de la temperatura, la fuerza iónica y el disolvente; no extrapolés estos datos a condiciones muy distintas sin corrección.
+          </p>
+        </div>
+
+        <!-- Herramientas relacionadas -->
+        <div class="bloque-blog-relacionado" style="margin-top:var(--espacio-xl)">
+          <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
+          <a href="calculadora-buffers.html" class="bloque-blog-relacionado__titulo">Calculadora de buffers — Henderson-Hasselbalch</a>
+          <p class="bloque-blog-relacionado__descripcion">Calculá el pH de un buffer a partir del pKa del ácido y la relación de concentraciones.</p>
+        </div>
+
+        <div class="bloque-blog-relacionado" style="margin-top:var(--espacio-md)">
+          <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
+          <a href="calculadora-ph.html" class="bloque-blog-relacionado__titulo">Calculadora de pH</a>
+          <p class="bloque-blog-relacionado__descripcion">pH de ácidos débiles, bases débiles, sales y soluciones tampón a partir de concentración y pKa.</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/init-speed-insights.js"></script>
+  <script src="../js/pwa-register.js"></script>
+
+  <script>
+    /* ── Filtro de búsqueda y categoría ── */
+    var TOTAL = 39;
+
+    function filtrar() {
+      var texto = document.getElementById('buscador').value.toLowerCase().trim();
+      var cat   = document.getElementById('filtro-cat').value;
+      var filas = document.querySelectorAll('#tabla-principal tbody tr:not(.fila-categoria)');
+      var visibles = 0;
+
+      filas.forEach(function (fila) {
+        var coincideTexto = !texto || fila.textContent.toLowerCase().includes(texto);
+        var coincideCat   = !cat   || fila.dataset.cat === cat;
+
+        if (coincideTexto && coincideCat) {
+          fila.classList.remove('oculta');
+          visibles++;
+        } else {
+          fila.classList.add('oculta');
+        }
+      });
+
+      /* Ocultar filas de categoría si no tienen filas visibles */
+      document.querySelectorAll('.fila-categoria').forEach(function (fc) {
+        var catKey = fc.dataset.cat;
+        var hayVisibles = Array.from(
+          document.querySelectorAll('#tabla-principal tbody tr[data-cat="' + catKey + '"]:not(.fila-categoria)')
+        ).some(function (r) { return !r.classList.contains('oculta'); });
+        fc.style.display = hayVisibles ? '' : 'none';
+      });
+
+      document.getElementById('n-visibles').textContent = visibles;
+    }
+  </script>
+
+</body>
+</html>

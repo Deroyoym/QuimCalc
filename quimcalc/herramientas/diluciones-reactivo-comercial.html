@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dilución desde reactivo comercial — Volumen a tomar | QuimCalc</title>
+  <meta name="description" content="Calculá el volumen a pipetear de un ácido, base o sal comercial para preparar una solución de concentración y volumen determinados. Usá densidad, pureza y masa molar.">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/herramientas/diluciones-reactivo-comercial.html">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Calculadora de dilución desde reactivo comercial",
+    "description": "Calculá el volumen a tomar de un reactivo comercial (ácido, base o sal) para preparar una solución de concentración y volumen determinados a partir de su densidad, pureza y masa molar.",
+    "url": "https://quimcalc.com/herramientas/diluciones-reactivo-comercial.html",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "isAccessibleForFree": true,
+    "inLanguage": "es",
+    "featureList": ["Concentración del reactivo puro", "Volumen a pipetear", "Pasos de preparación"],
+    "provider": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
+  }
+  </script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+  <style>
+    /* Grilla de resultados secundarios */
+    .resultados-grilla {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--espacio-md);
+      margin-top: var(--espacio-md);
+    }
+
+    .resultado-mini {
+      background-color: var(--color-fondo);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-md);
+    }
+
+    .resultado-mini__etiqueta {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-texto-suave);
+      margin-bottom: 4px;
+    }
+
+    .resultado-mini__valor {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-texto);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Bloque de pasos */
+    .pasos-preparacion {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-lg);
+      margin-top: var(--espacio-lg);
+      display: none;
+    }
+
+    .pasos-preparacion.visible { display: block; }
+
+    .pasos-preparacion__titulo {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-texto-suave);
+      margin-bottom: var(--espacio-md);
+    }
+
+    .pasos-lista {
+      list-style: none;
+      counter-reset: paso;
+      display: flex;
+      flex-direction: column;
+      gap: var(--espacio-sm);
+    }
+
+    .pasos-lista li {
+      counter-increment: paso;
+      display: flex;
+      gap: var(--espacio-md);
+      align-items: flex-start;
+      font-size: 0.9rem;
+      color: var(--color-texto);
+      line-height: 1.5;
+    }
+
+    .pasos-lista li::before {
+      content: counter(paso);
+      background-color: var(--color-acento);
+      color: #fff;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Alerta de seguridad */
+    .alerta-seguridad {
+      background-color: #FEF3C7;
+      border: 1px solid #F59E0B;
+      border-left: 4px solid #F59E0B;
+      border-radius: var(--radio-md);
+      padding: var(--espacio-md) var(--espacio-lg);
+      margin-top: var(--espacio-md);
+      font-size: 0.875rem;
+      color: #92400E;
+      display: none;
+    }
+
+    .alerta-seguridad.visible { display: block; }
+
+    @media (max-width: 640px) {
+      .resultados-grilla { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JPQ3QTH9BN');
+</script>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas" class="activo">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="pagina-herramienta">
+      <div class="contenedor">
+
+        <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+          <a href="../index.html">Inicio</a>
+          <span aria-hidden="true">›</span>
+          <a href="../index.html#herramientas">Herramientas</a>
+          <span aria-hidden="true">›</span>
+          <span>Dilución desde reactivo comercial</span>
+        </nav>
+
+        <div class="pagina-herramienta__encabezado">
+          <h1 class="pagina-herramienta__titulo">Dilución desde reactivo comercial</h1>
+          <p class="pagina-herramienta__descripcion">
+            Calculá cuántos mililitros tomar de un ácido, base o sal comercial para preparar una solución de concentración y volumen determinados. Ingresá la densidad, pureza y masa molar del reactivo.
+          </p>
+        </div>
+
+        <div class="calculadora" role="form" aria-label="Calculadora de dilución desde reactivo comercial">
+
+          <!-- Propiedades del reactivo -->
+          <fieldset style="border:none;padding:0;margin:0 0 var(--espacio-lg);">
+            <legend style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-texto-suave);margin-bottom:var(--espacio-md);">
+              Propiedades del reactivo comercial
+            </legend>
+
+            <div class="campo-grupo">
+              <label for="densidad">Densidad (g/mL)</label>
+              <input type="number" id="densidad" min="0" step="0.001"
+                     placeholder="ej: 1.84 (H₂SO₄ c.)" aria-required="true">
+              <span class="ayuda">Figura en la etiqueta del frasco o en la ficha de seguridad (SDS).</span>
+            </div>
+
+            <div class="campo-grupo">
+              <label for="pureza">Pureza o título (%)</label>
+              <input type="number" id="pureza" min="0" max="100" step="0.1"
+                     placeholder="ej: 96 (H₂SO₄)" aria-required="true">
+              <span class="ayuda">Valor entre 0 y 100. También figura en la etiqueta como "título" o "riqueza".</span>
+            </div>
+
+            <div class="campo-grupo">
+              <label for="masa-molar">Masa molar del soluto (g/mol)</label>
+              <input type="number" id="masa-molar" min="0" step="0.01"
+                     placeholder="ej: 98.08 (H₂SO₄)" aria-required="true">
+            </div>
+          </fieldset>
+
+          <!-- Solución a preparar -->
+          <fieldset style="border:none;padding:0;margin:0 0 var(--espacio-lg);">
+            <legend style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-texto-suave);margin-bottom:var(--espacio-md);">
+              Solución a preparar
+            </legend>
+
+            <div class="campo-grupo">
+              <label for="c-final">Concentración deseada</label>
+              <div class="campo-fila">
+                <input type="number" id="c-final" min="0" step="any"
+                       placeholder="ej: 1" aria-required="true">
+                <select id="unidad-c" aria-label="Unidad de concentración">
+                  <option value="mol/L">mol/L</option>
+                  <option value="g/L">g/L</option>
+                  <option value="%m/v">% m/v</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="campo-grupo">
+              <label for="v-final">Volumen final</label>
+              <div class="campo-fila">
+                <input type="number" id="v-final" min="0" step="any"
+                       placeholder="ej: 1000" aria-required="true">
+                <select id="unidad-v" aria-label="Unidad de volumen">
+                  <option value="mL">mL</option>
+                  <option value="L">L</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <button class="btn btn--primario" id="btn-calcular" onclick="calcular()">
+            Calcular
+          </button>
+
+          <!-- Resultado principal -->
+          <div class="resultado" id="resultado" role="status" aria-live="polite">
+            <p class="resultado__etiqueta">Volumen a tomar del reactivo comercial</p>
+            <p class="resultado__valor" id="res-volumen">— mL</p>
+            <p class="resultado__formula" id="res-formula"></p>
+
+            <div class="resultados-grilla">
+              <div class="resultado-mini">
+                <p class="resultado-mini__etiqueta">Concentración del stock</p>
+                <p class="resultado-mini__valor" id="res-stock-mol">—</p>
+              </div>
+              <div class="resultado-mini">
+                <p class="resultado-mini__etiqueta">Concentración del stock (g/L)</p>
+                <p class="resultado-mini__valor" id="res-stock-g">—</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alerta de seguridad -->
+          <div class="alerta-seguridad" id="alerta-seguridad">
+            ⚠ <strong>Seguridad:</strong> Para ácidos y bases concentrados, siempre agregá el reactivo al agua lentamente y con agitación — nunca al revés. Usá guantes, anteojos y campana de extracción.
+          </div>
+
+          <!-- Pasos de preparación -->
+          <div class="pasos-preparacion" id="pasos">
+            <p class="pasos-preparacion__titulo">Pasos de preparación</p>
+            <ol class="pasos-lista" id="lista-pasos"></ol>
+          </div>
+
+        </div><!-- /calculadora -->
+
+        <!-- Sección educativa -->
+        <div class="seccion-educativa">
+
+          <h2>¿Qué es la pureza o título de un reactivo?</h2>
+          <p>
+            La <strong>pureza</strong> (también llamada título o riqueza) indica qué fracción másica del contenido del frasco es el compuesto de interés. Un ácido clorhídrico del 37 % significa que de cada 100 g de solución comercial, 37 g son HCl puro y los otros 63 g son agua.
+          </p>
+
+          <h2>Fórmula de cálculo</h2>
+          <p>
+            Primero se calcula la concentración del reactivo tal como viene en el frasco:
+          </p>
+          <div class="ejemplo-bloque">
+            <strong>Concentración del stock</strong>
+            <p>C<sub>stock</sub> (mol/L) = (ρ × 1000 × P / 100) / M</p>
+            <p>Donde ρ = densidad (g/mL), P = pureza (%), M = masa molar (g/mol)</p>
+          </div>
+          <p>
+            Luego, aplicando C₁V₁ = C₂V₂:
+          </p>
+          <div class="ejemplo-bloque">
+            <strong>Volumen a tomar</strong>
+            <p>V<sub>tomar</sub> (mL) = (C<sub>final</sub> × V<sub>final</sub>) / C<sub>stock</sub> × 1000</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Por qué siempre se agrega el reactivo al agua y no al revés?</h3>
+            <p>Los ácidos y bases concentrados reaccionan con el agua generando mucho calor. Si se agrega agua sobre el ácido, el calor puede vaporizar el agua violentamente y provocar salpicaduras del ácido. Al agregar el ácido al agua, la gran masa de agua absorbe el calor de forma segura.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Dónde encuentro la densidad y la pureza?</h3>
+            <p>En la etiqueta del frasco del reactivo, en el certificado de análisis (CoA) del proveedor, o en la ficha de seguridad (SDS/MSDS) disponible en el sitio web del fabricante (Sigma-Aldrich, Merck, Anedra, etc.).</p>
+          </div>
+
+        </div>
+
+        <div class="bloque-blog-relacionado">
+          <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
+          <a href="calculadora-diluciones.html" class="bloque-blog-relacionado__titulo">Diluciones C₁V₁ = C₂V₂</a>
+          <p class="bloque-blog-relacionado__descripcion">Si ya conocés la concentración del stock, usá esta herramienta para calcular la dilución.</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/init-speed-insights.js"></script>
+  <script src="../js/pwa-register.js"></script>
+
+  <script>
+    /* ── Calculadora: dilución desde reactivo comercial ── */
+    document.addEventListener('DOMContentLoaded', function () {
+
+      var campos = ['densidad', 'pureza', 'masa-molar', 'c-final', 'v-final'];
+      campos.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener('input', limpiar);
+      });
+      document.getElementById('unidad-c').addEventListener('change', limpiar);
+      document.getElementById('unidad-v').addEventListener('change', limpiar);
+    });
+
+    function limpiar() {
+      document.getElementById('resultado').classList.remove('visible', 'resultado--error');
+      document.getElementById('pasos').classList.remove('visible');
+      document.getElementById('alerta-seguridad').classList.remove('visible');
+    }
+
+    function mostrarError(msg) {
+      var r = document.getElementById('resultado');
+      r.className = 'resultado resultado--error visible';
+      r.querySelector('.resultado__etiqueta').textContent = 'Error';
+      r.querySelector('.resultado__valor').textContent = msg;
+      r.querySelector('.resultado__formula').textContent = '';
+    }
+
+    function calcular() {
+      var densidad  = parseFloat(document.getElementById('densidad').value);
+      var pureza    = parseFloat(document.getElementById('pureza').value);
+      var masaMolar = parseFloat(document.getElementById('masa-molar').value);
+      var cFinal    = parseFloat(document.getElementById('c-final').value);
+      var vFinal    = parseFloat(document.getElementById('v-final').value);
+      var unidadC   = document.getElementById('unidad-c').value;
+      var unidadV   = document.getElementById('unidad-v').value;
+
+      /* Validaciones */
+      if (isNaN(densidad) || densidad <= 0)    return mostrarError('Ingresá una densidad válida (> 0).');
+      if (isNaN(pureza) || pureza <= 0 || pureza > 100) return mostrarError('La pureza debe estar entre 0 y 100 %.');
+      if (isNaN(masaMolar) || masaMolar <= 0)  return mostrarError('Ingresá una masa molar válida (> 0).');
+      if (isNaN(cFinal) || cFinal <= 0)        return mostrarError('Ingresá una concentración deseada válida (> 0).');
+      if (isNaN(vFinal) || vFinal <= 0)        return mostrarError('Ingresá un volumen final válido (> 0).');
+
+      /* Conversión de unidades ─ todo a mol/L y L */
+      var cStockMolL = (densidad * 1000 * (pureza / 100)) / masaMolar;
+      var cStockGl   = densidad * 1000 * (pureza / 100);
+
+      var cFinalMolL;
+      if (unidadC === 'mol/L') {
+        cFinalMolL = cFinal;
+      } else if (unidadC === 'g/L') {
+        cFinalMolL = cFinal / masaMolar;
+      } else if (unidadC === '%m/v') {
+        cFinalMolL = (cFinal * 10) / masaMolar; // %m/v → g/100mL × 10 = g/L ÷ M
+      }
+
+      var vFinalL = unidadV === 'mL' ? vFinal / 1000 : vFinal;
+
+      /* Validar que C_final ≤ C_stock */
+      if (cFinalMolL > cStockMolL) {
+        return mostrarError(
+          'La concentración deseada (' + cFinalMolL.toFixed(4) + ' mol/L) supera la concentración del reactivo puro (' + cStockMolL.toFixed(4) + ' mol/L). No es posible esta dilución.'
+        );
+      }
+
+      /* Cálculo del volumen a tomar */
+      var vTomarL  = (cFinalMolL * vFinalL) / cStockMolL;
+      var vTomarMl = vTomarL * 1000;
+
+      /* Mostrar resultado */
+      var r = document.getElementById('resultado');
+      r.className = 'resultado visible';
+      r.querySelector('.resultado__etiqueta').textContent = 'Volumen a tomar del reactivo comercial';
+      r.querySelector('.resultado__valor').textContent = formatNum(vTomarMl) + ' mL';
+      r.querySelector('.resultado__formula').textContent =
+        'V = (C_final × V_final) / C_stock = (' + cFinalMolL.toFixed(4) + ' mol/L × ' +
+        (vFinalL * 1000).toFixed(1) + ' mL) / ' + cStockMolL.toFixed(4) + ' mol/L';
+
+      document.getElementById('res-stock-mol').textContent = cStockMolL.toFixed(4) + ' mol/L';
+      document.getElementById('res-stock-g').textContent   = cStockGl.toFixed(2)   + ' g/L';
+
+      /* Pasos de preparación */
+      var pasos = document.getElementById('lista-pasos');
+      var vFinalLabel = unidadV === 'mL'
+        ? vFinal + ' mL'
+        : (vFinal < 1 ? (vFinal * 1000).toFixed(0) + ' mL' : vFinal + ' L');
+
+      pasos.innerHTML = [
+        'Tomá ' + formatNum(vTomarMl) + ' mL del reactivo con una pipeta graduada o bureta apropiada. Si el volumen es mayor a 10 mL, podés usar una probeta.',
+        'Vertí aproximadamente la mitad del agua destilada en el matraz aforado de ' + vFinalLabel + '.',
+        'Agregá el reactivo <strong>lentamente</strong> al agua, con agitación constante.',
+        'Si la mezcla se calienta, esperá que vuelva a temperatura ambiente antes de continuar.',
+        'Completá con agua destilada hasta la marca del matraz aforado.',
+        'Tapá el matraz y homogeneizá invirtiendo varias veces. Etiquetá con el nombre del reactivo, la concentración, la fecha y tu nombre.'
+      ].map(function (p) {
+        return '<li>' + p + '</li>';
+      }).join('');
+
+      document.getElementById('pasos').classList.add('visible');
+
+      /* Alerta de seguridad para reactivos con densidad > 1.1 */
+      if (densidad > 1.1) {
+        document.getElementById('alerta-seguridad').classList.add('visible');
+      }
+    }
+
+    function formatNum(n) {
+      if (n >= 100)  return n.toFixed(1);
+      if (n >= 10)   return n.toFixed(2);
+      if (n >= 1)    return n.toFixed(3);
+      return n.toFixed(4);
+    }
+  </script>
+
+</body>
+</html>
