@@ -3,225 +3,205 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QuimCalc — Panel de publicación</title>
-
+  <title>QuimCalc CMS — Generador de posts</title>
   <style>
-    /* ── VARIABLES (paleta del sitio) ── */
-    :root {
-      --color-fondo:        #F7F5F0;
-      --color-fondo-card:   #EDEAE2;
-      --color-acento:       #1A5C38;
-      --color-acento-hover: #134529;
-      --color-acento-claro: #E8F2EC;
-      --color-texto:        #1C1A17;
-      --color-texto-suave:  #5C5649;
-      --color-borde:        #D4CFC4;
-      --color-error:        #B83232;
-      --color-header-bg:    #1C2E22;
-      --color-header-texto: #F0EDE6;
-      --radio-sm: 4px;
-      --radio-md: 8px;
-      --radio-lg: 12px;
-    }
-
+    /* ── Reset y base ──────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--color-fondo);
-      color: var(--color-texto);
-      font-size: 15px;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #F0EDE6;
+      color: #1C1A17;
+      font-size: 14px;
       line-height: 1.5;
     }
 
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+    code {
+      font-family: 'Courier New', monospace;
+      background: #E8F2EC;
+      color: #1A5C38;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 0.85em;
+    }
 
-    /* ── LOGIN ── */
+    /* ── Pantalla de login ─────────────────────────── */
     #pantalla-login {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: var(--color-header-bg);
+      background: #1C2E22;
     }
 
-    .login-box {
-      background-color: var(--color-fondo);
-      border-radius: var(--radio-lg);
-      padding: 40px;
-      width: 100%;
-      max-width: 360px;
+    .login-card {
+      background: #F7F5F0;
+      border-radius: 14px;
+      padding: 44px 40px;
+      width: 340px;
       text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     }
 
-    .login-box__logo {
-      font-size: 1.4rem;
+    .login-logo {
+      font-size: 1.6rem;
       font-weight: 700;
-      color: var(--color-texto);
-      margin-bottom: 4px;
+      color: #1C2E22;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
     }
 
-    .login-box__logo span { color: var(--color-acento); }
+    .login-logo span { color: #1A5C38; }
 
-    .login-box__subtitulo {
-      font-size: 0.85rem;
-      color: var(--color-texto-suave);
-      margin-bottom: 28px;
+    .login-card p {
+      color: #5C5649;
+      margin-bottom: 24px;
+      font-size: 0.875rem;
     }
 
-    .login-box input[type="password"] {
+    .login-card input {
       width: 100%;
-      padding: 12px 16px;
-      border: 1.5px solid var(--color-borde);
-      border-radius: var(--radio-sm);
-      font-size: 1rem;
-      font-family: inherit;
-      color: var(--color-texto);
-      background: #fff;
-      margin-bottom: 12px;
+      padding: 11px 14px;
+      border: 1.5px solid #D4CFC4;
+      border-radius: 7px;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
       outline: none;
+      background: white;
       transition: border-color 0.15s;
     }
 
-    .login-box input[type="password"]:focus {
-      border-color: var(--color-acento);
+    .login-card input:focus { border-color: #1A5C38; }
+
+    .login-card button {
+      width: 100%;
+      padding: 12px;
+      background: #1A5C38;
+      color: white;
+      border: none;
+      border-radius: 7px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s;
     }
 
-    .login-box__error {
+    .login-card button:hover { background: #134529; }
+
+    .login-error {
+      color: #B83232;
       font-size: 0.82rem;
-      color: var(--color-error);
-      margin-bottom: 10px;
-      min-height: 18px;
+      margin-top: 10px;
+      display: none;
     }
 
-    /* ── PANEL PRINCIPAL ── */
-    #panel-cms { display: none; }
+    /* ── CMS principal ─────────────────────────────── */
+    #cms { display: none; }
 
-    .cms-header {
-      background-color: var(--color-header-bg);
-      padding: 0 32px;
-      height: 56px;
+    .cms-topbar {
+      background: #1C2E22;
+      color: #F0EDE6;
+      padding: 0 24px;
+      height: 52px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
 
-    .cms-header__logo {
-      font-size: 1.05rem;
+    .cms-topbar-logo {
+      font-size: 1rem;
       font-weight: 700;
-      color: var(--color-header-texto);
+      color: #F0EDE6;
     }
 
-    .cms-header__logo span { color: #6EBF8B; }
+    .cms-topbar-logo span { color: #6EBF8B; }
 
-    .cms-header__badge {
+    .cms-topbar-info {
       font-size: 0.75rem;
-      font-weight: 600;
-      background-color: rgba(110, 191, 139, 0.2);
-      color: #6EBF8B;
-      padding: 3px 10px;
-      border-radius: 99px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      color: rgba(240,237,230,0.5);
     }
 
-    .cms-body {
+    .cms-layout {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px 20px;
       display: grid;
-      grid-template-columns: 1fr 400px;
-      gap: 0;
-      min-height: calc(100vh - 56px);
+      grid-template-columns: 1fr 290px;
+      gap: 20px;
+      align-items: start;
     }
 
-    /* ── FORMULARIO (columna izquierda) ── */
-    .cms-form {
-      padding: 32px;
-      overflow-y: auto;
-      border-right: 1px solid var(--color-borde);
-    }
-
-    /* ── PREVIEW (columna derecha) ── */
-    .cms-preview {
-      padding: 32px 24px;
-      overflow-y: auto;
-      background-color: var(--color-fondo-card);
-    }
-
-    .cms-preview__titulo {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--color-texto-suave);
+    /* ── Tarjetas del CMS ──────────────────────────── */
+    .cms-card {
+      background: white;
+      border: 1px solid #D4CFC4;
+      border-radius: 10px;
+      padding: 20px;
       margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
 
-    .preview-codigo {
-      background-color: var(--color-header-bg);
-      color: #a8d5b5;
-      border-radius: var(--radio-md);
-      padding: 16px;
-      font-family: 'Courier New', monospace;
-      font-size: 0.75rem;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      word-break: break-all;
-      max-height: calc(100vh - 180px);
-      overflow-y: auto;
-    }
-
-    /* ── GRUPOS DE FORMULARIO ── */
-    .form-seccion {
-      margin-bottom: 28px;
-    }
-
-    .form-seccion__titulo {
-      font-size: 0.72rem;
+    .cms-card__titulo {
+      font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--color-texto-suave);
+      letter-spacing: 0.09em;
+      color: #5C5649;
       margin-bottom: 14px;
       padding-bottom: 8px;
-      border-bottom: 1px solid var(--color-borde);
+      border-bottom: 1px solid #EDEAE2;
+      display: flex;
+      align-items: center;
+      gap: 7px;
     }
 
-    .campo {
-      margin-bottom: 14px;
-    }
+    .cms-card__titulo-emoji { font-size: 0.9rem; }
+
+    /* ── Campos de formulario ──────────────────────── */
+    .campo { margin-bottom: 13px; }
 
     .campo label {
       display: block;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      color: var(--color-texto);
-      margin-bottom: 5px;
+      color: #1C1A17;
+      margin-bottom: 4px;
+    }
+
+    .campo .hint {
+      font-size: 0.75rem;
+      color: #5C5649;
+      margin-top: 4px;
+      line-height: 1.4;
     }
 
     .campo input,
     .campo select,
     .campo textarea {
       width: 100%;
-      padding: 9px 12px;
-      border: 1.5px solid var(--color-borde);
-      border-radius: var(--radio-sm);
-      font-size: 0.9rem;
+      padding: 8px 11px;
+      border: 1.5px solid #D4CFC4;
+      border-radius: 6px;
+      font-size: 0.875rem;
       font-family: inherit;
-      color: var(--color-texto);
-      background: var(--color-fondo);
+      color: #1C1A17;
+      background: #FAFAF8;
       outline: none;
-      transition: border-color 0.15s;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
 
     .campo input:focus,
     .campo select:focus,
     .campo textarea:focus {
-      border-color: var(--color-acento);
+      border-color: #1A5C38;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(26,92,56,0.1);
     }
 
-    .campo textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
+    .campo textarea { resize: vertical; min-height: 72px; }
 
     .campo-fila {
       display: grid;
@@ -229,736 +209,1061 @@
       gap: 10px;
     }
 
-    /* ── SECCIONES DEL POST (bloques dinámicos) ── */
-    .secciones-lista {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .bloque-seccion {
-      background-color: var(--color-fondo-card);
-      border: 1px solid var(--color-borde);
-      border-radius: var(--radio-md);
-      overflow: hidden;
-    }
-
-    .bloque-seccion__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 14px;
-      background-color: var(--color-fondo-card);
-      cursor: pointer;
-      user-select: none;
-      gap: 10px;
-    }
-
-    .bloque-seccion__tipo {
+    /* Contador de caracteres */
+    .meta-contador {
       font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 2px 8px;
-      border-radius: 99px;
+      color: #5C5649;
+      margin-top: 3px;
+      text-align: right;
     }
 
-    .tipo-texto    { background-color: #DBEAFE; color: #1E40AF; }
-    .tipo-formula  { background-color: var(--color-acento-claro); color: var(--color-acento); }
-    .tipo-ejemplo  { background-color: #FEF3C7; color: #92400E; }
-    .tipo-faq      { background-color: #F3E8FF; color: #6B21A8; }
-    .tipo-lista    { background-color: #FCE7F3; color: #9D174D; }
-    .tipo-subtitulo { background-color: #E0F2FE; color: #075985; }
+    .meta-contador.excedido { color: #B83232; font-weight: 600; }
 
-    .bloque-seccion__preview-texto {
-      flex: 1;
-      font-size: 0.82rem;
-      color: var(--color-texto-suave);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .bloque-seccion__acciones {
-      display: flex;
-      gap: 4px;
-      flex-shrink: 0;
-    }
-
-    .btn-icono {
-      background: none;
-      border: 1px solid var(--color-borde);
-      border-radius: var(--radio-sm);
-      width: 28px;
-      height: 28px;
-      cursor: pointer;
+    /* ── Sección de imagen de portada ──────────────── */
+    .imagen-portada-preview {
+      background: #EDEAE2;
+      border: 2px dashed #D4CFC4;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #5C5649;
+      margin-bottom: 12px;
+      min-height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--color-texto-suave);
-      transition: background-color 0.15s, color 0.15s;
     }
 
-    .btn-icono:hover { background-color: var(--color-fondo); color: var(--color-texto); }
-    .btn-icono--eliminar:hover { border-color: var(--color-error); color: var(--color-error); }
-
-    .btn-icono svg {
-      width: 14px;
-      height: 14px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .bloque-seccion__body {
-      padding: 12px 14px;
-      border-top: 1px solid var(--color-borde);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .bloque-seccion__body.colapsado { display: none; }
-
-    /* ── BOTONES DE AGREGAR BLOQUE ── */
-    .agregar-bloque-menu {
+    /* ── Editor de bloques ─────────────────────────── */
+    .agregar-bloques {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #EDEAE2;
     }
 
-    .btn-agregar {
-      font-size: 0.78rem;
+    .btn-tipo {
+      padding: 5px 11px;
+      border: 1.5px dashed #D4CFC4;
+      border-radius: 20px;
+      background: white;
+      font-size: 0.77rem;
       font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 99px;
-      border: 1.5px dashed var(--color-borde);
-      background: none;
+      color: #5C5649;
       cursor: pointer;
-      color: var(--color-texto-suave);
-      transition: border-color 0.15s, color 0.15s, background-color 0.15s;
+      transition: all 0.15s;
+      white-space: nowrap;
     }
 
-    .btn-agregar:hover {
-      border-color: var(--color-acento);
-      color: var(--color-acento);
-      background-color: var(--color-acento-claro);
+    .btn-tipo:hover {
+      border-color: #1A5C38;
+      color: #1A5C38;
+      background: #E8F2EC;
+      border-style: solid;
     }
 
-    /* ── CHECKBOXES DE HERRAMIENTAS ── */
-    .herramientas-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-    }
-
-    .check-item {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 0.82rem;
-      color: var(--color-texto-suave);
-      cursor: pointer;
-    }
-
-    .check-item input[type="checkbox"] {
-      width: 15px;
-      height: 15px;
-      accent-color: var(--color-acento);
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    /* ── POSTS RELACIONADOS ── */
-    .posts-relacionados-lista {
+    .bloques-lista {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      margin-bottom: 8px;
+      min-height: 50px;
     }
 
-    .post-relacionado-item {
+    .bloques-placeholder {
+      text-align: center;
+      color: #5C5649;
+      font-size: 0.82rem;
+      padding: 28px 20px;
+      border: 2px dashed #D4CFC4;
+      border-radius: 8px;
+      background: #FAFAF8;
+    }
+
+    /* ── Cada bloque de contenido ──────────────────── */
+    .bloque {
+      border: 1.5px solid #D4CFC4;
+      border-radius: 8px;
+      background: #FAFAF8;
+      overflow: hidden;
+      transition: border-color 0.15s;
+    }
+
+    .bloque:hover { border-color: #B0A896; }
+
+    .bloque-cabecera {
       display: flex;
-      gap: 8px;
       align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      background: #EDEAE2;
+      border-bottom: 1px solid #D4CFC4;
+      cursor: default;
     }
 
-    .post-relacionado-item input {
-      flex: 1;
+    .bloque-etiqueta {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #1A5C38;
+      background: #E8F2EC;
+      padding: 2px 7px;
+      border-radius: 3px;
+      border: 1px solid rgba(26,92,56,0.2);
     }
 
-    .btn-quitar {
-      background: none;
-      border: 1px solid var(--color-borde);
-      border-radius: var(--radio-sm);
-      width: 30px;
-      height: 30px;
+    .bloque-botones {
+      display: flex;
+      gap: 3px;
+      margin-left: auto;
+    }
+
+    .btn-mini {
+      width: 26px;
+      height: 26px;
+      border: 1px solid #D4CFC4;
+      border-radius: 4px;
+      background: white;
       cursor: pointer;
-      color: var(--color-texto-suave);
-      font-size: 1.1rem;
+      font-size: 0.8rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-      transition: border-color 0.15s, color 0.15s;
+      transition: all 0.1s;
+      color: #5C5649;
     }
 
-    .btn-quitar:hover { border-color: var(--color-error); color: var(--color-error); }
+    .btn-mini:hover { background: #EDEAE2; }
+    .btn-mini.del:hover { background: #FDF0F0; border-color: #B83232; color: #B83232; }
 
-    /* ── BOTONES PRINCIPALES ── */
-    .btn-generar {
-      background-color: var(--color-acento);
-      color: #F7F5F0;
-      border: none;
-      border-radius: var(--radio-sm);
-      padding: 13px 24px;
+    .bloque-cuerpo { padding: 11px; }
+
+    .bloque-cuerpo input,
+    .bloque-cuerpo textarea {
+      width: 100%;
+      padding: 7px 10px;
+      border: 1px solid #D4CFC4;
+      border-radius: 5px;
+      font-size: 0.84rem;
       font-family: inherit;
-      font-size: 0.92rem;
+      background: white;
+      color: #1C1A17;
+      outline: none;
+      margin-bottom: 7px;
+      transition: border-color 0.15s;
+    }
+
+    .bloque-cuerpo input:last-child,
+    .bloque-cuerpo textarea:last-child { margin-bottom: 0; }
+
+    .bloque-cuerpo input:focus,
+    .bloque-cuerpo textarea:focus { border-color: #1A5C38; }
+
+    .bloque-cuerpo textarea { resize: vertical; min-height: 72px; }
+
+    .bloque-hint {
+      font-size: 0.72rem;
+      color: #5C5649;
+      margin-bottom: 7px;
+      line-height: 1.4;
+    }
+
+    /* ── Checkboxes de herramientas ────────────────── */
+    .herramientas-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .herramientas-grid::-webkit-scrollbar { width: 4px; }
+    .herramientas-grid::-webkit-scrollbar-thumb { background: #D4CFC4; border-radius: 2px; }
+
+    .tool-check {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.8rem;
+      color: #1C1A17;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: 5px;
+      transition: background 0.1s;
+      user-select: none;
+    }
+
+    .tool-check:hover { background: #E8F2EC; }
+
+    .tool-check input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      accent-color: #1A5C38;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .btn-seleccionar-todos {
+      font-size: 0.72rem;
+      color: #1A5C38;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 8px;
+      text-decoration: underline;
+    }
+
+    /* ── Posts relacionados ────────────────────────── */
+    .post-rel-fila {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 7px;
+    }
+
+    .post-rel-fila input {
+      padding: 6px 9px;
+      border: 1px solid #D4CFC4;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-family: inherit;
+      background: #FAFAF8;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.15s;
+    }
+
+    .post-rel-fila input:focus { border-color: #1A5C38; }
+
+    /* ── Botón generar ─────────────────────────────── */
+    .btn-generar {
+      width: 100%;
+      padding: 14px;
+      background: #1A5C38;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
-      width: 100%;
-      transition: background-color 0.15s;
+      transition: background 0.15s, transform 0.1s;
+      margin-bottom: 16px;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-generar:hover { background: #134529; }
+    .btn-generar:active { transform: scale(0.99); }
+
+    /* ── Panel de salida ───────────────────────────── */
+    #panel-salida { display: none; }
+
+    .salida-cabecera {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: 10px;
     }
 
-    .btn-generar:hover { background-color: var(--color-acento-hover); }
+    .salida-cabecera h3 {
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
 
-    .btn-descargar {
-      background-color: transparent;
-      color: var(--color-acento);
-      border: 2px solid var(--color-acento);
-      border-radius: var(--radio-sm);
-      padding: 11px 24px;
-      font-family: inherit;
-      font-size: 0.92rem;
+    .btn-copiar {
+      padding: 7px 16px;
+      background: #1A5C38;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.82rem;
       font-weight: 700;
       cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-copiar:hover { background: #134529; }
+    .btn-copiar.ok { background: #276C43; }
+
+    #html-output {
       width: 100%;
-      transition: background-color 0.15s;
-      display: none;
-    }
-
-    .btn-descargar:hover { background-color: var(--color-acento-claro); }
-    .btn-descargar.visible { display: block; }
-
-    /* ── MENSAJE DE ÉXITO ── */
-    .mensaje-exito {
-      background-color: var(--color-acento-claro);
-      border: 1px solid var(--color-acento);
-      border-radius: var(--radio-md);
-      padding: 12px 16px;
-      font-size: 0.85rem;
-      color: var(--color-acento);
-      font-weight: 600;
-      margin-top: 10px;
-      display: none;
-    }
-
-    .mensaje-exito.visible { display: block; }
-
-    /* ── NOMBRE DE ARCHIVO GENERADO ── */
-    .nombre-archivo {
+      height: 380px;
       font-family: 'Courier New', monospace;
-      font-size: 0.8rem;
-      background-color: var(--color-fondo-card);
-      border: 1px solid var(--color-borde);
-      border-radius: var(--radio-sm);
-      padding: 6px 10px;
-      color: var(--color-texto-suave);
-      margin-top: 8px;
-      display: none;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      padding: 14px;
+      border: 1.5px solid #1A5C38;
+      border-radius: 8px;
+      background: #0F1F14;
+      color: #A8E6BE;
+      resize: vertical;
+      outline: none;
     }
 
-    .nombre-archivo.visible { display: block; }
+    .pasos-post {
+      margin-top: 12px;
+      padding: 13px 16px;
+      background: #E8F2EC;
+      border: 1px solid rgba(26,92,56,0.3);
+      border-left: 4px solid #1A5C38;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      line-height: 1.8;
+    }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .cms-body { grid-template-columns: 1fr; }
-      .cms-preview { display: none; }
+    .pasos-post strong { color: #1A5C38; }
+
+    /* ── Sidebar sticky ────────────────────────────── */
+    .cms-sidebar { position: sticky; top: 68px; }
+
+    /* ── Responsive ────────────────────────────────── */
+    @media (max-width: 780px) {
+      .cms-layout { grid-template-columns: 1fr; }
+      .cms-sidebar { position: static; }
+      .campo-fila { grid-template-columns: 1fr; }
+      .post-rel-fila { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════════════
+<!-- ══════════════════════════════════════════════════════════
      PANTALLA DE LOGIN
-═══════════════════════════════════════════════════════ -->
+══════════════════════════════════════════════════════════════ -->
 <div id="pantalla-login">
-  <div class="login-box">
-    <p class="login-box__logo">Quim<span>Calc</span></p>
-    <p class="login-box__subtitulo">Panel de publicación — solo acceso autorizado</p>
-    <input type="password" id="input-clave" placeholder="Contraseña" autocomplete="current-password">
-    <p class="login-box__error" id="login-error"></p>
-    <button
-      style="background-color: var(--color-acento); color: #F7F5F0; border: none; border-radius: 4px; padding: 12px; width: 100%; font-family: inherit; font-size: 0.92rem; font-weight: 700; cursor: pointer;"
-      onclick="verificarLogin()"
-    >Ingresar</button>
+  <div class="login-card">
+    <p class="login-logo">Quim<span>Calc</span></p>
+    <p>Ingresá la contraseña para acceder al CMS</p>
+    <input type="password" id="pass-input" placeholder="Contraseña" />
+    <button onclick="verificarPass()">Entrar</button>
+    <p class="login-error" id="login-error">❌ Contraseña incorrecta</p>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════
-     PANEL CMS
-═══════════════════════════════════════════════════════ -->
-<div id="panel-cms">
+<!-- ══════════════════════════════════════════════════════════
+     CMS PRINCIPAL
+══════════════════════════════════════════════════════════════ -->
+<div id="cms">
 
-  <header class="cms-header">
-    <span class="cms-header__logo">Quim<span>Calc</span></span>
-    <span class="cms-header__badge">Panel de publicación</span>
-  </header>
+  <div class="cms-topbar">
+    <span class="cms-topbar-logo">Quim<span>Calc</span> — CMS de posts</span>
+    <span class="cms-topbar-info">v2.1 · quimcalc.com</span>
+  </div>
 
-  <div class="cms-body">
+  <div class="cms-layout">
 
-    <!-- ── FORMULARIO ── -->
-    <div class="cms-form">
+    <!-- ── COLUMNA PRINCIPAL ──────────────────────── -->
+    <div id="col-principal">
 
-      <!-- METADATOS -->
-      <div class="form-seccion">
-        <p class="form-seccion__titulo">Metadatos del post</p>
+      <!-- DATOS DEL POST -->
+      <div class="cms-card">
+        <p class="cms-card__titulo"><span class="cms-card__titulo-emoji">📝</span> Datos del post</p>
 
         <div class="campo">
-          <label for="titulo">Título del post *</label>
-          <input type="text" id="titulo" placeholder="ej: Cómo calcular el LOD por el método de la señal/ruido">
+          <label>Título del post *</label>
+          <input type="text" id="f-titulo" placeholder="Ej: Cómo preparar soluciones estándar correctamente" />
+        </div>
+
+        <div class="campo">
+          <label>Slug — nombre del archivo *</label>
+          <input type="text" id="f-slug" placeholder="como-preparar-soluciones-estandar" />
+          <p class="hint">Solo minúsculas y guiones. Se genera automático al escribir el título.</p>
         </div>
 
         <div class="campo-fila">
           <div class="campo">
-            <label for="categoria">Categoría *</label>
-            <select id="categoria">
-              <option value="">— Elegí una —</option>
-              <option value="Química básica"      data-color="#1A5C38">Química básica</option>
-              <option value="Agua y medio ambiente" data-color="#059669">Agua y medio ambiente</option>
-              <option value="Análisis volumétrico" data-color="#D97706">Análisis volumétrico</option>
-              <option value="Instrumentación"     data-color="#7C3AED">Instrumentación</option>
-              <option value="Normativa y calidad" data-color="#DC2626">Normativa y calidad</option>
-              <option value="Laboratorio industrial" data-color="#0369A1">Laboratorio industrial</option>
+            <label>Categoría *</label>
+            <select id="f-categoria">
+              <option value="Química básica"         data-color="#1A5C38">Química básica</option>
+              <option value="Agua y medio ambiente"  data-color="#059669">Agua y medio ambiente</option>
+              <option value="Análisis volumétrico"   data-color="#D97706">Análisis volumétrico</option>
+              <option value="Instrumentación"        data-color="#7C3AED">Instrumentación</option>
+              <option value="Normativa y calidad"    data-color="#DC2626">Normativa y calidad</option>
+              <option value="Laboratorio industrial" data-color="#0EA5E9">Laboratorio industrial</option>
             </select>
           </div>
           <div class="campo">
-            <label for="tiempo-lectura">Tiempo de lectura</label>
-            <input type="text" id="tiempo-lectura" placeholder="ej: 8 min lectura">
+            <label>Fecha de publicación</label>
+            <input type="text" id="f-fecha" placeholder="Mayo 2026" />
           </div>
         </div>
 
         <div class="campo-fila">
           <div class="campo">
-            <label for="fecha-iso">Fecha (ISO) *</label>
-            <input type="date" id="fecha-iso">
+            <label>Tiempo de lectura</label>
+            <input type="text" id="f-tiempo" placeholder="8 min lectura" />
           </div>
           <div class="campo">
-            <label for="fecha-legible">Fecha visible</label>
-            <input type="text" id="fecha-legible" placeholder="ej: Enero 2025">
+            <label>Fecha ISO (para Google)</label>
+            <input type="date" id="f-fecha-iso" />
           </div>
         </div>
 
         <div class="campo">
-          <label for="resumen-meta">Resumen SEO (meta description) *</label>
-          <textarea id="resumen-meta" rows="2" placeholder="Máximo 160 caracteres. Este texto aparece en Google."></textarea>
+          <label>Meta descripción (Google) *</label>
+          <textarea id="f-meta" rows="2" placeholder="Guía práctica sobre... Describí el post en 1-2 oraciones cortas."></textarea>
+          <p class="meta-contador" id="meta-cnt">0 / 160 caracteres</p>
         </div>
 
         <div class="campo">
-          <label for="resumen-post">Resumen visible en el post *</label>
-          <textarea id="resumen-post" rows="3" placeholder="2-3 oraciones que aparecen debajo del título en el artículo."></textarea>
+          <label>Resumen / párrafo introductorio</label>
+          <textarea id="f-resumen" rows="3" placeholder="Párrafo de introducción que aparece destacado debajo del título en el post."></textarea>
+        </div>
+      </div>
+
+      <!-- IMAGEN DE PORTADA -->
+      <div class="cms-card">
+        <p class="cms-card__titulo"><span class="cms-card__titulo-emoji">🖼️</span> Imagen de portada</p>
+
+        <p class="hint" style="margin-bottom:12px;">
+          Guardá la imagen en <code>/blog/posts/img/</code> antes de hacer el push. Se muestra al tope del post y en las cards del blog.
+        </p>
+
+        <div class="campo">
+          <label>Nombre del archivo</label>
+          <input type="text" id="f-img-portada" placeholder="nombre-del-post.webp" />
+          <p class="hint">Recomendado: formato WebP, al menos 800×400 px.</p>
         </div>
 
         <div class="campo">
-          <label for="nombre-archivo">Nombre del archivo HTML</label>
-          <input type="text" id="nombre-archivo" placeholder="ej: como-calcular-lod-loq (sin .html, sin espacios)">
+          <label>Alt text de la portada *</label>
+          <textarea id="f-img-portada-alt" rows="2" placeholder="Descripción detallada de la imagen para accesibilidad y SEO. Sé específico."></textarea>
         </div>
       </div>
 
-      <!-- SECCIONES DEL CUERPO -->
-      <div class="form-seccion">
-        <p class="form-seccion__titulo">Cuerpo del artículo</p>
+      <!-- CONTENIDO DEL POST -->
+      <div class="cms-card">
+        <p class="cms-card__titulo"><span class="cms-card__titulo-emoji">📄</span> Contenido del post</p>
 
-        <div class="secciones-lista" id="secciones-lista">
-          <!-- Los bloques se insertan aquí dinámicamente -->
+        <p class="hint" style="margin-bottom:12px;">
+          Agregá bloques en orden. Los <strong>Título H2</strong> se agregan automáticamente a la tabla de contenidos del sidebar.
+        </p>
+
+        <!-- Botones para agregar tipos de bloque -->
+        <div class="agregar-bloques">
+          <button class="btn-tipo" onclick="agregarBloque('h2')">+ Título H2</button>
+          <button class="btn-tipo" onclick="agregarBloque('h3')">+ Subtítulo H3</button>
+          <button class="btn-tipo" onclick="agregarBloque('parrafo')">+ Párrafo</button>
+          <button class="btn-tipo" onclick="agregarBloque('lista')">+ Lista</button>
+          <button class="btn-tipo" onclick="agregarBloque('formula')">+ Fórmula</button>
+          <button class="btn-tipo" onclick="agregarBloque('ejemplo')">+ Bloque ejemplo</button>
+          <button class="btn-tipo" onclick="agregarBloque('faq')">+ FAQ</button>
+          <button class="btn-tipo" onclick="agregarBloque('imagen')">+ Imagen</button>
         </div>
 
-        <div class="agregar-bloque-menu">
-          <button class="btn-agregar" onclick="agregarBloque('texto')">+ Párrafo / Sección h2</button>
-          <button class="btn-agregar" onclick="agregarBloque('subtitulo')">+ Subtítulo h3</button>
-          <button class="btn-agregar" onclick="agregarBloque('formula')">+ Fórmula</button>
-          <button class="btn-agregar" onclick="agregarBloque('ejemplo')">+ Ejemplo resuelto</button>
-          <button class="btn-agregar" onclick="agregarBloque('faq')">+ Pregunta FAQ</button>
-          <button class="btn-agregar" onclick="agregarBloque('lista')">+ Lista de puntos</button>
+        <!-- Bloques de contenido -->
+        <div id="bloques-lista" class="bloques-lista">
+          <div class="bloques-placeholder">
+            Usá los botones de arriba para ir armando el contenido del post.
+          </div>
         </div>
       </div>
+
+      <!-- BOTÓN GENERAR -->
+      <button class="btn-generar" onclick="generarHTML()">⚡ Generar HTML del post</button>
+
+      <!-- PANEL DE SALIDA -->
+      <div id="panel-salida">
+        <div class="salida-cabecera">
+          <h3>✅ HTML generado</h3>
+          <button class="btn-copiar" id="btn-copiar" onclick="copiarHTML()">📋 Copiar todo</button>
+        </div>
+        <textarea id="html-output" readonly spellcheck="false"></textarea>
+        <div class="pasos-post">
+          <strong>Próximos pasos:</strong><br>
+          1. Copiá el HTML de arriba → guardalo en <code>/blog/posts/<span id="slug-destino">nombre.html</span></code><br>
+          2. Si hay imagen de portada o cuerpo → subilas a <code>/blog/posts/img/</code><br>
+          3. Agregá la card del post en <code>blog/index.html</code> y en <code>index.html</code><br>
+          4. <code>git add . → git commit -m "Nuevo post: título" → git push</code>
+        </div>
+      </div>
+
+    </div><!-- /col-principal -->
+
+    <!-- ── SIDEBAR DEL CMS ────────────────────────── -->
+    <div class="cms-sidebar">
 
       <!-- HERRAMIENTAS RELACIONADAS -->
-      <div class="form-seccion">
-        <p class="form-seccion__titulo">Herramientas relacionadas (sidebar)</p>
-        <div class="herramientas-grid" id="herramientas-grid">
-          <!-- Se genera con JS -->
+      <div class="cms-card">
+        <p class="cms-card__titulo"><span class="cms-card__titulo-emoji">🔧</span> Herramientas relacionadas</p>
+        <button class="btn-seleccionar-todos" onclick="toggleTodas()">Seleccionar / deseleccionar todas</button>
+        <div class="herramientas-grid" id="tools-grid">
+          <!-- Se renderizan con JS -->
         </div>
       </div>
 
       <!-- POSTS RELACIONADOS -->
-      <div class="form-seccion">
-        <p class="form-seccion__titulo">Posts relacionados (sidebar)</p>
-        <div class="posts-relacionados-lista" id="posts-relacionados-lista">
-          <!-- Se genera con JS -->
-        </div>
-        <button class="btn-agregar" onclick="agregarPostRelacionado()">+ Agregar post relacionado</button>
-      </div>
-
-      <!-- ACCIONES -->
-      <div class="form-seccion">
-        <button class="btn-generar" onclick="generarHTML()">Generar HTML del post</button>
-        <button class="btn-descargar" id="btn-descargar" onclick="descargarHTML()">⬇ Descargar archivo HTML</button>
-        <div class="nombre-archivo" id="nombre-archivo-generado"></div>
-        <div class="mensaje-exito" id="mensaje-exito">
-          ✓ HTML generado correctamente. Descargalo y subilo a /blog/posts/ en Hostinger.
+      <div class="cms-card">
+        <p class="cms-card__titulo"><span class="cms-card__titulo-emoji">📚</span> Posts relacionados</p>
+        <p class="hint" style="margin-bottom:10px;">Completá título + nombre de archivo. Dejá vacío si no aplica.</p>
+        <div id="posts-rel-container">
+          <!-- Se renderizan con JS -->
         </div>
       </div>
 
-    </div><!-- /cms-form -->
+    </div><!-- /cms-sidebar -->
 
-    <!-- ── PREVIEW DEL CÓDIGO ── -->
-    <div class="cms-preview">
-      <p class="cms-preview__titulo">Vista previa del código generado</p>
-      <pre class="preview-codigo" id="preview-codigo">El HTML aparecerá aquí cuando hagas clic en "Generar".</pre>
-    </div>
-
-  </div><!-- /cms-body -->
-</div><!-- /panel-cms -->
+  </div><!-- /cms-layout -->
+</div><!-- /cms -->
 
 <script>
-/* ══════════════════════════════════════════════════════
-   CONFIGURACIÓN
-   IMPORTANTE: cambiá esta contraseña antes de subir.
-   No es un sistema de seguridad robusto, pero es
-   suficiente para un panel personal estático.
-═══════════════════════════════════════════════════════ */
-const CLAVE_ADMIN = 'quimcalc2025'; // ← CAMBIÁ ESTO
+// ================================================================
+// CONTRASEÑA — cambiala en producción
+// ================================================================
+const PASSWORD_CMS = 'quimcalc2025';
 
-/* ══════════════════════════════════════════════════════
-   DATOS DEL SITIO
-═══════════════════════════════════════════════════════ */
-
-// Las 15 herramientas del sitio
-const HERRAMIENTAS = [
-  { label: 'Molaridad y masa',          href: 'calculadora-molaridad.html' },
-  { label: 'Diluciones C₁V₁=C₂V₂',     href: 'calculadora-diluciones.html' },
-  { label: 'Conversor ppm/mg/L/N',      href: 'conversor-ppm-mgl.html' },
-  { label: 'Calculadora de pH',         href: 'calculadora-ph.html' },
-  { label: '% Rendimiento',             href: 'calculadora-rendimiento.html' },
-  { label: 'Temperatura °C/°F/K',       href: 'conversor-temperatura.html' },
-  { label: 'Concentración % p/p',       href: 'concentracion-pp.html' },
-  { label: 'Masa Molar',                href: 'masa-molar.html' },
-  { label: 'Buffers Henderson-H.',      href: 'calculadora-buffers.html' },
-  { label: 'Diluciones seriadas',       href: 'diluciones-seriadas.html' },
-  { label: 'Dureza del agua',           href: 'dureza-agua.html' },
-  { label: 'Titulación volumétrica',    href: 'calculadora-titulacion.html' },
-  { label: 'Curva de calibración',      href: 'curva-calibracion.html' },
-  { label: 'LOD y LOQ',                 href: 'lod-loq.html' },
-  { label: 'Incertidumbre GUM',         href: 'incertidumbre.html' },
-];
-
-// Mapa de colores por categoría
-const COLORES_CATEGORIA = {
-  'Química básica':       '#1A5C38',
-  'Agua y medio ambiente':'#059669',
-  'Análisis volumétrico': '#D97706',
-  'Instrumentación':      '#7C3AED',
-  'Normativa y calidad':  '#DC2626',
-  'Laboratorio industrial':'#0369A1',
-};
-
-/* ══════════════════════════════════════════════════════
-   LOGIN
-═══════════════════════════════════════════════════════ */
-function verificarLogin() {
-  const clave = document.getElementById('input-clave').value;
-  if (clave === CLAVE_ADMIN) {
+function verificarPass() {
+  const val = document.getElementById('pass-input').value;
+  if (val === PASSWORD_CMS) {
     document.getElementById('pantalla-login').style.display = 'none';
-    document.getElementById('panel-cms').style.display = 'block';
-    inicializarPanel();
+    document.getElementById('cms').style.display = 'block';
+    initCMS();
   } else {
-    document.getElementById('login-error').textContent = 'Contraseña incorrecta.';
-    document.getElementById('input-clave').value = '';
+    document.getElementById('login-error').style.display = 'block';
   }
 }
 
-// También permite presionar Enter en el input
-document.getElementById('input-clave').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') verificarLogin();
+// Enter para loguear
+document.getElementById('pass-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') verificarPass();
 });
 
-/* ══════════════════════════════════════════════════════
-   INICIALIZACIÓN DEL PANEL
-═══════════════════════════════════════════════════════ */
-function inicializarPanel() {
-  // Poner fecha de hoy por defecto
-  const hoy = new Date().toISOString().split('T')[0];
-  document.getElementById('fecha-iso').value = hoy;
+// ================================================================
+// LISTA COMPLETA DE HERRAMIENTAS (21 + 2 tablas)
+// ================================================================
+const TOOLS = [
+  { nombre: 'Molaridad y masa',                    arch: 'calculadora-molaridad.html' },
+  { nombre: 'Diluciones C₁V₁=C₂V₂',               arch: 'calculadora-diluciones.html' },
+  { nombre: 'Conversor ppm/mg/L/N',                arch: 'conversor-ppm-mgl.html' },
+  { nombre: 'Calculadora de pH',                    arch: 'calculadora-ph.html' },
+  { nombre: '% Rendimiento',                        arch: 'calculadora-rendimiento.html' },
+  { nombre: 'Temperatura °C/°F/K',                  arch: 'conversor-temperatura.html' },
+  { nombre: 'Concentración % p/p',                  arch: 'concentracion-pp.html' },
+  { nombre: 'Masa Molar',                           arch: 'masa-molar.html' },
+  { nombre: 'Buffers — Henderson-Hasselbalch',      arch: 'calculadora-buffers.html' },
+  { nombre: 'Diluciones seriadas',                  arch: 'diluciones-seriadas.html' },
+  { nombre: 'Dureza del agua',                      arch: 'dureza-agua.html' },
+  { nombre: 'Titulación volumétrica',               arch: 'calculadora-titulacion.html' },
+  { nombre: 'Curva de calibración',                 arch: 'curva-calibracion.html' },
+  { nombre: 'LOD y LOQ',                            arch: 'lod-loq.html' },
+  { nombre: 'Incertidumbre de medición',            arch: 'incertidumbre.html' },
+  { nombre: 'Tabla periódica',                      arch: 'tabla-periodica.html' },
+  { nombre: 'Dilución reactivo comercial',          arch: 'diluciones-reactivo-comercial.html' },
+  { nombre: 'Estadística de laboratorio',           arch: 'estadistica-laboratorio.html' },
+  { nombre: 'Conversor de concentración ampliado',  arch: 'conversor-concentracion.html' },
+  { nombre: '% Recuperación y error sistemático',   arch: 'recuperacion-error.html' },
+  { nombre: 'Solución desde sólido con pureza',     arch: 'solucion-desde-solido.html' },
+  { nombre: 'Tabla de pKa',                         arch: 'tabla-pka.html' },
+  { nombre: 'Tabla de indicadores',                 arch: 'tabla-indicadores.html' },
+];
 
-  // Fecha legible por defecto (ej: "Abril 2026")
-  const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
-                  'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-  const ahora = new Date();
-  document.getElementById('fecha-legible').value = meses[ahora.getMonth()] + ' ' + ahora.getFullYear();
-
-  // Renderizar checkboxes de herramientas
-  const grid = document.getElementById('herramientas-grid');
-  grid.innerHTML = HERRAMIENTAS.map((h, i) => `
-    <label class="check-item">
-      <input type="checkbox" data-href="${h.href}" data-label="${h.label}" id="herr-${i}">
-      ${h.label}
-    </label>
-  `).join('');
-
-  // Agregar un bloque de texto inicial para que no quede vacío
-  agregarBloque('texto');
-}
-
-/* ══════════════════════════════════════════════════════
-   GESTIÓN DE BLOQUES DE CONTENIDO
-═══════════════════════════════════════════════════════ */
-let contadorBloques = 0;
-
-// Configuración de cada tipo de bloque
-const TIPOS_BLOQUE = {
-  texto: {
-    label: 'Párrafo / H2',
-    clase: 'tipo-texto',
-    campos: `
-      <div class="campo">
-        <label>Título de sección (H2) — dejar vacío si es solo párrafo</label>
-        <input type="text" class="campo-h2" placeholder="ej: ¿Cómo se calcula el LOD?">
-      </div>
-      <div class="campo">
-        <label>Contenido (párrafos) *</label>
-        <textarea class="campo-contenido" rows="4" placeholder="Escribí el texto de esta sección. Para múltiples párrafos, separá con una línea en blanco."></textarea>
-      </div>
-    `
-  },
-  subtitulo: {
-    label: 'Subtítulo H3',
-    clase: 'tipo-subtitulo',
-    campos: `
-      <div class="campo">
-        <label>Texto del subtítulo (H3) *</label>
-        <input type="text" class="campo-h3" placeholder="ej: Método de la señal/ruido">
-      </div>
-      <div class="campo">
-        <label>Contenido debajo del subtítulo</label>
-        <textarea class="campo-contenido" rows="3" placeholder="Párrafo que va debajo del H3 (opcional)."></textarea>
-      </div>
-    `
-  },
-  formula: {
-    label: 'Fórmula',
-    clase: 'tipo-formula',
-    campos: `
-      <div class="campo">
-        <label>Fórmula o ecuación *</label>
-        <input type="text" class="campo-formula" placeholder="ej: LOD = 3.3 × σ / S">
-      </div>
-    `
-  },
-  ejemplo: {
-    label: 'Ejemplo resuelto',
-    clase: 'tipo-ejemplo',
-    campos: `
-      <div class="campo">
-        <label>Título del ejemplo *</label>
-        <input type="text" class="campo-titulo-ejemplo" placeholder="ej: Ejemplo resuelto">
-      </div>
-      <div class="campo">
-        <label>Contenido del ejemplo *</label>
-        <textarea class="campo-contenido" rows="5" placeholder="Datos del problema, desarrollo y resultado. Para múltiples párrafos, separá con una línea en blanco."></textarea>
-      </div>
-    `
-  },
-  faq: {
-    label: 'Pregunta FAQ',
-    clase: 'tipo-faq',
-    campos: `
-      <div class="campo">
-        <label>Pregunta *</label>
-        <input type="text" class="campo-pregunta" placeholder="ej: ¿Cuál es la diferencia entre LOD y LOQ?">
-      </div>
-      <div class="campo">
-        <label>Respuesta *</label>
-        <textarea class="campo-contenido" rows="3" placeholder="Respuesta clara y directa."></textarea>
-      </div>
-    `
-  },
-  lista: {
-    label: 'Lista de puntos',
-    clase: 'tipo-lista',
-    campos: `
-      <div class="campo">
-        <label>Ítems de la lista (uno por línea) *</label>
-        <textarea class="campo-lista" rows="5" placeholder="Primer punto&#10;Segundo punto&#10;Tercer punto"></textarea>
-      </div>
-    `
-  }
+// Colores por categoría
+const COLORES = {
+  'Química básica':         '#1A5C38',
+  'Agua y medio ambiente':  '#059669',
+  'Análisis volumétrico':   '#D97706',
+  'Instrumentación':        '#7C3AED',
+  'Normativa y calidad':    '#DC2626',
+  'Laboratorio industrial': '#0EA5E9',
 };
 
-function agregarBloque(tipo) {
-  const id = contadorBloques++;
-  const config = TIPOS_BLOQUE[tipo];
-  const lista = document.getElementById('secciones-lista');
+// ================================================================
+// CONTADOR DE BLOQUES (ID único por bloque)
+// ================================================================
+let contBloque = 0;
 
-  const div = document.createElement('div');
-  div.className = 'bloque-seccion';
-  div.dataset.tipo = tipo;
-  div.dataset.id = id;
+// ================================================================
+// INICIALIZAR EL CMS
+// ================================================================
+function initCMS() {
+  renderTools();
+  renderPostsRel();
+  autoSlug();
+  contadorMeta();
+  document.getElementById('f-fecha-iso').valueAsDate = new Date();
+}
 
-  div.innerHTML = `
-    <div class="bloque-seccion__header" onclick="toggleBloque(${id})">
-      <span class="bloque-seccion__tipo ${config.clase}">${config.label}</span>
-      <span class="bloque-seccion__preview-texto" id="preview-bloque-${id}">Nuevo bloque</span>
-      <div class="bloque-seccion__acciones" onclick="event.stopPropagation()">
-        <button class="btn-icono" onclick="moverBloque(${id}, -1)" title="Subir">
-          <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-        </button>
-        <button class="btn-icono" onclick="moverBloque(${id}, 1)" title="Bajar">
-          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <button class="btn-icono btn-icono--eliminar" onclick="eliminarBloque(${id})" title="Eliminar">
-          <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/></svg>
-        </button>
-      </div>
-    </div>
-    <div class="bloque-seccion__body" id="body-bloque-${id}">
-      ${config.campos}
-    </div>
-  `;
-
-  lista.appendChild(div);
-
-  // Actualizar preview del bloque al escribir
-  div.querySelectorAll('input, textarea').forEach(el => {
-    el.addEventListener('input', () => actualizarPreviewBloque(id));
+// Auto-generación del slug desde el título
+function autoSlug() {
+  document.getElementById('f-titulo').addEventListener('input', function () {
+    const slug = this.value
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')  // quitar tildes
+      .replace(/[^a-z0-9\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, '-');
+    document.getElementById('f-slug').value = slug;
   });
 }
 
-function actualizarPreviewBloque(id) {
-  const bloque = document.querySelector(`[data-id="${id}"]`);
-  if (!bloque) return;
-  const primerInput = bloque.querySelector('input, textarea');
-  const preview = document.getElementById(`preview-bloque-${id}`);
-  if (primerInput && primerInput.value) {
-    preview.textContent = primerInput.value.substring(0, 60) + (primerInput.value.length > 60 ? '…' : '');
-  }
+// Contador de caracteres en meta descripción
+function contadorMeta() {
+  const meta = document.getElementById('f-meta');
+  const cnt  = document.getElementById('meta-cnt');
+  meta.addEventListener('input', function () {
+    const n = this.value.length;
+    cnt.textContent = n + ' / 160 caracteres';
+    cnt.className = 'meta-contador' + (n > 160 ? ' excedido' : '');
+  });
 }
 
-function toggleBloque(id) {
-  const body = document.getElementById(`body-bloque-${id}`);
-  body.classList.toggle('colapsado');
+// ================================================================
+// RENDERIZAR CHECKBOXES DE HERRAMIENTAS
+// ================================================================
+function renderTools() {
+  const grid = document.getElementById('tools-grid');
+  grid.innerHTML = TOOLS.map((t, i) => `
+    <label class="tool-check">
+      <input type="checkbox" id="t${i}" value="${i}">
+      ${t.nombre}
+    </label>
+  `).join('');
 }
 
-function eliminarBloque(id) {
-  const bloque = document.querySelector(`[data-id="${id}"]`);
-  if (bloque) bloque.remove();
+function toggleTodas() {
+  const checks = document.querySelectorAll('#tools-grid input[type="checkbox"]');
+  // Si todas están marcadas, desmarca. Si no, marca todas.
+  const todasMarcadas = Array.from(checks).every(c => c.checked);
+  checks.forEach(c => c.checked = !todasMarcadas);
 }
 
-function moverBloque(id, direccion) {
-  const bloque = document.querySelector(`[data-id="${id}"]`);
-  const lista = document.getElementById('secciones-lista');
-  const bloques = Array.from(lista.children);
-  const idx = bloques.indexOf(bloque);
-  const nuevoIdx = idx + direccion;
-  if (nuevoIdx < 0 || nuevoIdx >= bloques.length) return;
-  if (direccion === -1) {
-    lista.insertBefore(bloque, bloques[nuevoIdx]);
-  } else {
-    lista.insertBefore(bloques[nuevoIdx], bloque);
-  }
+function toolsSeleccionadas() {
+  return TOOLS.filter((_, i) => document.getElementById('t' + i)?.checked);
 }
 
-/* ══════════════════════════════════════════════════════
-   POSTS RELACIONADOS
-═══════════════════════════════════════════════════════ */
-function agregarPostRelacionado() {
-  const lista = document.getElementById('posts-relacionados-lista');
+// ================================================================
+// RENDERIZAR POSTS RELACIONADOS
+// ================================================================
+function renderPostsRel() {
+  const cont = document.getElementById('posts-rel-container');
+  cont.innerHTML = [1, 2, 3].map(n => `
+    <div class="post-rel-fila">
+      <input type="text" id="pr-titulo-${n}" placeholder="Título del post ${n}" />
+      <input type="text" id="pr-ruta-${n}"   placeholder="nombre-archivo.html" />
+    </div>
+  `).join('');
+}
+
+// ================================================================
+// EDITOR DE BLOQUES — agregar / mover / eliminar
+// ================================================================
+function agregarBloque(tipo) {
+  const id = ++contBloque;
+  const lista = document.getElementById('bloques-lista');
+
+  // Quitar placeholder si existe
+  const ph = lista.querySelector('.bloques-placeholder');
+  if (ph) ph.remove();
+
+  const labels = {
+    h2: 'Título H2 (sección)',
+    h3: 'Subtítulo H3',
+    parrafo: 'Párrafo',
+    lista: 'Lista de puntos',
+    formula: 'Fórmula / Ecuación',
+    ejemplo: 'Bloque Ejemplo',
+    faq: 'Pregunta FAQ',
+    imagen: 'Imagen en el cuerpo',
+  };
+
   const div = document.createElement('div');
-  div.className = 'post-relacionado-item';
+  div.className = 'bloque';
+  div.id = 'bl-' + id;
+  div.dataset.tipo = tipo;
+
   div.innerHTML = `
-    <input type="text" class="post-rel-titulo" placeholder="Título del post">
-    <input type="text" class="post-rel-href" placeholder="nombre-del-archivo.html" style="max-width: 220px;">
-    <button class="btn-quitar" onclick="this.parentElement.remove()" title="Quitar">×</button>
+    <div class="bloque-cabecera">
+      <span class="bloque-etiqueta">${labels[tipo]}</span>
+      <div class="bloque-botones">
+        <button class="btn-mini" title="Subir" onclick="moverBloque(${id}, -1)">↑</button>
+        <button class="btn-mini" title="Bajar" onclick="moverBloque(${id},  1)">↓</button>
+        <button class="btn-mini del" title="Eliminar" onclick="eliminarBloque(${id})">✕</button>
+      </div>
+    </div>
+    <div class="bloque-cuerpo">
+      ${camposBloque(tipo, id)}
+    </div>
   `;
+
   lista.appendChild(div);
 }
 
-/* ══════════════════════════════════════════════════════
-   GENERADOR DE HTML
-═══════════════════════════════════════════════════════ */
-let htmlGenerado = '';
+function camposBloque(tipo, id) {
+  switch (tipo) {
 
+    case 'h2':
+      return `
+        <input type="text" id="b${id}-texto" placeholder="Título de sección — aparece en la tabla de contenidos" />
+        <input type="text" id="b${id}-ancla" placeholder="ID del ancla (ej: como-calcular-lod) — se auto-genera si lo dejás vacío" />
+      `;
+
+    case 'h3':
+      return `
+        <input type="text" id="b${id}-texto" placeholder="Subtítulo de la subsección" />
+      `;
+
+    case 'parrafo':
+      return `
+        <textarea id="b${id}-texto" rows="4" placeholder="Texto del párrafo..."></textarea>
+      `;
+
+    case 'lista':
+      return `
+        <p class="bloque-hint">Un ítem por línea. Se generan como &lt;li&gt; dentro de &lt;ul&gt;.</p>
+        <textarea id="b${id}-items" rows="5" placeholder="Primer punto&#10;Segundo punto&#10;Tercer punto"></textarea>
+      `;
+
+    case 'formula':
+      return `
+        <input type="text" id="b${id}-texto" placeholder="Ej: LOD = 3,3 × (s / S)   |   M = n / V(L)" />
+      `;
+
+    case 'ejemplo':
+      return `
+        <input type="text" id="b${id}-titulo" placeholder="Título del ejemplo (ej: Ejemplo resuelto)" />
+        <textarea id="b${id}-cuerpo" rows="5" placeholder="Describí el problema, desarrollo paso a paso y resultado final.&#10;Podés usar varias líneas — cada una se convierte en un párrafo."></textarea>
+      `;
+
+    case 'faq':
+      return `
+        <input type="text" id="b${id}-pregunta" placeholder="¿Pregunta frecuente del lector?" />
+        <textarea id="b${id}-respuesta" rows="3" placeholder="Respuesta clara y directa..."></textarea>
+      `;
+
+    case 'imagen':
+      return `
+        <p class="bloque-hint">
+          Guardá la imagen en <code>/blog/posts/img/</code> antes del push.
+        </p>
+        <input type="text" id="b${id}-archivo" placeholder="nombre-imagen.webp" />
+        <input type="text" id="b${id}-alt"     placeholder="Alt text: descripción detallada de la imagen (obligatorio)" />
+        <input type="text" id="b${id}-pie"     placeholder="Pie de foto (opcional — aparece debajo de la imagen)" />
+      `;
+
+    default:
+      return '';
+  }
+}
+
+function eliminarBloque(id) {
+  const el = document.getElementById('bl-' + id);
+  if (el) el.remove();
+
+  // Reponer placeholder si no hay bloques
+  const lista = document.getElementById('bloques-lista');
+  if (!lista.querySelector('.bloque')) {
+    lista.innerHTML = '<div class="bloques-placeholder">Usá los botones de arriba para ir armando el contenido del post.</div>';
+  }
+}
+
+function moverBloque(id, dir) {
+  const el   = document.getElementById('bl-' + id);
+  const lista = document.getElementById('bloques-lista');
+  if (!el) return;
+  if (dir === -1 && el.previousElementSibling) {
+    lista.insertBefore(el, el.previousElementSibling);
+  } else if (dir === 1 && el.nextElementSibling) {
+    lista.insertBefore(el.nextElementSibling, el);
+  }
+}
+
+// ================================================================
+// LEER TODOS LOS BLOQUES EN ORDEN
+// ================================================================
+function leerBloques() {
+  const lista = document.getElementById('bloques-lista');
+  const result = [];
+
+  for (const bloque of lista.querySelectorAll('.bloque')) {
+    const id   = bloque.id.replace('bl-', '');
+    const tipo = bloque.dataset.tipo;
+    const d    = { tipo };
+
+    switch (tipo) {
+      case 'h2':
+        d.texto = v('b' + id + '-texto');
+        d.ancla = v('b' + id + '-ancla') || slugify(d.texto);
+        break;
+      case 'h3':
+        d.texto = v('b' + id + '-texto');
+        break;
+      case 'parrafo':
+        d.texto = v('b' + id + '-texto');
+        break;
+      case 'lista':
+        d.items = v('b' + id + '-items').split('\n').filter(l => l.trim());
+        break;
+      case 'formula':
+        d.texto = v('b' + id + '-texto');
+        break;
+      case 'ejemplo':
+        d.titulo = v('b' + id + '-titulo');
+        d.cuerpo = v('b' + id + '-cuerpo');
+        break;
+      case 'faq':
+        d.pregunta  = v('b' + id + '-pregunta');
+        d.respuesta = v('b' + id + '-respuesta');
+        break;
+      case 'imagen':
+        d.archivo = v('b' + id + '-archivo');
+        d.alt     = v('b' + id + '-alt');
+        d.pie     = v('b' + id + '-pie');
+        break;
+    }
+
+    result.push(d);
+  }
+  return result;
+}
+
+// Helpers
+function v(id) {
+  return (document.getElementById(id)?.value || '').trim();
+}
+
+function slugify(texto) {
+  return texto
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-') || 'seccion';
+}
+
+// Escapa caracteres HTML
+function esc(str) {
+  return (str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// ================================================================
+// CONVERTIR UN BLOQUE A HTML
+// ================================================================
+function bloqueAHTML(b) {
+  switch (b.tipo) {
+
+    case 'h2':
+      return `\n            <h2 id="${b.ancla}">${esc(b.texto)}</h2>`;
+
+    case 'h3':
+      return `\n            <h3>${esc(b.texto)}</h3>`;
+
+    case 'parrafo':
+      return `\n            <p>${esc(b.texto)}</p>`;
+
+    case 'lista': {
+      const items = b.items.map(i => `              <li>${esc(i)}</li>`).join('\n');
+      return `\n            <ul>\n${items}\n            </ul>`;
+    }
+
+    case 'formula':
+      return `\n            <div class="post-formula" role="note" aria-label="Fórmula">\n              ${esc(b.texto)}\n            </div>`;
+
+    case 'ejemplo': {
+      const lineas = b.cuerpo.split('\n').filter(l => l.trim());
+      const parrafos = lineas.map(l => `              <p>${esc(l)}</p>`).join('\n');
+      return `\n            <div class="ejemplo-bloque">\n              <strong>${esc(b.titulo)}</strong>\n${parrafos}\n            </div>`;
+    }
+
+    case 'faq':
+      return `\n            <div class="faq-item">\n              <h3>${esc(b.pregunta)}</h3>\n              <p>${esc(b.respuesta)}</p>\n            </div>`;
+
+    case 'imagen': {
+      const pie = b.pie
+        ? `\n              <figcaption class="post-img-pie">${esc(b.pie)}</figcaption>`
+        : '';
+      return `\n            <figure class="post-img-wrapper">\n              <img\n                src="img/${esc(b.archivo)}"\n                alt="${esc(b.alt)}"\n                class="post-img"\n                loading="lazy"\n                width="800"\n                height="450"\n              />${pie}\n            </figure>`;
+    }
+
+    default:
+      return '';
+  }
+}
+
+// ================================================================
+// GENERADOR PRINCIPAL DE HTML
+// ================================================================
 function generarHTML() {
-  // Leer metadatos
-  const titulo       = document.getElementById('titulo').value.trim();
-  const categoria    = document.getElementById('categoria').value;
-  const tiempoLectura= document.getElementById('tiempo-lectura').value.trim() || '5 min lectura';
-  const fechaISO     = document.getElementById('fecha-iso').value || new Date().toISOString().split('T')[0];
-  const fechaLegible = document.getElementById('fecha-legible').value.trim();
-  const resumenMeta  = document.getElementById('resumen-meta').value.trim();
-  const resumenPost  = document.getElementById('resumen-post').value.trim();
-  const nombreArch   = document.getElementById('nombre-archivo').value.trim()
-                       || slugificar(titulo);
+  // Leer campos del formulario
+  const titulo    = v('f-titulo');
+  const slug      = v('f-slug');
+  const catEl     = document.getElementById('f-categoria');
+  const categoria = catEl.value;
+  const colorCat  = COLORES[categoria] || '#1A5C38';
+  const fecha     = v('f-fecha')     || 'Mayo 2026';
+  const tiempo    = v('f-tiempo')    || '5 min lectura';
+  const fechaISO  = v('f-fecha-iso') || new Date().toISOString().split('T')[0];
+  const meta      = v('f-meta');
+  const resumen   = v('f-resumen');
+
+  const imgPortada    = v('f-img-portada');
+  const imgPortadaAlt = v('f-img-portada-alt');
+
+  const bloques     = leerBloques();
+  const h2s         = bloques.filter(b => b.tipo === 'h2');
+  const toolsSel    = toolsSeleccionadas();
+  const tieneImgs   = imgPortada || bloques.some(b => b.tipo === 'imagen');
+
+  // Posts relacionados
+  const postsRel = [1, 2, 3].map(n => ({
+    titulo: v('pr-titulo-' + n),
+    ruta:   v('pr-ruta-' + n),
+  })).filter(p => p.titulo && p.ruta);
 
   // Validación básica
-  if (!titulo) { alert('Faltó el título del post.'); return; }
-  if (!categoria) { alert('Elegí una categoría.'); return; }
-  if (!resumenMeta) { alert('Faltó el resumen SEO.'); return; }
+  if (!titulo) { alert('Completá el título del post.'); return; }
+  if (!slug)   { alert('Completá el slug (nombre del archivo).'); return; }
 
-  const colorCategoria = COLORES_CATEGORIA[categoria] || '#1A5C38';
+  // ── Imagen de portada dentro del post ───────────────────
+  const htmlPortada = imgPortada ? `
+          <!-- Imagen de portada -->
+          <figure class="post-portada">
+            <img
+              src="img/${esc(imgPortada)}"
+              alt="${esc(imgPortadaAlt)}"
+              class="post-portada__img"
+              loading="eager"
+              width="800"
+              height="400"
+            />
+          </figure>
+` : '';
 
-  // Generar cuerpo del artículo
-  const cuerpoHTML = generarCuerpo();
+  // ── Contenido del artículo ───────────────────────────────
+  const contenidoHTML = bloques.map(bloqueAHTML).join('');
 
-  // Generar sidebar — herramientas seleccionadas
-  const herramientasSeleccionadas = Array.from(
-    document.querySelectorAll('#herramientas-grid input[type="checkbox"]:checked')
-  ).map(cb => `              <li><a href="../../herramientas/${cb.dataset.href}">→ ${cb.dataset.label}</a></li>`).join('\n');
+  // ── TOC del sidebar ──────────────────────────────────────
+  const tocHTML = h2s.length > 0
+    ? h2s.map(h => `              <li><a href="#${h.ancla}">${esc(h.texto)}</a></li>`).join('\n')
+    : `              <li><a href="#">Introducción</a></li>`;
 
-  // Generar sidebar — posts relacionados
-  const postsRelacionados = Array.from(
-    document.querySelectorAll('.post-relacionado-item')
-  ).map(item => {
-    const t = item.querySelector('.post-rel-titulo').value.trim();
-    const h = item.querySelector('.post-rel-href').value.trim();
-    if (t && h) return `              <li><a href="${h}">→ ${t}</a></li>`;
-    return '';
-  }).filter(Boolean).join('\n');
+  // ── Herramientas en sidebar ──────────────────────────────
+  const toolsHTML = toolsSel.length > 0
+    ? toolsSel.map(t => `              <li><a href="../../herramientas/${t.arch}">→ ${t.nombre}</a></li>`).join('\n')
+    : `              <li><!-- Sin herramientas seleccionadas --></li>`;
 
-  // Generar tabla de contenidos desde los h2
-  const toc = generarTOC();
+  // ── Posts relacionados en sidebar ───────────────────────
+  const postsRelCard = postsRel.length > 0 ? `
 
-  // ── TEMPLATE FINAL ──
-  htmlGenerado = `<!DOCTYPE html>
+          <!-- Posts relacionados -->
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">También te puede interesar</p>
+            <ul class="herramientas-relacionadas" role="list">
+${postsRel.map(p => `              <li><a href="${esc(p.ruta)}">→ ${esc(p.titulo)}</a></li>`).join('\n')}
+            </ul>
+          </div>` : '';
+
+  // ── CSS de imágenes (embebido solo si hay imágenes) ──────
+  const cssImagenes = tieneImgs ? `
+
+  <style>
+    /* Imagen de portada del post */
+    .post-portada {
+      margin-bottom: var(--espacio-xl);
+      border-radius: var(--radio-lg);
+      overflow: hidden;
+      border: 1px solid var(--color-borde);
+    }
+    .post-portada__img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+    }
+    /* Imágenes dentro del cuerpo */
+    .post-img-wrapper {
+      margin: var(--espacio-lg) 0;
+    }
+    .post-img {
+      width: 100%;
+      border-radius: var(--radio-md);
+      border: 1px solid var(--color-borde);
+      display: block;
+    }
+    .post-img-pie {
+      font-size: 0.8rem;
+      color: var(--color-texto-suave);
+      text-align: center;
+      margin-top: var(--espacio-xs);
+      font-style: italic;
+    }
+    @media (max-width: 640px) {
+      .post-portada__img { height: 200px; }
+    }
+  </style>` : '';
+
+  // ── Imagen en JSON-LD ────────────────────────────────────
+  const jsonldImagen = imgPortada
+    ? `,\n    "image": "https://quimcalc.com/blog/posts/img/${esc(imgPortada)}"`
+    : '';
+
+  // ══════════════════════════════════════════════════════════
+  // HTML FINAL
+  // ══════════════════════════════════════════════════════════
+  const html = `<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${escaparHTML(titulo)} | QuimCalc</title>
-  <meta name="description" content="${escaparHTML(resumenMeta)}">
+  <title>${esc(titulo)} | QuimCalc</title>
+  <meta name="description" content="${esc(meta)}">
   <meta name="author" content="QuimCalc">
   <meta name="article:published_time" content="${fechaISO}">
+  <link rel="canonical" href="https://quimcalc.com/blog/posts/${esc(slug)}.html" />
+  <link rel="preload" href="../../styles.css" as="style">
   <link rel="stylesheet" href="../../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16x16.png">
+  <link rel="manifest" href="../../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">${cssImagenes}
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "${escaparHTML(titulo)}",
-    "description": "${escaparHTML(resumenMeta)}",
+    "headline": "${esc(titulo)}",
+    "description": "${esc(meta)}",
     "datePublished": "${fechaISO}",
     "dateModified": "${fechaISO}",
-    "author": { "@type": "Organization", "name": "QuimCalc" },
-    "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.netlify.app" }
+    "author": {
+      "@type": "Organization",
+      "name": "QuimCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "QuimCalc",
+      "url": "https://quimcalc.com"
+    }${jsonldImagen}
   }
   <\/script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  <\/script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"><\/script>
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"><\/script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JPQ3QTH9BN');
+<\/script>
+
 <body>
 
-  <!-- HEADER -->
+  <!-- ── HEADER ─────────────────────────────────────────── -->
   <header class="header">
     <div class="contenedor">
       <div class="header__inner">
@@ -967,6 +1272,7 @@ function generarHTML() {
           <a href="../../index.html#herramientas">Herramientas</a>
           <a href="../index.html" class="activo">Blog</a>
           <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../contacto.html">Contacto</a>
         </nav>
       </div>
     </div>
@@ -981,62 +1287,95 @@ function generarHTML() {
         <span aria-hidden="true">›</span>
         <a href="../index.html">Blog</a>
         <span aria-hidden="true">›</span>
-        <span>${escaparHTML(titulo)}</span>
+        <span>${esc(titulo)}</span>
       </nav>
 
       <div class="post-layout">
 
-        <!-- ARTÍCULO -->
+        <!-- ── ARTÍCULO PRINCIPAL ──────────────────────── -->
         <article>
+
           <header class="post-header">
             <p class="post-header__categoria">
-              <span style="color: ${colorCategoria};">${escaparHTML(categoria)}</span>
+              <span style="color: ${colorCat};">${esc(categoria)}</span>
             </p>
-            <h1 class="post-header__titulo">${escaparHTML(titulo)}</h1>
-            <p class="post-header__resumen">${escaparHTML(resumenPost)}</p>
+            <h1 class="post-header__titulo">
+              ${esc(titulo)}
+            </h1>
+            <p class="post-header__resumen">
+              ${esc(resumen)}
+            </p>
             <div class="post-header__meta">
               <span class="post-header__meta-item">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                ${escaparHTML(fechaLegible)}
+                ${esc(fecha)}
               </span>
               <span class="post-header__meta-item">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                ${escaparHTML(tiempoLectura)}
+                ${esc(tiempo)}
               </span>
             </div>
           </header>
+${htmlPortada}
+          <div class="post-contenido">${contenidoHTML}
 
-          <div class="post-contenido">
-${cuerpoHTML}
+          </div><!-- /post-contenido -->
+
+          <!-- Botones de compartir -->
+          <div class="compartir">
+            <p class="compartir__etiqueta">Compartir:</p>
+            <div class="compartir__botones">
+              <a class="compartir__btn compartir__btn--fb" href="#" target="_blank" rel="noopener noreferrer" aria-label="Compartir en Facebook">
+                <svg viewBox="0 0 24 24"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+              </a>
+              <a class="compartir__btn compartir__btn--x" href="#" target="_blank" rel="noopener noreferrer" aria-label="Compartir en X (Twitter)">
+                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a class="compartir__btn compartir__btn--li" href="#" target="_blank" rel="noopener noreferrer" aria-label="Compartir en LinkedIn">
+                <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+              <a class="compartir__btn compartir__btn--wa" href="#" target="_blank" rel="noopener noreferrer" aria-label="Compartir por WhatsApp">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+              </a>
+            </div>
           </div>
+          <script>
+            (function () {
+              var url    = encodeURIComponent(window.location.href);
+              var titulo = encodeURIComponent(document.title);
+              var mapa = {
+                'compartir__btn--fb': 'https://www.facebook.com/sharer/sharer.php?u=' + url,
+                'compartir__btn--x' : 'https://twitter.com/intent/tweet?url=' + url + '&text=' + titulo,
+                'compartir__btn--li': 'https://www.linkedin.com/sharing/share-offsite/?url=' + url,
+                'compartir__btn--wa': 'https://wa.me/?text=' + titulo + '%20' + url,
+              };
+              Object.keys(mapa).forEach(function (clase) {
+                var btn = document.querySelector('.' + clase);
+                if (btn) btn.href = mapa[clase];
+              });
+            })();
+          <\/script>
+
         </article>
 
-        <!-- SIDEBAR -->
+        <!-- ── SIDEBAR ──────────────────────────────────── -->
         <aside class="post-sidebar" aria-label="Contenido relacionado">
 
           <!-- Tabla de contenidos -->
           <div class="sidebar-card">
             <p class="sidebar-card__titulo">En este artículo</p>
             <ul class="toc-lista" role="list">
-${toc}
+${tocHTML}
             </ul>
           </div>
-${herramientasSeleccionadas ? `
+
           <!-- Herramientas relacionadas -->
           <div class="sidebar-card">
             <p class="sidebar-card__titulo">Herramientas relacionadas</p>
             <ul class="herramientas-relacionadas" role="list">
-${herramientasSeleccionadas}
+${toolsHTML}
             </ul>
-          </div>` : ''}
-${postsRelacionados ? `
-          <!-- Posts relacionados -->
-          <div class="sidebar-card">
-            <p class="sidebar-card__titulo">También te puede interesar</p>
-            <ul class="herramientas-relacionadas" role="list">
-${postsRelacionados}
-            </ul>
-          </div>` : ''}
+          </div>${postsRelCard}
 
         </aside>
 
@@ -1047,7 +1386,7 @@ ${postsRelacionados}
   <footer class="footer">
     <div class="contenedor">
       <div class="footer__inner">
-        <p class="footer__texto">© 2025 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
         <nav class="footer__links" aria-label="Links del pie de página">
           <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
           <a href="../../politicas-de-privacidad.html">Privacidad</a>
@@ -1057,170 +1396,36 @@ ${postsRelacionados}
     </div>
   </footer>
 
+  <script type="module" src="../../js/init-speed-insights.js"><\/script>
+  <script src="../../js/pwa-register.js"><\/script>
+
 </body>
 </html>`;
 
-  // Mostrar en el preview
-  document.getElementById('preview-codigo').textContent = htmlGenerado;
-
-  // Mostrar botón de descarga y mensaje
-  const btnDesc = document.getElementById('btn-descargar');
-  btnDesc.classList.add('visible');
-  btnDesc.dataset.filename = nombreArch + '.html';
-
-  document.getElementById('mensaje-exito').classList.add('visible');
-
-  const nombreArchDiv = document.getElementById('nombre-archivo-generado');
-  nombreArchDiv.textContent = '📁 Subir a: /blog/posts/' + nombreArch + '.html';
-  nombreArchDiv.classList.add('visible');
+  // Mostrar el resultado
+  document.getElementById('html-output').value = html;
+  document.getElementById('slug-destino').textContent = slug + '.html';
+  document.getElementById('panel-salida').style.display = 'block';
+  document.getElementById('panel-salida').scrollIntoView({ behavior: 'smooth' });
 }
 
-// Genera el HTML del cuerpo iterando los bloques
-function generarCuerpo() {
-  const bloques = document.querySelectorAll('#secciones-lista .bloque-seccion');
-  let html = '';
-
-  bloques.forEach(bloque => {
-    const tipo = bloque.dataset.tipo;
-
-    if (tipo === 'texto') {
-      const h2 = bloque.querySelector('.campo-h2')?.value.trim();
-      const contenido = bloque.querySelector('.campo-contenido')?.value.trim();
-      const id = h2 ? slugificar(h2) : '';
-
-      if (h2) {
-        html += `\n            <h2 id="${id}">${escaparHTML(h2)}</h2>\n`;
-      }
-      if (contenido) {
-        contenido.split(/\n{2,}/).forEach(parrafo => {
-          if (parrafo.trim()) {
-            html += `            <p>${escaparHTML(parrafo.trim())}</p>\n`;
-          }
-        });
-      }
-
-    } else if (tipo === 'subtitulo') {
-      const h3 = bloque.querySelector('.campo-h3')?.value.trim();
-      const contenido = bloque.querySelector('.campo-contenido')?.value.trim();
-
-      if (h3) html += `\n            <h3>${escaparHTML(h3)}</h3>\n`;
-      if (contenido) {
-        html += `            <p>${escaparHTML(contenido)}</p>\n`;
-      }
-
-    } else if (tipo === 'formula') {
-      const formula = bloque.querySelector('.campo-formula')?.value.trim();
-      if (formula) {
-        html += `\n            <div class="post-formula" role="note" aria-label="Fórmula">\n`;
-        html += `              ${escaparHTML(formula)}\n`;
-        html += `            </div>\n`;
-      }
-
-    } else if (tipo === 'ejemplo') {
-      const tituloEj = bloque.querySelector('.campo-titulo-ejemplo')?.value.trim() || 'Ejemplo resuelto';
-      const contenido = bloque.querySelector('.campo-contenido')?.value.trim();
-
-      html += `\n            <div class="ejemplo-bloque">\n`;
-      html += `              <strong>${escaparHTML(tituloEj)}</strong>\n`;
-      if (contenido) {
-        contenido.split(/\n{2,}/).forEach(parrafo => {
-          if (parrafo.trim()) {
-            html += `              <p>${escaparHTML(parrafo.trim())}</p>\n`;
-          }
-        });
-      }
-      html += `            </div>\n`;
-
-    } else if (tipo === 'faq') {
-      const pregunta = bloque.querySelector('.campo-pregunta')?.value.trim();
-      const respuesta = bloque.querySelector('.campo-contenido')?.value.trim();
-
-      if (pregunta) {
-        html += `\n            <div class="faq-item">\n`;
-        html += `              <h3>${escaparHTML(pregunta)}</h3>\n`;
-        if (respuesta) html += `              <p>${escaparHTML(respuesta)}</p>\n`;
-        html += `            </div>\n`;
-      }
-
-    } else if (tipo === 'lista') {
-      const items = bloque.querySelector('.campo-lista')?.value.trim();
-      if (items) {
-        html += `\n            <ul>\n`;
-        items.split('\n').forEach(item => {
-          if (item.trim()) html += `              <li>${escaparHTML(item.trim())}</li>\n`;
-        });
-        html += `            </ul>\n`;
-      }
-    }
-  });
-
-  return html;
-}
-
-// Genera los ítems de la tabla de contenidos en base a los h2 creados
-function generarTOC() {
-  const bloques = document.querySelectorAll('#secciones-lista .bloque-seccion[data-tipo="texto"]');
-  let items = [];
-
-  bloques.forEach(bloque => {
-    const h2 = bloque.querySelector('.campo-h2')?.value.trim();
-    if (h2) {
-      const id = slugificar(h2);
-      items.push(`              <li><a href="#${id}">${escaparHTML(h2)}</a></li>`);
-    }
-  });
-
-  // Si no hay h2, poner un placeholder
-  if (items.length === 0) {
-    items.push('              <li><a href="#">Introducción</a></li>');
-  }
-
-  return items.join('\n');
-}
-
-/* ══════════════════════════════════════════════════════
-   DESCARGA DEL ARCHIVO
-═══════════════════════════════════════════════════════ */
-function descargarHTML() {
-  if (!htmlGenerado) return;
-  const btn = document.getElementById('btn-descargar');
-  const filename = btn.dataset.filename || 'post.html';
-  const blob = new Blob([htmlGenerado], { type: 'text/html;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-/* ══════════════════════════════════════════════════════
-   UTILIDADES
-═══════════════════════════════════════════════════════ */
-
-// Convierte un texto en slug para usar como id o nombre de archivo
-function slugificar(texto) {
-  return texto
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '') // Saca tildes
-    .replace(/[^a-z0-9\s-]/g, '')
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .substring(0, 80);
-}
-
-// Escapa caracteres HTML para evitar problemas en el template
-function escaparHTML(texto) {
-  if (!texto) return '';
-  return texto
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+// ================================================================
+// COPIAR HTML AL PORTAPAPELES
+// ================================================================
+function copiarHTML() {
+  const ta  = document.getElementById('html-output');
+  const btn = document.getElementById('btn-copiar');
+  ta.select();
+  navigator.clipboard.writeText(ta.value)
+    .then(() => {
+      btn.textContent = '✅ ¡Copiado!';
+      btn.classList.add('ok');
+      setTimeout(() => {
+        btn.textContent = '📋 Copiar todo';
+        btn.classList.remove('ok');
+      }, 2000);
+    })
+    .catch(() => document.execCommand('copy'));
 }
 </script>
 
