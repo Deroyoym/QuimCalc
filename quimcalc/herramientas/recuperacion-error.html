@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Porcentaje de Recuperación y Error Sistemático | QuimCalc</title>
+  <meta name="description" content="Calculá el porcentaje de recuperación, error absoluto y relativo para validación de métodos analíticos. Incluye media, desviación estándar, CV% y evaluación según criterios ISO 17025.">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/herramientas/recuperacion-error.html">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Calculadora de % Recuperación y Error Sistemático",
+    "description": "Calculá el porcentaje de recuperación, error absoluto y relativo para validación de métodos analíticos según ISO 17025 y EURACHEM.",
+    "url": "https://quimcalc.com/herramientas/recuperacion-error.html",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "isAccessibleForFree": true,
+    "inLanguage": "es",
+    "featureList": ["% Recuperación por muestra", "Media y CV%", "Error sistemático (bias)", "Evaluación por criterios"],
+    "provider": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
+  }
+  </script>
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+  <style>
+    /* Tabla de datos */
+    .tabla-datos-wrapper {
+      overflow-x: auto;
+      margin: var(--espacio-lg) 0;
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+    }
+
+    .tabla-datos {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      min-width: 560px;
+    }
+
+    .tabla-datos thead tr {
+      background-color: var(--color-fondo-card);
+    }
+
+    .tabla-datos thead th {
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-texto-suave);
+      border-bottom: 2px solid var(--color-borde);
+      white-space: nowrap;
+    }
+
+    .tabla-datos tbody tr {
+      border-bottom: 1px solid var(--color-borde);
+    }
+
+    .tabla-datos tbody tr:last-child { border-bottom: none; }
+
+    .tabla-datos td {
+      padding: 6px 8px;
+      vertical-align: middle;
+    }
+
+    .tabla-datos input[type="number"],
+    .tabla-datos input[type="text"] {
+      font-family: var(--fuente-principal);
+      font-size: 0.875rem;
+      padding: 6px 10px;
+      border: 1.5px solid var(--color-borde);
+      border-radius: var(--radio-sm);
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+      width: 100%;
+      min-width: 80px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .tabla-datos input:focus { border-color: var(--color-acento); }
+
+    .tabla-datos .td-result {
+      font-family: 'Courier New', monospace;
+      font-weight: 700;
+      font-size: 0.875rem;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .td-result.ok    { color: #276C43; }
+    .td-result.warn  { color: #D97706; }
+    .td-result.error { color: #B83232; }
+
+    .btn-quitar {
+      background: none;
+      border: none;
+      color: var(--color-texto-suave);
+      cursor: pointer;
+      padding: 4px 8px;
+      font-size: 1rem;
+      border-radius: var(--radio-sm);
+      transition: color 0.15s, background-color 0.15s;
+    }
+
+    .btn-quitar:hover { color: #B83232; background-color: #FEE2E2; }
+
+    /* Botones de tabla */
+    .tabla-acciones {
+      display: flex;
+      gap: var(--espacio-sm);
+      margin-bottom: var(--espacio-md);
+      flex-wrap: wrap;
+    }
+
+    .btn--secundario {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--fuente-principal);
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 8px var(--espacio-md);
+      border-radius: var(--radio-sm);
+      border: 1.5px solid var(--color-borde);
+      cursor: pointer;
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+      transition: border-color 0.15s, background-color 0.15s;
+      min-height: 40px;
+    }
+
+    .btn--secundario:hover {
+      border-color: var(--color-acento);
+      background-color: var(--color-acento-claro);
+    }
+
+    /* Criterios de aceptación */
+    .criterios-bar {
+      display: flex;
+      gap: var(--espacio-md);
+      margin-bottom: var(--espacio-lg);
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+
+    .criterios-bar .campo-grupo { margin-bottom: 0; flex: 1; min-width: 100px; }
+
+    /* Resumen estadístico */
+    .resumen-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--espacio-md);
+      margin-top: var(--espacio-lg);
+    }
+
+    .resumen-card {
+      background-color: var(--color-fondo);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-md);
+      text-align: center;
+    }
+
+    .resumen-card__label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-texto-suave);
+      margin-bottom: 4px;
+    }
+
+    .resumen-card__valor {
+      font-family: 'Courier New', monospace;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-texto);
+    }
+
+    .resumen-card__valor.ok    { color: #276C43; }
+    .resumen-card__valor.warn  { color: #D97706; }
+    .resumen-card__valor.error { color: #B83232; }
+
+    .resumen-card__sub {
+      font-size: 0.72rem;
+      color: var(--color-texto-suave);
+      margin-top: 2px;
+    }
+
+    /* Evaluación final */
+    .evaluacion-bloque {
+      margin-top: var(--espacio-md);
+      padding: var(--espacio-md) var(--espacio-lg);
+      border-radius: var(--radio-md);
+      border-left: 4px solid;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: none;
+    }
+
+    .evaluacion-bloque.visible { display: block; }
+    .evaluacion-bloque.ok    { background: #D1FAE5; border-color: #276C43; color: #065F46; }
+    .evaluacion-bloque.warn  { background: #FEF3C7; border-color: #D97706; color: #92400E; }
+    .evaluacion-bloque.error { background: #FEE2E2; border-color: #B83232; color: #7F1D1D; }
+
+    /* Sección de resultados */
+    .seccion-resultados {
+      display: none;
+      margin-top: var(--espacio-lg);
+    }
+
+    .seccion-resultados.visible { display: block; }
+
+    @media (max-width: 640px) {
+      .resumen-grid { grid-template-columns: 1fr 1fr; }
+      .criterios-bar { flex-direction: column; }
+    }
+  </style>
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JPQ3QTH9BN');
+</script>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas" class="activo">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="pagina-herramienta">
+      <div class="contenedor">
+
+        <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+          <a href="../index.html">Inicio</a>
+          <span aria-hidden="true">›</span>
+          <a href="../index.html#herramientas">Herramientas</a>
+          <span aria-hidden="true">›</span>
+          <span>% Recuperación y error sistemático</span>
+        </nav>
+
+        <div class="pagina-herramienta__encabezado">
+          <h1 class="pagina-herramienta__titulo">% Recuperación y error sistemático</h1>
+          <p class="pagina-herramienta__descripcion">
+            Ingresá los valores nominales (referencia) y medidos para calcular el porcentaje de recuperación, el error sistemático (bias) y los estadísticos de precisión. Usado en validación de métodos analíticos (ISO 17025, EURACHEM).
+          </p>
+        </div>
+
+        <div class="calculadora" style="max-width:100%">
+
+          <!-- Criterios de aceptación -->
+          <p style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-texto-suave);margin-bottom:var(--espacio-md);">
+            Criterios de aceptación
+          </p>
+          <div class="criterios-bar">
+            <div class="campo-grupo">
+              <label for="lim-inf">Límite inferior (%)</label>
+              <input type="number" id="lim-inf" value="80" min="0" max="100" step="1" oninput="recalcular()">
+            </div>
+            <div class="campo-grupo">
+              <label for="lim-sup">Límite superior (%)</label>
+              <input type="number" id="lim-sup" value="120" min="100" max="200" step="1" oninput="recalcular()">
+            </div>
+            <div class="campo-grupo">
+              <label for="lim-cv">CV% máximo aceptable</label>
+              <input type="number" id="lim-cv" value="5" min="0" step="0.1" oninput="recalcular()">
+            </div>
+          </div>
+
+          <!-- Acciones de tabla -->
+          <div class="tabla-acciones">
+            <button class="btn--secundario" onclick="agregarFila()">+ Agregar fila</button>
+            <button class="btn--secundario" onclick="limpiarTabla()">✕ Limpiar todo</button>
+          </div>
+
+          <!-- Tabla de datos -->
+          <div class="tabla-datos-wrapper">
+            <table class="tabla-datos" id="tabla-datos">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Identificación (opcional)</th>
+                  <th>Valor nominal / patrón</th>
+                  <th>Valor medido</th>
+                  <th>% Recuperación</th>
+                  <th>Error absoluto</th>
+                  <th>Error relativo %</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+
+          <button class="btn btn--primario" onclick="calcular()" style="max-width:320px">
+            Calcular resumen
+          </button>
+
+          <!-- Resumen estadístico -->
+          <div class="seccion-resultados" id="seccion-resultados">
+
+            <div class="resumen-grid" id="resumen-grid">
+              <!-- Cards generadas por JS -->
+            </div>
+
+            <div class="evaluacion-bloque" id="evaluacion"></div>
+
+          </div>
+
+        </div><!-- /calculadora -->
+
+        <!-- Sección educativa -->
+        <div class="seccion-educativa">
+
+          <h2>¿Qué es el porcentaje de recuperación?</h2>
+          <p>
+            El <strong>porcentaje de recuperación</strong> mide qué fracción del analito presente en la muestra es efectivamente detectada y cuantificada por el método analítico. Un valor del 100 % indica que el método no introduce sesgo: lo que hay en la muestra es exactamente lo que se mide.
+          </p>
+
+          <div class="ejemplo-bloque">
+            <strong>Fórmulas</strong>
+            <p>% Recuperación = (valor medido / valor nominal) × 100</p>
+            <p>Error absoluto = valor medido − valor nominal</p>
+            <p>Error relativo (%) = (error absoluto / valor nominal) × 100</p>
+            <p>Bias (%) = media de % recuperación − 100</p>
+          </div>
+
+          <h2>Criterios de aceptación típicos</h2>
+
+          <div class="ejemplo-bloque">
+            <strong>Referencia: EURACHEM / ISO 17025</strong>
+            <p><strong>80 – 120 %</strong> → métodos de rutina (aguas, alimentos, industria)</p>
+            <p><strong>90 – 110 %</strong> → métodos de precisión (farmacéuticos, acreditados)</p>
+            <p><strong>95 – 105 %</strong> → métodos de alta exactitud (farmacopea, referencia)</p>
+            <p><strong>CV% &lt; 5 %</strong> → repetibilidad aceptable en la mayoría de los casos</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Cuántas muestras necesito para evaluar la recuperación?</h3>
+            <p>EURACHEM recomienda un mínimo de 6 determinaciones independientes a cada nivel de concentración. Para una validación completa, se evalúan al menos 3 niveles de concentración (bajo, medio y alto dentro del rango de trabajo).</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Recuperación baja significa que el método es malo?</h3>
+            <p>No necesariamente. Una recuperación sistemáticamente baja (ej. 85 %) puede ser aceptable si es constante y conocida — en ese caso se aplica un factor de corrección. Lo importante es que la recuperación sea <strong>reproducible</strong>: un CV% alto es más problemático que una recuperación alejada del 100 % pero estable.</p>
+          </div>
+
+        </div>
+
+        <div class="bloque-blog-relacionado">
+          <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
+          <a href="incertidumbre.html" class="bloque-blog-relacionado__titulo">Incertidumbre de medición (GUM)</a>
+          <p class="bloque-blog-relacionado__descripcion">Calculá la incertidumbre combinada tipo A y tipo B de tus mediciones.</p>
+        </div>
+        <div class="bloque-blog-relacionado" style="margin-top:var(--espacio-md)">
+          <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
+          <a href="lod-loq.html" class="bloque-blog-relacionado__titulo">LOD y LOQ</a>
+          <p class="bloque-blog-relacionado__descripcion">Calculá los límites de detección y cuantificación de tu método.</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/init-speed-insights.js"></script>
+  <script src="../js/pwa-register.js"></script>
+
+  <script>
+    /* ── % Recuperación y error sistemático ── */
+    var filaId = 0;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      /* Comenzar con 5 filas vacías */
+      for (var i = 0; i < 5; i++) agregarFila();
+    });
+
+    function agregarFila() {
+      filaId++;
+      var id = filaId;
+      var tbody = document.getElementById('tbody');
+      var tr = document.createElement('tr');
+      tr.id = 'fila-' + id;
+      tr.innerHTML =
+        '<td style="text-align:center;color:var(--color-texto-suave);font-size:0.8rem;">' + id + '</td>' +
+        '<td><input type="text"   placeholder="ej: Muestra A"  oninput="recalcularFila(' + id + ')"></td>' +
+        '<td><input type="number" placeholder="ej: 5.00"       oninput="recalcularFila(' + id + ')" step="any"></td>' +
+        '<td><input type="number" placeholder="ej: 4.83"       oninput="recalcularFila(' + id + ')" step="any"></td>' +
+        '<td class="td-result" id="rec-'   + id + '">—</td>' +
+        '<td class="td-result" id="eabs-'  + id + '">—</td>' +
+        '<td class="td-result" id="erel-'  + id + '">—</td>' +
+        '<td><button class="btn-quitar" onclick="quitarFila(' + id + ')" aria-label="Quitar fila">✕</button></td>';
+      tbody.appendChild(tr);
+    }
+
+    function quitarFila(id) {
+      var fila = document.getElementById('fila-' + id);
+      if (fila) fila.remove();
+      recalcular();
+    }
+
+    function limpiarTabla() {
+      document.getElementById('tbody').innerHTML = '';
+      filaId = 0;
+      for (var i = 0; i < 5; i++) agregarFila();
+      ocultarResultados();
+    }
+
+    function recalcularFila(id) {
+      var fila = document.getElementById('fila-' + id);
+      if (!fila) return;
+      var inputs  = fila.querySelectorAll('input[type="number"]');
+      var nominal = parseFloat(inputs[0].value);
+      var medido  = parseFloat(inputs[1].value);
+
+      var limInf = parseFloat(document.getElementById('lim-inf').value) || 80;
+      var limSup = parseFloat(document.getElementById('lim-sup').value) || 120;
+
+      if (!isNaN(nominal) && !isNaN(medido) && nominal !== 0) {
+        var rec  = (medido / nominal) * 100;
+        var eabs = medido - nominal;
+        var erel = (eabs / nominal) * 100;
+
+        var clase = rec >= limInf && rec <= limSup ? 'ok' : (Math.abs(rec - 100) < 20 ? 'warn' : 'error');
+
+        document.getElementById('rec-'  + id).textContent = rec.toFixed(2)  + ' %';
+        document.getElementById('rec-'  + id).className   = 'td-result ' + clase;
+        document.getElementById('eabs-' + id).textContent = (eabs >= 0 ? '+' : '') + eabs.toFixed(4);
+        document.getElementById('erel-' + id).textContent = (erel >= 0 ? '+' : '') + erel.toFixed(2) + ' %';
+        document.getElementById('erel-' + id).className   = 'td-result ' + (Math.abs(erel) < 5 ? 'ok' : Math.abs(erel) < 20 ? 'warn' : 'error');
+      } else {
+        ['rec-','eabs-','erel-'].forEach(function(p) {
+          document.getElementById(p + id).textContent = '—';
+          document.getElementById(p + id).className   = 'td-result';
+        });
+      }
+    }
+
+    function recalcular() {
+      var filas = document.getElementById('tbody').querySelectorAll('tr');
+      filas.forEach(function (fila) {
+        var id = fila.id.replace('fila-', '');
+        recalcularFila(parseInt(id));
+      });
+    }
+
+    function calcular() {
+      var filas  = document.getElementById('tbody').querySelectorAll('tr');
+      var recs   = [];
+
+      filas.forEach(function (fila) {
+        var inputs  = fila.querySelectorAll('input[type="number"]');
+        var nominal = parseFloat(inputs[0].value);
+        var medido  = parseFloat(inputs[1].value);
+        if (!isNaN(nominal) && !isNaN(medido) && nominal !== 0) {
+          recs.push((medido / nominal) * 100);
+        }
+      });
+
+      if (recs.length < 2) {
+        alert('Ingresá al menos 2 pares de valores para calcular el resumen estadístico.');
+        return;
+      }
+
+      var n    = recs.length;
+      var mean = recs.reduce(function(a,b){return a+b;},0) / n;
+      var sd   = Math.sqrt(recs.reduce(function(a,b){return a+Math.pow(b-mean,2);},0) / (n-1));
+      var cv   = Math.abs(mean) > 0 ? (sd / mean) * 100 : 0;
+      var bias = mean - 100;
+
+      var limInf = parseFloat(document.getElementById('lim-inf').value) || 80;
+      var limSup = parseFloat(document.getElementById('lim-sup').value) || 120;
+      var limCV  = parseFloat(document.getElementById('lim-cv').value)  || 5;
+
+      var recovOk = mean >= limInf && mean <= limSup;
+      var cvOk    = cv <= limCV;
+
+      /* Mostrar resumen */
+      var grid = document.getElementById('resumen-grid');
+      var claseRec = recovOk ? 'ok' : (mean >= (limInf - 10) && mean <= (limSup + 10) ? 'warn' : 'error');
+      var claseCv  = cvOk    ? 'ok' : (cv <= limCV * 2 ? 'warn' : 'error');
+      var claseBias= Math.abs(bias) <= 5 ? 'ok' : Math.abs(bias) <= 15 ? 'warn' : 'error';
+
+      grid.innerHTML = [
+        { label:'n (muestras)',    val: n,                fmt:'0',       clase:''},
+        { label:'Media de rec. %', val: mean,             fmt:'2',       clase:claseRec},
+        { label:'Desv. est. (s)',  val: sd,               fmt:'3',       clase:''},
+        { label:'CV %',            val: cv,               fmt:'2',       clase:claseCv},
+        { label:'Mín. rec. %',     val: Math.min.apply(null,recs), fmt:'2', clase:''},
+        { label:'Máx. rec. %',     val: Math.max.apply(null,recs), fmt:'2', clase:''},
+        { label:'Bias (%)',         val: bias,             fmt:'2',       clase:claseBias},
+        { label:'Límites config.',  val: limInf+'–'+limSup+'%', fmt:'str', clase:''},
+      ].map(function(c){
+        var v = c.fmt === 'str' ? c.val : (c.fmt === '0' ? c.val.toString() : parseFloat(c.val).toFixed(parseInt(c.fmt)));
+        return '<div class="resumen-card">' +
+          '<p class="resumen-card__label">' + c.label + '</p>' +
+          '<p class="resumen-card__valor ' + c.clase + '">' + v + '</p>' +
+          '</div>';
+      }).join('');
+
+      /* Evaluación final */
+      var ev = document.getElementById('evaluacion');
+      if (recovOk && cvOk) {
+        ev.className = 'evaluacion-bloque visible ok';
+        ev.textContent = '✓ El método cumple los criterios de aceptación: media de recuperación dentro del rango ' + limInf + '–' + limSup + ' % y CV% ≤ ' + limCV + ' %.';
+      } else if (!recovOk && cvOk) {
+        ev.className = 'evaluacion-bloque visible warn';
+        ev.textContent = '⚠ La precisión es aceptable (CV% = ' + cv.toFixed(2) + ' %) pero la recuperación media (' + mean.toFixed(2) + ' %) está fuera del rango ' + limInf + '–' + limSup + ' %. Revisar sesgo sistemático.';
+      } else if (recovOk && !cvOk) {
+        ev.className = 'evaluacion-bloque visible warn';
+        ev.textContent = '⚠ La recuperación media es aceptable (' + mean.toFixed(2) + ' %) pero la dispersión es alta (CV% = ' + cv.toFixed(2) + ' % > ' + limCV + ' %). Revisar repetibilidad.';
+      } else {
+        ev.className = 'evaluacion-bloque visible error';
+        ev.textContent = '✗ El método no cumple los criterios: recuperación ' + mean.toFixed(2) + ' % (rango: ' + limInf + '–' + limSup + ' %) y CV% = ' + cv.toFixed(2) + ' % (límite: ' + limCV + ' %). Revisión necesaria.';
+      }
+
+      document.getElementById('seccion-resultados').classList.add('visible');
+    }
+
+    function ocultarResultados() {
+      document.getElementById('seccion-resultados').classList.remove('visible');
+      document.getElementById('evaluacion').className = 'evaluacion-bloque';
+    }
+  </script>
+
+</body>
+</html>

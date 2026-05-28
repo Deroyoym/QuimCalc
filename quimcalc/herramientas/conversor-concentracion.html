@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor de Concentración Ampliado — mol/L, g/L, ppm, ppb, mg/dL | QuimCalc</title>
+  <meta name="description" content="Convertí entre todas las unidades de concentración: mol/L, mmol/L, g/L, mg/L, µg/L, mg/dL, µg/mL, % m/v, ppm y ppb. Ingresá la masa molar para convertir entre unidades molares y másicas.">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/herramientas/conversor-concentracion.html">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Conversor de Concentración Ampliado",
+    "description": "Convertí entre mol/L, mmol/L, µmol/L, g/L, mg/L, µg/L, mg/dL, µg/mL, % m/v, ppm y ppb. Requiere masa molar para conversiones entre unidades molares y másicas.",
+    "url": "https://quimcalc.com/herramientas/conversor-concentracion.html",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "isAccessibleForFree": true,
+    "inLanguage": "es",
+    "featureList": ["11 unidades de concentración", "Conversión molar ↔ másica", "Equivalencias simultáneas"],
+    "provider": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
+  }
+  </script>
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+  <style>
+    /* Grid de resultados de conversión */
+    .conv-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--espacio-sm);
+      margin-top: var(--espacio-lg);
+    }
+
+    .conv-card {
+      background-color: var(--color-fondo);
+      border: 1.5px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--espacio-md);
+      transition: border-color 0.15s, background-color 0.15s;
+      cursor: pointer;
+    }
+
+    .conv-card:hover {
+      border-color: var(--color-acento);
+      background-color: var(--color-acento-claro);
+    }
+
+    .conv-card.activa {
+      border-color: var(--color-acento);
+      background-color: var(--color-acento-claro);
+    }
+
+    .conv-card.necesita-m {
+      opacity: 0.55;
+      cursor: default;
+    }
+
+    .conv-card.necesita-m:hover {
+      border-color: var(--color-borde);
+      background-color: var(--color-fondo);
+    }
+
+    .conv-card__unidad {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-texto-suave);
+      white-space: nowrap;
+    }
+
+    .conv-card__valor {
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-texto);
+      text-align: right;
+      word-break: break-all;
+    }
+
+    .conv-card__valor.placeholder { color: var(--color-borde); }
+
+    /* Tag de grupo */
+    .conv-grupo-titulo {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--color-texto-suave);
+      margin: var(--espacio-md) 0 var(--espacio-xs);
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--color-borde);
+      grid-column: 1 / -1;
+    }
+
+    /* Tag de nota */
+    .conv-nota {
+      grid-column: 1 / -1;
+      font-size: 0.78rem;
+      color: var(--color-texto-suave);
+      font-style: italic;
+      padding: var(--espacio-xs) 0;
+    }
+
+    /* Copy feedback */
+    .copy-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background-color: var(--color-header-bg);
+      color: #fff;
+      font-size: 0.875rem;
+      padding: 10px 20px;
+      border-radius: 20px;
+      pointer-events: none;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      opacity: 0;
+      z-index: 9999;
+    }
+
+    .copy-toast.visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 640px) {
+      .conv-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JPQ3QTH9BN');
+</script>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas" class="activo">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="pagina-herramienta">
+      <div class="contenedor">
+
+        <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+          <a href="../index.html">Inicio</a>
+          <span aria-hidden="true">›</span>
+          <a href="../index.html#herramientas">Herramientas</a>
+          <span aria-hidden="true">›</span>
+          <span>Conversor de concentración</span>
+        </nav>
+
+        <div class="pagina-herramienta__encabezado">
+          <h1 class="pagina-herramienta__titulo">Conversor de concentración ampliado</h1>
+          <p class="pagina-herramienta__descripcion">
+            Ingresá un valor y su unidad para ver todas las conversiones de forma simultánea. Para convertir entre unidades molares y másicas, ingresá también la masa molar del compuesto. Hacé clic en cualquier resultado para copiarlo.
+          </p>
+        </div>
+
+        <div class="calculadora">
+
+          <!-- Valor y unidad de entrada -->
+          <div class="campo-grupo">
+            <label for="valor">Concentración a convertir</label>
+            <div class="campo-fila">
+              <input type="number" id="valor" min="0" step="any"
+                     placeholder="ej: 5.4" oninput="convertir()" aria-required="true">
+              <select id="unidad-entrada" onchange="convertir()" aria-label="Unidad de entrada" style="width:140px">
+                <option value="mol/L">mol/L</option>
+                <option value="mmol/L">mmol/L</option>
+                <option value="umol/L">µmol/L</option>
+                <option value="g/L">g/L</option>
+                <option value="mg/L">mg/L</option>
+                <option value="ug/L">µg/L</option>
+                <option value="mg/dL">mg/dL</option>
+                <option value="ugmL">µg/mL</option>
+                <option value="pct_mv">% m/v</option>
+                <option value="ppm">ppm (mg/L aq.)</option>
+                <option value="ppb">ppb (µg/L aq.)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Masa molar -->
+          <div class="campo-grupo">
+            <label for="masa-molar">
+              Masa molar (g/mol)
+              <span style="font-weight:400;color:var(--color-texto-suave)"> — necesaria para convertir entre unidades molares y másicas</span>
+            </label>
+            <input type="number" id="masa-molar" min="0" step="0.01"
+                   placeholder="ej: 58.44 (NaCl)" oninput="convertir()">
+          </div>
+
+          <!-- Grid de resultados -->
+          <div class="conv-grid" id="conv-grid" role="list" aria-label="Resultados de conversión">
+            <!-- Generado por JS -->
+          </div>
+
+          <div class="resultado resultado--error" id="error-msg" style="display:none;margin-top:var(--espacio-md)">
+            <p class="resultado__etiqueta">Error</p>
+            <p class="resultado__valor" id="error-texto"></p>
+          </div>
+
+        </div><!-- /calculadora -->
+
+        <!-- Sección educativa -->
+        <div class="seccion-educativa">
+
+          <h2>Equivalencias importantes</h2>
+
+          <div class="ejemplo-bloque">
+            <strong>Unidades que son equivalentes en soluciones acuosas diluidas (ρ ≈ 1 g/mL)</strong>
+            <p><strong>1 µg/mL = 1 mg/L = 1 ppm</strong> (masa/volumen)</p>
+            <p><strong>1 ng/mL = 1 µg/L = 1 ppb</strong> (masa/volumen)</p>
+            <p>Esta equivalencia es exacta solo cuando la densidad de la solución es 1 g/mL. Para soluciones concentradas, la densidad puede ser 1,05–1,84 g/mL y los valores divergen.</p>
+          </div>
+
+          <div class="ejemplo-bloque">
+            <strong>Conversión % m/v ↔ g/L</strong>
+            <p>1 % m/v = 10 g/L (1 g por 100 mL × 10 = 10 g por 1000 mL)</p>
+            <p>Ejemplo: glucosa 5 % m/v = 50 g/L</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Por qué el conversor pide la masa molar?</h3>
+            <p>Las unidades molares (mol/L, mmol/L) expresan cantidad de sustancia, mientras que las másicas (g/L, mg/L) expresan masa. Para pasar de una a otra necesitás saber cuántos gramos pesa un mol del compuesto. Sin la masa molar, solo se pueden hacer conversiones dentro del mismo tipo de unidad.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿mg/dL se usa en química analítica industrial?</h3>
+            <p>Es común en bioquímica clínica (glucosa, colesterol, urea en sangre). En química industrial y ambiental se usa más mg/L. La conversión es directa: 1 mg/dL = 10 mg/L.</p>
+          </div>
+
+        </div>
+
+        <div class="bloque-blog-relacionado">
+          <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
+          <a href="conversor-ppm-mgl.html" class="bloque-blog-relacionado__titulo">Conversor ppm / mg/L / Normalidad</a>
+          <p class="bloque-blog-relacionado__descripcion">Conversor original del sitio con normalidad incluida.</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/init-speed-insights.js"></script>
+  <script src="../js/pwa-register.js"></script>
+
+  <!-- Toast de copiado -->
+  <div class="copy-toast" id="copy-toast">✓ Copiado al portapapeles</div>
+
+  <script>
+    /* ── Conversor de concentración ampliado ── */
+
+    /* Todas las unidades y su info */
+    var UNIDADES = [
+      /* Molares */
+      { id:'mol/L',   label:'mol/L',            grupo:'Molares',   necesitaM:false  },
+      { id:'mmol/L',  label:'mmol/L (mM)',       grupo:'Molares',   necesitaM:false  },
+      { id:'umol/L',  label:'µmol/L (µM)',       grupo:'Molares',   necesitaM:false  },
+      /* Másicas por litro */
+      { id:'g/L',     label:'g/L',               grupo:'Másicas',   necesitaM:true   },
+      { id:'mg/L',    label:'mg/L',              grupo:'Másicas',   necesitaM:true   },
+      { id:'ug/L',    label:'µg/L',              grupo:'Másicas',   necesitaM:true   },
+      /* Clínicas / especiales */
+      { id:'mg/dL',   label:'mg/dL',             grupo:'Clínicas',  necesitaM:true   },
+      { id:'ugmL',    label:'µg/mL (= mg/L)',    grupo:'Clínicas',  necesitaM:true   },
+      { id:'pct_mv',  label:'% m/v',             grupo:'Clínicas',  necesitaM:true   },
+      /* Ambiental */
+      { id:'ppm',     label:'ppm ≈ mg/L (aq.)',  grupo:'Ambiental', necesitaM:true   },
+      { id:'ppb',     label:'ppb ≈ µg/L (aq.)', grupo:'Ambiental', necesitaM:true   },
+    ];
+
+    /* Convertir a mol/L (referencia interna) */
+    function aMolL(val, unidad, M) {
+      switch(unidad) {
+        case 'mol/L':   return val;
+        case 'mmol/L':  return val * 1e-3;
+        case 'umol/L':  return val * 1e-6;
+        case 'g/L':     return val / M;
+        case 'mg/L':    return val / M / 1e3;
+        case 'ug/L':    return val / M / 1e6;
+        case 'mg/dL':   return (val * 10) / M / 1e3;   /* mg/dL × 10 = mg/L */
+        case 'ugmL':    return val / M / 1e3;           /* = mg/L */
+        case 'pct_mv':  return (val * 10) / M;          /* % m/v = 10 g/L */
+        case 'ppm':     return val / M / 1e3;           /* ppm ≈ mg/L */
+        case 'ppb':     return val / M / 1e6;           /* ppb ≈ µg/L */
+        default:        return NaN;
+      }
+    }
+
+    /* Convertir desde mol/L */
+    function desdeMolL(molL, unidad, M) {
+      switch(unidad) {
+        case 'mol/L':   return molL;
+        case 'mmol/L':  return molL * 1e3;
+        case 'umol/L':  return molL * 1e6;
+        case 'g/L':     return molL * M;
+        case 'mg/L':    return molL * M * 1e3;
+        case 'ug/L':    return molL * M * 1e6;
+        case 'mg/dL':   return molL * M * 1e3 / 10;
+        case 'ugmL':    return molL * M * 1e3;
+        case 'pct_mv':  return molL * M / 10;
+        case 'ppm':     return molL * M * 1e3;
+        case 'ppb':     return molL * M * 1e6;
+        default:        return NaN;
+      }
+    }
+
+    function formatearValor(n) {
+      if (isNaN(n) || !isFinite(n)) return '—';
+      if (n === 0) return '0';
+      var abs = Math.abs(n);
+      if (abs >= 1e9)   return n.toExponential(4);
+      if (abs >= 1e6)   return n.toLocaleString('es-AR', {maximumFractionDigits:2});
+      if (abs >= 1000)  return n.toLocaleString('es-AR', {maximumFractionDigits:4});
+      if (abs >= 1)     return n.toPrecision(6);
+      if (abs >= 1e-3)  return n.toPrecision(5);
+      return n.toExponential(4);
+    }
+
+    var grupoActual = '';
+
+    function convertir() {
+      var valStr   = document.getElementById('valor').value.trim();
+      var unidadIn = document.getElementById('unidad-entrada').value;
+      var masaStr  = document.getElementById('masa-molar').value.trim();
+      var M        = parseFloat(masaStr);
+      var val      = parseFloat(valStr);
+      var errorDiv = document.getElementById('error-msg');
+
+      errorDiv.style.display = 'none';
+
+      var unidadInfo = UNIDADES.find(function(u){ return u.id === unidadIn; });
+      var necesitaMInput = unidadInfo && unidadInfo.necesitaM;
+
+      if (!valStr || isNaN(val) || val < 0) {
+        renderGrid(null, null, false);
+        return;
+      }
+
+      if (necesitaMInput && (isNaN(M) || M <= 0)) {
+        errorDiv.style.display = 'block';
+        document.getElementById('error-texto').textContent =
+          'La unidad "' + unidadIn + '" requiere masa molar para convertir.';
+        renderGrid(null, null, false);
+        return;
+      }
+
+      var molL = aMolL(val, unidadIn, M);
+      if (isNaN(molL)) {
+        errorDiv.style.display = 'block';
+        document.getElementById('error-texto').textContent = 'No se pudo convertir el valor ingresado.';
+        return;
+      }
+
+      var tieneMolar = !isNaN(M) && M > 0;
+      renderGrid(molL, M, tieneMolar, unidadIn);
+    }
+
+    function renderGrid(molL, M, tieneMolar, unidadActiva) {
+      var grid = document.getElementById('conv-grid');
+      var html = '';
+      var grupoAnterior = '';
+
+      UNIDADES.forEach(function(u) {
+        /* Separador de grupo */
+        if (u.grupo !== grupoAnterior) {
+          html += '<div class="conv-grupo-titulo">' + u.grupo + '</div>';
+          grupoAnterior = u.grupo;
+        }
+
+        var necesita = u.necesitaM;
+        var puedeCalcular = molL !== null && (!necesita || tieneMolar);
+        var esActiva = u.id === unidadActiva;
+
+        var valorStr;
+        if (!puedeCalcular) {
+          valorStr = necesita && !tieneMolar ? '— (requiere M)' : '—';
+        } else {
+          var res = desdeMolL(molL, u.id, M);
+          valorStr = formatearValor(res);
+        }
+
+        var claseCard = 'conv-card' +
+          (esActiva ? ' activa' : '') +
+          (necesita && !tieneMolar ? ' necesita-m' : '');
+        var claseValor = 'conv-card__valor' + (valorStr === '—' || valorStr.includes('requiere') ? ' placeholder' : '');
+
+        html +=
+          '<div class="' + claseCard + '" role="listitem"' +
+          (puedeCalcular ? ' onclick="copiar(this, \'' + valorStr + '\')" title="Clic para copiar"' : '') +
+          '>' +
+          '<span class="conv-card__unidad">' + u.label + '</span>' +
+          '<span class="' + claseValor + '">' + valorStr + '</span>' +
+          '</div>';
+      });
+
+      /* Nota equivalencias */
+      if (tieneMolar) {
+        html += '<p class="conv-nota">Las unidades ppm, ppb, µg/mL y mg/L son equivalentes para soluciones acuosas diluidas (ρ ≈ 1 g/mL). Hacé clic en cualquier resultado para copiarlo.</p>';
+      }
+
+      grid.innerHTML = html;
+    }
+
+    function copiar(el, texto) {
+      if (!texto || texto.includes('requiere') || texto === '—') return;
+      navigator.clipboard.writeText(texto).then(function() {
+        var toast = document.getElementById('copy-toast');
+        toast.classList.add('visible');
+        setTimeout(function(){ toast.classList.remove('visible'); }, 1800);
+      });
+    }
+
+    /* Inicializar grid vacío */
+    document.addEventListener('DOMContentLoaded', function() {
+      renderGrid(null, null, false);
+    });
+  </script>
+
+</body>
+</html>

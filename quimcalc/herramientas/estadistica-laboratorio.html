@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estadística Básica para Laboratorio — Media, CV%, Outliers | QuimCalc</title>
+  <meta name="description" content="Calculadora de estadística para laboratorio: media, mediana, desviación estándar, CV%, intervalo de confianza 95% y detección de outliers con test de Grubbs (ISO 5725) y Dixon Q.">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/herramientas/estadistica-laboratorio.html">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Estadística Básica para Laboratorio",
+    "description": "Media, mediana, desviación estándar, CV%, intervalo de confianza 95% y detección de outliers con test de Grubbs (ISO 5725) y Dixon Q.",
+    "url": "https://quimcalc.com/herramientas/estadistica-laboratorio.html",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "isAccessibleForFree": true,
+    "inLanguage": "es",
+    "featureList": ["Media y mediana","Desviación estándar muestral","CV%","Intervalo de confianza 95%","Test de Grubbs ISO 5725","Test de Dixon Q","Visualización dot-plot"],
+    "provider": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
+  }
+  </script>
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+  <style>
+    /* Grid de resultados estadísticos */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--espacio-sm);
+      margin-top: var(--espacio-lg);
+    }
+
+    .stat-card {
+      background-color: var(--color-fondo);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-md);
+      text-align: center;
+    }
+
+    .stat-card.destacada {
+      border-color: var(--color-acento);
+      background-color: var(--color-acento-claro);
+    }
+
+    .stat-card__label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-texto-suave);
+      margin-bottom: 4px;
+    }
+
+    .stat-card__valor {
+      font-family: 'Courier New', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-texto);
+      word-break: break-all;
+    }
+
+    .stat-card.destacada .stat-card__valor { color: var(--color-acento); }
+
+    .stat-card__sub {
+      font-size: 0.7rem;
+      color: var(--color-texto-suave);
+      margin-top: 2px;
+    }
+
+    /* Bloque de outlier */
+    .outlier-bloque {
+      margin-top: var(--espacio-md);
+      padding: var(--espacio-md) var(--espacio-lg);
+      border-radius: var(--radio-md);
+      border-left: 4px solid;
+      font-size: 0.875rem;
+    }
+
+    .outlier-bloque.ok    { background:#D1FAE5; border-color:#276C43; color:#065F46; }
+    .outlier-bloque.warn  { background:#FEF3C7; border-color:#D97706; color:#92400E; }
+
+    /* Canvas dot-plot */
+    .dotplot-wrapper {
+      margin-top: var(--espacio-lg);
+      background-color: var(--color-fondo);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-md);
+      overflow-x: auto;
+    }
+
+    .dotplot-titulo {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-texto-suave);
+      margin-bottom: var(--espacio-sm);
+    }
+
+    canvas#dotplot {
+      display: block;
+      max-width: 100%;
+    }
+
+    .dotplot-leyenda {
+      display: flex;
+      gap: var(--espacio-lg);
+      margin-top: var(--espacio-sm);
+      flex-wrap: wrap;
+    }
+
+    .leyenda-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--color-texto-suave);
+    }
+
+    .leyenda-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .leyenda-line {
+      width: 16px;
+      height: 3px;
+      flex-shrink: 0;
+    }
+
+    /* Botones de acción */
+    .acciones-bar {
+      display: flex;
+      gap: var(--espacio-sm);
+      margin-top: var(--espacio-sm);
+      flex-wrap: wrap;
+    }
+
+    .btn--sm {
+      font-family: var(--fuente-principal);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: var(--radio-sm);
+      border: 1.5px solid var(--color-borde);
+      cursor: pointer;
+      background-color: var(--color-fondo);
+      color: var(--color-texto-suave);
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .btn--sm:hover {
+      border-color: var(--color-acento);
+      color: var(--color-acento);
+    }
+
+    /* Sección de resultados */
+    .seccion-resultados {
+      display: none;
+    }
+    .seccion-resultados.visible { display: block; }
+
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JPQ3QTH9BN');
+</script>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas" class="activo">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="pagina-herramienta">
+      <div class="contenedor">
+
+        <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+          <a href="../index.html">Inicio</a>
+          <span aria-hidden="true">›</span>
+          <a href="../index.html#herramientas">Herramientas</a>
+          <span aria-hidden="true">›</span>
+          <span>Estadística para laboratorio</span>
+        </nav>
+
+        <div class="pagina-herramienta__encabezado">
+          <h1 class="pagina-herramienta__titulo">Estadística básica para laboratorio</h1>
+          <p class="pagina-herramienta__descripcion">
+            Ingresá tus valores de medición para calcular media, desviación estándar, CV%, intervalo de confianza al 95 % y detectar outliers con el test de Grubbs (ISO 5725-2) o el test de Dixon Q. Aceptá valores separados por coma, punto y coma, espacio o uno por línea.
+          </p>
+        </div>
+
+        <div class="calculadora" style="max-width:680px">
+
+          <div class="campo-grupo">
+            <label for="datos">Valores de medición</label>
+            <textarea id="datos" rows="5"
+              style="font-family:'Courier New',monospace;font-size:0.9rem;padding:var(--espacio-md);border:1.5px solid var(--color-borde);border-radius:var(--radio-sm);background:var(--color-fondo);color:var(--color-texto);width:100%;resize:vertical;outline:none;transition:border-color 0.15s;line-height:1.6"
+              placeholder="ej: 5.42, 5.38, 5.41, 5.45, 5.39, 5.43, 5.40, 5.44, 5.41, 5.42"
+              oninput="limpiarResultados()"
+              onfocus="this.style.borderColor='var(--color-acento)'"
+              onblur="this.style.borderColor='var(--color-borde)'"
+              aria-required="true"></textarea>
+            <div class="acciones-bar">
+              <button class="btn--sm" onclick="cargarEjemplo('normal')">Ejemplo — sin outlier</button>
+              <button class="btn--sm" onclick="cargarEjemplo('outlier')">Ejemplo — con outlier</button>
+              <button class="btn--sm" onclick="document.getElementById('datos').value='';limpiarResultados()">Limpiar</button>
+            </div>
+          </div>
+
+          <button class="btn btn--primario" onclick="calcular()">Calcular</button>
+
+          <!-- Resultados -->
+          <div class="seccion-resultados" id="seccion-resultados">
+
+            <!-- Grid estadístico -->
+            <div class="stats-grid" id="stats-grid"></div>
+
+            <!-- Outlier test -->
+            <div class="outlier-bloque" id="outlier-bloque"></div>
+
+            <!-- Dot-plot -->
+            <div class="dotplot-wrapper" id="dotplot-wrapper">
+              <p class="dotplot-titulo">Distribución de los datos</p>
+              <canvas id="dotplot" height="110"></canvas>
+              <div class="dotplot-leyenda">
+                <span class="leyenda-item">
+                  <span class="leyenda-dot" style="background:#1A5C38"></span> Datos
+                </span>
+                <span class="leyenda-item">
+                  <span class="leyenda-line" style="background:#1A5C38"></span> Media
+                </span>
+                <span class="leyenda-item">
+                  <span class="leyenda-line" style="background:#93C5A0;height:8px;border-radius:2px"></span> IC 95 %
+                </span>
+                <span class="leyenda-item">
+                  <span class="leyenda-dot" style="background:#B83232"></span> Posible outlier
+                </span>
+              </div>
+            </div>
+
+          </div><!-- /seccion-resultados -->
+
+        </div><!-- /calculadora -->
+
+        <!-- Sección educativa -->
+        <div class="seccion-educativa">
+
+          <h2>¿Qué estadístico usar para cada propósito?</h2>
+
+          <div class="ejemplo-bloque">
+            <strong>Referencia rápida</strong>
+            <p><strong>Media (x̄):</strong> el valor central representativo de las mediciones.</p>
+            <p><strong>Desv. estándar (s):</strong> dispersión alrededor de la media. Se usa n−1 (muestral).</p>
+            <p><strong>CV% = s/x̄ × 100:</strong> dispersión relativa. Comparable entre métodos. &lt; 2 % excelente, &lt; 5 % aceptable, &gt; 10 % revisar.</p>
+            <p><strong>SEM = s/√n:</strong> error estándar de la media. Cuantifica qué tan bien conocés la media verdadera.</p>
+            <p><strong>IC 95 %:</strong> intervalo que contiene la media verdadera con 95 % de probabilidad.</p>
+          </div>
+
+          <h2>Detección de outliers</h2>
+          <p>
+            Un outlier es un dato que se aparta significativamente del resto del conjunto. Antes de eliminarlo, siempre intentá identificar una causa: error de transcripción, falla instrumental, contaminación de muestra.
+          </p>
+
+          <div class="ejemplo-bloque">
+            <strong>Test de Grubbs (ISO 5725-2) — para n &gt; 10</strong>
+            <p>G = max |xᵢ − x̄| / s</p>
+            <p>Si G &gt; G<sub>crit</sub> (α = 0,05), el valor más extremo es outlier con significación estadística.</p>
+          </div>
+
+          <div class="ejemplo-bloque">
+            <strong>Test de Dixon Q — para n ≤ 10</strong>
+            <p>Q = |x<sub>sospechoso</sub> − x<sub>vecino</sub>| / rango</p>
+            <p>Si Q &gt; Q<sub>crit</sub> (α = 0,05), el valor extremo es outlier.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Puedo eliminar un outlier y recalcular?</h3>
+            <p>Solo si podés justificar la causa (error de pipeteo registrado, fallo del equipo documentado). La eliminación estadística sin justificación física no está permitida en métodos acreditados ISO 17025. Si eliminás un dato, tenés que documentarlo en el informe.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Por qué se divide por n−1 y no por n?</h3>
+            <p>Porque trabajamos con una muestra (un subconjunto) de todas las mediciones posibles, no con la población completa. Dividir por n−1 en lugar de n corrige el sesgo estadístico y da una estimación más precisa de la variabilidad real del método.</p>
+          </div>
+
+        </div>
+
+        <div class="bloque-blog-relacionado">
+          <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
+          <a href="incertidumbre.html" class="bloque-blog-relacionado__titulo">Incertidumbre de medición (GUM)</a>
+          <p class="bloque-blog-relacionado__descripcion">Calculá la incertidumbre combinada tipo A (estadística) y tipo B (instrumental).</p>
+        </div>
+        <div class="bloque-blog-relacionado" style="margin-top:var(--espacio-md)">
+          <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
+          <a href="recuperacion-error.html" class="bloque-blog-relacionado__titulo">% Recuperación y error sistemático</a>
+          <p class="bloque-blog-relacionado__descripcion">Evaluá la exactitud y precisión de tu método analítico.</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/init-speed-insights.js"></script>
+  <script src="../js/pwa-register.js"></script>
+
+  <script>
+    /* ═══════════════════════════════════════════════════════════
+       ESTADÍSTICA BÁSICA PARA LABORATORIO — QuimCalc
+       Fuentes de valores críticos:
+         Grubbs: ISO 5725-2:1994 / Grubbs (1969) Technometrics 11(1)
+         Dixon Q: Dixon (1953) Biometrics 9(1)
+         t-Student: tablas estándar, df = n-1, α = 0.05 bilateral
+    ═══════════════════════════════════════════════════════════ */
+
+    /* ── Tablas de valores críticos ── */
+    var GRUBBS_CRIT = {
+      3:1.155, 4:1.481, 5:1.715, 6:1.887, 7:2.020,
+      8:2.126, 9:2.215, 10:2.290, 11:2.355, 12:2.412,
+      13:2.462, 14:2.507, 15:2.549, 16:2.585, 17:2.620,
+      18:2.651, 19:2.681, 20:2.709, 25:2.822, 30:2.908,
+      40:3.036, 50:3.128
+    };
+
+    var DIXON_CRIT = {
+      3:0.941, 4:0.765, 5:0.642, 6:0.560,
+      7:0.507, 8:0.468, 9:0.437, 10:0.412
+    };
+
+    /* t crítico bilateral 95% (α=0.025 por cola), df = n-1 */
+    var T_CRIT = {
+      1:12.706, 2:4.303, 3:3.182, 4:2.776, 5:2.571,
+      6:2.447,  7:2.365, 8:2.306, 9:2.262, 10:2.228,
+      11:2.201, 12:2.179, 13:2.160, 14:2.145, 15:2.131,
+      16:2.120, 17:2.110, 18:2.101, 19:2.093, 20:2.086,
+      25:2.060, 30:2.042, 40:2.021, 60:2.000, 120:1.980
+    };
+
+    function getCrit(tabla, n) {
+      var keys = Object.keys(tabla).map(Number).sort(function(a,b){return a-b;});
+      for (var i = 0; i < keys.length; i++) {
+        if (n <= keys[i]) return tabla[keys[i]];
+      }
+      return tabla[keys[keys.length - 1]];
+    }
+
+    /* ── Parseo de datos ── */
+    function parsear(texto) {
+      return texto
+        .replace(/,/g, ' ')
+        .replace(/;/g, ' ')
+        .split(/\s+/)
+        .map(function(s){ return parseFloat(s.replace(',', '.')); })
+        .filter(function(n){ return !isNaN(n); });
+    }
+
+    /* ── Estadísticos ── */
+    function media(arr) {
+      return arr.reduce(function(a,b){return a+b;},0) / arr.length;
+    }
+
+    function mediana(arr) {
+      var s = arr.slice().sort(function(a,b){return a-b;});
+      var n = s.length;
+      return n % 2 === 0 ? (s[n/2-1] + s[n/2]) / 2 : s[Math.floor(n/2)];
+    }
+
+    function desv(arr, xbar) {
+      var n = arr.length;
+      if (n < 2) return 0;
+      return Math.sqrt(arr.reduce(function(a,b){return a+Math.pow(b-xbar,2);},0) / (n-1));
+    }
+
+    /* ── Test de Grubbs ── */
+    function grubbs(arr) {
+      var n   = arr.length;
+      var xb  = media(arr);
+      var s   = desv(arr, xb);
+      if (s === 0) return null;
+
+      var Gmax = 0, outlierVal = null;
+      arr.forEach(function(v) {
+        var g = Math.abs(v - xb) / s;
+        if (g > Gmax) { Gmax = g; outlierVal = v; }
+      });
+
+      var Gcrit = getCrit(GRUBBS_CRIT, n);
+      return { stat: Gmax, crit: Gcrit, isOutlier: Gmax > Gcrit, val: outlierVal, test: 'Grubbs' };
+    }
+
+    /* ── Test de Dixon Q ── */
+    function dixonQ(arr) {
+      var n = arr.length;
+      var s = arr.slice().sort(function(a,b){return a-b;});
+      var rango = s[n-1] - s[0];
+      if (rango === 0) return null;
+
+      var Qmin = (s[1]   - s[0])   / rango;
+      var Qmax = (s[n-1] - s[n-2]) / rango;
+      var Q    = Math.max(Qmin, Qmax);
+      var Qcrit = getCrit(DIXON_CRIT, n);
+      var outlierVal = Qmax >= Qmin ? s[n-1] : s[0];
+
+      return { stat: Q, crit: Qcrit, isOutlier: Q > Qcrit, val: outlierVal, test: 'Dixon Q' };
+    }
+
+    /* ── Formato de números ── */
+    function fmt(n, sig) {
+      if (isNaN(n)) return '—';
+      sig = sig || 5;
+      var abs = Math.abs(n);
+      if (abs === 0) return '0';
+      if (abs >= 1e5 || abs < 1e-4) return n.toExponential(3);
+      return parseFloat(n.toPrecision(sig)).toString();
+    }
+
+    /* ── Limpiar ── */
+    function limpiarResultados() {
+      document.getElementById('seccion-resultados').classList.remove('visible');
+    }
+
+    /* ── Ejemplos ── */
+    function cargarEjemplo(tipo) {
+      var ta = document.getElementById('datos');
+      if (tipo === 'normal') {
+        ta.value = '5.42\n5.38\n5.41\n5.45\n5.39\n5.43\n5.40\n5.44\n5.41\n5.42';
+      } else {
+        ta.value = '5.42\n5.38\n5.41\n5.45\n5.39\n5.43\n5.40\n5.44\n5.41\n5.87';
+      }
+      limpiarResultados();
+    }
+
+    /* ── Cálculo principal ── */
+    function calcular() {
+      var txt = document.getElementById('datos').value.trim();
+      if (!txt) { alert('Ingresá al menos 3 valores para calcular.'); return; }
+
+      var arr = parsear(txt);
+      if (arr.length < 3) { alert('Se necesitan al menos 3 valores válidos.'); return; }
+
+      var n    = arr.length;
+      var xb   = media(arr);
+      var med  = mediana(arr);
+      var s    = desv(arr, xb);
+      var s2   = s * s;
+      var cv   = xb !== 0 ? Math.abs(s / xb) * 100 : NaN;
+      var sem  = s / Math.sqrt(n);
+      var mn   = Math.min.apply(null, arr);
+      var mx   = Math.max.apply(null, arr);
+      var rng  = mx - mn;
+
+      /* Intervalo de confianza 95% */
+      var df   = n - 1;
+      var t95  = getCrit(T_CRIT, df);
+      var eMar = t95 * sem;
+      var ciLo = xb - eMar;
+      var ciHi = xb + eMar;
+
+      /* Test de outliers */
+      var outlierRes = n <= 10 ? dixonQ(arr) : grubbs(arr);
+
+      /* ── Renderizar stats grid ── */
+      var cvClase = cv < 2 ? '#276C43' : cv < 5 ? '#D97706' : '#B83232';
+
+      var cards = [
+        { label:'n',                 val: n.toString(),                          sub:'valores válidos',    dest:false },
+        { label:'Media (x̄)',         val: fmt(xb),                               sub:'promedio aritmético',dest:true  },
+        { label:'Mediana',           val: fmt(med),                              sub:'valor central',      dest:false },
+        { label:'CV %',              val: fmt(cv,4) + ' %',                      sub:'coef. de variación', dest:false, color:cvClase },
+        { label:'Desv. estándar (s)',val: fmt(s),                                sub:'muestral (n−1)',     dest:false },
+        { label:'Varianza (s²)',     val: fmt(s2),                               sub:'muestral (n−1)',     dest:false },
+        { label:'SEM',               val: fmt(sem),                              sub:'error estándar media',dest:false},
+        { label:'IC 95 %',           val: '[' + fmt(ciLo) + ' — ' + fmt(ciHi) + ']', sub:'t=' + t95.toFixed(3) + ', df=' + df, dest:true },
+        { label:'Mínimo',            val: fmt(mn),                               sub:'',                   dest:false },
+        { label:'Máximo',            val: fmt(mx),                               sub:'',                   dest:false },
+        { label:'Rango',             val: fmt(rng),                              sub:'max − min',          dest:false },
+        { label:'t crítico (95 %)',  val: t95.toFixed(3),                        sub:'df=' + df,           dest:false },
+      ];
+
+      document.getElementById('stats-grid').innerHTML = cards.map(function(c) {
+        var claseCard = 'stat-card' + (c.dest ? ' destacada' : '');
+        var styleVal  = c.color ? 'style="color:' + c.color + '"' : '';
+        return '<div class="' + claseCard + '">' +
+          '<p class="stat-card__label">' + c.label + '</p>' +
+          '<p class="stat-card__valor" ' + styleVal + '>' + c.val + '</p>' +
+          (c.sub ? '<p class="stat-card__sub">' + c.sub + '</p>' : '') +
+          '</div>';
+      }).join('');
+
+      /* ── Outlier bloque ── */
+      var ob = document.getElementById('outlier-bloque');
+      if (!outlierRes) {
+        ob.className = 'outlier-bloque ok';
+        ob.innerHTML = 'Los datos son todos iguales o insuficientes para el test de outliers.';
+      } else if (outlierRes.isOutlier) {
+        ob.className = 'outlier-bloque warn';
+        ob.innerHTML =
+          '⚠ <strong>Test de ' + outlierRes.test + ' (α = 0,05):</strong> ' +
+          'el valor <strong>' + outlierRes.val + '</strong> es un posible outlier. ' +
+          outlierRes.test.charAt(0) + '-stat = ' + outlierRes.stat.toFixed(4) +
+          ' &gt; ' + outlierRes.test.charAt(0) + '-crit = ' + outlierRes.crit.toFixed(3) +
+          '. Verificá si hay una causa asignable antes de descartarlo.';
+      } else {
+        ob.className = 'outlier-bloque ok';
+        ob.innerHTML =
+          '✓ <strong>Test de ' + outlierRes.test + ' (α = 0,05):</strong> ' +
+          'no se detectaron outliers significativos. ' +
+          outlierRes.test.charAt(0) + '-stat = ' + outlierRes.stat.toFixed(4) +
+          ' ≤ ' + outlierRes.test.charAt(0) + '-crit = ' + outlierRes.crit.toFixed(3) + '.';
+      }
+
+      /* ── Dot-plot en canvas ── */
+      dibujarDotPlot(arr, xb, ciLo, ciHi, outlierRes);
+
+      document.getElementById('seccion-resultados').classList.add('visible');
+      document.getElementById('seccion-resultados').scrollIntoView({ behavior:'smooth', block:'nearest' });
+    }
+
+    /* ── Dot-plot ── */
+    function dibujarDotPlot(arr, xb, ciLo, ciHi, outlierRes) {
+      var canvas = document.getElementById('dotplot');
+      var W = canvas.parentElement.clientWidth - 32;
+      if (W < 200) W = 200;
+      canvas.width  = W;
+      canvas.height = 110;
+
+      var ctx  = canvas.getContext('2d');
+      var PAD  = 30;
+      var mn   = Math.min.apply(null, arr);
+      var mx   = Math.max.apply(null, arr);
+      var rng  = mx - mn || 1;
+      var PAD_DATA = rng * 0.2;
+      var xMin = mn - PAD_DATA;
+      var xMax = mx + PAD_DATA;
+
+      function toCanvas(val) {
+        return PAD + ((val - xMin) / (xMax - xMin)) * (W - PAD * 2);
+      }
+
+      ctx.clearRect(0, 0, W, canvas.height);
+
+      /* IC 95% banda */
+      ctx.fillStyle = 'rgba(147, 197, 160, 0.35)';
+      ctx.fillRect(toCanvas(ciLo), 10, toCanvas(ciHi) - toCanvas(ciLo), 70);
+
+      /* Eje */
+      ctx.strokeStyle = '#D4CFC4';
+      ctx.lineWidth   = 1;
+      ctx.beginPath();
+      ctx.moveTo(PAD, 80);
+      ctx.lineTo(W - PAD, 80);
+      ctx.stroke();
+
+      /* Ticks y labels del eje */
+      ctx.fillStyle   = '#5C5649';
+      ctx.font        = '10px Arial';
+      ctx.textAlign   = 'center';
+      var tickCount   = Math.min(7, arr.length);
+      for (var i = 0; i <= tickCount; i++) {
+        var val = xMin + (xMax - xMin) * (i / tickCount);
+        var xc  = toCanvas(val);
+        ctx.strokeStyle = '#D4CFC4';
+        ctx.beginPath();
+        ctx.moveTo(xc, 78);
+        ctx.lineTo(xc, 84);
+        ctx.stroke();
+        ctx.fillText(parseFloat(val.toPrecision(4)).toString(), xc, 96);
+      }
+
+      /* Puntos — stacking vertical para evitar solapamiento */
+      var RADIO   = 5;
+      var posMap  = {};
+
+      arr.forEach(function(v) {
+        var xc   = Math.round(toCanvas(v));
+        var key  = Math.round(xc / (RADIO * 2));
+        var level= posMap[key] || 0;
+        posMap[key] = level + 1;
+
+        var yc = 72 - level * (RADIO * 2 + 2);
+
+        var esOutlier = outlierRes && outlierRes.isOutlier && v === outlierRes.val;
+
+        ctx.beginPath();
+        ctx.arc(xc, yc, RADIO, 0, Math.PI * 2);
+        ctx.fillStyle   = esOutlier ? '#B83232' : '#1A5C38';
+        ctx.globalAlpha = 0.75;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.strokeStyle = esOutlier ? '#7F1D1D' : '#134529';
+        ctx.lineWidth   = 1;
+        ctx.stroke();
+      });
+
+      /* Línea de media */
+      ctx.strokeStyle = '#1A5C38';
+      ctx.lineWidth   = 2.5;
+      ctx.beginPath();
+      var xMedia = toCanvas(xb);
+      ctx.moveTo(xMedia, 12);
+      ctx.lineTo(xMedia, 82);
+      ctx.stroke();
+
+      /* Etiqueta media */
+      ctx.fillStyle  = '#1A5C38';
+      ctx.font       = 'bold 10px Arial';
+      ctx.textAlign  = 'center';
+      ctx.fillText('x̄=' + parseFloat(xb.toPrecision(5)), xMedia, 10);
+    }
+  </script>
+
+</body>
+</html>

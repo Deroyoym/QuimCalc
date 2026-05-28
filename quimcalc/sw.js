@@ -7,7 +7,7 @@
 //   • Todo lo demás   → Network-First con fallback al caché
 // ============================================================
 
-const CACHE_VERSION   = 'v3.007';                           // ← incrementar cuando hagas cambios grandes
+const CACHE_VERSION   = 'v3.008';                           // ← incrementar cuando hagas cambios grandes
 const CACHE_ESTATICO  = `quimcalc-estatico-${CACHE_VERSION}`;
 const CACHE_PAGINAS   = `quimcalc-paginas-${CACHE_VERSION}`;
 
@@ -27,7 +27,7 @@ const PRECACHE_URLS = [
   '/herramientas/calculadora-buffers.html',
   '/herramientas/calculadora-titulacion.html',
   '/herramientas/dureza-agua.html',
-
+  '/herramientas/conversor-concentracion.html',
   // JS de esas herramientas
   '/herramientas/js/molaridad.js',
   '/herramientas/js/diluciones.js',
