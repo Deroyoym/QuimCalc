@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Tabla de Solubilidad de Sales | QuimCalc</title>
+  <meta name="description" content="Tabla de solubilidad de sales inorgánicas: sulfatos, cloruros, carbonatos, hidróxidos, nitratos y más. Referencia rápida para laboratorio con indicación S / I / LP.">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/herramientas/tabla-solubilidad.html" />
+
+  <link rel="preload" href="../styles.css" as="style">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "Tabla de Solubilidad de Sales Inorgánicas",
+    "description": "Tabla de referencia de solubilidad en agua de sales inorgánicas comunes: cloruros, sulfatos, carbonatos, hidróxidos, nitratos, fosfatos, acetatos y sulfuros.",
+    "keywords": ["solubilidad", "sales", "química analítica", "inorgánica", "laboratorio"],
+    "creator": {
+      "@type": "Organization",
+      "name": "QuimCalc",
+      "url": "https://quimcalc.com"
+    }
+  }
+  </script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+
+  <style>
+    /* ── ESTILOS ESPECÍFICOS DE ESTA TABLA ───────────────────── */
+
+    /* Contenedor con scroll horizontal para la tabla */
+    .tabla-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-lg);
+      box-shadow: var(--sombra-card);
+      margin-bottom: var(--espacio-xl);
+      /* Barra de scroll visible y estilizada */
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-borde) transparent;
+    }
+
+    .tabla-wrapper::-webkit-scrollbar {
+      height: 6px;
+    }
+    .tabla-wrapper::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .tabla-wrapper::-webkit-scrollbar-thumb {
+      background-color: var(--color-borde);
+      border-radius: 3px;
+    }
+
+    /* Tabla principal */
+    .tabla-solubilidad {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 760px; /* fuerza scroll en mobile */
+      font-size: 0.82rem;
+      background-color: var(--color-fondo);
+    }
+
+    /* Encabezado de columnas (aniones) */
+    .tabla-solubilidad thead th {
+      background-color: var(--color-header-bg);
+      color: var(--color-header-texto);
+      padding: 10px 8px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    /* Primera columna del encabezado (esquina) */
+    .tabla-solubilidad thead th:first-child {
+      text-align: left;
+      min-width: 140px;
+      position: sticky;
+      left: 0;
+      z-index: 3; /* encima de todo */
+      background-color: var(--color-header-bg);
+    }
+
+    /* Filas del cuerpo */
+    .tabla-solubilidad tbody tr:nth-child(even) td {
+      background-color: var(--color-fondo-card);
+    }
+
+    .tabla-solubilidad tbody tr:hover td {
+      background-color: var(--color-acento-claro);
+      transition: background-color 0.1s;
+    }
+
+    /* Columna sticky del catión (primera columna) */
+    .tabla-solubilidad tbody td:first-child {
+      position: sticky;
+      left: 0;
+      background-color: var(--color-fondo);
+      font-weight: 600;
+      padding: 9px 12px;
+      border-right: 2px solid var(--color-borde);
+      white-space: nowrap;
+      z-index: 1;
+    }
+
+    /* Cuando la fila es par, la celda sticky también cambia */
+    .tabla-solubilidad tbody tr:nth-child(even) td:first-child {
+      background-color: var(--color-fondo-card);
+    }
+
+    .tabla-solubilidad tbody tr:hover td:first-child {
+      background-color: var(--color-acento-claro);
+    }
+
+    /* Celdas de datos */
+    .tabla-solubilidad tbody td {
+      padding: 8px 6px;
+      text-align: center;
+      border-right: 1px solid var(--color-borde);
+      border-bottom: 1px solid var(--color-borde);
+      font-size: 0.8rem;
+      font-weight: 600;
+      min-width: 54px;
+    }
+
+    /* ── PASTILLAS DE SOLUBILIDAD ─────────────────────────── */
+    .pastilla {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 22px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    /* S — Soluble (verde) */
+    .pastilla--s {
+      background-color: #DCFCE7;
+      color: #166534;
+    }
+
+    /* I — Insoluble (rojo) */
+    .pastilla--i {
+      background-color: #FEE2E2;
+      color: #991B1B;
+    }
+
+    /* LP — Ligeramente soluble (amarillo/naranja) */
+    .pastilla--lp {
+      background-color: #FEF9C3;
+      color: #854D0E;
+    }
+
+    /* D — Se descompone o no existe en solución (gris) */
+    .pastilla--d {
+      background-color: #F1F5F9;
+      color: #64748B;
+    }
+
+    /* ── LEYENDA ──────────────────────────────────────────── */
+    .leyenda {
+      display: flex;
+      gap: var(--espacio-lg);
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: var(--espacio-lg);
+      padding: var(--espacio-md) var(--espacio-lg);
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+    }
+
+    .leyenda__item {
+      display: flex;
+      align-items: center;
+      gap: var(--espacio-sm);
+      font-size: 0.85rem;
+      color: var(--color-texto-suave);
+    }
+
+    .leyenda__titulo {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-texto-suave);
+      margin-right: var(--espacio-sm);
+    }
+
+    /* ── FILTRO DE ANIONES ────────────────────────────────── */
+    .filtro-barra {
+      display: flex;
+      gap: var(--espacio-sm);
+      flex-wrap: wrap;
+      margin-bottom: var(--espacio-md);
+      align-items: center;
+    }
+
+    .filtro-barra__etiqueta {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-texto-suave);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .filtro-btn {
+      font-family: var(--fuente-principal);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1.5px solid var(--color-borde);
+      background-color: var(--color-fondo);
+      color: var(--color-texto-suave);
+      cursor: pointer;
+      transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+    }
+
+    .filtro-btn:hover {
+      border-color: var(--color-acento);
+      color: var(--color-acento);
+    }
+
+    .filtro-btn.activo {
+      background-color: var(--color-acento);
+      border-color: var(--color-acento);
+      color: #fff;
+    }
+
+    /* ── BUSCADOR ─────────────────────────────────────────── */
+    .buscador-wrapper {
+      position: relative;
+      max-width: 280px;
+      margin-bottom: var(--espacio-md);
+    }
+
+    .buscador-wrapper svg {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      stroke: var(--color-texto-suave);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      pointer-events: none;
+    }
+
+    .buscador-input {
+      width: 100%;
+      padding: 8px 12px 8px 32px;
+      font-family: var(--fuente-principal);
+      font-size: 0.875rem;
+      border: 1.5px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .buscador-input:focus {
+      border-color: var(--color-acento);
+    }
+
+    /* Fila oculta por el filtro */
+    .fila-oculta {
+      display: none;
+    }
+
+    /* ── NOTA AL PIE ──────────────────────────────────────── */
+    .nota-tabla {
+      font-size: 0.82rem;
+      color: var(--color-texto-suave);
+      line-height: 1.6;
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-md);
+      padding: var(--espacio-md) var(--espacio-lg);
+      margin-bottom: var(--espacio-xl);
+    }
+
+    .nota-tabla strong {
+      color: var(--color-texto);
+    }
+
+    /* Indicador de scroll en mobile */
+    .scroll-hint {
+      display: none;
+      font-size: 0.78rem;
+      color: var(--color-texto-suave);
+      margin-bottom: var(--espacio-sm);
+      align-items: center;
+      gap: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .scroll-hint {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JPQ3QTH9BN');
+</script>
+
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────── -->
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas" class="activo">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="contenedor">
+
+      <!-- Miga de pan -->
+      <nav class="breadcrumb" style="padding-top: var(--espacio-xl);" aria-label="Ubicación en el sitio">
+        <a href="../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <span>Tabla de solubilidad</span>
+      </nav>
+
+      <!-- Encabezado de la herramienta -->
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Tabla de solubilidad de sales</h1>
+        <p class="pagina-herramienta__descripcion">
+          Solubilidad en agua de sales inorgánicas comunes a temperatura ambiente (~25 °C).
+          Referencia para análisis cualitativo, preparación de soluciones y predicción de precipitados.
+        </p>
+      </div>
+
+      <!-- Buscador de cationes -->
+      <div class="buscador-wrapper">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input
+          type="search"
+          id="buscador"
+          class="buscador-input"
+          placeholder="Buscar catión — ej: calcio"
+          autocomplete="off"
+          aria-label="Buscar catión en la tabla"
+        >
+      </div>
+
+      <!-- Filtro por anión -->
+      <div class="filtro-barra" role="group" aria-label="Filtrar por solubilidad">
+        <span class="filtro-barra__etiqueta">Mostrar solo:</span>
+        <button class="filtro-btn activo" data-filtro="todos">Todos</button>
+        <button class="filtro-btn" data-filtro="s">Solubles (S)</button>
+        <button class="filtro-btn" data-filtro="i">Insolubles (I)</button>
+        <button class="filtro-btn" data-filtro="lp">Ligeramente solubles</button>
+      </div>
+
+      <!-- Leyenda -->
+      <div class="leyenda" role="note" aria-label="Leyenda de la tabla">
+        <span class="leyenda__titulo">Referencias:</span>
+        <span class="leyenda__item"><span class="pastilla pastilla--s">S</span> Soluble (&gt;1 g/100 mL)</span>
+        <span class="leyenda__item"><span class="pastilla pastilla--i">I</span> Insoluble (&lt;0,1 g/100 mL)</span>
+        <span class="leyenda__item"><span class="pastilla pastilla--lp">LP</span> Ligeramente soluble</span>
+        <span class="leyenda__item"><span class="pastilla pastilla--d">—</span> No existe / se descompone</span>
+      </div>
+
+      <!-- Indicador de scroll para mobile -->
+      <p class="scroll-hint" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Deslizá para ver todos los aniones
+      </p>
+
+      <!-- Tabla -->
+      <div class="tabla-wrapper" role="region" aria-label="Tabla de solubilidad" tabindex="0">
+        <table class="tabla-solubilidad" id="tabla-sol">
+          <thead>
+            <tr>
+              <!-- Encabezado esquina -->
+              <th scope="col" style="text-align:left; padding-left: 12px;">
+                Catión ↓ / Anión →
+              </th>
+              <!-- Aniones — 10 columnas -->
+              <th scope="col">Cl⁻<br><small>Cloruro</small></th>
+              <th scope="col">SO₄²⁻<br><small>Sulfato</small></th>
+              <th scope="col">CO₃²⁻<br><small>Carbonato</small></th>
+              <th scope="col">OH⁻<br><small>Hidróxido</small></th>
+              <th scope="col">NO₃⁻<br><small>Nitrato</small></th>
+              <th scope="col">PO₄³⁻<br><small>Fosfato</small></th>
+              <th scope="col">S²⁻<br><small>Sulfuro</small></th>
+              <th scope="col">CH₃COO⁻<br><small>Acetato</small></th>
+              <th scope="col">CrO₄²⁻<br><small>Cromato</small></th>
+              <th scope="col">I⁻<br><small>Yoduro</small></th>
+            </tr>
+          </thead>
+          <tbody id="cuerpo-tabla">
+            <!--
+              Datos por fila: catión + 10 valores (orden igual al encabezado)
+              Valores: s = soluble, i = insoluble, lp = ligeramente soluble, d = no aplica
+              Fuentes: CRC Handbook 103ª ed., Merck Index, NIST WebBook
+            -->
+
+            <!-- Metales alcalinos -->
+            <tr data-cation="litio li">
+              <td>Li⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Litio</small></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <tr data-cation="sodio na">
+              <td>Na⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Sodio</small></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <tr data-cation="potasio k">
+              <td>K⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Potasio</small></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <tr data-cation="amonio nh4">
+              <td>NH₄⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Amonio</small></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <!-- Metales alcalinotérreos -->
+            <tr data-cation="magnesio mg">
+              <td>Mg²⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Magnesio</small></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <tr data-cation="calcio ca">
+              <td>Ca²⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Calcio</small></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <tr data-cation="bario ba">
+              <td>Ba²⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Bario</small></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <!-- Metales de transición comunes -->
+            <tr data-cation="hierro fe2 ferroso">
+              <td>Fe²⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Hierro (II)</small></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <tr data-cation="hierro fe3 ferrico">
+              <td>Fe³⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Hierro (III)</small></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--d">—</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <tr data-cation="cobre cu2 cuprico">
+              <td>Cu²⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Cobre (II)</small></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <tr data-cation="zinc zn">
+              <td>Zn²⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Zinc</small></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <tr data-cation="plomo pb">
+              <td>Pb²⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Plomo</small></td>
+              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+            </tr>
+
+            <tr data-cation="plata ag">
+              <td>Ag⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Plata</small></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+            </tr>
+
+            <tr data-cation="aluminio al">
+              <td>Al³⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Aluminio</small></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--d">—</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--d">—</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <tr data-cation="manganeso mn">
+              <td>Mn²⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Manganeso</small></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <tr data-cation="niquel ni">
+              <td>Ni²⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Níquel</small></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <tr data-cation="mercurio hg2">
+              <td>Hg²⁺ <small style="font-weight:400;color:var(--color-texto-suave);">Mercurio (II)</small></td>
+              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div><!-- /tabla-wrapper -->
+
+      <!-- Nota de fuentes y criterios -->
+      <div class="nota-tabla" role="note">
+        <strong>Criterios de clasificación:</strong>
+        <strong>S</strong> (soluble) = &gt; 1 g por 100 mL a 25 °C ·
+        <strong>LP</strong> (ligeramente soluble) = 0,1–1 g/100 mL ·
+        <strong>I</strong> (insoluble) = &lt; 0,1 g/100 mL ·
+        <strong>—</strong> = el compuesto no existe estable en solución acuosa o se hidroliza completamente.<br>
+        <strong>Fuentes:</strong> CRC Handbook of Chemistry and Physics, 103.ª ed.; Merck Index, 15.ª ed.; NIST WebBook (webbook.nist.gov).
+        Los datos corresponden a ~25 °C y 1 atm. La solubilidad puede variar significativamente con la temperatura y el pH.
+      </div>
+
+      <!-- Sección educativa -->
+      <div class="seccion-educativa">
+
+        <h2>¿Cómo usar esta tabla?</h2>
+        <p>
+          Buscá el <strong>catión</strong> en la fila y el <strong>anión</strong> en la columna.
+          La celda de intersección indica si la sal formada entre esos dos iones es soluble (S), 
+          insoluble (I) o ligeramente soluble (LP) en agua a temperatura ambiente.
+        </p>
+        <p>
+          Por ejemplo: si querés saber si el sulfato de bario precipita, buscás Ba²⁺ en las filas 
+          y SO₄²⁻ en las columnas → la celda dice <strong>I</strong> (insoluble). 
+          Eso explica por qué el BaSO₄ se usa como patrón gravimétrico.
+        </p>
+
+        <h2>Reglas generales de solubilidad</h2>
+        <p>Estas reglas cubren la mayoría de los casos comunes:</p>
+        <ul>
+          <li><strong>Nitratos (NO₃⁻):</strong> todos los nitratos son solubles.</li>
+          <li><strong>Sales de Na⁺, K⁺, NH₄⁺:</strong> casi todas son solubles.</li>
+          <li><strong>Cloruros (Cl⁻):</strong> solubles excepto AgCl, PbCl₂ y Hg₂Cl₂.</li>
+          <li><strong>Sulfatos (SO₄²⁻):</strong> solubles excepto BaSO₄, PbSO₄ y CaSO₄ (LP).</li>
+          <li><strong>Hidróxidos (OH⁻):</strong> insolubles excepto los de metales alcalinos, Ba²⁺ y NH₄⁺.</li>
+          <li><strong>Carbonatos (CO₃²⁻) y fosfatos (PO₄³⁻):</strong> insolubles excepto los de Na⁺, K⁺ y NH₄⁺.</li>
+          <li><strong>Sulfuros (S²⁻):</strong> insolubles excepto los de metales alcalinos, alcalinotérreos y NH₄⁺.</li>
+        </ul>
+
+        <h2>Aplicaciones en el laboratorio</h2>
+        <p>
+          Esta tabla es fundamental para <strong>análisis cualitativo de cationes y aniones</strong> 
+          (marcha analítica), para predecir la formación de precipitados en reacciones de doble 
+          desplazamiento y para seleccionar reactivos de precipitación en métodos gravimétricos.
+        </p>
+        <p>
+          También es útil en el tratamiento de efluentes industriales: por ejemplo, 
+          la remoción de iones plomo o mercurio por precipitación como sulfuros insolubles.
+        </p>
+
+      </div>
+
+      <!-- Herramientas relacionadas -->
+      <div class="bloque-blog-relacionado">
+        <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
+        <a href="calculadora-titulacion.html" class="bloque-blog-relacionado__titulo">→ Calculadora de titulación volumétrica</a>
+        <p class="bloque-blog-relacionado__descripcion">Calculá el volumen de titulante necesario en valoraciones por precipitación o neutralización.</p>
+      </div>
+
+    </div><!-- /contenedor -->
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vercel Speed Insights -->
+  <script type="module" src="../js/init-speed-insights.js"></script>
+  <script src="../js/pwa-register.js"></script>
+
+  <script>
+    /* ── BUSCADOR DE CATIONES ─────────────────────────────── */
+    const buscador = document.getElementById('buscador');
+    const filas    = document.querySelectorAll('#cuerpo-tabla tr');
+
+    buscador.addEventListener('input', function () {
+      const termino = this.value.toLowerCase().trim();
+
+      filas.forEach(function (fila) {
+        // data-cation contiene nombre e símbolo del catión
+        const texto = fila.getAttribute('data-cation') || '';
+        // También busca en el texto visible de la primera celda
+        const celdaCation = fila.querySelector('td:first-child');
+        const textoVisible = celdaCation ? celdaCation.textContent.toLowerCase() : '';
+
+        const coincide = texto.includes(termino) || textoVisible.includes(termino);
+        fila.classList.toggle('fila-oculta', !coincide && termino !== '');
+      });
+    });
+
+    /* ── FILTRO POR SOLUBILIDAD ───────────────────────────── */
+    const botonesFiltra = document.querySelectorAll('.filtro-btn');
+
+    botonesFiltra.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        // Actualizar estado activo del botón
+        botonesFiltra.forEach(function (b) { b.classList.remove('activo'); });
+        this.classList.add('activo');
+
+        const filtro = this.getAttribute('data-filtro');
+
+        filas.forEach(function (fila) {
+          if (filtro === 'todos') {
+            // Mostrar todas (respetando el buscador)
+            const terminoBuscador = buscador.value.toLowerCase().trim();
+            if (terminoBuscador !== '') {
+              const texto       = fila.getAttribute('data-cation') || '';
+              const textoVisible = fila.querySelector('td:first-child')?.textContent.toLowerCase() || '';
+              fila.classList.toggle('fila-oculta', !texto.includes(terminoBuscador) && !textoVisible.includes(terminoBuscador));
+            } else {
+              fila.classList.remove('fila-oculta');
+            }
+            return;
+          }
+
+          // Buscar si la fila tiene al menos una pastilla del tipo pedido
+          const pastillas = fila.querySelectorAll('.pastilla');
+          let tieneFiltro = false;
+
+          pastillas.forEach(function (p) {
+            if (p.classList.contains('pastilla--' + filtro)) {
+              tieneFiltro = true;
+            }
+          });
+
+          fila.classList.toggle('fila-oculta', !tieneFiltro);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
