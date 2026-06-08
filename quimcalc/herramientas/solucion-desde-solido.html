@@ -29,6 +29,7 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "dateModified": "2026-06-08",
     "name": "Preparación de solución desde sólido con pureza",
     "description": "Calculá la masa exacta a pesar de un reactivo sólido considerando su grado de pureza para preparar soluciones de concentración y volumen determinados.",
     "url": "https://quimcalc.com/herramientas/solucion-desde-solido.html",
@@ -38,6 +39,39 @@
     "inLanguage": "es",
     "featureList": ["Masa a pesar con pureza", "Masa de sustancia pura equivalente", "Pasos de preparación"],
     "provider": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Qué pasa si no corrijo por pureza?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La concentración real de la solución va a ser menor a la teórica. En análisis volumétrico esto introduce un error sistemático en todos los resultados. En validación de métodos ISO 17025, la preparación de patrones sin corrección por pureza es una no conformidad."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Puedo usar esta herramienta si la concentración es en g/L?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Al elegir g/L como unidad, la herramienta usa directamente la masa molar para convertir internamente a mol/L antes de calcular. El resultado es el mismo que si hubieras convertido vos."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué diferencia hay entre pureza y título?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "\"Pureza\" se usa habitualmente para sólidos e indica la fracción másica del compuesto principal. \"Título\" o \"riqueza\" se usa más para líquidos (ácidos comerciales). Ambos expresan lo mismo: qué porcentaje del reactivo es la sustancia de interés."
+        }
+      }
+    ]
   }
   </script>
   <script>

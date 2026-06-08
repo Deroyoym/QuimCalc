@@ -29,6 +29,7 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "dateModified": "2026-06-08",
     "name": "Conversor de Concentración Ampliado",
     "description": "Convertí entre mol/L, mmol/L, µmol/L, g/L, mg/L, µg/L, mg/dL, µg/mL, % m/v, ppm y ppb. Requiere masa molar para conversiones entre unidades molares y másicas.",
     "url": "https://quimcalc.com/herramientas/conversor-concentracion.html",
@@ -38,6 +39,31 @@
     "inLanguage": "es",
     "featureList": ["11 unidades de concentración", "Conversión molar ↔ másica", "Equivalencias simultáneas"],
     "provider": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Por qué el conversor pide la masa molar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Las unidades molares (mol/L, mmol/L) expresan cantidad de sustancia, mientras que las másicas (g/L, mg/L) expresan masa. Para pasar de una a otra necesitás saber cuántos gramos pesa un mol del compuesto. Sin la masa molar, solo se pueden hacer conversiones dentro del mismo tipo de unidad."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿mg/dL se usa en química analítica industrial?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Es común en bioquímica clínica (glucosa, colesterol, urea en sangre). En química industrial y ambiental se usa más mg/L. La conversión es directa: 1 mg/dL = 10 mg/L."
+        }
+      }
+    ]
   }
   </script>
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>

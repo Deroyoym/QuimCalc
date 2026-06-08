@@ -29,6 +29,7 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "dateModified": "2026-06-08",
     "name": "Estadística Básica para Laboratorio",
     "description": "Media, mediana, desviación estándar, CV%, intervalo de confianza 95% y detección de outliers con test de Grubbs (ISO 5725) y Dixon Q.",
     "url": "https://quimcalc.com/herramientas/estadistica-laboratorio.html",
@@ -38,6 +39,31 @@
     "inLanguage": "es",
     "featureList": ["Media y mediana","Desviación estándar muestral","CV%","Intervalo de confianza 95%","Test de Grubbs ISO 5725","Test de Dixon Q","Visualización dot-plot"],
     "provider": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Puedo eliminar un outlier y recalcular?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Solo si podés justificar la causa (error de pipeteo registrado, fallo del equipo documentado). La eliminación estadística sin justificación física no está permitida en métodos acreditados ISO 17025. Si eliminás un dato, tenés que documentarlo en el informe."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Por qué se divide por n−1 y no por n?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Porque trabajamos con una muestra (un subconjunto) de todas las mediciones posibles, no con la población completa. Dividir por n−1 en lugar de n corrige el sesgo estadístico y da una estimación más precisa de la variabilidad real del método."
+        }
+      }
+    ]
   }
   </script>
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>

@@ -32,6 +32,7 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "dateModified": "2026-06-08",
     "name": "Calculadora de pH",
     "description": "Calculá el pH de ácidos y bases fuertes o débiles a partir de la concentración.",
     "applicationCategory": "EducationalApplication",
@@ -52,6 +53,31 @@
       "name": "QuimCalc",
       "url": "https://quimcalc.com"
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Por qué esta calculadora usa una aproximación para ácidos débiles?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La fórmula exacta requiere resolver una ecuación cuadrática. La aproximación pH = ½(pKa − log C) es válida cuando C/Ka > 100, es decir cuando la disociación es menor al 5%. En la práctica de laboratorio, esta condición se cumple en casi todos los casos relevantes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué pasa si el resultado es menor a 0 o mayor a 14?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Aunque teóricamente posible en soluciones muy concentradas, valores fuera del rango 0–14 generalmente indican que los datos ingresados tienen algún error. La calculadora avisa si esto ocurre."
+        }
+      }
+    ]
   }
   </script>
 

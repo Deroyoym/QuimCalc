@@ -48,6 +48,47 @@
     }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿El LOD siempre es menor que el LOQ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, siempre. El LOQ es por definición mayor que el LOD. Si tu cálculo arroja un LOQ menor que el LOD, hay un error en los datos o en la metodología aplicada."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué pasa si mido una muestra con concentración entre el LOD y el LOQ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Podés indicar que el analito está presente, pero no podés reportar un valor numérico confiable. En informes acreditados ese resultado se clasifica como \"trazas\" o \"detectado, no cuantificable\"."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿El LOD depende del instrumento o del método?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "De ambos. El instrumento determina el ruido de fondo, pero el método completo —preparación de muestra, diluciones, reactivos— también afecta la sensibilidad final. Por eso el LOD debe calcularse en las condiciones reales de trabajo, no en las del fabricante del equipo."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cada cuánto hay que recalcular el LOD?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No hay una frecuencia fija, pero se recalcula cada vez que cambia algo significativo: nuevo lote de reactivos, cambio de columna cromatográfica, reparación del instrumento o cambio de operador. En métodos acreditados ISO 17025 suele hacerse al menos una vez al año dentro del plan de verificación."
+        }
+      }
+    ]
+  }
+  </script>
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>

@@ -33,6 +33,7 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "dateModified": "2026-06-08",
     "name": "Calculadora de LOD y LOQ",
     "description": "Calculá el límite de detección y cuantificación por 3 métodos distintos.",
     "applicationCategory": "EducationalApplication",
@@ -53,6 +54,39 @@
       "name": "QuimCalc",
       "url": "https://quimcalc.com"
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Por qué el LOQ es siempre mayor que el LOD?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Porque cuantificar con precisión requiere más señal que simplemente detectar. El LOD dice \"algo está ahí\", el LOQ dice \"podemos medirlo con la exactitud suficiente para que el dato sea útil\". En la práctica, una muestra que cae entre LOD y LOQ se reporta como \"detectado pero no cuantificable\" o simplemente como menor al LOQ."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cada cuánto tiempo hay que verificar el LOD y LOQ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "En laboratorios acreditados bajo ISO 17025, los límites se verifican cuando cambia el instrumento, cuando se cambia de lote de reactivos importantes, cuando hay mantenimiento mayor del equipo, o con la frecuencia que establezca el procedimiento de validación del laboratorio. Lo habitual es verificación anual o ante cualquier cambio que pueda afectar la sensibilidad del método."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Esta calculadora sirve para presentar en informes de acreditación?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Los cálculos son correctos y están basados en los métodos estadísticos estándar (ISO 11843, ICH Q2). El detalle del cálculo que genera la herramienta puede incluirse como anexo a los registros internos del laboratorio. Para informes de acreditación formales, el laboratorio debe validar los resultados según su propio procedimiento documentado y con los datos originales del instrumento."
+        }
+      }
+    ]
   }
   </script>
 
@@ -348,17 +382,30 @@
 
         <div class="ejemplo-bloque">
           <strong>Método del blanco (ISO 11843 / IUPAC) — recomendado para la mayoría de los casos</strong>
-          <p>Se mide el blanco al menos 10 veces y se calcula la media y la desviación estándar. LOD = media + 3×s · LOQ = media + 10×s. Es el método preferido por organismos de acreditación como OAA (Argentina) y ENAC (España) porque es experimental y no depende de asumir una forma de distribución específica.</p>
+          <p>Se mide el blanco al menos 10 veces y se calcula la media y la desviación estándar (s):</p>
+          <ul>
+            <li><strong>LOD</strong> = media + 3 × s</li>
+            <li><strong>LOQ</strong> = media + 10 × s</li>
+          </ul>
+          <p>Es el método preferido por organismos de acreditación como OAA (Argentina) y ENAC (España) porque es experimental y no depende de asumir una forma de distribución específica.</p>
         </div>
 
         <div class="ejemplo-bloque">
           <strong>Método de la curva de calibración (ICH Q2 / ICH Q2R1) — para validación de métodos farmacéuticos</strong>
-          <p>LOD = 3.3 × Se / m · LOQ = 10 × Se / m. Donde Se es el error estándar de la regresión y m es la pendiente. Es el método estándar en la industria farmacéutica (guidelines ICH). Requiere haber calculado previamente la curva de calibración.</p>
+          <ul>
+            <li><strong>LOD</strong> = 3.3 × Se / m</li>
+            <li><strong>LOQ</strong> = 10 × Se / m</li>
+          </ul>
+          <p>Donde <strong>Se</strong> es el error estándar de la regresión y <strong>m</strong> es la pendiente. Es el método estándar en la industria farmacéutica (guidelines ICH). Requiere haber calculado previamente la curva de calibración.</p>
         </div>
 
         <div class="ejemplo-bloque">
           <strong>Método S/N — para técnicas cromatográficas y espectrométricas con señal en forma de pico</strong>
-          <p>LOD: concentración que da una señal 3 veces el ruido de la línea base. LOQ: concentración que da S/N = 10. Se usa mucho en HPLC, GC y técnicas de absorción atómica cuando el ruido de fondo es claramente medible en el cromatograma o espectro.</p>
+          <ul>
+            <li><strong>LOD</strong>: concentración que da una señal 3 veces el ruido de la línea base (S/N = 3)</li>
+            <li><strong>LOQ</strong>: concentración que da S/N = 10</li>
+          </ul>
+          <p>Se usa mucho en HPLC, GC y técnicas de absorción atómica cuando el ruido de fondo es claramente medible en el cromatograma o espectro.</p>
         </div>
 
         <h2>Preguntas frecuentes</h2>

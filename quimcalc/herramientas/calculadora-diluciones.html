@@ -32,6 +32,7 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "dateModified": "2026-06-08",
     "name": "Calculadora de Diluciones C₁V₁=C₂V₂",
     "description": "Calculadora de diluciones basada en C₁V₁ = C₂V₂. Dejá un campo vacío y la calculadora resuelve la incógnita automáticamente. Gratis y sin registro.",
     "applicationCategory": "EducationalApplication",
@@ -52,6 +53,39 @@
       "name": "QuimCalc",
       "url": "https://quimcalc.com"
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Las unidades tienen que ser las mismas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. C₁ y C₂ deben estar en la misma unidad de concentración (ambas en mol/L, o ambas en mg/L, etc.). V₁ y V₂ deben estar en la misma unidad de volumen (ambos en mL, o ambos en L). La calculadora no hace conversiones de unidades automáticamente."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Esta ecuación aplica para cualquier tipo de concentración?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, siempre que la concentración sea proporcional a la cantidad de soluto (molaridad, normalidad, ppm, mg/L, % p/v). No aplica directamente para diluciones de soluciones muy concentradas donde la densidad cambia significativamente, como ácidos puros al 96%."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué significa \"factor de dilución\"?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El factor de dilución es la relación V₂/V₁. Si tomás 10 mL y llevás a 100 mL, el factor es 10× (también escrito 1:10). La concentración final es siempre igual a la concentración inicial dividida por ese factor."
+        }
+      }
+    ]
   }
   </script>
   <script>

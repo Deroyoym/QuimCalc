@@ -41,6 +41,47 @@
     "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿La incertidumbre es lo mismo que el error?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. El error es la diferencia entre el valor medido y el valor verdadero (que generalmente no conocemos). La incertidumbre es una estimación de cuán grande puede ser ese error, expresada como un intervalo. Podemos calcular la incertidumbre sin conocer el valor verdadero, usando las fuentes de variabilidad identificadas en el proceso de medición."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuántas componentes de incertidumbre debo incluir?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Todas las que sean significativas. Una regla práctica: si una componente contribuye menos del 1% a la varianza total (es decir, su cuadrado es menos del 1% de la suma de cuadrados), puede despreciarse. En la práctica, entre 3 y 6 componentes suelen cubrir más del 95% de la incertidumbre total en análisis químicos típicos."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Tengo que calcular la incertidumbre para cada muestra?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. La incertidumbre se calcula por método y por rango de concentración, no muestra a muestra. Lo que sí puede variar es el resultado numérico si la muestra está en un rango diferente al de la evaluación original. En ese caso, el laboratorio debe verificar si la incertidumbre calculada sigue siendo representativa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué hago si no tengo certificado de calibración del instrumento?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Usás las especificaciones del fabricante como estimación conservadora para la componente Tipo B correspondiente. Es preferible a no incluirla. Dicho esto, ISO 17025 requiere que los equipos que afectan al resultado estén calibrados con trazabilidad metrológica, así que a largo plazo necesitás el certificado de todos modos."
+        }
+      }
+    ]
+  }
+  </script>
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>

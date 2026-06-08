@@ -41,6 +41,47 @@
     "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Un buffer puede prepararse con cualquier relación [A⁻]/[HA]?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Técnicamente sí, pero la capacidad buffer disminuye cuando la relación se aleja de 1:1. Se considera que un buffer es efectivo cuando la relación está entre 1:10 y 10:1, lo que corresponde a un rango de pH = pKa ± 1. Fuera de ese rango, la solución tiene poca resistencia a los cambios de pH."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿El pKa cambia con la temperatura?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, y en algunos sistemas el cambio es significativo. El TRIS, por ejemplo, tiene un pKa que varía aproximadamente −0.031 unidades por cada grado Celsius. A 25°C su pKa es 8.06, pero a 37°C (temperatura corporal) es ≈ 7.74. Para buffers usados en condiciones distintas a 25°C, siempre verificá el pKa a la temperatura de trabajo."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué diferencia hay entre un buffer y una solución tampón?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Son exactamente lo mismo: \"tampón\" es la traducción al español de \"buffer\". Ambos términos se usan en la literatura científica en español, aunque \"buffer\" está más extendido en el lenguaje del laboratorio cotidiano en Argentina."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Puedo usar Henderson-Hasselbalch para ácidos fuertes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. La ecuación asume que el ácido se disocia parcialmente y establece un equilibrio. Los ácidos fuertes se disocian completamente, por lo que no existe la forma HA sin disociar en solución y la ecuación no aplica. Para ácidos fuertes, el pH se calcula directamente como pH = −log[H⁺]."
+        }
+      }
+    ]
+  }
+  </script>
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>

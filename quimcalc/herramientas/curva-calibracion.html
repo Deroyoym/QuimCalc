@@ -33,6 +33,7 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "dateModified": "2026-06-08",
     "name": "Calculadora de Curva de Calibración",
     "description": "Generá la regresión lineal y el gráfico de tu curva de calibración analítica.",
     "applicationCategory": "EducationalApplication",
@@ -53,6 +54,39 @@
       "name": "QuimCalc",
       "url": "https://quimcalc.com"
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Cuántos puntos necesito para una curva de calibración válida?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El mínimo absoluto es 3 puntos para poder calcular una recta y estimar el error. En la práctica, los métodos normalizados (AOAC, EPA, ISO) generalmente requieren entre 5 y 7 puntos incluyendo el blanco, distribuidos de forma uniforme en el rango de trabajo. Más puntos dan una estimación más confiable del error estándar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Debo incluir el blanco (0, 0) en la curva?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Depende del método. Si el instrumento ya corrige por el blanco antes de leer las muestras, no se incluye. Si la lectura del blanco no es cero (hay señal de fondo), sí se incluye como el primer punto. Incluirlo o no afecta la ordenada al origen (b) de la ecuación."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué hago si el R² es bajo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Primero verificá si hay algún punto \"aberrante\" (outlier) visualmente alejado de la recta. Luego revisá si todos los estándares fueron preparados correctamente y si el instrumento fue estabilizado antes de la lectura. Un R² bajo también puede indicar que la relación no es lineal en ese rango, y habría que reducir el rango de la curva o aplicar otro modelo."
+        }
+      }
+    ]
   }
   </script>
 

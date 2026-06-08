@@ -33,6 +33,7 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
+  "dateModified": "2026-06-08",
   "name": "Calculadora de Diluciones Seriadas",
   "description": "Calculá las concentraciones de cada paso en una dilución seriada de laboratorio.",
   "applicationCategory": "EducationalApplication",
@@ -55,6 +56,31 @@
   }
 }
 </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Por qué es importante que el volumen final sea siempre el mismo en cada tubo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Para que el factor de dilución sea constante entre pasos. Si el volumen final varía de tubo a tubo, la concentración no se reduce de forma uniforme y la serie deja de ser logarítmica. Siempre usá el mismo volumen y la misma pipeta calibrada para las transferencias."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuántos pasos necesito para llegar a una concentración objetivo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Usá la fórmula: n = log(C₀/Cf) / log(factor). Por ejemplo, para ir de 1000 mg/L a 0.01 mg/L con factor 10: n = log(1000/0.01) / log(10) = log(100.000) / 1 = 5 pasos."
+        }
+      }
+    ]
+  }
+  </script>
 
   <style>
     /* Tabla de resultados de la serie */
