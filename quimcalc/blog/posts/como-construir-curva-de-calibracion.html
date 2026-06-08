@@ -41,6 +41,55 @@
     "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Cuántos puntos necesito para una curva válida?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El mínimo estadísticamente aceptable son 5 puntos. Con menos, el R² puede ser alto por coincidencia, no porque el modelo realmente ajuste bien. Lo recomendado en métodos acreditados es 6 a 8 puntos bien distribuidos en el rango de trabajo."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Puedo interpolar si el resultado está fuera del rango?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Si la señal de la muestra corresponde a una concentración fuera del rango calibrado, el resultado es una extrapolación y no es válido analíticamente. La muestra tiene que diluirse (si está por encima) o reanalizar con mayor sensibilidad (si está por debajo del LOQ)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cada cuánto hay que construir una nueva curva?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Depende del método y del instrumento. En espectrofotometría UV-Vis suele construirse una curva por sesión de análisis. En cromatografía puede calibrarse diariamente o cada cierta cantidad de inyecciones, según lo que indique el procedimiento validado."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿El Excel sirve sin la herramienta de QuimCalc?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Podés escribir los datos directamente en las columnas B y C de la hoja PEGAR DATOS (desde la fila 12 en adelante) y la hoja ANÁLISIS va a calcular todo igual. La integración con el exportador de QuimCalc simplemente agiliza el proceso."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿El LOD y LOQ que calcula el Excel son los mismos que la calculadora de LOD/LOQ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, ambos usan el método IUPAC: LOD = 3,3 × Se / m y LOQ = 10 × Se / m, donde Se es el error estándar de la regresión y m es la pendiente. Si querés usar otros métodos (señal/ruido o desviación estándar del blanco), usá la calculadora de LOD y LOQ independiente."
+        }
+      }
+    ]
+  }
+  </script>
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>

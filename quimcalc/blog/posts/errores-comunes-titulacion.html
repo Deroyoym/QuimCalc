@@ -39,6 +39,47 @@
     "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Cuántos decimales debo reportar en el volumen gastado?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Las buretas clase A de 50 mL tienen una resolución de 0.1 mL y una incertidumbre de ±0.05 mL. El volumen se reporta con dos decimales (ej: 23.45 mL). Nunca redondees a un solo decimal porque perdés información relevante para el cálculo."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuántos triplicados son suficientes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Para análisis de rutina, tres réplicas son suficientes si el coeficiente de variación (CV%) entre ellas es menor al 0.5%. Si alguna réplica difiere más del 1% del promedio, descartala y agregá una cuarta. En métodos acreditados bajo ISO 17025, el criterio de aceptación lo define el procedimiento normalizado del laboratorio."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Por qué mis triplicados son exactos entre sí pero el resultado es incorrecto?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Precisión alta con exactitud baja es la firma de un error sistemático. Si los tres valores están muy cerca entre sí pero alejados del valor verdadero, revisá el titulante (estandarización), el indicador (elección y cantidad) y la preparación de la muestra. La precisión indica que tu técnica es consistente; la falta de exactitud indica que hay un sesgo constante en el procedimiento."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Con qué frecuencia debo re-estandarizar el titulante?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Depende del titulante. El NaOH y el Na₂S₂O₃ se degradan relativamente rápido y conviene re-estandarizarlos cada 1–2 semanas o antes de una serie importante de análisis. El HCl en solución diluida es bastante estable y puede durar meses si está bien tapado. El KMnO₄ se re-estandariza antes de cada uso porque se reduce lentamente. Si tenés dudas, re-estandarizá: es mucho más barato que repetir una serie de análisis."
+        }
+      }
+    ]
+  }
+  </script>
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>

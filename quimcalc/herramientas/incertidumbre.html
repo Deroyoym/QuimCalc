@@ -54,6 +54,39 @@
     }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Cuántas componentes debo incluir?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Todas las que contribuyan de forma no despreciable al resultado final. Como mínimo: repetibilidad del instrumento (Tipo A), calibración del instrumento o material de referencia (Tipo B), y resolución del instrumento (Tipo B). Para procesos más complejos se suman: pureza del patrón, preparación de soluciones, temperatura, efecto del operador, etc."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué factor de cobertura (k) uso para ISO 17025?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La mayoría de los laboratorios y organismos de acreditación (OAA en Argentina, ENAC en España) exigen k = 2 con un nivel de confianza aproximado del 95%. Esto es lo que deberías usar salvo que el método específico indique otro valor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿El coeficiente de sensibilidad (ci) siempre es 1?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No siempre. ci representa cuánto afecta la componente de incertidumbre al resultado final. Si el resultado es directamente la magnitud medida, ci = 1. Si hay un factor de dilución de 10, ci = 10 para las componentes previas a la dilución. Si la magnitud entra en una ecuación no lineal (como el pH), ci es la derivada parcial de esa ecuación respecto a esa componente."
+        }
+      }
+    ]
+  }
+  </script>
 
   <style>
     /* Componente de incertidumbre agregado */

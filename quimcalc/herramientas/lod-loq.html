@@ -54,6 +54,39 @@
     }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Por qué el LOQ es siempre mayor que el LOD?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Porque cuantificar con precisión requiere más señal que simplemente detectar. El LOD dice \"algo está ahí\", el LOQ dice \"podemos medirlo con la exactitud suficiente para que el dato sea útil\". En la práctica, una muestra que cae entre LOD y LOQ se reporta como \"detectado pero no cuantificable\" o simplemente como menor al LOQ."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cada cuánto tiempo hay que verificar el LOD y LOQ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "En laboratorios acreditados bajo ISO 17025, los límites se verifican cuando cambia el instrumento, cuando se cambia de lote de reactivos importantes, cuando hay mantenimiento mayor del equipo, o con la frecuencia que establezca el procedimiento de validación del laboratorio. Lo habitual es verificación anual o ante cualquier cambio que pueda afectar la sensibilidad del método."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Esta calculadora sirve para presentar en informes de acreditación?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Los cálculos son correctos y están basados en los métodos estadísticos estándar (ISO 11843, ICH Q2). El detalle del cálculo que genera la herramienta puede incluirse como anexo a los registros internos del laboratorio. Para informes de acreditación formales, el laboratorio debe validar los resultados según su propio procedimiento documentado y con los datos originales del instrumento."
+        }
+      }
+    ]
+  }
+  </script>
 
   <style>
     /* Bloque de resultado especial para LOD/LOQ — dos valores */

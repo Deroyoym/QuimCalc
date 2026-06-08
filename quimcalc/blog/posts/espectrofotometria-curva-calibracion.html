@@ -41,6 +41,39 @@
     "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Cuántos estándares necesito para una curva de calibración?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El mínimo estadístico es 3 puntos para calcular una recta. En la práctica, los métodos normalizados (APHA, EPA, ISO) requieren entre 5 y 7 puntos incluyendo el blanco. Más puntos permiten detectar desviaciones de la linealidad y dan una estimación más confiable del error. Para métodos bajo ISO 17025, es habitual documentar el rango de trabajo con al menos 6 puntos."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Con qué frecuencia hay que recalibrar el instrumento?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Depende del método y del uso. Para análisis de rutina, muchos laboratorios recalibran al inicio de cada jornada o cada vez que se cambia de lote de reactivos. Algunos métodos requieren verificar la curva con un estándar de control cada 10 o 20 muestras. El procedimiento de control de calidad del laboratorio debe definir la frecuencia de calibración y los criterios de aceptación del estándar de control."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿La curva de calibración debe pasar por el origen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No necesariamente. Si el blanco de la matriz tiene absorbancia distinta de cero (por color propio, reactivos, etc.), la ordenada al origen b será distinta de cero y eso es correcto. Lo importante es que la recta esté bien ajustada (R² alto) y que el blanco sea representativo de la matriz de las muestras. Forzar la recta a pasar por el origen cuando el blanco real no es cero introduce error sistemático."
+        }
+      }
+    ]
+  }
+  </script>
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>

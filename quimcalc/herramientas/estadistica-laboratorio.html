@@ -40,6 +40,31 @@
     "provider": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-08",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Puedo eliminar un outlier y recalcular?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Solo si podés justificar la causa (error de pipeteo registrado, fallo del equipo documentado). La eliminación estadística sin justificación física no está permitida en métodos acreditados ISO 17025. Si eliminás un dato, tenés que documentarlo en el informe."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Por qué se divide por n−1 y no por n?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Porque trabajamos con una muestra (un subconjunto) de todas las mediciones posibles, no con la población completa. Dividir por n−1 en lugar de n corrige el sesgo estadístico y da una estimación más precisa de la variabilidad real del método."
+        }
+      }
+    ]
+  }
+  </script>
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
   <style>
