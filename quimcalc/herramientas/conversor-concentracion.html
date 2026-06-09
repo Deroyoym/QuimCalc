@@ -311,7 +311,7 @@
   <footer class="footer">
     <div class="contenedor">
       <div class="footer__inner">
-        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico, Argentina.</p>
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico.</p>
         <nav class="footer__links" aria-label="Links del pie de página">
           <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
           <a href="../politicas-de-privacidad.html">Privacidad</a>
@@ -390,8 +390,8 @@
       if (n === 0) return '0';
       var abs = Math.abs(n);
       if (abs >= 1e9)   return n.toExponential(4);
-      if (abs >= 1e6)   return n.toLocaleString('es-AR', {maximumFractionDigits:2});
-      if (abs >= 1000)  return n.toLocaleString('es-AR', {maximumFractionDigits:4});
+      if (abs >= 1e6)   return n.toLocaleString('es', {maximumFractionDigits:2});
+      if (abs >= 1000)  return n.toLocaleString('es', {maximumFractionDigits:4});
       if (abs >= 1)     return n.toPrecision(6);
       if (abs >= 1e-3)  return n.toPrecision(5);
       return n.toExponential(4);

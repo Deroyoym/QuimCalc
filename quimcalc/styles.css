@@ -1169,3 +1169,46 @@ a:hover {
 .compartir__btn--li { background-color: #0A66C2; }
 .compartir__btn--wa { background-color: #25D366; }
 
+/* ── ANIMACIONES DE ENTRADA ──────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Clase base: invisible y desplazada */
+.fade-in {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Clase que activa la animación (añadida por IntersectionObserver) */
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animación flash del bloque de resultado al calcularse */
+@keyframes flashResultado {
+  0%   { background-color: var(--color-fondo-card); }
+  35%  { background-color: #E4F2EC; }
+  100% { background-color: var(--color-fondo-card); }
+}
+
+.resultado--calculado {
+  animation: flashResultado 0.6s ease;
+}
+
+/* Respeta preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .resultado--calculado {
+    animation: none;
+  }
+}
+
