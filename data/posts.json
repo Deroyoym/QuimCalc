@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "como-preparar-soluciones-estandar-correctamente",
+    "title": "Cómo preparar soluciones estándar correctamente",
+    "description": "Evitá errores de enrase y pesada. Descubrí la guía paso a paso para preparar soluciones estándar con la precisión y rigurosidad que exige la ISO 17025.",
+    "category": "Química básica",
+    "category_color": "#1A5C38",
+    "date": "Mayo 2026",
+    "date_sort": "2026-05-01",
+    "minutes": 5,
+    "image": "img/como-preparar-soluciones-estandar-correctamente.webp",
+    "image_alt": "Analista utilizando una pipeta para transferir una solución transparente a una cubeta de vidrio frente a un espectrofotómetro"
+  },
+  {
+    "slug": "que-es-el-limite-de-deteccion",
+    "title": "¿Qué es el límite de detección y cómo se calcula?",
+    "description": "Guía práctica sobre LOD y LOQ en química analítica. Aprendé qué significan, cómo diferenciarlos y cuáles son los 3 métodos estadísticos más utilizados para calcularlos con precisión en tu laboratorio.",
+    "category": "Normativa y calidad",
+    "category_color": "#DC2626",
+    "date": "Mayo 2026",
+    "date_sort": "2026-05-01",
+    "minutes": 8,
+    "image": "img/que-es-el-limite-de-deteccion.webp",
+    "image_alt": "Analista utilizando una pipeta para transferir una solución transparente a una cubeta de vidrio frente a un espectrofotómetro"
+  },
+  {
+    "slug": "como-construir-curva-de-calibracion",
+    "title": "Cómo construir una curva de calibración paso a paso",
+    "description": "Dominá la preparación y el análisis de tus curvas de calibración. Una guía paso a paso para ingresar datos correctamente, evaluar el coeficiente de correlación (R²), interpolar muestras y asegurar la trazabilidad.",
+    "category": "Instrumentación",
+    "category_color": "#7C3AED",
+    "date": "Mayo 2026",
+    "date_sort": "2026-05-01",
+    "minutes": 10,
+    "image": "img/como-construir-curva-de-calibracion.webp",
+    "image_alt": "Fila de cinco cubetas de vidrio con soluciones en degradado desde transparente hasta azul intenso sobre una mesa de laboratorio"
+  },
+  {
+    "slug": "que-es-la-molaridad",
+    "title": "¿Qué es la molaridad y cómo se calcula?",
+    "description": "Guía completa sobre la concentración molar: definición, fórmula, ejemplos resueltos y los errores más comunes en la preparación de soluciones en el laboratorio.",
+    "category": "Química básica",
+    "category_color": "#1A5C38",
+    "date": "Abril 2026",
+    "date_sort": "2026-04-01",
+    "minutes": 8,
+    "image": "img/post-molaridad.webp",
+    "image_alt": "Matraz aforado para preparar soluciones de concentración molar en laboratorio químico"
+  },
+  {
+    "slug": "dureza-agua-gran-rosario",
+    "title": "Dureza del agua en el Gran Rosario: ¿qué dicen los datos?",
+    "description": "Análisis de los niveles de dureza típicos en la región, su impacto en calderas, intercambiadores y redes industriales, y qué establece el Código Alimentario Argentino.",
+    "category": "Agua y medio ambiente",
+    "category_color": "#059669",
+    "date": "Abril 2026",
+    "date_sort": "2026-04-01",
+    "minutes": 6,
+    "image": "img/dureza-gran-rosario.webp",
+    "image_alt": "Planta de tratamiento de agua potable, Santa Fe, Argentina"
+  },
+  {
+    "slug": "errores-comunes-titulacion",
+    "title": "Los 5 errores más comunes en titulaciones y cómo evitarlos",
+    "description": "Desde la preparación del titulante hasta la detección del punto de equivalencia: los errores sistemáticos que más afectan la exactitud en volumetrías ácido-base y redox.",
+    "category": "Análisis volumétrico",
+    "category_color": "#D97706",
+    "date": "Abril 2026",
+    "date_sort": "2026-04-01",
+    "minutes": 10,
+    "image": "img/titulacion.webp",
+    "image_alt": "Indicador de pH en una titulación ácido-base"
+  },
+  {
+    "slug": "normalidad-vs-molaridad",
+    "title": "Normalidad vs. Molaridad: diferencias, fórmulas y cuándo usar cada una",
+    "description": "Molaridad y normalidad son las dos unidades de concentración más usadas. Muchos técnicos las confunden. Explicamos las diferencias, los factores de equivalencia y cuándo corresponde cada una.",
+    "category": "Química básica",
+    "category_color": "#1A5C38",
+    "date": "Abril 2026",
+    "date_sort": "2026-04-01",
+    "minutes": 10,
+    "image": "img/molaridad-normalidad.webp",
+    "image_alt": "Material de vidrio de laboratorio para preparación de soluciones de distinta concentración"
+  },
+  {
+    "slug": "que-es-el-pka-y-como-usar-buffers",
+    "title": "¿Qué es el pKa y cómo se usa para preparar buffers?",
+    "description": "El pKa determina a qué pH un ácido está a la mitad de su disociación y cuándo es efectivo como buffer. Todo sobre Henderson-Hasselbalch con ejemplos resueltos paso a paso.",
+    "category": "Química básica",
+    "category_color": "#1A5C38",
+    "date": "Abril 2026",
+    "date_sort": "2026-04-01",
+    "minutes": 11,
+    "image": "img/pka-buffers.webp",
+    "image_alt": "Medidor de pH en solución buffer de laboratorio para análisis químico"
+  },
+  {
+    "slug": "espectrofotometria-curva-calibracion",
+    "title": "Espectrofotometría UV-Vis y curva de calibración: guía práctica",
+    "description": "Ley de Beer-Lambert, cómo construir una curva de calibración correctamente, cómo interpretar el R² y calcular concentraciones de muestras desconocidas.",
+    "category": "Instrumentación",
+    "category_color": "#7C3AED",
+    "date": "Abril 2026",
+    "date_sort": "2026-04-01",
+    "minutes": 12,
+    "image": "img/espectrofotometria-curva-calibracion.webp",
+    "image_alt": "Espectrofotómetro UV-Vis para construcción de curva de calibración analítica"
+  },
+  {
+    "slug": "incertidumbre-para-no-estadisticos",
+    "title": "Incertidumbre de medición para no estadísticos: guía práctica",
+    "description": "Qué es la incertidumbre, por qué la exige ISO 17025, componentes Tipo A y Tipo B, incertidumbre combinada y expandida. Con un ejemplo completo resuelto paso a paso.",
+    "category": "Normativa y calidad",
+    "category_color": "#DC2626",
+    "date": "Abril 2026",
+    "date_sort": "2026-04-01",
+    "minutes": 14,
+    "image": "img/incertidumbre-para-no-estadisticos.webp",
+    "image_alt": "Balanza analítica de precisión para medición con incertidumbre en laboratorio ISO 17025"
+  }
+]

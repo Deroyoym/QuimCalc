@@ -7,7 +7,7 @@
 //   • Todo lo demás   → Network-First con fallback al caché
 // ============================================================
 
-const CACHE_VERSION   = 'v3.010';                           // ← incrementar cuando hagas cambios grandes
+const CACHE_VERSION   = 'v3.012';                           // ← incrementar cuando hagas cambios grandes
 const CACHE_ESTATICO  = `quimcalc-estatico-${CACHE_VERSION}`;
 const CACHE_PAGINAS   = `quimcalc-paginas-${CACHE_VERSION}`;
 
@@ -17,31 +17,24 @@ const PRECACHE_URLS = [
   '/',
   '/index.html',
   '/styles.css',
-  '/manifest.json',
-
-  // Herramientas principales
-  '/herramientas/calculadora-molaridad.html',
-  '/herramientas/calculadora-diluciones.html',
+  '/assets/site.webmanifest',
+  '/herramientas/lod-loq.html',
+  '/herramientas/calculadora-titulacion.html',
+  '/herramientas/calculadora-buffers.html',
+  '/herramientas/dureza-agua.html',
   '/herramientas/calculadora-ph.html',
   '/herramientas/masa-molar.html',
-  '/herramientas/calculadora-buffers.html',
-  '/herramientas/calculadora-titulacion.html',
-  '/herramientas/dureza-agua.html',
-  '/herramientas/conversor-concentracion.html',
-  // JS de esas herramientas
-  '/herramientas/js/molaridad.js',
-  '/herramientas/js/diluciones.js',
+  '/herramientas/calculadora-diluciones.html',
+  '/herramientas/calculadora-molaridad.html',
+  '/herramientas/js/titulacion.js',
+  '/herramientas/js/buffers.js',
+  '/herramientas/js/dureza-agua.js',
   '/herramientas/js/calculadora-ph.js',
   '/herramientas/js/masa-molar.js',
-  '/herramientas/js/buffers.js',
-  '/herramientas/js/titulacion.js',
-  '/herramientas/js/dureza-agua.js',
-
-  // Íconos de la PWA
+  '/herramientas/js/diluciones.js',
+  '/herramientas/js/molaridad.js',
   '/assets/android-chrome-192x192.png',
   '/assets/android-chrome-512x512.png',
-
-  // Página offline de respaldo
   '/offline.html',
 ];
 
