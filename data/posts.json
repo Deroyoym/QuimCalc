@@ -1,5 +1,17 @@
 [
   {
+    "slug": "como-calibrar-material-de-vidrio-volumetrico",
+    "title": "Cómo calibrar material de vidrio volumétrico en tu laboratorio",
+    "description": "Aprendé a verificar y calibrar matraces, pipetas y buretas mediante gravimetría. Guía práctica paso a paso según la norma ISO 4787 para laboratorios.",
+    "category": "Normativa y calidad",
+    "category_color": "#DC2626",
+    "date": "Junio 2026",
+    "date_sort": "2026-06-17",
+    "minutes": 6,
+    "image": "img/como-calibrar-material-de-vidrio-volumetrico.webp",
+    "image_alt": "Matraz aforado sobre el platillo de una balanza analítica durante un ensayo de calibración gravimétrica."
+  },
+  {
     "slug": "como-preparar-soluciones-estandar-correctamente",
     "title": "Cómo preparar soluciones estándar correctamente",
     "description": "Evitá errores de enrase y pesada. Descubrí la guía paso a paso para preparar soluciones estándar con la precisión y rigurosidad que exige la ISO 17025.",

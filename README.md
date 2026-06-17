@@ -1,62 +1,77 @@
 # QuimCalc
- 
+
 **Suite de herramientas de cálculo y blog para química analítica e industrial.**
- 
-Sitio web estático orientado a técnicos de laboratorio, estudiantes y profesionales de la química. Construido sin frameworks, con HTML, CSS y JavaScript vanilla puro.
- 
+
+Sitio web estático para técnicos de laboratorio, estudiantes y profesionales de la química del mundo hispanohablante. Construido sin frameworks, con HTML, CSS y JavaScript vanilla puro.
+
+**Sitio en vivo:** [quimcalc.com](https://quimcalc.com)
+
 ---
- 
-## 🔬 ¿Qué es QuimCalc?
- 
-QuimCalc ofrece calculadoras y conversores de uso diario en el laboratorio, más artículos educativos sobre química analítica, instrumentación y normativa de calidad. El proyecto está orientado inicialmente al mercado de habla hispana, con foco en Argentina.
- 
-**Herramientas disponibles:** 15  
-**Posts del blog:** 7 (+ plantilla para nuevos)  
-**Dependencias externas:** 0  
- 
+
+## ¿Qué es QuimCalc?
+
+QuimCalc ofrece 24 calculadoras y conversores de uso diario en el laboratorio, más artículos educativos sobre química analítica, instrumentación y normativa de calidad.
+
+**Herramientas disponibles:** 24 (20 calculadoras + 4 tablas de referencia)
+**Posts del blog:** 10
+**Dependencias externas:** 0
+
 ---
- 
-## ⚗️ Herramientas incluidas
- 
-### Básicas
-| Herramienta | Descripción |
+
+## Herramientas incluidas
+
+### Calculadoras básicas
+| Herramienta | Archivo |
 |---|---|
-| Molaridad y masa | Calcula gramos de soluto con corrección por pureza |
-| Diluciones C₁V₁=C₂V₂ | Resuelve cualquier incógnita de la ecuación de dilución |
-| Conversor ppm / mg/L / Normalidad | Conversión entre unidades de concentración |
-| Calculadora de pH | Ácidos/bases fuertes y débiles (con Ka/Kb) |
-| % Rendimiento | Calcula rendimiento, masa teórica u obtenida |
-| Temperatura °C / °F / K | Conversor entre las tres escalas |
-| Concentración % p/p | Porcentaje peso/peso con tres incógnitas posibles |
-| Masa Molar | Parser de fórmulas químicas (soporta paréntesis: Ca(OH)₂) |
- 
-### Intermedias
-| Herramienta | Descripción |
+| Molaridad y masa | `calculadora-molaridad.html` |
+| Diluciones C₁V₁=C₂V₂ | `calculadora-diluciones.html` |
+| Conversor ppm / mg/L | `conversor-ppm-mgl.html` |
+| Calculadora de pH | `calculadora-ph.html` |
+| % Rendimiento | `calculadora-rendimiento.html` |
+| Conversor de temperatura | `conversor-temperatura.html` |
+| Concentración % p/p, p/v, v/v | `concentracion-pp.html` |
+| Masa Molar | `masa-molar.html` |
+
+### Calculadoras intermedias
+| Herramienta | Archivo |
 |---|---|
-| Buffers — Henderson-Hasselbalch | pH, relación [A⁻]/[HA] o pKa. Tabla de pKa incluida |
-| Diluciones seriadas | Genera tabla completa de la serie con volúmenes por tubo |
-| Dureza del agua | Conversor entre 8 unidades + clasificación OMS |
-| Titulación volumétrica | Normalidad, masa y % del analito desde datos de titulación |
- 
-### Elaboradas (ISO 17025)
-| Herramienta | Descripción |
+| Buffers — Henderson-Hasselbalch | `calculadora-buffers.html` |
+| Diluciones seriadas | `diluciones-seriadas.html` |
+| Dureza del agua (8 unidades) | `dureza-agua.html` |
+| Titulación volumétrica | `calculadora-titulacion.html` |
+
+### Calculadoras avanzadas
+| Herramienta | Archivo |
 |---|---|
-| Curva de calibración | Regresión lineal, R², gráfico canvas, interpolación, exportación |
-| LOD y LOQ | Tres métodos: blanco (ISO 11843), curva (ICH Q2), señal/ruido |
-| Incertidumbre GUM | Tipo A + Tipo B, u_c, U expandida, desglose por componente |
- 
+| Curva de calibración | `curva-calibracion.html` |
+| LOD / LOQ (3 métodos) | `lod-loq.html` |
+| Incertidumbre GUM | `incertidumbre.html` |
+| % Recuperación y error sistemático | `recuperacion-error.html` |
+| Solución desde sólido con pureza | `solucion-desde-solido.html` |
+| Dilución desde reactivo comercial | `diluciones-reactivo-comercial.html` |
+| Estadística básica para laboratorio | `estadistica-laboratorio.html` |
+| Conversor de concentración ampliado | `conversor-concentracion.html` |
+
+### Tablas de referencia
+| Tabla | Archivo |
+|---|---|
+| Tabla periódica interactiva | `tabla-periodica.html` |
+| Tabla de pKa | `tabla-pka.html` |
+| Tabla de indicadores ácido-base | `tabla-indicadores.html` |
+| Tabla de solubilidad | `tabla-solubilidad.html` |
+
 ---
- 
-## 📝 Blog
- 
-Posts publicados sobre química analítica, agua y medio ambiente, instrumentación y normativa de calidad. Cada post incluye tabla de contenidos, herramientas relacionadas en el sidebar y ejemplos resueltos.
- 
+
+## Blog
+
+10 posts sobre química analítica, instrumentación y normativa de calidad.
+
 **Categorías:** Química básica · Agua y medio ambiente · Análisis volumétrico · Instrumentación · Normativa y calidad
- 
+
 ---
- 
-## 🛠️ Stack tecnológico
- 
+
+## Stack tecnológico
+
 ```
 HTML5 semántico
 CSS3 con variables (:root)     — sin frameworks
@@ -64,106 +79,107 @@ JavaScript ES6 vanilla         — sin librerías externas
 BEM                            — nomenclatura de clases
 SVG inline (Lucide)            — íconos embebidos
 JSON-LD                        — datos estructurados SEO
-Google Fonts                   — Source Serif 4 + DM Sans
+PWA + Service Worker           — disponible offline
+Vercel                         — hosting y deploy automático
 ```
- 
+
 Sin npm. Sin Node. Sin React. Sin bundler. Abrís el `index.html` y funciona.
- 
+
 ---
- 
-## 🎨 Identidad visual
- 
-Paleta editorial verde oscuro + crema, tipografía serif para títulos. Diseño orientado a un público técnico-científico.
- 
-| Variable | Color | Uso |
+
+## Estructura del proyecto
+
+```
+QuimCalc/
+├── data/
+│   ├── posts.json              ← metadatos de posts (editá acá para agregar)
+│   └── tools.json              ← metadatos de herramientas
+├── scripts/
+│   └── sync_indexes.py         ← regenera blog/index.html, sitemap y sw.js
+├── INSTRUCCIONES.md            ← guía detallada para agregar contenido
+└── quimcalc/                   ← raíz del sitio (servida por Vercel)
+    ├── index.html
+    ├── styles.css
+    ├── sw.js                   ← Service Worker PWA
+    ├── sitemap.xml
+    ├── js/
+    │   ├── animations.js       ← fade-in on scroll (IntersectionObserver)
+    │   ├── pwa-register.js
+    │   └── init-speed-insights.js
+    ├── herramientas/
+    │   ├── *.html
+    │   └── js/
+    └── blog/
+        ├── index.html
+        └── posts/
+            ├── PLANTILLA-post.html
+            ├── img/
+            └── *.html
+```
+
+---
+
+## Cómo agregar contenido nuevo
+
+> Ver guía completa en **[INSTRUCCIONES.md](./INSTRUCCIONES.md)**
+
+### Resumen — Post nuevo
+
+```bash
+# 1. Crear el HTML del post desde la plantilla
+cp quimcalc/blog/posts/PLANTILLA-post.html quimcalc/blog/posts/nombre-del-articulo.html
+# Editar el archivo y completar el contenido
+
+# 2. Agregar la imagen (WebP, 600×200 px)
+# quimcalc/blog/posts/img/nombre-del-articulo.webp
+
+# 3. Registrar el post en data/posts.json (agregar objeto al array)
+
+# 4. Sincronizar índices
+python scripts/sync_indexes.py
+
+# 5. Publicar
+git add . && git commit -m "Blog: agrega post 'Título'" && git push
+```
+
+### Resumen — Herramienta nueva
+
+```bash
+# 1. Crear el HTML de la herramienta
+cp quimcalc/herramientas/calculadora-molaridad.html quimcalc/herramientas/nueva-herramienta.html
+# Editar el archivo
+
+# 2. Agregar el bloque en quimcalc/index.html (sección #herramientas)
+
+# 3. Registrar en data/tools.json
+
+# 4. Sincronizar índices
+python scripts/sync_indexes.py
+
+# 5. Publicar
+git add . && git commit -m "Herramienta: agrega 'Nombre'" && git push
+```
+
+---
+
+## Deploy
+
+El sitio se despliega automáticamente en Vercel al hacer push a `main`. No se requiere ninguna acción manual.
+
+---
+
+## Identidad visual
+
+| Variable CSS | Color | Uso |
 |---|---|---|
 | `--color-fondo` | `#F7F5F0` | Fondo principal (crema cálida) |
-| `--color-acento` | `#1A5C38` | Botones, links, destacados (verde oscuro) |
-| `--color-header-bg` | `#1C2E22` | Header y footer (verde muy oscuro) |
-| `--color-texto` | `#1C1A17` | Texto principal (marrón muy oscuro) |
-| `--color-borde` | `#D4CFC4` | Bordes y separadores (arena) |
- 
-**Tipografías:** Source Serif 4 (títulos, italic) + DM Sans (cuerpo)
- 
+| `--color-acento` | `#1A5C38` | Botones, links, destacados (verde) |
+| `--color-header-bg` | `#1C2E22` | Header y footer (verde oscuro) |
+| `--color-texto` | `#1C1A17` | Texto principal |
+| `--color-borde` | `#D4CFC4` | Bordes y separadores |
+
+**Tipografías:** Source Serif 4 (títulos) · DM Sans (cuerpo)
+
 ---
- 
-## 📁 Estructura del proyecto
- 
-```
-/
-├── index.html
-├── styles.css                  ← CSS global compartido por todo el sitio
-├── sobre-el-proyecto.html
-├── politicas-de-privacidad.html
-├── terminos-de-uso.html
-│
-├── herramientas/
-│   ├── calculadora-molaridad.html
-│   ├── calculadora-diluciones.html
-│   ├── conversor-ppm-mgl.html
-│   ├── calculadora-ph.html
-│   ├── calculadora-rendimiento.html
-│   ├── conversor-temperatura.html
-│   ├── concentracion-pp.html
-│   ├── masa-molar.html
-│   ├── calculadora-buffers.html
-│   ├── diluciones-seriadas.html
-│   ├── dureza-agua.html
-│   ├── calculadora-titulacion.html
-│   ├── curva-calibracion.html
-│   ├── lod-loq.html
-│   ├── incertidumbre.html
-│   └── js/                     ← un archivo JS por herramienta
-│       └── *.js
-│
-└── blog/
-    ├── index.html
-    └── posts/
-        ├── PLANTILLA-post.html ← plantilla comentada para posts nuevos
-        └── *.html
-```
- 
----
- 
-## 🚀 Uso
- 
-No requiere instalación ni servidor. Cloná el repositorio y abrí `index.html` en el navegador:
- 
-```bash
-git clone https://github.com/tu-usuario/quimcalc.git
-cd quimcalc
-# Abrís index.html directamente en el navegador
-```
- 
-Para subir a producción, copiá todos los archivos a `public_html/` en Hostinger via FTP o el administrador de archivos del panel.
- 
----
- 
-## ✍️ Cómo agregar un post nuevo
- 
-1. Copiá `blog/posts/PLANTILLA-post.html` con el nombre del artículo (ej: `nombre-del-articulo.html`)
-2. Reemplazá todo lo que está entre `[corchetes]` con el contenido real
-3. Agregá una card en `blog/index.html` copiando una de las existentes
-4. Actualizá el contador de la categoría en el sidebar del blog
-5. Si querés que aparezca en el index principal, actualizá la sección "Del blog" en `index.html`
-6. Subí los archivos modificados por FTP
----
- 
-## 🗺️ Roadmap
- 
-- [ ] Página de contacto (WhatsApp + email)
-- [ ] Generador de posts (CMS simple en `/admin/`)
-- [ ] Imágenes en cards y headers de posts
-- [ ] Sitemap.xml + Google Search Console
-- [ ] Más posts del blog (37 temas planificados)
-- [ ] Google AdSense (cuando llegue a 3.000-5.000 visitas/mes)
-- [ ] Sistema de registro para generar informes PDF (largo plazo)
----
- 
-## 📄 Licencia
- 
-Uso personal. El código es de autoría propia. Las fórmulas químicas implementadas son de dominio público.
- 
----
- 
+
 *Desarrollado con asistencia de Claude (Anthropic).*
