@@ -8,19 +8,25 @@
   ================================================================
   PLANTILLA DE POST — QuimCalc
   ================================================================
-  INSTRUCCIONES PARA USAR ESTA PLANTILLA:
-  
+  INSTRUCCIONES PARA USAR ESTA PLANTILLA (flujo actual con auto-sync):
+
   1. Copiá este archivo a /blog/posts/nombre-del-articulo.html
      (usá guiones en vez de espacios, todo en minúsculas)
-  
+
   2. Reemplazá TODO lo que está entre corchetes [ASÍ]
-  
-  3. Agregá el post al índice del blog (blog/index.html)
-     copiando una de las cards existentes y actualizando
-     título, resumen, fecha y enlace.
-  
-  4. Si el post tiene herramientas relacionadas, actualizá
-     la sección del sidebar.
+
+  3. Si el post tiene herramientas relacionadas, actualizá
+     la sección del sidebar "Herramientas relacionadas".
+
+  4. Registrá el post en data/posts.json (objeto nuevo al
+     principio del array — ver INSTRUCCIONES.md sección 1).
+     NO edites blog/index.html a mano: se regenera solo.
+
+  5. Corré: python scripts/sync_indexes.py
+     Esto actualiza blog/index.html, sitemap.xml y sw.js
+     (versión de caché incluida) automáticamente.
+
+  Guía completa: ver INSTRUCCIONES.md en la raíz del repo.
   ================================================================
   -->
 
@@ -28,7 +34,7 @@
   <title>[TÍTULO DEL POST] | QuimCalc</title>
   <meta name="description" content="[RESUMEN DEL POST EN 1-2 ORACIONES — máximo 160 caracteres. Este texto aparece en Google.]">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://quimcalc.com/blog/posts/PLANTILLA-post.html">
+  <meta property="og:url" content="https://quimcalc.com/blog/posts/[nombre-del-articulo].html">
   <meta property="og:title" content="[TÍTULO DEL POST] | QuimCalc">
   <meta property="og:description" content="[RESUMEN DEL POST EN 1-2 ORACIONES — máximo 160 caracteres. Este texto aparece en Google.]">
   <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
@@ -40,7 +46,7 @@
   <meta name="author" content="QuimCalc">
 
   <!-- Fecha de publicación para Google (formato ISO 8601) -->
-  <meta name="article:published_time" content="2025-01-01">
+  <meta name="article:published_time" content="[2026-01-01]">
   <link rel="preload" href="../../styles.css" as="style">
   <link rel="stylesheet" href="../../styles.css">
   <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
@@ -59,17 +65,35 @@
     "@type": "Article",
     "headline": "[TÍTULO DEL POST]",
     "description": "[RESUMEN BREVE DEL POST]",
-    "datePublished": "2025-01-01",
-    "dateModified": "2025-01-01",
-    "author": {
-      "@type": "Organization",
-      "name": "QuimCalc"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "QuimCalc",
-      "url": "https://quimcalc.com"
-    }
+    "datePublished": "[2026-01-01]",
+    "dateModified": "[2026-01-01]",
+    "author": { "@type": "Organization", "name": "QuimCalc" },
+    "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" },
+    "inLanguage": "es"
+  }
+  </script>
+  <!--
+    OPCIONAL — JSON-LD de FAQPage: agregalo solo si el post tiene
+    sección de preguntas frecuentes. Duplicá cada pregunta/respuesta
+    igual que aparecen en los .faq-item del cuerpo del artículo.
+  -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "[2026-01-01]",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "[Pregunta frecuente 1]",
+        "acceptedAnswer": { "@type": "Answer", "text": "[Respuesta 1]" }
+      },
+      {
+        "@type": "Question",
+        "name": "[Pregunta frecuente 2]",
+        "acceptedAnswer": { "@type": "Answer", "text": "[Respuesta 2]" }
+      }
+    ]
   }
   </script>
   <script>
@@ -127,16 +151,17 @@
             <!-- Categoría — elegí una y cambiá el color si querés -->
             <p class="post-header__categoria">
               <!--
-                CATEGORÍAS DISPONIBLES Y SUS COLORES:
-                  Química básica         → color: var(--color-acento)   #2563EB azul
-                  Agua y medio ambiente  → color: #059669               verde
-                  Análisis volumétrico   → color: #D97706               naranja
-                  Laboratorio industrial → color: #7C3AED               violeta
-                  Normativa y calidad    → color: #DC2626               rojo
+                CATEGORÍAS DISPONIBLES Y SUS COLORES (deben coincidir con
+                category_color en data/posts.json para ese mismo post):
+                  Química básica         → #1A5C38   verde
+                  Agua y medio ambiente  → #059669   verde agua
+                  Análisis volumétrico   → #D97706   naranja
+                  Instrumentación        → #7C3AED   violeta
+                  Normativa y calidad    → #DC2626   rojo
 
                 Copiá el color que corresponda en el style="" de abajo.
               -->
-              <span style="color: var(--color-acento);">[CATEGORÍA DEL POST]</span>
+              <span style="color: #1A5C38;">[CATEGORÍA DEL POST]</span>
             </p>
 
             <!-- Título principal — puede ser largo, Playfair se ve bien -->
@@ -154,7 +179,7 @@
             <div class="post-header__meta">
               <span class="post-header__meta-item">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                [MES AÑO — ej: Enero 2025]
+                [MES AÑO — ej: Enero 2026]
               </span>
               <span class="post-header__meta-item">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -163,6 +188,17 @@
             </div>
 
           </header>
+
+          <!--
+            OPCIONAL — Imagen destacada del post. Usá la misma imagen
+            que registraste en data/posts.json (campo "image"), formato
+            WebP, proporción 3:1 (ej: 600×200 px o mayor).
+          -->
+          <figure style="margin: 0 0 var(--espacio-lg);">
+            <img src="img/[nombre-del-articulo].webp"
+                 alt="[Descripción accesible de la imagen para lectores de pantalla]"
+                 style="width:100%; border-radius: var(--radio-md);" loading="eager">
+          </figure>
 
           <!-- ── CUERPO DEL ARTÍCULO ─────────────────────
                REFERENCIA RÁPIDA DE ELEMENTOS DISPONIBLES:
@@ -236,6 +272,18 @@
               <p>[Respuesta.]</p>
             </div>
 
+            <!--
+              OPCIONAL — Fuentes consultadas. Agregá esta sección si el
+              post cita normas, papers o libros. Formato APA, sin links
+              salvo que la fuente sea de acceso público.
+            -->
+            <h2 id="fuentes-consultadas">Fuentes consultadas</h2>
+
+            <ul>
+              <li>[Apellido, Inicial. (Año). <em>Título de la obra</em> (ed.). Editorial.]</li>
+              <li>[Apellido, Inicial. (Año). <em>Título de la obra</em> (ed.). Editorial.]</li>
+            </ul>
+
           </div><!-- /post-contenido -->
 
           <!-- Botones de compartir -->
@@ -307,7 +355,9 @@
             <p class="sidebar-card__titulo">En este artículo</p>
             <!--
               INSTRUCCIÓN: cada <a> debe apuntar al id del <h2> correspondiente
-              en el cuerpo del artículo. Actualizá esto con tus secciones reales.
+              en el cuerpo del artículo. Usá ids descriptivos en kebab-case
+              (ej: #por-que-importa), no "seccion-1". Actualizá con tus
+              secciones reales, incluyendo Fuentes consultadas si la usás.
             -->
             <ul class="toc-lista" role="list">
               <li><a href="#seccion-1">[Nombre de la sección 1]</a></li>
