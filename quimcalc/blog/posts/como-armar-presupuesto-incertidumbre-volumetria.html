@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Cómo armar un presupuesto de incertidumbre en volumetría | QuimCalc</title>
+  <meta name="description" content="Aprendé a calcular el presupuesto de incertidumbre paso a paso para tus titulaciones en el laboratorio según la guía GUM y asegura tus resultados.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://quimcalc.com/blog/posts/como-armar-presupuesto-incertidumbre-volumetria.html">
+  <meta property="og:title" content="Cómo armar un presupuesto de incertidumbre en volumetría | QuimCalc">
+  <meta property="og:description" content="Aprendé a calcular el presupuesto de incertidumbre paso a paso para tus titulaciones en el laboratorio según la guía GUM y asegura tus resultados.">
+  <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta property="og:site_name" content="QuimCalc">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cómo armar un presupuesto de incertidumbre en volumetría | QuimCalc">
+  <meta name="twitter:description" content="Aprendé a calcular el presupuesto de incertidumbre paso a paso para tus titulaciones en el laboratorio según la guía GUM y asegura tus resultados.">
+  <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta name="author" content="QuimCalc">
+  <meta name="article:published_time" content="2026-06-21">
+
+  <link rel="preload" href="../../styles.css" as="style">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16x16.png">
+  <link rel="manifest" href="../../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Cómo armar un presupuesto de incertidumbre en volumetría",
+    "description": "Aprendé a calcular el presupuesto de incertidumbre paso a paso para tus titulaciones en el laboratorio según la guía GUM y asegura tus resultados.",
+    "datePublished": "2026-06-21",
+    "dateModified": "2026-06-21",
+    "author": { "@type": "Organization", "name": "QuimCalc" },
+    "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" },
+    "inLanguage": "es"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-06-21",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿La repetibilidad del analista ya incluye el error de la bureta?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No del todo. La repetibilidad captura la variabilidad aleatoria de la técnica del operador en ese momento exacto, pero no detecta los errores sistemáticos potenciales como la tolerancia de fábrica del vidrio o las variaciones de temperatura ambiente del laboratorio (Guía GUM). Ambas fuentes deben figurar por separado en tu presupuesto."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Tengo que hacer este cálculo cada vez que realizo una titulación?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No es necesario. En la rutina de trabajo calculás el presupuesto de incertidumbre una sola vez durante la validación del método analítico. Después, mientras mantengas las mismas condiciones de equipos, reactivos y calibraciones, podés aplicar ese mismo modelo e incertidumbre relativa a tus determinaciones diarias."
+        }
+      }
+    ]
+  }
+  </script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPQ3QTH9BN');
+</script>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../../index.html#herramientas">Herramientas</a>
+          <a href="../index.html" class="activo">Blog</a>
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="contenedor">
+
+      <nav class="breadcrumb" style="padding-top: var(--espacio-xl);" aria-label="Ubicación en el sitio">
+        <a href="../../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="../index.html">Blog</a>
+        <span aria-hidden="true">›</span>
+        <span>Presupuesto de incertidumbre en volumetría</span>
+      </nav>
+
+      <div class="post-layout">
+
+        <article>
+
+          <header class="post-header">
+            <p class="post-header__categoria">
+              <span style="color: #DC2626;">Normativa y calidad</span>
+            </p>
+            <h1 class="post-header__titulo">
+              Cómo armar un presupuesto de incertidumbre en volumetría
+            </h1>
+            <p class="post-header__resumen">
+              El resultado de una titulación no está completo sin su incertidumbre asociada. Armar un presupuesto de incertidumbre te permite identificar cada fuente de variabilidad, cuantificarla y combinarla para conocer el error real de tu ensayo. En esta guía lo desarmamos paso a paso siguiendo la guía GUM.
+            </p>
+            <div class="post-header__meta">
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Junio 2026
+              </span>
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                7 min lectura
+              </span>
+            </div>
+          </header>
+
+          <figure style="margin: 0 0 var(--espacio-lg);">
+            <img src="img/como-armar-presupuesto-incertidumbre-volumetria.webp"
+                 alt="Bureta de vidrio graduada y balanza analítica en un laboratorio químico con iluminación suave."
+                 style="width:100%; border-radius: var(--radio-md);" loading="eager">
+          </figure>
+
+          <div class="post-contenido">
+
+            <h2 id="necesitas-presupuesto">Por qué necesitás un presupuesto de incertidumbre en tu laboratorio</h2>
+
+            <p>
+              Cuando hacés una titulación en el laboratorio, el resultado numérico que obtenés no está completo por sí solo. Para que ese dato tenga validez técnica y cumpla con las exigencias de normativas internacionales como la norma ISO 17025, tenés que asociarle un intervalo de duda razonable (Eurachem/CITAC Guide CG 4).
+            </p>
+
+            <p>
+              Ese intervalo es la <strong>incertidumbre de medida</strong>. Armar un presupuesto de incertidumbre consiste en identificar cada una de las fuentes que aportan variabilidad al resultado final, cuantificarlas y combinarlas matemáticamente para conocer el error potencial de tu ensayo.
+            </p>
+
+            <p>
+              En muchas industrias, por ejemplo en el control de calidad de aceites vegetales o en el análisis de efluentes, este parámetro define si un producto cumple o no con la especificación requerida por un cliente o por un organismo regulador.
+            </p>
+
+            <p>
+              Dicho esto, el proceso puede parecer un laberinto matemático si no tenés un orden claro, pero vas a ver que siguiendo los pasos de la guía <em>GUM</em> (Guía para la Expresión de la Incertidumbre de Medida) es totalmente abordable. En la próxima sección vamos a desarmar la ecuación principal para identificar de dónde salen esos factores de variación.
+            </p>
+
+            <h2 id="fuentes-error">Identificando las fuentes de error en una titulación volumétrica</h2>
+
+            <p>
+              Para armar el presupuesto, lo primero que tenés que mirar es la fórmula matemática que usás para calcular tu resultado analítico. En una titulación típica para determinar la concentración de un analito, la ecuación depende de la masa de tu patrón primario, la pureza del mismo, el peso equivalente y el volumen de titulante gastado en la bureta (Skoog et al., 9.ª ed.).
+            </p>
+
+            <p>
+              Cada uno de estos términos aporta su propia porción de incertidumbre al resultado global. La balanza analítica, por ejemplo, introduce variabilidad por su calibración y por su resolución digital. El material de vidrio aporta errores debido a la tolerancia del fabricante y a los cambios de temperatura en la mesada del laboratorio.
+            </p>
+
+            <p>
+              Estas fuentes se dividen en dos grandes grupos según la guía GUM. Las de <strong>Tipo A</strong> son aquellas que evaluás estadísticamente mediante réplicas, como la repetibilidad de tus lecturas. Las de <strong>Tipo B</strong> provienen de datos externos, como los certificados de calibración o las fichas técnicas del material de vidrio (Miller &amp; Miller, 6.ª ed.).
+            </p>
+
+            <p>
+              Para simplificar esta integración de factores sin marearte con las desviaciones estándar combinadas, usá la calculadora de Incertidumbre GUM en QuimCalc, que procesa estos componentes de forma automática. Entender este desglose te va a permitir ver con claridad cuál es el cuello de botella de tu precisión, algo que aplicaremos en el ejemplo práctico de la siguiente sección.
+            </p>
+
+            <h2 id="ejemplo-practico">Ejemplo práctico paso a paso: Incertidumbre del volumen de una bureta</h2>
+
+            <p>
+              Imaginemos que estás estandarizando una solución de hidróxido de sodio (NaOH) para medir la acidez en una muestra de aceite crudo de soja. Vamos a calcular detalladamente el aporte de incertidumbre de una bureta de Clase A de 25 mL que midió un volumen exacto de 20,00 mL.
+            </p>
+
+            <div class="ejemplo-bloque">
+              <strong>Componente 1: Tolerancia del fabricante</strong>
+              <p>El catálogo de tu vidrio indica que la tolerancia para esa capacidad es de ± 0,03 mL.</p>
+              <p>Como no tenés información adicional sobre la distribución de este error, asumís una distribución rectangular (típica en especificaciones de fábrica) y dividís el valor por la raíz cuadrada de 3 (Eurachem/CITAC Guide CG 4):</p>
+              <p>u₁ = 0,03 / √3 = <strong>0,0173 mL</strong></p>
+            </div>
+
+            <div class="ejemplo-bloque">
+              <strong>Componente 2: Efecto térmico</strong>
+              <p>El laboratorio no está siempre a los 20 °C de calibración ideal. Si tu temperatura oscila en ± 3 °C, multiplicás esa variación por el volumen medido y por el coeficiente de expansión volumétrica del agua (0,00021 por cada grado Celsius):</p>
+              <p>a = 20,00 mL × 0,00021/°C × 3 °C = ± 0,0126 mL</p>
+              <p>Tratada como distribución rectangular: u₂ = 0,0126 / √3 = <strong>0,0073 mL</strong></p>
+            </div>
+
+            <div class="ejemplo-bloque">
+              <strong>Incertidumbre combinada del volumen</strong>
+              <p>Sumás los cuadrados de ambos valores y calculás su raíz cuadrada:</p>
+              <p>u(V) = √(0,0173² + 0,0073²) = <strong>0,0188 mL</strong></p>
+            </div>
+
+            <p>
+              Con este valor bajo el brazo, ya estás listo para integrar el resto de los factores analíticos y calcular la incertidumbre expandida final, como veremos a continuación.
+            </p>
+
+            <h2 id="incertidumbre-expandida">Cómo calcular la incertidumbre expandida y reportar tu resultado</h2>
+
+            <p>
+              Una vez que repetiste el análisis matemático para la masa del patrón analizado, la pureza y la repetibilidad de las lecturas, el paso siguiente es unificar todo en una <strong>incertidumbre estándar combinada</strong>. Esto se logra aplicando la ley de propagación de errores, sumando las incertidumbres relativas al cuadrado de cada componente involucrada.
+            </p>
+
+            <p>
+              El valor resultante representa una desviación estándar combinada. Sin embargo, en los reportes analíticos oficiales o certificados de exportación se exige trabajar con un nivel de confianza más alto, habitualmente del 95% (ISO/IEC 17025:2017).
+            </p>
+
+            <p>
+              Por eso calculamos la <strong>incertidumbre expandida</strong>, multiplicando tu valor combinado por un factor de cobertura. Para una distribución normal y un nivel de confianza del 95%, este factor de cobertura estándar es igual a 2.
+            </p>
+
+            <div class="post-formula" role="note" aria-label="Incertidumbre expandida">
+              U = k × u_c &nbsp;&nbsp;(k = 2 → ≈ 95% de confianza)
+            </div>
+
+            <p>
+              Tu resultado final se reporta expresando el valor de la concentración más o menos esa incertidumbre expandida, aclarando siempre el factor utilizado. Por ejemplo: Concentración de NaOH = 0,1012 ± 0,0015 mol/L (con un factor de cobertura de 2, correspondiente a un 95% de confianza). Ahora pasemos a despejar algunas dudas frecuentes que suelen surgir en las auditorías de laboratorio.
+            </p>
+
+            <h2 id="preguntas-frecuentes">Preguntas frecuentes sobre incertidumbre volumétrica</h2>
+
+            <div class="faq-item">
+              <h3>¿La repetibilidad del analista ya incluye el error de la bureta?</h3>
+              <p>
+                No del todo. La repetibilidad captura la variabilidad aleatoria de la técnica del operador en ese momento exacto, pero no detecta los errores sistemáticos potenciales como la tolerancia de fábrica del vidrio o las variaciones de temperatura ambiente del laboratorio (Guía GUM). Ambas fuentes deben figurar por separado en tu presupuesto.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Tengo que hacer este cálculo cada vez que realizo una titulación?</h3>
+              <p>
+                No es necesario. En la rutina de trabajo calculás el presupuesto de incertidumbre una sola vez durante la validación del método analítico. Después, mientras mantengas las mismas condiciones de equipos, reactivos y calibraciones, podés aplicar ese mismo modelo e incertidumbre relativa a tus determinaciones diarias.
+              </p>
+            </div>
+
+            <h2 id="fuentes-consultadas">Fuentes consultadas</h2>
+
+            <ul>
+              <li>Eurachem/CITAC Guide CG 4. (2012). <em>Quantifying Uncertainty in Analytical Measurement</em> (3rd ed.).</li>
+              <li>ISO/IEC 17025:2017. <em>General requirements for the competence of testing and calibration laboratories</em>.</li>
+              <li>Miller, J. N., &amp; Miller, J. C. (2010). <em>Statistics and Chemometrics for Analytical Chemistry</em> (6th ed.). Pearson Education.</li>
+              <li>Skoog, D. A., West, D. M., Holler, F. J., &amp; Crouch, S. R. (2014). <em>Fundamentos de Química Analítica</em> (9.ª ed.). Cengage Learning.</li>
+            </ul>
+
+          </div>
+          <!-- Botones de compartir -->
+          <div class="compartir">
+            <p class="compartir__etiqueta">Compartir:</p>
+            <div class="compartir__botones">
+
+              <a class="compartir__btn compartir__btn--fb"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en Facebook">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+                </svg>
+              </a>
+
+              <a class="compartir__btn compartir__btn--x"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en X (Twitter)">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+
+              <a class="compartir__btn compartir__btn--li"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en LinkedIn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+
+              <a class="compartir__btn compartir__btn--wa"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir por WhatsApp">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+                </svg>
+              </a>
+
+            </div>
+          </div>
+          <script>
+            // Rellena los links de compartir con la URL y título del post actual
+            (function () {
+              var url    = encodeURIComponent(window.location.href);
+              var titulo = encodeURIComponent(document.title);
+
+              var mapa = {
+                'compartir__btn--fb': 'https://www.facebook.com/sharer/sharer.php?u=' + url,
+                'compartir__btn--x' : 'https://twitter.com/intent/tweet?url=' + url + '&text=' + titulo,
+                'compartir__btn--li': 'https://www.linkedin.com/sharing/share-offsite/?url=' + url,
+                'compartir__btn--wa': 'https://wa.me/?text=' + titulo + '%20' + url,
+              };
+
+              Object.keys(mapa).forEach(function (clase) {
+                var btn = document.querySelector('.' + clase);
+                if (btn) btn.href = mapa[clase];
+              });
+            })();
+          </script>
+
+        </article>
+
+        <aside class="post-sidebar" aria-label="Contenido relacionado">
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">En este artículo</p>
+            <ul class="toc-lista" role="list">
+              <li><a href="#necesitas-presupuesto">Por qué necesitás un presupuesto de incertidumbre</a></li>
+              <li><a href="#fuentes-error">Fuentes de error en una titulación</a></li>
+              <li><a href="#ejemplo-practico">Ejemplo práctico: incertidumbre de una bureta</a></li>
+              <li><a href="#incertidumbre-expandida">Incertidumbre expandida y reporte</a></li>
+              <li><a href="#preguntas-frecuentes">Preguntas frecuentes</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">Herramientas relacionadas</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="../../herramientas/incertidumbre.html">→ Incertidumbre GUM</a></li>
+              <li><a href="../../herramientas/calculadora-titulacion.html">→ Titulación volumétrica</a></li>
+              <li><a href="../../herramientas/estadistica-laboratorio.html">→ Estadística básica para laboratorio</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">También te puede interesar</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="incertidumbre-para-no-estadisticos.html">→ Incertidumbre para no estadísticos</a></li>
+              <li><a href="como-calibrar-material-de-vidrio-volumetrico.html">→ Calibración de material volumétrico</a></li>
+              <li><a href="errores-comunes-titulacion.html">→ Errores comunes en titulaciones</a></li>
+            </ul>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vercel Speed Insights -->
+  <script type="module" src="../../js/init-speed-insights.js"></script>
+  <script src="../../js/pwa-register.js"></script>
+
+</body>
+</html>

@@ -1,5 +1,17 @@
 [
   {
+    "slug": "como-armar-presupuesto-incertidumbre-volumetria",
+    "title": "Cómo armar un presupuesto de incertidumbre en volumetría",
+    "description": "Aprendé a calcular el presupuesto de incertidumbre paso a paso para tus titulaciones en el laboratorio según la guía GUM y asegura tus resultados.",
+    "category": "Normativa y calidad",
+    "category_color": "#DC2626",
+    "date": "Junio 2026",
+    "date_sort": "2026-06-21",
+    "minutes": 7,
+    "image": "img/como-armar-presupuesto-incertidumbre-volumetria.webp",
+    "image_alt": "Bureta de vidrio graduada y balanza analítica en un laboratorio químico con iluminación suave."
+  },
+  {
     "slug": "como-calibrar-material-de-vidrio-volumetrico",
     "title": "Cómo calibrar material de vidrio volumétrico en tu laboratorio",
     "description": "Aprendé a verificar y calibrar matraces, pipetas y buretas mediante gravimetría. Guía práctica paso a paso según la norma ISO 4787 para laboratorios.",
