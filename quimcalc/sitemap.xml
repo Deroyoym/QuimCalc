@@ -2,229 +2,235 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://quimcalc.com/</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/blog/index.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/sobre-el-proyecto.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/contacto.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/tabla-solubilidad.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/estadistica-laboratorio.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/conversor-concentracion.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/recuperacion-error.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/diluciones-reactivo-comercial.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/solucion-desde-solido.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/tabla-pka.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/tabla-indicadores.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/tabla-periodica.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/lod-loq.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/incertidumbre.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/curva-calibracion.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/calculadora-titulacion.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/diluciones-seriadas.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/calculadora-buffers.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/dureza-agua.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/calculadora-ph.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/masa-molar.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/conversor-temperatura.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/concentracion-pp.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/conversor-ppm-mgl.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/calculadora-diluciones.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/calculadora-molaridad.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://quimcalc.com/blog/posts/como-armar-presupuesto-incertidumbre-volumetria.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://quimcalc.com/blog/posts/como-calibrar-material-de-vidrio-volumetrico.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/blog/posts/como-preparar-soluciones-estandar-correctamente.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/blog/posts/que-es-el-limite-de-deteccion.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/blog/posts/como-construir-curva-de-calibracion.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/blog/posts/que-es-la-molaridad.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/blog/posts/dureza-agua-gran-rosario.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/blog/posts/errores-comunes-titulacion.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/blog/posts/normalidad-vs-molaridad.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/blog/posts/que-es-el-pka-y-como-usar-buffers.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/blog/posts/espectrofotometria-curva-calibracion.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/blog/posts/incertidumbre-para-no-estadisticos.html</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
