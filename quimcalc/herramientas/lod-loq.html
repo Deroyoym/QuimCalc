@@ -90,88 +90,7 @@
   }
   </script>
 
-  <style>
-    /* Bloque de resultado especial para LOD/LOQ — dos valores */
-    .resultado-lodloq {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--espacio-md);
-      margin-bottom: var(--espacio-md);
-    }
-
-    .lodloq-card {
-      background-color: var(--color-fondo-card);
-      border: 1px solid var(--color-borde);
-      border-radius: var(--radio-md);
-      padding: var(--espacio-lg);
-      text-align: center;
-    }
-
-    .lodloq-card--lod {
-      border-top: 4px solid #D97706; /* naranja */
-    }
-
-    .lodloq-card--loq {
-      border-top: 4px solid var(--color-acento); /* azul */
-    }
-
-    .lodloq-card__titulo {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--color-texto-suave);
-      margin-bottom: var(--espacio-sm);
-    }
-
-    .lodloq-card__valor {
-      font-size: 1.25rem;
-      font-weight: 700;
-      font-family: 'Courier New', monospace;
-      color: var(--color-texto);
-    }
-
-    /* Área de texto para lecturas del blanco */
-    .campo-grupo textarea {
-      font-family: 'Courier New', monospace;
-      font-size: 0.9rem;
-      color: var(--color-texto);
-      background-color: var(--color-fondo);
-      border: 1.5px solid var(--color-borde);
-      border-radius: var(--radio-sm);
-      padding: 10px var(--espacio-md);
-      width: 100%;
-      min-height: 120px;
-      resize: vertical;
-      transition: border-color 0.15s, box-shadow 0.15s;
-      outline: none;
-    }
-
-    .campo-grupo textarea:focus {
-      border-color: var(--color-acento);
-      box-shadow: var(--sombra-resultado);
-    }
-
-    /* Bloque de detalle de cálculo */
-    #detalle-calculo {
-      font-family: 'Courier New', monospace;
-      font-size: 0.82rem;
-      color: var(--color-texto-suave);
-      white-space: pre-line;
-      background-color: var(--color-fondo-card);
-      border: 1px solid var(--color-borde);
-      border-radius: var(--radio-sm);
-      padding: var(--espacio-md);
-      margin-top: var(--espacio-md);
-      line-height: 1.6;
-    }
-
-    @media (max-width: 480px) {
-      .resultado-lodloq {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>  <script>
+  <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
@@ -246,8 +165,8 @@
         </div>
 
         <!-- ── PANEL 1: Método del blanco ────────────────── -->
-        <div id="panel-blanco" class="panel-conversion" style="margin-top:var(--espacio-md);padding-top:var(--espacio-md);border-top:1px solid var(--color-borde);">
-          <p style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-acento);margin-bottom:var(--espacio-md);">
+        <div id="panel-blanco" class="panel-conversion">
+          <p class="conversion-activa">
             LECTURAS DEL BLANCO
           </p>
 
@@ -264,12 +183,12 @@
         </div>
 
         <!-- ── PANEL 2: Curva de calibración ─────────────── -->
-        <div id="panel-curva" class="panel-conversion" hidden style="margin-top:var(--espacio-md);padding-top:var(--espacio-md);border-top:1px solid var(--color-borde);">
-          <p style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-acento);margin-bottom:var(--espacio-md);">
+        <div id="panel-curva" class="panel-conversion" hidden>
+          <p class="conversion-activa">
             PARÁMETROS DE LA CURVA DE CALIBRACIÓN
           </p>
 
-          <div class="ejemplo-bloque" style="margin-bottom:var(--espacio-md);">
+          <div class="ejemplo-bloque">
             <strong>💡 Tip</strong>
             <p>
               Estos valores los obtenés directamente desde la
@@ -308,8 +227,8 @@
         </div>
 
         <!-- ── PANEL 3: Señal/ruido ───────────────────────── -->
-        <div id="panel-sn" class="panel-conversion" hidden style="margin-top:var(--espacio-md);padding-top:var(--espacio-md);border-top:1px solid var(--color-borde);">
-          <p style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-acento);margin-bottom:var(--espacio-md);">
+        <div id="panel-sn" class="panel-conversion" hidden>
+          <p class="conversion-activa">
             RELACIÓN SEÑAL / RUIDO
           </p>
 
@@ -341,7 +260,7 @@
         </div>
 
         <!-- Botón calcular -->
-        <button id="btn-calcular" class="btn btn--primario" type="button" style="margin-top:var(--espacio-lg);">
+        <button id="btn-calcular" class="btn btn--primario btn--separado" type="button">
           Calcular LOD y LOQ →
         </button>
 
@@ -361,7 +280,7 @@
           </div>
 
           <!-- Detalle del cálculo -->
-          <pre id="detalle-calculo" aria-label="Detalle del cálculo"></pre>
+          <pre id="detalle-calculo" class="detalle-calculo" aria-label="Detalle del cálculo"></pre>
         </div>
 
       </div><!-- /calculadora -->

@@ -7,7 +7,7 @@
 //   • Todo lo demás   → Network-First con fallback al caché
 // ============================================================
 
-const CACHE_VERSION   = 'v3.016';                           // ← incrementar cuando hagas cambios grandes
+const CACHE_VERSION   = 'v3.017';                           // ← incrementar cuando hagas cambios grandes
 const CACHE_ESTATICO  = `quimcalc-estatico-${CACHE_VERSION}`;
 const CACHE_PAGINAS   = `quimcalc-paginas-${CACHE_VERSION}`;
 
