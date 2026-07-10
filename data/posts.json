@@ -1,5 +1,17 @@
 [
   {
+    "slug": "dixon-o-grubbs-test-valores-anomalos",
+    "title": "¿Dixon o Grubbs? Test para descartar valores anómalos",
+    "description": "Aprendé a elegir entre el test de Dixon y Grubbs para eliminar outliers en tu laboratorio según el tamaño de muestra y las normas ISO 5725.",
+    "category": "Normativa y calidad",
+    "category_color": "#DC2626",
+    "date": "Julio 2026",
+    "date_sort": "2026-07-08",
+    "minutes": 5,
+    "image": "img/dixon-o-grubbs-test-valores-anomalos.webp",
+    "image_alt": "Gráfico estadístico en pantalla de laboratorio junto a tubos de ensayo."
+  },
+  {
     "slug": "como-armar-presupuesto-incertidumbre-volumetria",
     "title": "Cómo armar un presupuesto de incertidumbre en volumetría",
     "description": "Aprendé a calcular el presupuesto de incertidumbre paso a paso para tus titulaciones en el laboratorio según la guía GUM y asegura tus resultados.",

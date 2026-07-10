@@ -1212,3 +1212,32 @@ a:hover {
   }
 }
 
+/* ── BLOQUE DE FÓRMULA DE CONVERSIÓN (páginas de herramientas) ── */
+.conversion-formula {
+  background-color: var(--color-fondo-card);
+  border: 1px solid var(--color-borde);
+  border-left: 4px solid var(--color-acento);
+  border-radius: var(--radio-md);
+  padding: var(--espacio-lg);
+  margin: var(--espacio-lg) 0;
+  overflow-x: auto;
+}
+
+.conversion-formula__ecuacion {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-texto);
+  margin-bottom: var(--espacio-xs);
+}
+
+.conversion-formula__ecuacion:last-of-type {
+  margin-bottom: 0;
+}
+
+.conversion-formula__nota {
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+  margin-top: var(--espacio-sm);
+}
+
