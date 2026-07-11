@@ -90,9 +90,21 @@ Abrí `data/posts.json` y agregá un objeto al principio del array (los posts se
 | Agua y medio ambiente | `#059669` |
 | Análisis volumétrico | `#D97706` |
 | Instrumentación | `#7C3AED` |
+| Laboratorio industrial | `#0369A1` |
 | Normativa y calidad | `#DC2626` |
 
-> Para agregar una categoría nueva, usá cualquier color CSS válido y ese valor también aparecerá en el sidebar de categorías del blog.
+> **⚠️ Categorías nuevas (paso manual):** si usás una categoría que **no** está en la tabla de arriba, el script `sync_indexes.py` **no** la agrega sola al sidebar del blog — solo sabe actualizar los contadores de categorías que ya existen ahí. Para dar de alta una categoría nueva tenés que hacer **dos cosas a mano** antes de correr el script:
+>
+> 1. **Elegir un color** CSS distinto a los ya usados y ponerlo en el campo `category_color` del post en `data/posts.json`.
+> 2. **Agregar la entrada al sidebar** en `quimcalc/blog/index.html`, dentro de `<ul class="categorias-lista">`, con el contador en 0 (el script lo actualiza al número real después):
+>
+> ```html
+> <li>
+>   <a href="#">Nombre de la categoría <span class="count">0</span></a>
+> </li>
+> ```
+>
+> Después corré `python scripts/sync_indexes.py` y el contador se ajusta solo. (El color del `category_color` sí se aplica automáticamente a la card del post; lo único manual es el alta en el sidebar.)
 
 ### Paso 5 — Ejecutar el script de sincronización
 
