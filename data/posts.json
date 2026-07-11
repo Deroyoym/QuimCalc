@@ -1,5 +1,17 @@
 [
   {
+    "slug": "calculo-karl-fischer-humedad-factor",
+    "title": "Cálculo de Karl Fischer: Determinación de humedad y factor",
+    "description": "Aprendé a calcular el factor de equivalencia en Karl Fischer y optimizá la determinación de humedad en tu laboratorio industrial con ejemplos prácticos.",
+    "category": "Laboratorio industrial",
+    "category_color": "#0369A1",
+    "date": "Julio 2026",
+    "date_sort": "2026-07-11",
+    "minutes": 6,
+    "image": "img/calculo-karl-fischer-humedad-factor.webp",
+    "image_alt": "Titulador automático Karl Fischer en un laboratorio químico con viales de muestra y reactivos."
+  },
+  {
     "slug": "dixon-o-grubbs-test-valores-anomalos",
     "title": "¿Dixon o Grubbs? Test para descartar valores anómalos",
     "description": "Aprendé a elegir entre el test de Dixon y Grubbs para eliminar outliers en tu laboratorio según el tamaño de muestra y las normas ISO 5725.",
