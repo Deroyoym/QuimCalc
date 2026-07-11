@@ -10,10 +10,10 @@ Sitio web estático para técnicos de laboratorio, estudiantes y profesionales d
 
 ## ¿Qué es QuimCalc?
 
-QuimCalc ofrece 24 calculadoras y conversores de uso diario en el laboratorio, más artículos educativos sobre química analítica, instrumentación y normativa de calidad.
+QuimCalc ofrece 24 calculadoras y conversores de uso diario en el laboratorio, más artículos educativos sobre química analítica, instrumentación, laboratorio industrial y normativa de calidad.
 
 **Herramientas disponibles:** 24 (20 calculadoras + 4 tablas de referencia)
-**Posts del blog:** 10
+**Posts del blog:** 14
 **Dependencias externas:** 0
 
 ---
@@ -64,9 +64,9 @@ QuimCalc ofrece 24 calculadoras y conversores de uso diario en el laboratorio, m
 
 ## Blog
 
-10 posts sobre química analítica, instrumentación y normativa de calidad.
+14 posts sobre química analítica, instrumentación, laboratorio industrial y normativa de calidad.
 
-**Categorías:** Química básica · Agua y medio ambiente · Análisis volumétrico · Instrumentación · Normativa y calidad
+**Categorías:** Química básica · Agua y medio ambiente · Análisis volumétrico · Instrumentación · Laboratorio industrial · Normativa y calidad
 
 ---
 
