@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Cálculo de Karl Fischer: Determinación de humedad y factor | QuimCalc</title>
+  <meta name="description" content="Aprendé a calcular el factor de equivalencia en Karl Fischer y optimizá la determinación de humedad en tu laboratorio industrial con ejemplos prácticos.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://quimcalc.com/blog/posts/calculo-karl-fischer-humedad-factor.html">
+  <meta property="og:title" content="Cálculo de Karl Fischer: Determinación de humedad y factor | QuimCalc">
+  <meta property="og:description" content="Aprendé a calcular el factor de equivalencia en Karl Fischer y optimizá la determinación de humedad en tu laboratorio industrial con ejemplos prácticos.">
+  <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta property="og:site_name" content="QuimCalc">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cálculo de Karl Fischer: Determinación de humedad y factor | QuimCalc">
+  <meta name="twitter:description" content="Aprendé a calcular el factor de equivalencia en Karl Fischer y optimizá la determinación de humedad en tu laboratorio industrial con ejemplos prácticos.">
+  <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta name="author" content="QuimCalc">
+  <meta name="article:published_time" content="2026-07-11">
+
+  <link rel="preload" href="../../styles.css" as="style">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16x16.png">
+  <link rel="manifest" href="../../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Cálculo de Karl Fischer: Determinación de humedad y factor",
+    "description": "Aprendé a calcular el factor de equivalencia en Karl Fischer y optimizá la determinación de humedad en tu laboratorio industrial con ejemplos prácticos.",
+    "datePublished": "2026-07-11",
+    "dateModified": "2026-07-11",
+    "author": { "@type": "Organization", "name": "QuimCalc" },
+    "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" },
+    "inLanguage": "es"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-07-11",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Con qué frecuencia tengo que estandarizar el reactivo volumétrico?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Lo ideal es determinar el factor al menos una vez al día antes de procesar las muestras de rutina, o cada vez que abras un frasco nuevo de reactivo en el laboratorio."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué ventaja tiene el tartrato de sodio sobre el agua pura?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El tartrato de sodio dihidratado es un sólido muy estable que no es higroscópico, lo que facilita una pesada mucho más exacta en ambientes con alta humedad relativa ambiental."
+        }
+      }
+    ]
+  }
+  </script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPQ3QTH9BN');
+</script>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../../index.html#herramientas">Herramientas</a>
+          <a href="../index.html" class="activo">Blog</a>
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="contenedor">
+
+      <nav class="breadcrumb" style="padding-top: var(--espacio-xl);" aria-label="Ubicación en el sitio">
+        <a href="../../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="../index.html">Blog</a>
+        <span aria-hidden="true">›</span>
+        <span>Cálculo de Karl Fischer</span>
+      </nav>
+
+      <div class="post-layout">
+
+        <article>
+
+          <header class="post-header">
+            <p class="post-header__categoria">
+              <span style="color: #0369A1;">Laboratorio industrial</span>
+            </p>
+            <h1 class="post-header__titulo">
+              Cálculo de Karl Fischer: Determinación de humedad y factor
+            </h1>
+            <p class="post-header__resumen">
+              El método Karl Fischer es el estándar para medir agua en matrices industriales, pero su reactivo pierde estabilidad con el tiempo. Estandarizarlo y calcular bien su factor de equivalencia es la clave para que el porcentaje de humedad que reportás sea confiable. Acá vemos la estequiometría, la fórmula y un ejemplo resuelto.
+            </p>
+            <div class="post-header__meta">
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Julio 2026
+              </span>
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                6 min lectura
+              </span>
+            </div>
+          </header>
+
+          <figure style="margin: 0 0 var(--espacio-lg);">
+            <img src="img/calculo-karl-fischer-humedad-factor.webp"
+                 alt="Titulador automático Karl Fischer en un laboratorio químico con viales de muestra y reactivos."
+                 style="width:100%; border-radius: var(--radio-md);" loading="eager">
+          </figure>
+
+          <div class="post-contenido">
+
+            <h2 id="el-principio-quimico-detras-de-karl-fischer">El principio químico detrás de Karl Fischer</h2>
+
+            <p>
+              El método Karl Fischer es el estándar analítico para medir agua en matrices industriales, desde muestras de la industria aceitera hasta productos farmacéuticos (Skoog et al., 9.ª ed.). A diferencia del secado en estufa, este método mide agua de forma selectiva mediante una reacción redox cuantitativa.
+            </p>
+
+            <p>
+              La reacción clásica utiliza un componente reactivo compuesto por yodo, dióxido de azufre, una base como la piridina o el imidazol, y un alcohol (IUPAC Compendium of Chemical Terminology). El yodo se reduce a yoduro en presencia de agua, transformando el dióxido de azufre.
+            </p>
+
+            <p>
+              En la titulación volumétrica, el yodo se añade de forma externa mediante una bureta automatizada. El punto final se detecta de forma <em>biamperométrica</em> midiendo la corriente necesaria para mantener una polarización constante entre dos electrodos de platino.
+            </p>
+
+            <p>
+              Cuando todo el contenido de H<sub>2</sub>O reacciona, un mínimo exceso de yodo libre genera un salto de corriente abrupto. Por eso, entender la estequiometría es vital para asegurar la trazabilidad del ensayo en tu rutina diaria.
+            </p>
+
+            <h2 id="la-importancia-del-factor-de-equivalencia">La importancia del factor de equivalencia</h2>
+
+            <p>
+              El reactivo Karl Fischer comercial pierde estabilidad con el tiempo debido a la luz, la temperatura y el ingreso microscópico de humedad ambiental. Por este motivo, tenés que estandarizar el reactivo periódicamente para conocer su factor de equivalencia exacto (ISO 17025:2017).
+            </p>
+
+            <p>
+              El factor indica cuántos miligramos de agua reaccionan por cada mililitro de reactivo consumido en la titulación. Para calibrarlo, se utilizan patrones certificados de agua pura, tartrato de sodio dihidratado o soluciones estándar comerciales.
+            </p>
+
+            <p>
+              Si trabajás en turnos rotativos en una planta industrial, registrar este factor al iniciar tu jornada previene desvíos graves en el control de calidad. Una pequeña variación no corregida altera directamente el porcentaje final de humedad reportado en las materias primas.
+            </p>
+
+            <p>
+              Para agilizar estos pasos iniciales y verificar tus cálculos de masa en la balanza analítica, usá la <a href="../../herramientas/calculadora-molaridad.html">calculadora de molaridad y masa</a> en QuimCalc. Una vez que domines la estequiometría, calcular el factor real del reactivo se vuelve una tarea mecánica y sencilla.
+            </p>
+
+            <h2 id="ecuacion-matematica-y-ejemplo-resuelto">Ecuación matemática y ejemplo resuelto</h2>
+
+            <p>
+              Para calcular el factor de equivalencia se divide la masa exacta de agua inyectada por el volumen de reactivo consumido en la descarga de la bureta. La fórmula se expresa de la siguiente manera:
+            </p>
+
+            <div class="post-formula" role="note" aria-label="Fórmula del factor de equivalencia">
+              F = m / V
+            </div>
+
+            <p>
+              Donde <strong>F</strong> es el factor de equivalencia en miligramos de agua por mililitro de reactivo, <strong>m</strong> es la masa de agua en miligramos y <strong>V</strong> es el volumen gastado en mililitros.
+            </p>
+
+            <div class="ejemplo-bloque">
+              <strong>Ejemplo resuelto</strong>
+              <p>En un laboratorio industrial, un técnico pesa una gota de agua destilada que registra un peso de 0,0152 g en la balanza analítica y la inyecta en la celda de titulación. La bureta automatizada consume 3,12 mL de reactivo Karl Fischer para alcanzar el punto final del viraje.</p>
+              <p>Paso 1 — Pasar la masa de agua a miligramos: 0,0152 g × 1000 = 15,2 mg de H<sub>2</sub>O</p>
+              <p>Paso 2 — Dividir por el volumen consumido: F = 15,2 mg / 3,12 mL</p>
+              <p>Factor de equivalencia: <strong>4,87 mg de agua por mL de reactivo</strong></p>
+            </div>
+
+            <h2 id="aplicacion-practica-en-la-industria">Aplicación práctica en la industria</h2>
+
+            <p>
+              En muchos laboratorios industriales, este método es indispensable para medir trazas de agua en aceites crudos de soja y subproductos de molienda. La presencia excesiva de humedad en oleaginosas acelera la hidrólisis ácida, deteriorando el valor comercial del aceite (según la práctica habitual en laboratorios de la industria aceitera).
+            </p>
+
+            <p>
+              También se aplica en el control de efluentes tratados, biocombustibles y solventes industriales donde el agua libre afecta el rendimiento del producto final. Un análisis rápido evita paradas de planta innecesarias y optimiza los procesos de refinación.
+            </p>
+
+            <p>
+              Mantener tus reactivos controlados asegura que las especificaciones técnicas cumplan con los contratos de exportación. Dicho esto, la precisión analítica depende tanto de la calibración del equipo como de la reproducibilidad de tus pesadas iniciales.
+            </p>
+
+            <p>
+              Para evaluar si las variaciones entre tus réplicas diarias se mantienen dentro de los límites aceptables del sistema de gestión, usá la <a href="../../herramientas/estadistica-laboratorio.html">estadística básica para laboratorio</a> en QuimCalc.
+            </p>
+
+            <h2 id="preguntas-frecuentes-sobre-karl-fischer">Preguntas frecuentes sobre Karl Fischer</h2>
+
+            <div class="faq-item">
+              <h3>¿Con qué frecuencia tengo que estandarizar el reactivo volumétrico?</h3>
+              <p>
+                Lo ideal es determinar el factor al menos una vez al día antes de procesar las muestras de rutina, o cada vez que abras un frasco nuevo de reactivo en el laboratorio.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Qué ventaja tiene el tartrato de sodio sobre el agua pura?</h3>
+              <p>
+                El tartrato de sodio dihidratado es un sólido muy estable que no es higroscópico, lo que facilita una pesada mucho más exacta en ambientes con alta humedad relativa ambiental.
+              </p>
+            </div>
+
+            <h2 id="fuentes-consultadas">Fuentes consultadas</h2>
+
+            <ul>
+              <li>ISO 17025:2017. <em>Requisitos generales para la competencia de los laboratorios de ensayo y calibración</em>.</li>
+              <li>IUPAC. <em>Compendium of Chemical Terminology</em> (Gold Book).</li>
+              <li>Skoog, D. A., West, D. M., Holler, F. J., &amp; Crouch, S. R. (2014). <em>Fundamentos de Química Analítica</em> (9.ª ed.). Cengage Learning.</li>
+            </ul>
+
+          </div>
+          <!-- Botones de compartir -->
+          <div class="compartir">
+            <p class="compartir__etiqueta">Compartir:</p>
+            <div class="compartir__botones">
+
+              <a class="compartir__btn compartir__btn--fb"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en Facebook">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+                </svg>
+              </a>
+
+              <a class="compartir__btn compartir__btn--x"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en X (Twitter)">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+
+              <a class="compartir__btn compartir__btn--li"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en LinkedIn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+
+              <a class="compartir__btn compartir__btn--wa"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir por WhatsApp">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+                </svg>
+              </a>
+
+            </div>
+          </div>
+          <script>
+            // Rellena los links de compartir con la URL y título del post actual
+            (function () {
+              var url    = encodeURIComponent(window.location.href);
+              var titulo = encodeURIComponent(document.title);
+
+              var mapa = {
+                'compartir__btn--fb': 'https://www.facebook.com/sharer/sharer.php?u=' + url,
+                'compartir__btn--x' : 'https://twitter.com/intent/tweet?url=' + url + '&text=' + titulo,
+                'compartir__btn--li': 'https://www.linkedin.com/sharing/share-offsite/?url=' + url,
+                'compartir__btn--wa': 'https://wa.me/?text=' + titulo + '%20' + url,
+              };
+
+              Object.keys(mapa).forEach(function (clase) {
+                var btn = document.querySelector('.' + clase);
+                if (btn) btn.href = mapa[clase];
+              });
+            })();
+          </script>
+
+        </article>
+
+        <aside class="post-sidebar" aria-label="Contenido relacionado">
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">En este artículo</p>
+            <ul class="toc-lista" role="list">
+              <li><a href="#el-principio-quimico-detras-de-karl-fischer">El principio químico de Karl Fischer</a></li>
+              <li><a href="#la-importancia-del-factor-de-equivalencia">La importancia del factor de equivalencia</a></li>
+              <li><a href="#ecuacion-matematica-y-ejemplo-resuelto">Ecuación matemática y ejemplo resuelto</a></li>
+              <li><a href="#aplicacion-practica-en-la-industria">Aplicación práctica en la industria</a></li>
+              <li><a href="#preguntas-frecuentes-sobre-karl-fischer">Preguntas frecuentes</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">Herramientas relacionadas</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="../../herramientas/calculadora-molaridad.html">→ Calculadora de Molaridad y Masa</a></li>
+              <li><a href="../../herramientas/estadistica-laboratorio.html">→ Estadística Básica para Laboratorio</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">También te puede interesar</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="como-calibrar-material-de-vidrio-volumetrico.html">→ Calibración de material volumétrico</a></li>
+              <li><a href="como-armar-presupuesto-incertidumbre-volumetria.html">→ Presupuesto de incertidumbre en volumetría</a></li>
+              <li><a href="errores-comunes-titulacion.html">→ Errores comunes en titulaciones</a></li>
+            </ul>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vercel Speed Insights -->
+  <script type="module" src="../../js/init-speed-insights.js"></script>
+  <script src="../../js/pwa-register.js"></script>
+
+</body>
+</html>
