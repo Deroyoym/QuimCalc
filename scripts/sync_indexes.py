@@ -108,6 +108,8 @@ def update_sitemap(posts, tools):
         ('https://quimcalc.com/blog/index.html', '0.8', 'weekly'),
         ('https://quimcalc.com/sobre-el-proyecto.html', '0.5', 'monthly'),
         ('https://quimcalc.com/contacto.html', '0.3', 'monthly'),
+        ('https://quimcalc.com/politicas-de-privacidad.html', '0.3', 'monthly'),
+        ('https://quimcalc.com/terminos-de-uso.html', '0.3', 'monthly'),
     ]
 
     tool_urls = [

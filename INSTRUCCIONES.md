@@ -252,6 +252,8 @@ git push origin main
 
 > **Tiempo de deploy:** Vercel tarda entre 30 y 90 segundos en publicar los cambios después del push.
 
+> **IndexNow (aviso a Bing):** no tenés que hacer nada. Un GitHub Action (`.github/workflows/indexnow.yml`) se dispara solo en cada push a `main` que toque `quimcalc/**`: espera a que Vercel publique y le envía a Bing la lista de URLs del `sitemap.xml` para que reindexe al instante. La clave de verificación vive en `quimcalc/aa441e507c4b364ef44a8407ef96f2e3.txt` (pública por diseño — no borrar). Podés ver el resultado en la pestaña **Actions** del repo en GitHub.
+
 ---
 
 ## 5. Referencia rápida de archivos
