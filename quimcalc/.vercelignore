@@ -1,0 +1,5 @@
+# El generador de posts (admin/) es una herramienta LOCAL. No se publica
+# en el sitio: su "login" es solo cosmético (contraseña visible en el
+# fuente) y no protege nada. Se mantiene en el repo para uso local, pero
+# se excluye del deploy para que no quede accesible en quimcalc.com/admin/.
+admin
