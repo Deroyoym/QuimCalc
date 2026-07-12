@@ -28,85 +28,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="QuimCalc">
 
-  <!-- Estilos extra solo para esta página -->
-  <style>
-    /* Sección con fondo alternado */
-    .seccion-sobre {
-      padding: var(--espacio-xl) 0;
-    }
-
-    .seccion-sobre + .seccion-sobre {
-      border-top: 1px solid var(--color-borde);
-    }
-
-    .seccion-sobre h2 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: var(--espacio-md);
-    }
-
-    .seccion-sobre p {
-      color: var(--color-texto-suave);
-      line-height: 1.75;
-      margin-bottom: var(--espacio-md);
-      max-width: 680px;
-    }
-
-    .seccion-sobre p:last-child {
-      margin-bottom: 0;
-    }
-
-    /* Lista de principios */
-    .lista-principios {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: var(--espacio-md);
-      max-width: 680px;
-    }
-
-    .lista-principios li {
-      display: flex;
-      gap: var(--espacio-md);
-      align-items: flex-start;
-    }
-
-    .lista-principios__icono {
-      font-size: 1.4rem;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .lista-principios__texto strong {
-      display: block;
-      font-size: 0.95rem;
-      color: var(--color-texto);
-      margin-bottom: 4px;
-    }
-
-    .lista-principios__texto p {
-      margin-bottom: 0;
-      font-size: 0.9rem;
-    }
-
-    /* Franja del stack tecnológico */
-    .stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--espacio-sm);
-      margin-top: var(--espacio-md);
-    }
-
-    .stack__tag {
-      background-color: var(--color-fondo-card);
-      border: 1px solid var(--color-borde);
-      border-radius: var(--radio-sm);
-      padding: 6px var(--espacio-md);
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--color-texto);
-    }
-  </style>  <script>
+  <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
@@ -140,7 +62,7 @@
   <main>
 
     <!-- Hero de la página -->
-    <section class="hero" style="padding-bottom: var(--espacio-lg);">
+    <section class="hero hero--compacto">
       <div class="contenedor">
         <h1 class="hero__titulo">Sobre el proyecto</h1>
         <p class="hero__subtitulo">
