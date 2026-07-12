@@ -1,0 +1,82 @@
+name: IndexNow — notificar a Bing
+
+# Avisa a Bing (protocolo IndexNow) las URLs del sitio cada vez que se
+# publica un cambio de contenido en main. Vercel deploya en paralelo, así
+# que primero esperamos a que el sitio esté vivo y recién ahí enviamos.
+#
+# La clave de IndexNow es pública por diseño (se sirve en
+# https://quimcalc.com/<clave>.txt), por lo que NO se usan secrets.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'quimcalc/**'
+
+# Evita corridas solapadas si se pushea varias veces seguidas.
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enviar URLs a IndexNow
+        env:
+          KEY: aa441e507c4b364ef44a8407ef96f2e3
+          HOST: quimcalc.com
+        run: |
+          set -euo pipefail
+          KEY_URL="https://${HOST}/${KEY}.txt"
+
+          # 1) Esperar a que el deploy de Vercel publique el archivo-clave.
+          echo "Esperando a que ${KEY_URL} esté disponible..."
+          ok=0
+          for i in $(seq 1 20); do
+            code=$(curl -s -o /tmp/key.txt -w '%{http_code}' "$KEY_URL" || echo 000)
+            body=$(tr -d '[:space:]' < /tmp/key.txt 2>/dev/null || true)
+            if [ "$code" = "200" ] && [ "$body" = "$KEY" ]; then
+              echo "Archivo-clave disponible (intento $i)."
+              ok=1
+              break
+            fi
+            echo "Intento $i: HTTP $code — reintento en 15 s..."
+            sleep 15
+          done
+          if [ "$ok" != "1" ]; then
+            echo "::error::El archivo-clave no estuvo disponible tras 5 min. Se aborta el envío."
+            exit 1
+          fi
+
+          # 2) Extraer las URLs del sitemap.
+          urls=$(grep -oE '<loc>[^<]+</loc>' quimcalc/sitemap.xml | sed -E 's#</?loc>##g')
+          count=$(printf '%s\n' "$urls" | grep -c . || true)
+          echo "URLs a enviar: $count"
+
+          # 3) Construir el payload JSON de IndexNow.
+          payload=$(jq -n \
+            --arg host "$HOST" \
+            --arg key "$KEY" \
+            --arg keyloc "$KEY_URL" \
+            --argjson urlList "$(printf '%s\n' "$urls" | jq -R . | jq -s .)" \
+            '{host:$host, key:$key, keyLocation:$keyloc, urlList:$urlList}')
+
+          # 4) Enviar a IndexNow (endpoint genérico; propaga a Bing y otros).
+          http=$(curl -sS -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "$payload" \
+            -w '%{http_code}' -o /tmp/indexnow_resp.txt || echo 000)
+
+          echo "Respuesta IndexNow: HTTP $http"
+          cat /tmp/indexnow_resp.txt || true
+          echo ""
+
+          # IndexNow devuelve 200 (OK) o 202 (aceptado, en cola).
+          case "$http" in
+            200|202) echo "Envío exitoso." ;;
+            *) echo "::error::IndexNow respondió HTTP $http"; exit 1 ;;
+          esac
