@@ -1,0 +1,177 @@
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--espacio-lg);
+      margin-bottom: var(--espacio-2xl);
+    }
+
+    /* Tarjeta de canal de contacto */
+    .contacto-card {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-lg);
+      padding: var(--espacio-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--espacio-md);
+      box-shadow: var(--sombra-card);
+    }
+
+    .contacto-card__icono {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radio-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contacto-card__icono--whatsapp {
+      background-color: #DCFCE7; /* Verde claro */
+    }
+
+    .contacto-card__icono--email {
+      background-color: var(--color-acento-claro);
+    }
+
+    .contacto-card__icono svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .contacto-card__titulo {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-texto);
+    }
+
+    .contacto-card__descripcion {
+      font-size: 0.9rem;
+      color: var(--color-texto-suave);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    /* Botón de WhatsApp — verde de WhatsApp */
+    .btn--whatsapp {
+      background-color: #25D366;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--espacio-sm);
+      font-family: var(--fuente-principal);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 12px var(--espacio-lg);
+      border-radius: var(--radio-sm);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      min-height: 48px;
+      transition: background-color 0.15s;
+      width: 100%;
+    }
+
+    .btn--whatsapp:hover {
+      background-color: #1ebe5d;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .btn--whatsapp svg {
+      width: 20px;
+      height: 20px;
+      fill: #fff;
+      flex-shrink: 0;
+    }
+
+    /* Botón de email — usa el verde del sitio */
+    .btn--email {
+      background-color: transparent;
+      color: var(--color-acento);
+      border: 2px solid var(--color-acento);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--espacio-sm);
+      font-family: var(--fuente-principal);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 12px var(--espacio-lg);
+      border-radius: var(--radio-sm);
+      cursor: pointer;
+      text-decoration: none;
+      min-height: 48px;
+      transition: background-color 0.15s, color 0.15s;
+      width: 100%;
+    }
+
+    .btn--email:hover {
+      background-color: var(--color-acento-claro);
+      text-decoration: none;
+      color: var(--color-acento);
+    }
+
+    .btn--email svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* Sección de motivos de contacto */
+    .motivos {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-lg);
+      padding: var(--espacio-xl);
+      margin-bottom: var(--espacio-2xl);
+    }
+
+    .motivos__titulo {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-texto);
+      margin-bottom: var(--espacio-lg);
+    }
+
+    .motivos__lista {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--espacio-sm) var(--espacio-xl);
+    }
+
+    .motivos__lista li {
+      font-size: 0.9rem;
+      color: var(--color-texto-suave);
+      display: flex;
+      align-items: center;
+      gap: var(--espacio-sm);
+    }
+
+    .motivos__lista li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--color-acento);
+      flex-shrink: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .contacto-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .motivos__lista {
+        grid-template-columns: 1fr;
+      }
+    }

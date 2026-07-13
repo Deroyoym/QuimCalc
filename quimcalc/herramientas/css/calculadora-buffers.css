@@ -1,0 +1,32 @@
+    /* Tabla de pKa de referencia */
+    .tabla-pka {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-top: var(--espacio-md);
+    }
+
+    .tabla-pka th {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--color-texto);
+    }
+
+    .tabla-pka td {
+      border: 1px solid var(--color-borde);
+      padding: 8px 12px;
+      color: var(--color-texto-suave);
+    }
+
+    .tabla-pka tr:nth-child(even) td {
+      background-color: #FAFAFA;
+    }
+
+    .tabla-pka td:last-child {
+      font-family: 'Courier New', monospace;
+      font-weight: 600;
+      color: var(--color-acento);
+    }

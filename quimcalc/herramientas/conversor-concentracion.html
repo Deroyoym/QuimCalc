@@ -18,6 +18,7 @@
   <meta name="author" content="QuimCalc">
   <link rel="canonical" href="https://quimcalc.com/herramientas/conversor-concentracion.html">
   <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="css/conversor-concentracion.css">
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
@@ -69,114 +70,7 @@
   </script>
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
-  <style>
-    /* Grid de resultados de conversión */
-    .conv-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--espacio-sm);
-      margin-top: var(--espacio-lg);
-    }
 
-    .conv-card {
-      background-color: var(--color-fondo);
-      border: 1.5px solid var(--color-borde);
-      border-radius: var(--radio-md);
-      padding: var(--espacio-md);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--espacio-md);
-      transition: border-color 0.15s, background-color 0.15s;
-      cursor: pointer;
-    }
-
-    .conv-card:hover {
-      border-color: var(--color-acento);
-      background-color: var(--color-acento-claro);
-    }
-
-    .conv-card.activa {
-      border-color: var(--color-acento);
-      background-color: var(--color-acento-claro);
-    }
-
-    .conv-card.necesita-m {
-      opacity: 0.55;
-      cursor: default;
-    }
-
-    .conv-card.necesita-m:hover {
-      border-color: var(--color-borde);
-      background-color: var(--color-fondo);
-    }
-
-    .conv-card__unidad {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--color-texto-suave);
-      white-space: nowrap;
-    }
-
-    .conv-card__valor {
-      font-family: 'Courier New', monospace;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--color-texto);
-      text-align: right;
-      word-break: break-all;
-    }
-
-    .conv-card__valor.placeholder { color: var(--color-borde); }
-
-    /* Tag de grupo */
-    .conv-grupo-titulo {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--color-texto-suave);
-      margin: var(--espacio-md) 0 var(--espacio-xs);
-      padding-bottom: 4px;
-      border-bottom: 1px solid var(--color-borde);
-      grid-column: 1 / -1;
-    }
-
-    /* Tag de nota */
-    .conv-nota {
-      grid-column: 1 / -1;
-      font-size: 0.78rem;
-      color: var(--color-texto-suave);
-      font-style: italic;
-      padding: var(--espacio-xs) 0;
-    }
-
-    /* Copy feedback */
-    .copy-toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background-color: var(--color-header-bg);
-      color: #fff;
-      font-size: 0.875rem;
-      padding: 10px 20px;
-      border-radius: 20px;
-      pointer-events: none;
-      transition: transform 0.25s ease, opacity 0.25s ease;
-      opacity: 0;
-      z-index: 9999;
-    }
-
-    .copy-toast.visible {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
-
-    @media (max-width: 640px) {
-      .conv-grid { grid-template-columns: 1fr; }
-    }
-  </style>
 </head>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>

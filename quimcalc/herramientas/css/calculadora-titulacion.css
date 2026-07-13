@@ -1,0 +1,27 @@
+    /* Separador visual entre resultado principal y extras */
+    #resultado-extra:not(:empty) {
+      margin-top: 0;
+    }
+
+    /* Campo de solo lectura (modo calcular V titulante) */
+    input[readonly] {
+      background-color: var(--color-fondo-card);
+      color: var(--color-texto-suave);
+      cursor: not-allowed;
+    }
+
+    /* Sección de datos opcionales */
+    .seccion-opcionales {
+      margin-top: var(--espacio-lg);
+      padding-top: var(--espacio-lg);
+      border-top: 1px dashed var(--color-borde);
+    }
+
+    .seccion-opcionales__titulo {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-texto-suave);
+      margin-bottom: var(--espacio-md);
+    }

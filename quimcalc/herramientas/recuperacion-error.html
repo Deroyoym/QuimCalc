@@ -18,6 +18,7 @@
   <meta name="author" content="QuimCalc">
   <link rel="canonical" href="https://quimcalc.com/herramientas/recuperacion-error.html">
   <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="css/recuperacion-error.css">
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
@@ -69,203 +70,7 @@
   </script>
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
-  <style>
-    /* Tabla de datos */
-    .tabla-datos-wrapper {
-      overflow-x: auto;
-      margin: var(--espacio-lg) 0;
-      border: 1px solid var(--color-borde);
-      border-radius: var(--radio-md);
-    }
 
-    .tabla-datos {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.875rem;
-      min-width: 560px;
-    }
-
-    .tabla-datos thead tr {
-      background-color: var(--color-fondo-card);
-    }
-
-    .tabla-datos thead th {
-      padding: 10px 12px;
-      text-align: left;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-texto-suave);
-      border-bottom: 2px solid var(--color-borde);
-      white-space: nowrap;
-    }
-
-    .tabla-datos tbody tr {
-      border-bottom: 1px solid var(--color-borde);
-    }
-
-    .tabla-datos tbody tr:last-child { border-bottom: none; }
-
-    .tabla-datos td {
-      padding: 6px 8px;
-      vertical-align: middle;
-    }
-
-    .tabla-datos input[type="number"],
-    .tabla-datos input[type="text"] {
-      font-family: var(--fuente-principal);
-      font-size: 0.875rem;
-      padding: 6px 10px;
-      border: 1.5px solid var(--color-borde);
-      border-radius: var(--radio-sm);
-      background-color: var(--color-fondo);
-      color: var(--color-texto);
-      width: 100%;
-      min-width: 80px;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-
-    .tabla-datos input:focus { border-color: var(--color-acento); }
-
-    .tabla-datos .td-result {
-      font-family: 'Courier New', monospace;
-      font-weight: 700;
-      font-size: 0.875rem;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    .td-result.ok    { color: #276C43; }
-    .td-result.warn  { color: #D97706; }
-    .td-result.error { color: #B83232; }
-
-    .btn-quitar {
-      background: none;
-      border: none;
-      color: var(--color-texto-suave);
-      cursor: pointer;
-      padding: 4px 8px;
-      font-size: 1rem;
-      border-radius: var(--radio-sm);
-      transition: color 0.15s, background-color 0.15s;
-    }
-
-    .btn-quitar:hover { color: #B83232; background-color: #FEE2E2; }
-
-    /* Botones de tabla */
-    .tabla-acciones {
-      display: flex;
-      gap: var(--espacio-sm);
-      margin-bottom: var(--espacio-md);
-      flex-wrap: wrap;
-    }
-
-    .btn--secundario {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--fuente-principal);
-      font-size: 0.875rem;
-      font-weight: 600;
-      padding: 8px var(--espacio-md);
-      border-radius: var(--radio-sm);
-      border: 1.5px solid var(--color-borde);
-      cursor: pointer;
-      background-color: var(--color-fondo);
-      color: var(--color-texto);
-      transition: border-color 0.15s, background-color 0.15s;
-      min-height: 40px;
-    }
-
-    .btn--secundario:hover {
-      border-color: var(--color-acento);
-      background-color: var(--color-acento-claro);
-    }
-
-    /* Criterios de aceptación */
-    .criterios-bar {
-      display: flex;
-      gap: var(--espacio-md);
-      margin-bottom: var(--espacio-lg);
-      flex-wrap: wrap;
-      align-items: flex-end;
-    }
-
-    .criterios-bar .campo-grupo { margin-bottom: 0; flex: 1; min-width: 100px; }
-
-    /* Resumen estadístico */
-    .resumen-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--espacio-md);
-      margin-top: var(--espacio-lg);
-    }
-
-    .resumen-card {
-      background-color: var(--color-fondo);
-      border: 1px solid var(--color-borde);
-      border-radius: var(--radio-md);
-      padding: var(--espacio-md);
-      text-align: center;
-    }
-
-    .resumen-card__label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-texto-suave);
-      margin-bottom: 4px;
-    }
-
-    .resumen-card__valor {
-      font-family: 'Courier New', monospace;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--color-texto);
-    }
-
-    .resumen-card__valor.ok    { color: #276C43; }
-    .resumen-card__valor.warn  { color: #D97706; }
-    .resumen-card__valor.error { color: #B83232; }
-
-    .resumen-card__sub {
-      font-size: 0.72rem;
-      color: var(--color-texto-suave);
-      margin-top: 2px;
-    }
-
-    /* Evaluación final */
-    .evaluacion-bloque {
-      margin-top: var(--espacio-md);
-      padding: var(--espacio-md) var(--espacio-lg);
-      border-radius: var(--radio-md);
-      border-left: 4px solid;
-      font-size: 0.9rem;
-      font-weight: 600;
-      display: none;
-    }
-
-    .evaluacion-bloque.visible { display: block; }
-    .evaluacion-bloque.ok    { background: #D1FAE5; border-color: #276C43; color: #065F46; }
-    .evaluacion-bloque.warn  { background: #FEF3C7; border-color: #D97706; color: #92400E; }
-    .evaluacion-bloque.error { background: #FEE2E2; border-color: #B83232; color: #7F1D1D; }
-
-    /* Sección de resultados */
-    .seccion-resultados {
-      display: none;
-      margin-top: var(--espacio-lg);
-    }
-
-    .seccion-resultados.visible { display: block; }
-
-    @media (max-width: 640px) {
-      .resumen-grid { grid-template-columns: 1fr 1fr; }
-      .criterios-bar { flex-direction: column; }
-    }
-  </style>
 </head>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
@@ -314,7 +119,7 @@
         <div class="calculadora" style="max-width:100%">
 
           <!-- Criterios de aceptación -->
-          <p style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-texto-suave);margin-bottom:var(--espacio-md);">
+          <p class="rotulo-seccion rotulo-seccion--fuerte">
             Criterios de aceptación
           </p>
           <div class="criterios-bar">

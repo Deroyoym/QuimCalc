@@ -1,0 +1,25 @@
+    /* Indicador visual de acidez/basicidad */
+    .escala-ph {
+      margin-top: var(--espacio-lg);
+      padding: var(--espacio-md);
+      background: linear-gradient(to right,
+        #e53e3e 0%,       /* pH 0 — muy ácido */
+        #ed8936 15%,
+        #ecc94b 28%,
+        #68d391 50%,      /* pH 7 — neutro */
+        #63b3ed 72%,
+        #7f9cf5 85%,
+        #9f7aea 100%      /* pH 14 — muy básico */
+      );
+      border-radius: var(--radio-md);
+      height: 16px;
+      position: relative;
+    }
+
+    .escala-ph__etiquetas {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--color-texto-suave);
+      margin-top: var(--espacio-xs);
+    }

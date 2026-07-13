@@ -18,6 +18,7 @@
   <meta name="author" content="QuimCalc">
   <link rel="canonical" href="https://quimcalc.com/herramientas/solucion-desde-solido.html">
   <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="css/solucion-desde-solido.css">
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
@@ -79,115 +80,7 @@
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
-  <style>
-    /* Grilla de resultados secundarios */
-    .resultados-grilla {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--espacio-md);
-      margin-top: var(--espacio-md);
-    }
 
-    .resultado-mini {
-      background-color: var(--color-fondo);
-      border: 1px solid var(--color-borde);
-      border-radius: var(--radio-md);
-      padding: var(--espacio-md);
-    }
-
-    .resultado-mini__etiqueta {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-texto-suave);
-      margin-bottom: 4px;
-    }
-
-    .resultado-mini__valor {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--color-texto);
-      font-family: 'Courier New', monospace;
-    }
-
-    /* Pasos */
-    .pasos-preparacion {
-      background-color: var(--color-fondo-card);
-      border: 1px solid var(--color-borde);
-      border-radius: var(--radio-md);
-      padding: var(--espacio-lg);
-      margin-top: var(--espacio-lg);
-      display: none;
-    }
-
-    .pasos-preparacion.visible { display: block; }
-
-    .pasos-preparacion__titulo {
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--color-texto-suave);
-      margin-bottom: var(--espacio-md);
-    }
-
-    .pasos-lista {
-      list-style: none;
-      counter-reset: paso;
-      display: flex;
-      flex-direction: column;
-      gap: var(--espacio-sm);
-    }
-
-    .pasos-lista li {
-      counter-increment: paso;
-      display: flex;
-      gap: var(--espacio-md);
-      align-items: flex-start;
-      font-size: 0.9rem;
-      color: var(--color-texto);
-      line-height: 1.5;
-    }
-
-    .pasos-lista li::before {
-      content: counter(paso);
-      background-color: var(--color-acento);
-      color: #fff;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    /* Indicador de pureza */
-    .pureza-bar-wrapper {
-      margin-top: var(--espacio-xs);
-    }
-
-    .pureza-bar {
-      height: 6px;
-      border-radius: 3px;
-      background: linear-gradient(to right, var(--color-acento) var(--pureza-pct, 99%), var(--color-borde) var(--pureza-pct, 99%));
-      transition: background 0.3s;
-    }
-
-    .pureza-label {
-      font-size: 0.75rem;
-      color: var(--color-texto-suave);
-      margin-top: 2px;
-    }
-
-    @media (max-width: 640px) {
-      .resultados-grilla { grid-template-columns: 1fr; }
-    }
-  </style>
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -238,7 +131,7 @@
 
           <!-- Solución a preparar -->
           <fieldset style="border:none;padding:0;margin:0 0 var(--espacio-lg);">
-            <legend style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-texto-suave);margin-bottom:var(--espacio-md);">
+            <legend class="rotulo-seccion rotulo-seccion--fuerte">
               Solución a preparar
             </legend>
 
@@ -269,7 +162,7 @@
 
           <!-- Reactivo sólido -->
           <fieldset style="border:none;padding:0;margin:0 0 var(--espacio-lg);">
-            <legend style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-texto-suave);margin-bottom:var(--espacio-md);">
+            <legend class="rotulo-seccion rotulo-seccion--fuerte">
               Reactivo sólido
             </legend>
 

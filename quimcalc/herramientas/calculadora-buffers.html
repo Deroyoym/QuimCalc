@@ -21,6 +21,7 @@
 <!-- Preload: el navegador descarga el CSS antes de parsear el HTML -->
   <link rel="preload" href="../styles.css" as="style">
   <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="css/calculadora-buffers.css">
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
@@ -82,40 +83,7 @@
   }
   </script>
 
-  <style>
-    /* Tabla de pKa de referencia */
-    .tabla-pka {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.875rem;
-      margin-top: var(--espacio-md);
-    }
-
-    .tabla-pka th {
-      background-color: var(--color-fondo-card);
-      border: 1px solid var(--color-borde);
-      padding: 8px 12px;
-      text-align: left;
-      font-weight: 600;
-      color: var(--color-texto);
-    }
-
-    .tabla-pka td {
-      border: 1px solid var(--color-borde);
-      padding: 8px 12px;
-      color: var(--color-texto-suave);
-    }
-
-    .tabla-pka tr:nth-child(even) td {
-      background-color: #FAFAFA;
-    }
-
-    .tabla-pka td:last-child {
-      font-family: 'Courier New', monospace;
-      font-weight: 600;
-      color: var(--color-acento);
-    }
-  </style>  <script>
+  <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>

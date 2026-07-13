@@ -19,6 +19,7 @@
   <meta name="author" content="QuimCalc">
 
   <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="css/index.css">
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
@@ -28,166 +29,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="QuimCalc">
 
-  <style>
-    /* Layout del índice del blog: lista principal + sidebar */
-    .blog-layout {
-      display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: var(--espacio-2xl);
-      padding: var(--espacio-xl) 0 var(--espacio-2xl);
-      align-items: start;
-    }
-
-    /* Lista de posts: columna principal */
-    .lista-posts {
-      display: flex;
-      flex-direction: column;
-      gap: var(--espacio-xl);
-    }
-
-    /* Card horizontal de post (para la lista) */
-    .post-card {
-      display: flex;
-      flex-direction: column;
-      gap: var(--espacio-sm);
-      padding-bottom: var(--espacio-xl);
-      border-bottom: 1px solid var(--color-borde);
-      text-decoration: none;
-      color: var(--color-texto);
-    }
-
-    /* Imagen de la lista de posts (blog/index.html) */
-    .post-card__imagen {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: var(--radio-md);
-      display: block;
-    }
-
-    .post-card:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .post-card:hover {
-      text-decoration: none;
-    }
-
-    .post-card__categoria {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--color-acento);
-      display: flex;
-      align-items: center;
-      gap: var(--espacio-xs);
-    }
-
-    .post-card__titulo {
-      font-family: var(--fuente-titulo);
-      font-size: 1.4rem;
-      font-weight: 700;
-      line-height: 1.25;
-      color: var(--color-texto);
-      transition: color 0.15s;
-    }
-
-    .post-card:hover .post-card__titulo {
-      color: var(--color-acento);
-    }
-
-    .post-card__resumen {
-      font-size: 0.95rem;
-      color: var(--color-texto-suave);
-      line-height: 1.7;
-    }
-
-    .post-card__meta {
-      display: flex;
-      align-items: center;
-      gap: var(--espacio-md);
-      font-size: 0.8rem;
-      color: var(--color-texto-suave);
-      margin-top: var(--espacio-xs);
-    }
-
-    .post-card__meta svg {
-      width: 14px;
-      height: 14px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .post-card__leer-mas {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--color-acento);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: var(--espacio-xs);
-    }
-
-    /* Sidebar */
-    .blog-sidebar {
-      position: sticky;
-      top: 80px;
-      display: flex;
-      flex-direction: column;
-      gap: var(--espacio-lg);
-    }
-
-    /* Filtro por categoría */
-    .categorias-lista {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .categorias-lista a {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.875rem;
-      color: var(--color-texto-suave);
-      padding: 6px var(--espacio-sm);
-      border-radius: var(--radio-sm);
-      transition: color 0.15s, background-color 0.15s;
-      text-decoration: none;
-    }
-
-    .categorias-lista a:hover {
-      color: var(--color-acento);
-      background-color: #EFF6FF;
-    }
-
-    .categorias-lista .count {
-      font-size: 0.75rem;
-      background-color: var(--color-fondo-card);
-      border: 1px solid var(--color-borde);
-      border-radius: 999px;
-      padding: 1px 8px;
-      color: var(--color-texto-suave);
-    }
-
-    @media (max-width: 768px) {
-      .blog-layout {
-        grid-template-columns: 1fr;
-      }
-      .blog-sidebar {
-        position: static;
-      }
-      .post-card__titulo {
-        font-size: 1.2rem;
-      }
-    }
-  </style>  <script>
+  <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
@@ -221,7 +63,7 @@
   <main>
 
     <!-- Hero del blog -->
-    <section class="hero hero--index" style="padding-bottom: var(--espacio-lg);">
+    <section class="hero hero--index hero--compacto">
       <div class="contenedor">
         <h1 class="hero__titulo">Blog</h1>
         <p class="hero__subtitulo">
@@ -235,7 +77,7 @@
 
         <!-- ── LISTA DE POSTS ──────────────────────────── -->
         <section aria-label="Artículos del blog">
-                                                                                                    <div class="lista-posts">
+                                                                                                              <div class="lista-posts">
 
             <article>
               <a href="posts/calculo-karl-fischer-humedad-factor.html" class="post-card">
