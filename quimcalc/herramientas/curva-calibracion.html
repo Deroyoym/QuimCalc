@@ -21,6 +21,7 @@
 
   <link rel="preload" href="../styles.css" as="style">
   <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="css/curva-calibracion.css">
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
@@ -90,173 +91,7 @@
   }
   </script>
 
-  <style>
-    /* Layout de dos columnas: entrada de datos + gráfico */
-    .calibracion-layout {
-      display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: var(--espacio-xl);
-      align-items: start;
-    }
-
-    /* Panel izquierdo: formulario */
-    .panel-entrada {
-      display: flex;
-      flex-direction: column;
-      gap: var(--espacio-lg);
-    }
-
-    /* Tabla de puntos ingresados */
-    .tabla-puntos-wrapper {
-      border: 1px solid var(--color-borde);
-      border-radius: var(--radio-md);
-      overflow: hidden;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-
-    .tabla-puntos {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-    }
-
-    .tabla-puntos th {
-      background-color: var(--color-fondo-card);
-      border-bottom: 1px solid var(--color-borde);
-      padding: 8px 10px;
-      text-align: left;
-      font-weight: 600;
-      color: var(--color-texto-suave);
-      font-size: 0.8rem;
-      position: sticky;
-      top: 0;
-    }
-
-    .tabla-puntos td {
-      border-bottom: 1px solid var(--color-borde);
-      padding: 7px 10px;
-      color: var(--color-texto);
-      font-family: 'Courier New', monospace;
-    }
-
-    .tabla-puntos tr:last-child td {
-      border-bottom: none;
-    }
-
-    /* Panel derecho: gráfico + resultados */
-    .panel-grafico {
-      display: flex;
-      flex-direction: column;
-      gap: var(--espacio-lg);
-    }
-
-    /* Canvas del gráfico */
-    #grafico {
-      width: 100%;
-      height: auto;
-      border: 1px solid var(--color-borde);
-      border-radius: var(--radio-md);
-      background-color: #FAFAFA;
-      display: block;
-    }
-
-    /* Bloque de resultados de la regresión */
-    .resultado-regresion {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--espacio-sm);
-    }
-
-    .resultado-item {
-      background-color: var(--color-fondo-card);
-      border: 1px solid var(--color-borde);
-      border-radius: var(--radio-md);
-      padding: var(--espacio-md);
-    }
-
-    .resultado-item--full {
-      grid-column: 1 / -1;
-    }
-
-    .resultado-item__label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-texto-suave);
-      margin-bottom: 4px;
-    }
-
-    .resultado-item__valor {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--color-texto);
-      font-family: 'Courier New', monospace;
-    }
-
-    /* Bloque de R² con color dinámico */
-    #bloque-r2 {
-      border-left: 4px solid var(--color-acento);
-    }
-
-    /* Fila de input con dos campos */
-    .fila-inputs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--espacio-sm);
-    }
-
-    /* Botones de acción secundarios */
-    .btn--secundario {
-      background-color: var(--color-fondo-card);
-      color: var(--color-texto);
-      border: 1.5px solid var(--color-borde);
-    }
-
-    .btn--secundario:hover {
-      background-color: var(--color-borde);
-    }
-
-    .btn--peligro {
-      background-color: #FEF2F2;
-      color: var(--color-error);
-      border: 1.5px solid #FECACA;
-    }
-
-    .btn--peligro:hover {
-      background-color: #FEE2E2;
-    }
-
-    .botones-accion {
-      display: flex;
-      gap: var(--espacio-sm);
-      flex-wrap: wrap;
-    }
-
-    .botones-accion .btn {
-      flex: 1;
-    }
-
-    /* Bloque de interpolación */
-    .interpolacion-resultado {
-      background-color: #EFF6FF;
-      border: 1px solid #BFDBFE;
-      border-left: 4px solid var(--color-acento);
-      border-radius: var(--radio-md);
-      padding: var(--espacio-lg);
-    }
-
-    @media (max-width: 900px) {
-      .calibracion-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .resultado-regresion {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>  <script>
+  <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
@@ -405,9 +240,7 @@
             </div>
 
             <!-- Workaround: add display toggle via inline style -->
-            <style>
-              #resultado-interpolacion.visible { display: block !important; }
-            </style>
+
           </div>
 
         </div><!-- /panel-entrada -->
@@ -426,7 +259,6 @@
 
           <!-- Resultados de la regresión -->
           <div id="resultado" class="resultado" style="display:none;">
-            <style>#resultado.visible { display: block !important; }</style>
 
             <div class="resultado-regresion">
 
@@ -460,7 +292,6 @@
 
         </div><!-- /panel-grafico -->
       </div><!-- /calibracion-layout -->
-
 
       <!-- ── SECCIÓN EDUCATIVA ──────────────────────────── -->
       <section class="seccion-educativa" aria-labelledby="titulo-explicacion">

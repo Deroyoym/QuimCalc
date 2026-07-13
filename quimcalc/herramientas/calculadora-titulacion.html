@@ -21,6 +21,7 @@
   
   <link rel="preload" href="../styles.css" as="style">
   <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="css/calculadora-titulacion.css">
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
@@ -82,35 +83,7 @@
   }
   </script>
 
-  <style>
-    /* Separador visual entre resultado principal y extras */
-    #resultado-extra:not(:empty) {
-      margin-top: 0;
-    }
-
-    /* Campo de solo lectura (modo calcular V titulante) */
-    input[readonly] {
-      background-color: var(--color-fondo-card);
-      color: var(--color-texto-suave);
-      cursor: not-allowed;
-    }
-
-    /* Sección de datos opcionales */
-    .seccion-opcionales {
-      margin-top: var(--espacio-lg);
-      padding-top: var(--espacio-lg);
-      border-top: 1px dashed var(--color-borde);
-    }
-
-    .seccion-opcionales__titulo {
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-texto-suave);
-      margin-bottom: var(--espacio-md);
-    }
-  </style>  <script>
+  <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>

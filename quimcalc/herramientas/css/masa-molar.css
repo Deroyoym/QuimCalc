@@ -1,0 +1,25 @@
+    /* Grilla de ejemplos de fórmulas para hacer clic */
+    .ejemplos-formulas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--espacio-sm);
+      margin-top: var(--espacio-sm);
+    }
+
+    .ejemplo-formula-btn {
+      background: var(--color-fondo);
+      border: 1.5px solid var(--color-borde);
+      border-radius: var(--radio-sm);
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-family: 'Courier New', monospace;
+      cursor: pointer;
+      color: var(--color-acento);
+      font-weight: 600;
+      transition: background-color 0.15s, border-color 0.15s;
+    }
+
+    .ejemplo-formula-btn:hover {
+      background-color: #EFF6FF;
+      border-color: var(--color-acento);
+    }

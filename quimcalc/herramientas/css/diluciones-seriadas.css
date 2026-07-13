@@ -1,0 +1,44 @@
+    /* Tabla de resultados de la serie */
+    .tabla-serie {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-top: var(--espacio-lg);
+    }
+
+    .tabla-serie th {
+      background-color: var(--color-acento);
+      color: #FFFFFF;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .tabla-serie td {
+      border: 1px solid var(--color-borde);
+      padding: 10px 12px;
+      color: var(--color-texto-suave);
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+    }
+
+    .tabla-serie tr:first-child td {
+      background-color: #EFF6FF;
+      color: var(--color-texto);
+      font-weight: 600;
+      font-family: var(--fuente-principal);
+    }
+
+    .tabla-serie tr:nth-child(even) td {
+      background-color: #FAFAFA;
+    }
+
+    /* Contenedor con scroll horizontal en mobile */
+    #contenedor-tabla {
+      display: none;
+      overflow-x: auto;
+      margin-top: var(--espacio-lg);
+      border-radius: var(--radio-md);
+      border: 1px solid var(--color-borde);
+    }

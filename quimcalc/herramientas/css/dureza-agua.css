@@ -1,0 +1,70 @@
+    /* Tabla de resultados */
+    .tabla-dureza {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-top: var(--espacio-md);
+    }
+
+    .tabla-dureza th {
+      background-color: var(--color-acento);
+      color: #FFFFFF;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .tabla-dureza td {
+      border: 1px solid var(--color-borde);
+      padding: 10px 12px;
+      color: var(--color-texto-suave);
+    }
+
+    .tabla-dureza td:last-child {
+      font-family: 'Courier New', monospace;
+      font-weight: 600;
+      color: var(--color-texto);
+    }
+
+    /* Fila de la unidad de origen resaltada */
+    .tabla-dureza tr.fila-origen td {
+      background-color: #EFF6FF;
+      color: var(--color-acento);
+      font-weight: 600;
+    }
+
+    .tabla-dureza tr.fila-origen td:last-child {
+      color: var(--color-acento);
+    }
+
+    /* Badge "origen" */
+    .badge-origen {
+      display: inline-block;
+      background-color: var(--color-acento);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Clasificación OMS */
+    .clasificacion-dureza {
+      background-color: var(--color-fondo-card);
+      border: 1px solid var(--color-borde);
+      border-radius: var(--radio-sm);
+      padding: var(--espacio-md);
+      margin-bottom: var(--espacio-md);
+      font-size: 0.9rem;
+      color: var(--color-texto);
+    }
+
+    #contenedor-resultados {
+      display: none;
+      margin-top: var(--espacio-lg);
+    }
