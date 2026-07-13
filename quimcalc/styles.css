@@ -1573,8 +1573,27 @@ tr.oculta { display: none; }
 .bloque-blog-relacionado--separado { margin-top: var(--espacio-xl); }
 .bloque-blog-relacionado--seguido  { margin-top: var(--espacio-md); }
 
-/* Hero con menos espacio inferior (sobre-el-proyecto, contacto) */
+/* Hero con menos espacio inferior (sobre-el-proyecto, contacto, blog) */
 .hero--compacto { padding-bottom: var(--espacio-lg); }
+
+/* Miga de pan con separación superior */
+.breadcrumb--top { padding-top: var(--espacio-xl); }
+
+/* Figura destacada al tope de un post */
+.post-figura { margin: 0 0 var(--espacio-lg); }
+.post-figura__img { width: 100%; border-radius: var(--radio-md); }
+
+/* Rótulo de sección/panel dentro de las herramientas (uppercase) */
+.rotulo-seccion {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-texto-suave);
+  margin-bottom: var(--espacio-md);
+}
+.rotulo-seccion--fuerte { font-weight: 700; letter-spacing: 0.06em; }
+.rotulo-seccion--sm { margin-bottom: var(--espacio-sm); }
 
 /* ── PÁGINA "SOBRE EL PROYECTO" ── */
 .seccion-sobre {

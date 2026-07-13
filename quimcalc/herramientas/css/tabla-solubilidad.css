@@ -282,3 +282,5 @@
         display: flex;
       }
     }
+
+.el-nombre { font-weight: 400; color: var(--color-texto-suave); }
