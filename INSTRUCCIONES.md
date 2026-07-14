@@ -63,6 +63,17 @@ Abrí el archivo y reemplazá todo lo que está entre `[CORCHETES]` con el conte
 - Guardar en: `quimcalc/blog/posts/img/nombre-del-articulo.webp`
 - La imagen se usa en la card del blog index y en el header del post
 
+> **Imagen de preview para redes (Open Graph) — opcional pero recomendado.**
+> Cuando alguien pega el link del post en WhatsApp, Facebook, etc., se muestra la imagen de `og:image`. Hoy **todas las páginas usan la misma imagen genérica** (`assets/og-image.png`), así que todos los previews se ven iguales. Para que cada post tenga un preview propio (sube mucho el CTR):
+> 1. Generá una imagen **PNG o JPG de 1200×630 px** (NO webp: varias redes no lo previsualizan bien). Poné el título del post sobre un fondo de marca.
+> 2. Guardala en `quimcalc/assets/og/nombre-del-articulo.png`.
+> 3. En el `<head>` del post, cambiá las dos líneas de imagen para que apunten ahí:
+>    ```html
+>    <meta property="og:image" content="https://quimcalc.com/assets/og/nombre-del-articulo.png">
+>    <meta name="twitter:image" content="https://quimcalc.com/assets/og/nombre-del-articulo.png">
+>    ```
+> El cableado ya está en cada página (cada una tiene su propia línea `og:image`): solo hace falta generar la imagen y cambiar la URL.
+
 ### Paso 4 — Registrar el post en `data/posts.json`
 
 Abrí `data/posts.json` y agregá un objeto al principio del array (los posts se muestran en el orden del archivo, de más reciente a más antiguo):
