@@ -1,5 +1,17 @@
 [
   {
+    "slug": "que-son-las-ppm-y-como-convertirlas",
+    "title": "Qué son las PPM y cómo convertirlas a mg/L o g/L fácilmente",
+    "description": "Convertí ppm a mg/L y g/L sin errores: qué significan, la fórmula exacta y ejemplos de laboratorio resueltos paso a paso.",
+    "category": "Química básica",
+    "category_color": "#1A5C38",
+    "date": "Julio 2026",
+    "date_sort": "2026-07-12",
+    "minutes": 6,
+    "image": "img/que-son-las-ppm-y-como-convertirlas.webp",
+    "image_alt": "Matraz aforado de vidrio y pipeta automática en un laboratorio químico con iluminación suave."
+  },
+  {
     "slug": "calculo-karl-fischer-humedad-factor",
     "title": "Cálculo de Karl Fischer: Determinación de humedad y factor",
     "description": "Aprendé a calcular el factor de equivalencia en Karl Fischer y optimizá la determinación de humedad en tu laboratorio industrial con ejemplos prácticos.",

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Qué son las PPM y cómo convertirlas a mg/L o g/L fácilmente | QuimCalc</title>
+  <meta name="description" content="Convertí ppm a mg/L y g/L sin errores: qué significan, la fórmula exacta y ejemplos de laboratorio resueltos paso a paso.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://quimcalc.com/blog/posts/que-son-las-ppm-y-como-convertirlas.html">
+  <meta property="og:title" content="Qué son las PPM y cómo convertirlas a mg/L o g/L fácilmente | QuimCalc">
+  <meta property="og:description" content="Convertí ppm a mg/L y g/L sin errores: qué significan, la fórmula exacta y ejemplos de laboratorio resueltos paso a paso.">
+  <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta property="og:site_name" content="QuimCalc">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Qué son las PPM y cómo convertirlas a mg/L o g/L fácilmente | QuimCalc">
+  <meta name="twitter:description" content="Convertí ppm a mg/L y g/L sin errores: qué significan, la fórmula exacta y ejemplos de laboratorio resueltos paso a paso.">
+  <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta name="author" content="QuimCalc">
+  <meta name="article:published_time" content="2026-07-12">
+
+  <link rel="preload" href="../../styles.css" as="style">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16x16.png">
+  <link rel="manifest" href="../../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Qué son las PPM y cómo convertirlas a mg/L o g/L fácilmente",
+    "description": "Convertí ppm a mg/L y g/L sin errores: qué significan, la fórmula exacta y ejemplos de laboratorio resueltos paso a paso.",
+    "datePublished": "2026-07-12",
+    "dateModified": "2026-07-12",
+    "author": { "@type": "Organization", "name": "QuimCalc" },
+    "publisher": { "@type": "Organization", "name": "QuimCalc", "url": "https://quimcalc.com" },
+    "inLanguage": "es"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-07-12",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Puedo usar la equivalencia de 1 ppm = 1 mg/L en cualquier líquido?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Solo vale para soluciones acuosas muy diluidas, donde la densidad ronda 1 g/mL. Cuando la densidad se aleja de ese valor (ácidos concentrados, jarabes, salmueras o solventes orgánicos pesados), tenés que usar la relación general: ppm (m/m) = concentración en mg/L ÷ densidad en kg/L. Hay que dividir por la densidad, no multiplicar: si la solución es más densa que el agua, un litro pesa más de un kilogramo, así que los mismos mg/L representan menos ppm en masa. En el caso acuoso la densidad es ≈ 1, dividir por 1 no cambia nada, y por eso se cumple 1 ppm = 1 mg/L."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué diferencia hay entre ppm en peso y ppm en volumen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "En líquidos y sólidos se sobreentiende que hablamos de ppm en peso (p/p o m/m). En cambio, en análisis de gases o calidad de aire, se suelen usar partes por millón en volumen (ppmv), donde la relación se calcula a partir de los volúmenes de los gases involucrados."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo paso de ppm a porcentaje (%) rápidamente?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Como el porcentaje es partes por cien y ppm es partes por millón, la diferencia es de cuatro órdenes de magnitud. Para pasar de ppm a % tenés que dividir el valor por 10.000; por ejemplo, una solución de 5.000 ppm equivale a un 0,5% m/m. En agua diluida, donde 1 mg/L ≈ 1 ppm, ese 0,5% coincide numéricamente con el % m/v."
+        }
+      }
+    ]
+  }
+  </script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPQ3QTH9BN');
+</script>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../../index.html#herramientas">Herramientas</a>
+          <a href="../index.html" class="activo">Blog</a>
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="contenedor">
+
+      <nav class="breadcrumb breadcrumb--top" aria-label="Ubicación en el sitio">
+        <a href="../../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="../index.html">Blog</a>
+        <span aria-hidden="true">›</span>
+        <span>Qué son las ppm y cómo convertirlas</span>
+      </nav>
+
+      <div class="post-layout">
+
+        <article>
+
+          <header class="post-header">
+            <p class="post-header__categoria">
+              <span style="color: #1A5C38;">Química básica</span>
+            </p>
+            <h1 class="post-header__titulo">
+              Qué son las PPM y cómo convertirlas a mg/L o g/L fácilmente
+            </h1>
+            <p class="post-header__resumen">
+              Las ppm aparecen todos los días en el laboratorio, pero son una unidad adimensional que casi siempre hay que traducir a mg/L, g/L o mg/kg para que tenga sentido práctico. Acá vemos qué significan, la equivalencia clave en soluciones acuosas y las fórmulas para convertirlas sin equivocarte.
+            </p>
+            <div class="post-header__meta">
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Julio 2026
+              </span>
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                6 min lectura
+              </span>
+            </div>
+          </header>
+
+          <figure class="post-figura">
+            <img src="img/que-son-las-ppm-y-como-convertirlas.webp"
+                 alt="Matraz aforado de vidrio y pipeta automática en un laboratorio químico con iluminación suave."
+                 class="post-figura__img" loading="eager">
+          </figure>
+
+          <div class="post-contenido">
+
+            <h2 id="que-significa-ppm">¿Qué significa realmente "partes por millón" o ppm?</h2>
+
+            <p>
+              Seguramente te cruzás con las famosas <strong>ppm</strong> todos los días en el laboratorio, ya sea analizando agua de red o controlando efluentes industriales. Pero, ¿qué representan exactamente? Esta unidad expresa la concentración de una sustancia muy diluida en relación con una cantidad inmensa de mezcla.
+            </p>
+
+            <div class="ejemplo-bloque">
+              <strong>Respuesta rápida</strong>
+              <p>En soluciones acuosas diluidas, <strong>1 ppm = 1 mg/L = 1 µg/mL</strong>. Para pasar a g/L, dividí las ppm por 1000. Solo vale si la densidad de la solución ronda 1 g/mL.</p>
+            </div>
+
+            <p>
+              Para visualizarlo de forma sencilla, imaginate un millón de granos de arena y que uno solo de ellos es de color rojo. Ese único grano representa una parte por millón del total. En química, en cambio, trabajamos con relaciones de masa o volumen.
+            </p>
+
+            <p>
+              Dicho esto, es importante aclarar que las ppm son una unidad de concentración adimensional, parecida al porcentaje, pero para soluciones extremadamente diluidas (Skoog et al., 9.ª ed.). Por eso, para que los cálculos tengan sentido práctico en la mesada, casi siempre las terminamos traduciendo a unidades físicas concretas como <strong>mg/L</strong> o <strong>mg/kg</strong>.
+            </p>
+
+            <p>
+              Usá el <a href="../../herramientas/conversor-ppm-mgl.html">conversor de ppm a mg/L</a> en QuimCalc para ahorrar tiempo en estas conversiones diarias. En la siguiente sección, vamos a ver la equivalencia directa que te va a salvar la vida en los análisis de rutina.
+            </p>
+
+            <h2 id="1-ppm-igual-1-mgl">¿1 ppm es igual a 1 mg/L?</h2>
+
+            <p>
+              En el análisis de aguas y soluciones acuosas diluidas, asumimos que la densidad de la solución es prácticamente igual a la del H<sub>2</sub>O pura, es decir, aproximadamente 1 g/mL o 1000 kg/m<sup>3</sup> (NIST WebBook). Esta simplificación física nos simplifica enormemente la existencia en el laboratorio cotidiano.
+            </p>
+
+            <p>
+              Como un litro de agua pesa prácticamente un kilogramo (o cerca de un millón de miligramos), un miligramo de soluto disuelto en ese litro representa aproximadamente una millonésima parte de la masa total. Por lo tanto, en soluciones acuosas diluidas se cumple la siguiente relación matemática directa:
+            </p>
+
+            <div class="post-formula" role="note" aria-label="Equivalencia ppm y mg/L">
+              1 ppm = 1 mg/L = 1 µg/mL
+            </div>
+
+            <div class="ejemplo-bloque">
+              <strong>⚠️ Ojo con la densidad</strong>
+              <p>Esta igualdad solo se cumple cuando la densidad de la solución ronda 1 g/mL. En ácidos concentrados, jarabes, salmueras o solventes orgánicos pesados deja de ser exacta: ahí tenés que corregir por densidad (lo vemos en detalle en las preguntas frecuentes).</p>
+            </div>
+
+            <p>
+              Esta equivalencia es la base para reportar parámetros críticos como el cloro libre en agua de red, la concentración de metales pesados o la dureza total. En cambio, si estás trabajando con solventes orgánicos de densidad distinta a la del agua o muestras sólidas de suelo, esta relación directa deja de ser exacta y tenés que considerar la densidad o la masa seca de la muestra.
+            </p>
+
+            <p>
+              Para que no te queden dudas de cómo se aplica esto en la práctica, en el próximo apartado te muestro cómo pasar de ppm a g/L y mg/kg usando fórmulas bien sencillas.
+            </p>
+
+            <h2 id="como-convertir-ppm-g-l-mg-kg">¿Cómo convertir ppm a g/L y mg/kg? Fórmulas</h2>
+
+            <p>
+              Cuando necesitás expresar tus resultados en unidades del Sistema Internacional o preparar reactivos a partir de patrones comerciales, las conversiones de unidades son inevitables. Para pasar de ppm (entendidas como mg/L) a g/L, solo tenés que dividir por 1000, ya que un gramo contiene mil miligramos.
+            </p>
+
+            <p>
+              La fórmula general para realizar esta conversión en soluciones acuosas es la siguiente:
+            </p>
+
+            <div class="post-formula" role="note" aria-label="Fórmula de ppm a g/L">
+              Concentración en g/L = Concentración en ppm / 1000
+            </div>
+
+            <div class="ejemplo-bloque">
+              <strong>💡 Truco de mesada</strong>
+              <p>Para ir de ppm a g/L dividí por 1000 (corré la coma tres lugares a la izquierda); para volver de g/L a ppm, multiplicá por 1000. Es una cuenta simple, pero es justo donde más se cuela el cero de más.</p>
+            </div>
+
+            <p>
+              Si lo que necesitás es trabajar con muestras sólidas, como por ejemplo un suelo agrícola donde analizás nutrientes, la relación cambia de volumen a masa. En este caso, la equivalencia física directa se expresa así:
+            </p>
+
+            <div class="post-formula" role="note" aria-label="Equivalencia ppm y mg/kg">
+              1 ppm = 1 mg/kg = 1 µg/g
+            </div>
+
+            <p>
+              Para hacer estas preparaciones a partir de sólidos puros sin equivocarte en los decimales, te sugiero que uses la <a href="../../herramientas/solucion-desde-solido.html">calculadora de solución desde sólido</a> en QuimCalc. A continuación, vamos a resolver un caso práctico bien real para consolidar el concepto.
+            </p>
+
+            <h2 id="ejemplo-resuelto">Ejemplo resuelto: analizando hierro en un efluente industrial</h2>
+
+            <p>
+              Imaginemos que estás analizando el efluente de una industria metalúrgica y el espectrofotómetro te devuelve una lectura de <strong>4,5 ppm</strong> de hierro (Fe) en la muestra de agua filtrada. El protocolo de vertido te exige reportar el valor final en gramos por litro (g/L) para cargar en el sistema de control ambiental.
+            </p>
+
+            <div class="ejemplo-bloque">
+              <strong>Resolución</strong>
+              <p>Aplicamos la equivalencia directa para soluciones acuosas: 4,5 ppm = 4,5 mg/L</p>
+              <p>Y convertimos a g/L dividiendo por mil: Concentración en g/L = 4,5 mg/L / 1000</p>
+              <p>Resultado: <strong>0,0045 g/L</strong> de hierro</p>
+            </div>
+
+            <p>
+              Como ves, el cálculo es directo y rápido. Si además necesitás preparar una serie de estándares de calibración para este análisis partiendo de una solución madre concentrada, te va a convenir agilizar el proceso de dilución.
+            </p>
+
+            <p>
+              Para planificar tu curva de calibración de hierro de manera sistemática y segura, podés usar la <a href="../../herramientas/diluciones-seriadas.html">calculadora de diluciones seriadas</a> en QuimCalc. Ahora, pasemos a responder las dudas más comunes que suelen surgir en la rutina diaria.
+            </p>
+
+            <h2 id="preguntas-frecuentes">Preguntas frecuentes sobre el uso de ppm</h2>
+
+            <div class="faq-item">
+              <h3>¿Puedo usar la equivalencia de 1 ppm = 1 mg/L en cualquier líquido?</h3>
+              <p>
+                No. Solo vale para soluciones acuosas muy diluidas, donde la densidad ronda 1 g/mL. Cuando la densidad se aleja de ese valor (ácidos concentrados, jarabes, salmueras o solventes orgánicos pesados), tenés que usar la relación general: ppm (m/m) = concentración en mg/L ÷ densidad en kg/L. Fijate que hay que <strong>dividir por la densidad, no multiplicar</strong>: si la solución es más densa que el agua, un litro pesa más de un kilogramo, así que los mismos mg/L representan menos ppm en masa. En el caso acuoso la densidad es ≈ 1, dividir por 1 no cambia nada, y por eso se cumple 1 ppm = 1 mg/L. Para automatizar esa corrección podés usar el <a href="../../herramientas/conversor-concentracion.html">conversor de concentración con corrección por densidad</a>.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Qué diferencia hay entre ppm en peso y ppm en volumen?</h3>
+              <p>
+                En líquidos y sólidos se sobreentiende que hablamos de ppm en peso (p/p o m/m). En cambio, en análisis de gases o calidad de aire, se suelen usar partes por millón en volumen (ppmv), donde la relación se calcula a partir de los volúmenes de los gases involucrados.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Cómo paso de ppm a porcentaje (%) rápidamente?</h3>
+              <p>
+                Como el porcentaje es partes por cien y ppm es partes por millón, la diferencia es de cuatro órdenes de magnitud. Para pasar de ppm a % tenés que dividir el valor por 10.000; por ejemplo, una solución de 5.000 ppm equivale a un 0,5% m/m. (En agua diluida, donde 1 mg/L ≈ 1 ppm, ese 0,5% coincide numéricamente con el % m/v.)
+              </p>
+            </div>
+
+            <h2 id="glosario-rapido">Glosario rápido</h2>
+
+            <ul>
+              <li><strong>Adimensional:</strong> magnitud sin unidades físicas propias; expresa una proporción o relación pura, igual que el porcentaje o las ppm.</li>
+              <li><strong>Densidad relativa:</strong> cociente entre la densidad de una sustancia y la del agua; indica cuántas veces más pesada (o liviana) es respecto al H<sub>2</sub>O.</li>
+              <li><strong>Solución madre:</strong> solución concentrada de referencia a partir de la cual se preparan, por dilución, los estándares o soluciones de trabajo más diluidas.</li>
+              <li><strong>Efluente:</strong> líquido residual que descarga una industria o proceso, sujeto a control ambiental antes de su vertido.</li>
+            </ul>
+
+            <h2 id="fuentes-consultadas">Fuentes consultadas</h2>
+
+            <ul>
+              <li>Skoog, D. A., West, D. M., Holler, F. J., &amp; Crouch, S. R. (2014). <em>Fundamentos de Química Analítica</em> (9.ª ed.). Cengage Learning.</li>
+              <li>NIST Physical Measurement Laboratory. (2021). <em>NIST Chemistry WebBook (SRD 69)</em>. National Institute of Standards and Technology.</li>
+            </ul>
+
+          </div>
+          <!-- Botones de compartir -->
+          <div class="compartir">
+            <p class="compartir__etiqueta">Compartir:</p>
+            <div class="compartir__botones">
+
+              <a class="compartir__btn compartir__btn--fb"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en Facebook">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+                </svg>
+              </a>
+
+              <a class="compartir__btn compartir__btn--x"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en X (Twitter)">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+
+              <a class="compartir__btn compartir__btn--li"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en LinkedIn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+
+              <a class="compartir__btn compartir__btn--wa"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir por WhatsApp">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+                </svg>
+              </a>
+
+            </div>
+          </div>
+          <script>
+            // Rellena los links de compartir con la URL y título del post actual
+            (function () {
+              var url    = encodeURIComponent(window.location.href);
+              var titulo = encodeURIComponent(document.title);
+
+              var mapa = {
+                'compartir__btn--fb': 'https://www.facebook.com/sharer/sharer.php?u=' + url,
+                'compartir__btn--x' : 'https://twitter.com/intent/tweet?url=' + url + '&text=' + titulo,
+                'compartir__btn--li': 'https://www.linkedin.com/sharing/share-offsite/?url=' + url,
+                'compartir__btn--wa': 'https://wa.me/?text=' + titulo + '%20' + url,
+              };
+
+              Object.keys(mapa).forEach(function (clase) {
+                var btn = document.querySelector('.' + clase);
+                if (btn) btn.href = mapa[clase];
+              });
+            })();
+          </script>
+
+        </article>
+
+        <aside class="post-sidebar" aria-label="Contenido relacionado">
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">En este artículo</p>
+            <ul class="toc-lista" role="list">
+              <li><a href="#que-significa-ppm">¿Qué significa "partes por millón"?</a></li>
+              <li><a href="#1-ppm-igual-1-mgl">¿1 ppm es igual a 1 mg/L?</a></li>
+              <li><a href="#como-convertir-ppm-g-l-mg-kg">Fórmulas: ppm a g/L y mg/kg</a></li>
+              <li><a href="#ejemplo-resuelto">Ejemplo resuelto: hierro en efluente</a></li>
+              <li><a href="#preguntas-frecuentes">Preguntas frecuentes</a></li>
+              <li><a href="#glosario-rapido">Glosario rápido</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">Herramientas relacionadas</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="../../herramientas/conversor-ppm-mgl.html">→ Conversor ppm / mg/L</a></li>
+              <li><a href="../../herramientas/conversor-concentracion.html">→ Conversor de concentración ampliado</a></li>
+              <li><a href="../../herramientas/solucion-desde-solido.html">→ Solución desde sólido con pureza</a></li>
+              <li><a href="../../herramientas/diluciones-seriadas.html">→ Diluciones seriadas</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">También te puede interesar</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="que-es-la-molaridad.html">→ ¿Qué es la molaridad?</a></li>
+              <li><a href="normalidad-vs-molaridad.html">→ Normalidad vs. Molaridad</a></li>
+              <li><a href="como-preparar-soluciones-estandar-correctamente.html">→ Preparar soluciones estándar</a></li>
+            </ul>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vercel Speed Insights -->
+  <script type="module" src="../../js/init-speed-insights.js"></script>
+  <script src="../../js/pwa-register.js"></script>
+
+</body>
+</html>
