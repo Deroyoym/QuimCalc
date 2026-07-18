@@ -1,5 +1,17 @@
 [
   {
+    "slug": "como-documentar-validacion-metodo-interno",
+    "title": "Cómo documentar la validación de un método interno paso a paso",
+    "description": "Documentá la validación de un método interno paso a paso: parámetros, ejemplo resuelto y estructura del informe para auditorías ISO 17025.",
+    "category": "Normativa y calidad",
+    "category_color": "#DC2626",
+    "date": "Julio 2026",
+    "date_sort": "2026-07-13",
+    "minutes": 8,
+    "image": "img/como-documentar-validacion-metodo-interno.webp",
+    "image_alt": "Informe técnico de validación metrológica impreso sobre una mesada de laboratorio limpia junto a material de vidrio."
+  },
+  {
     "slug": "que-son-las-ppm-y-como-convertirlas",
     "title": "Qué son las PPM y cómo convertirlas a mg/L o g/L fácilmente",
     "description": "Convertí ppm a mg/L y g/L sin errores: qué significan, la fórmula exacta y ejemplos de laboratorio resueltos paso a paso.",
