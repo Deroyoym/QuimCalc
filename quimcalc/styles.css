@@ -1672,6 +1672,13 @@ tr.oculta { display: none; }
 /* Figura destacada al tope de un post */
 .post-figura { margin: 0 0 var(--espacio-lg); }
 .post-figura__img { width: 100%; border-radius: var(--radio-md); }
+.post-figura__pie {
+  font-size: 0.8rem;
+  color: var(--color-texto-suave);
+  text-align: center;
+  margin-top: var(--espacio-xs);
+  font-style: italic;
+}
 
 /* Rótulo de sección/panel dentro de las herramientas (uppercase) */
 .rotulo-seccion {

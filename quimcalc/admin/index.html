@@ -583,7 +583,7 @@
               <option value="Análisis volumétrico"   data-color="#D97706">Análisis volumétrico</option>
               <option value="Instrumentación"        data-color="#7C3AED">Instrumentación</option>
               <option value="Normativa y calidad"    data-color="#DC2626">Normativa y calidad</option>
-              <option value="Laboratorio industrial" data-color="#0EA5E9">Laboratorio industrial</option>
+              <option value="Laboratorio industrial" data-color="#0369A1">Laboratorio industrial</option>
             </select>
           </div>
           <div class="campo">
@@ -650,9 +650,12 @@
           <button class="btn-tipo" onclick="agregarBloque('parrafo')">+ Párrafo</button>
           <button class="btn-tipo" onclick="agregarBloque('lista')">+ Lista</button>
           <button class="btn-tipo" onclick="agregarBloque('formula')">+ Fórmula</button>
-          <button class="btn-tipo" onclick="agregarBloque('ejemplo')">+ Bloque ejemplo</button>
+          <button class="btn-tipo" onclick="agregarBloque('ejemplo')">+ Bloque ejemplo / callout</button>
+          <button class="btn-tipo" onclick="agregarBloque('olista')">+ Lista ordenada</button>
           <button class="btn-tipo" onclick="agregarBloque('faq')">+ FAQ</button>
           <button class="btn-tipo" onclick="agregarBloque('imagen')">+ Imagen</button>
+          <button class="btn-tipo" onclick="agregarBloque('fuentes')">+ Fuentes consultadas</button>
+          <button class="btn-tipo" onclick="agregarBloque('glosario')">+ Glosario</button>
         </div>
 
         <!-- Bloques de contenido -->
@@ -673,12 +676,20 @@
           <button class="btn-copiar" id="btn-copiar" onclick="copiarHTML()">📋 Copiar todo</button>
         </div>
         <textarea id="html-output" readonly spellcheck="false"></textarea>
+
+        <div class="salida-cabecera" style="margin-top:16px;">
+          <h3>🗂️ Entrada para data/posts.json</h3>
+          <button class="btn-copiar" id="btn-copiar-json" onclick="copiarJSON()">📋 Copiar JSON</button>
+        </div>
+        <textarea id="json-output" readonly spellcheck="false" style="height:200px;"></textarea>
+
         <div class="pasos-post">
           <strong>Próximos pasos:</strong><br>
-          1. Copiá el HTML de arriba → guardalo en <code>/blog/posts/<span id="slug-destino">nombre.html</span></code><br>
-          2. Si hay imagen de portada o cuerpo → subilas a <code>/blog/posts/img/</code><br>
-          3. Agregá la card del post en <code>blog/index.html</code> y en <code>index.html</code><br>
-          4. <code>git add . → git commit -m "Nuevo post: título" → git push</code>
+          1. Copiá el HTML → guardalo en <code>/blog/posts/<span id="slug-destino">nombre.html</span></code><br>
+          2. Subí la imagen destacada a <code>/blog/posts/img/</code> (WebP)<br>
+          3. Pegá el objeto JSON de arriba al <strong>principio del array</strong> en <code>data/posts.json</code><br>
+          4. Corré <code>python scripts/sync_indexes.py</code> (regenera blog/index.html, sitemap y sw.js)<br>
+          5. <code>git add . → git commit → git push</code> (Vercel despliega solo)
         </div>
       </div>
 
@@ -733,7 +744,7 @@ document.getElementById('pass-input').addEventListener('keydown', e => {
 });
 
 // ================================================================
-// LISTA COMPLETA DE HERRAMIENTAS (21 + 2 tablas)
+// LISTA COMPLETA DE HERRAMIENTAS (20 calculadoras + 4 tablas)
 // ================================================================
 const TOOLS = [
   { nombre: 'Molaridad y masa',                    arch: 'calculadora-molaridad.html' },
@@ -759,6 +770,7 @@ const TOOLS = [
   { nombre: 'Solución desde sólido con pureza',     arch: 'solucion-desde-solido.html' },
   { nombre: 'Tabla de pKa',                         arch: 'tabla-pka.html' },
   { nombre: 'Tabla de indicadores',                 arch: 'tabla-indicadores.html' },
+  { nombre: 'Tabla de solubilidad',                 arch: 'tabla-solubilidad.html' },
 ];
 
 // Colores por categoría
@@ -768,7 +780,7 @@ const COLORES = {
   'Análisis volumétrico':   '#D97706',
   'Instrumentación':        '#7C3AED',
   'Normativa y calidad':    '#DC2626',
-  'Laboratorio industrial': '#0EA5E9',
+  'Laboratorio industrial': '#0369A1',
 };
 
 // ================================================================
@@ -868,6 +880,9 @@ function agregarBloque(tipo) {
     ejemplo: 'Bloque Ejemplo',
     faq: 'Pregunta FAQ',
     imagen: 'Imagen en el cuerpo',
+    olista: 'Lista ordenada (pasos)',
+    fuentes: 'Fuentes consultadas',
+    glosario: 'Glosario rápido',
   };
 
   const div = document.createElement('div');
@@ -944,6 +959,24 @@ function camposBloque(tipo, id) {
         <input type="text" id="b${id}-pie"     placeholder="Pie de foto (opcional — aparece debajo de la imagen)" />
       `;
 
+    case 'olista':
+      return `
+        <p class="bloque-hint">Un ítem por línea → lista numerada &lt;ol&gt;. Podés empezar con "Texto:" para resaltar en negrita.</p>
+        <textarea id="b${id}-items" rows="5" placeholder="Alcance y objetivo: qué analito&#10;Reactivos y equipamiento&#10;Criterios de aceptación"></textarea>
+      `;
+
+    case 'fuentes':
+      return `
+        <p class="bloque-hint">Una fuente por línea (formato APA). Genera la sección "Fuentes consultadas".</p>
+        <textarea id="b${id}-items" rows="4" placeholder="Harris, D. C. (2016). Análisis Químico Cuantitativo (9.ª ed.). Reverté.&#10;ISO/IEC 17025:2017. General requirements..."></textarea>
+      `;
+
+    case 'glosario':
+      return `
+        <p class="bloque-hint">Un término por línea, formato "Término: definición". Genera la sección "Glosario rápido".</p>
+        <textarea id="b${id}-items" rows="4" placeholder="Sesgo: diferencia sistemática entre el valor medido y el de referencia.&#10;Repetibilidad: precisión bajo las mismas condiciones."></textarea>
+      `;
+
     default:
       return '';
   }
@@ -1013,6 +1046,11 @@ function leerBloques() {
         d.alt     = v('b' + id + '-alt');
         d.pie     = v('b' + id + '-pie');
         break;
+      case 'olista':
+      case 'fuentes':
+      case 'glosario':
+        d.items = v('b' + id + '-items').split('\n').filter(l => l.trim());
+        break;
     }
 
     result.push(d);
@@ -1041,6 +1079,25 @@ function esc(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+// Escapa texto para una cadena JSON (JSON-LD)
+function jsonEsc(str) {
+  return (str || '')
+    .replace(/\\/g, '\\\\')
+    .replace(/"/g, '\\"')
+    .replace(/\s*\n\s*/g, ' ')
+    .trim();
+}
+
+// Convierte "Clave: resto" en "<strong>Clave:</strong> resto"
+function liConNegrita(texto) {
+  const t = (texto || '').trim();
+  const idx = t.indexOf(':');
+  if (idx > 0 && idx < 60) {
+    return `<strong>${esc(t.slice(0, idx))}:</strong> ${esc(t.slice(idx + 1).trim())}`;
+  }
+  return esc(t);
 }
 
 // ================================================================
@@ -1077,9 +1134,24 @@ function bloqueAHTML(b) {
 
     case 'imagen': {
       const pie = b.pie
-        ? `\n              <figcaption class="post-img-pie">${esc(b.pie)}</figcaption>`
+        ? `\n              <figcaption class="post-figura__pie">${esc(b.pie)}</figcaption>`
         : '';
-      return `\n            <figure class="post-img-wrapper">\n              <img\n                src="img/${esc(b.archivo)}"\n                alt="${esc(b.alt)}"\n                class="post-img"\n                loading="lazy"\n                width="800"\n                height="450"\n              />${pie}\n            </figure>`;
+      return `\n            <figure class="post-figura">\n              <img src="img/${esc(b.archivo)}" alt="${esc(b.alt)}" class="post-figura__img" loading="lazy">${pie}\n            </figure>`;
+    }
+
+    case 'olista': {
+      const items = b.items.map(i => `              <li>${liConNegrita(i)}</li>`).join('\n');
+      return `\n            <ol>\n${items}\n            </ol>`;
+    }
+
+    case 'fuentes': {
+      const items = b.items.map(i => `              <li>${esc(i)}</li>`).join('\n');
+      return `\n            <h2 id="fuentes-consultadas">Fuentes consultadas</h2>\n            <ul>\n${items}\n            </ul>`;
+    }
+
+    case 'glosario': {
+      const items = b.items.map(i => `              <li>${liConNegrita(i)}</li>`).join('\n');
+      return `\n            <h2 id="glosario-rapido">Glosario rápido</h2>\n            <ul>\n${items}\n            </ul>`;
     }
 
     default:
@@ -1123,16 +1195,8 @@ function generarHTML() {
 
   // ── Imagen de portada dentro del post ───────────────────
   const htmlPortada = imgPortada ? `
-          <!-- Imagen de portada -->
-          <figure class="post-portada">
-            <img
-              src="img/${esc(imgPortada)}"
-              alt="${esc(imgPortadaAlt)}"
-              class="post-portada__img"
-              loading="eager"
-              width="800"
-              height="400"
-            />
+          <figure class="post-figura">
+            <img src="img/${esc(imgPortada)}" alt="${esc(imgPortadaAlt)}" class="post-figura__img" loading="eager">
           </figure>
 ` : '';
 
@@ -1160,49 +1224,56 @@ ${postsRel.map(p => `              <li><a href="${esc(p.ruta)}">→ ${esc(p.titu
             </ul>
           </div>` : '';
 
-  // ── CSS de imágenes (embebido solo si hay imágenes) ──────
-  const cssImagenes = tieneImgs ? `
+  // ── FAQPage (JSON-LD) a partir de los bloques FAQ ────────
+  const faqs = bloques.filter(b => b.tipo === 'faq' && b.pregunta);
+  const faqSchema = faqs.length ? `
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "${fechaISO}",
+    "mainEntity": [
+${faqs.map(f => `      {
+        "@type": "Question",
+        "name": "${jsonEsc(f.pregunta)}",
+        "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(f.respuesta)}" }
+      }`).join(',\n')}
+    ]
+  }
+  <\/script>` : '';
 
-  <style>
-    /* Imagen de portada del post */
-    .post-portada {
-      margin-bottom: var(--espacio-xl);
-      border-radius: var(--radio-lg);
-      overflow: hidden;
-      border: 1px solid var(--color-borde);
-    }
-    .post-portada__img {
-      width: 100%;
-      height: 380px;
-      object-fit: cover;
-      display: block;
-    }
-    /* Imágenes dentro del cuerpo */
-    .post-img-wrapper {
-      margin: var(--espacio-lg) 0;
-    }
-    .post-img {
-      width: 100%;
-      border-radius: var(--radio-md);
-      border: 1px solid var(--color-borde);
-      display: block;
-    }
-    .post-img-pie {
-      font-size: 0.8rem;
-      color: var(--color-texto-suave);
-      text-align: center;
-      margin-top: var(--espacio-xs);
-      font-style: italic;
-    }
-    @media (max-width: 640px) {
-      .post-portada__img { height: 200px; }
-    }
-  </style>` : '';
-
-  // ── Imagen en JSON-LD ────────────────────────────────────
+  // ── Imagen en JSON-LD Article ────────────────────────────
   const jsonldImagen = imgPortada
     ? `,\n    "image": "https://quimcalc.com/blog/posts/img/${esc(imgPortada)}"`
     : '';
+
+  // ── Etiquetas Open Graph / Twitter ───────────────────────
+  const ogTags = `
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://quimcalc.com/blog/posts/${esc(slug)}.html">
+  <meta property="og:title" content="${esc(titulo)} | QuimCalc">
+  <meta property="og:description" content="${esc(meta)}">
+  <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta property="og:site_name" content="QuimCalc">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${esc(titulo)} | QuimCalc">
+  <meta name="twitter:description" content="${esc(meta)}">
+  <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">`;
+
+  // ── Objeto para data/posts.json ──────────────────────────
+  const minutosNum = parseInt(tiempo, 10) || 5;
+  const jsonPost = JSON.stringify({
+    slug: slug,
+    title: titulo,
+    description: meta,
+    category: categoria,
+    category_color: colorCat,
+    date: fecha,
+    date_sort: fechaISO,
+    minutes: minutosNum,
+    image: 'img/' + (imgPortada || (slug + '.webp')),
+    image_alt: imgPortadaAlt
+  }, null, 2);
 
   // ══════════════════════════════════════════════════════════
   // HTML FINAL
@@ -1213,7 +1284,7 @@ ${postsRel.map(p => `              <li><a href="${esc(p.ruta)}">→ ${esc(p.titu
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${esc(titulo)} | QuimCalc</title>
-  <meta name="description" content="${esc(meta)}">
+  <meta name="description" content="${esc(meta)}">${ogTags}
   <meta name="author" content="QuimCalc">
   <meta name="article:published_time" content="${fechaISO}">
   <link rel="canonical" href="https://quimcalc.com/blog/posts/${esc(slug)}.html" />
@@ -1226,7 +1297,7 @@ ${postsRel.map(p => `              <li><a href="${esc(p.ruta)}">→ ${esc(p.titu
   <meta name="theme-color" content="#1C2E22">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="QuimCalc">${cssImagenes}
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
 
   <script type="application/ld+json">
   {
@@ -1244,9 +1315,10 @@ ${postsRel.map(p => `              <li><a href="${esc(p.ruta)}">→ ${esc(p.titu
       "@type": "Organization",
       "name": "QuimCalc",
       "url": "https://quimcalc.com"
-    }${jsonldImagen}
+    },
+    "inLanguage": "es"${jsonldImagen}
   }
-  <\/script>
+  <\/script>${faqSchema}
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   <\/script>
@@ -1282,7 +1354,7 @@ ${postsRel.map(p => `              <li><a href="${esc(p.ruta)}">→ ${esc(p.titu
     <div class="contenedor">
 
       <!-- Miga de pan -->
-      <nav class="breadcrumb" style="padding-top: var(--espacio-xl);" aria-label="Ubicación en el sitio">
+      <nav class="breadcrumb breadcrumb--top" aria-label="Ubicación en el sitio">
         <a href="../../index.html">Inicio</a>
         <span aria-hidden="true">›</span>
         <a href="../index.html">Blog</a>
@@ -1339,22 +1411,6 @@ ${htmlPortada}
               </a>
             </div>
           </div>
-          <script>
-            (function () {
-              var url    = encodeURIComponent(window.location.href);
-              var titulo = encodeURIComponent(document.title);
-              var mapa = {
-                'compartir__btn--fb': 'https://www.facebook.com/sharer/sharer.php?u=' + url,
-                'compartir__btn--x' : 'https://twitter.com/intent/tweet?url=' + url + '&text=' + titulo,
-                'compartir__btn--li': 'https://www.linkedin.com/sharing/share-offsite/?url=' + url,
-                'compartir__btn--wa': 'https://wa.me/?text=' + titulo + '%20' + url,
-              };
-              Object.keys(mapa).forEach(function (clase) {
-                var btn = document.querySelector('.' + clase);
-                if (btn) btn.href = mapa[clase];
-              });
-            })();
-          <\/script>
 
         </article>
 
@@ -1398,12 +1454,14 @@ ${toolsHTML}
 
   <script type="module" src="../../js/init-speed-insights.js"><\/script>
   <script src="../../js/pwa-register.js"><\/script>
+  <script src="../../js/compartir.js"><\/script>
 
 </body>
 </html>`;
 
   // Mostrar el resultado
   document.getElementById('html-output').value = html;
+  document.getElementById('json-output').value = jsonPost;
   document.getElementById('slug-destino').textContent = slug + '.html';
   document.getElementById('panel-salida').style.display = 'block';
   document.getElementById('panel-salida').scrollIntoView({ behavior: 'smooth' });
@@ -1422,6 +1480,22 @@ function copiarHTML() {
       btn.classList.add('ok');
       setTimeout(() => {
         btn.textContent = '📋 Copiar todo';
+        btn.classList.remove('ok');
+      }, 2000);
+    })
+    .catch(() => document.execCommand('copy'));
+}
+
+function copiarJSON() {
+  const ta  = document.getElementById('json-output');
+  const btn = document.getElementById('btn-copiar-json');
+  ta.select();
+  navigator.clipboard.writeText(ta.value)
+    .then(() => {
+      btn.textContent = '✅ ¡Copiado!';
+      btn.classList.add('ok');
+      setTimeout(() => {
+        btn.textContent = '📋 Copiar JSON';
         btn.classList.remove('ok');
       }, 2000);
     })
