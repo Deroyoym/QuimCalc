@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* Inputs de ppm ↔ mg/L */
   const inputPpm        = document.getElementById('valor-ppm');
   const selectDirPpm    = document.getElementById('dir-ppm');
+  const inputDensidad   = document.getElementById('densidad-ppm');
 
   /* Inputs de % p/v ↔ g/L */
   const inputPorc       = document.getElementById('valor-porc');
@@ -58,8 +59,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const tipo = selectTipo.value;
 
     /* ── Conversión 1: ppm ↔ mg/L ───────────────────────────
-       En soluciones acuosas diluidas: 1 ppm = 1 mg/L
-       La conversión es directa (el número no cambia, solo la unidad).
+       Fórmulas corregidas por densidad de la solución:
+         mg/L = ppm × densidad(g/mL)
+         ppm  = mg/L ÷ densidad(g/mL)
+       (la densidad en g/mL es numéricamente igual a kg/L).
+       Con densidad = 1 g/mL (soluciones acuosas diluidas) la
+       conversión vuelve a ser directa: 1 ppm = 1 mg/L.
        ──────────────────────────────────────────────────────── */
     if (tipo === 'ppm') {
       const valor = parseFloat(inputPpm.value);
@@ -70,18 +75,23 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      /* Como 1 ppm = 1 mg/L, el resultado es el mismo número */
+      /* Densidad de la solución; si queda vacía o es inválida, usamos 1 */
+      let densidad = parseFloat(inputDensidad.value);
+      if (isNaN(densidad) || densidad <= 0) densidad = 1;
+
       if (dir === 'ppm-a-mgl') {
+        const resultado = valor * densidad;
         mostrarResultado(
-          valor.toFixed(4) + ' mg/L',
-          'En soluciones acuosas diluidas: 1 ppm = 1 mg/L (conversión directa)',
-          `${valor} ppm → ${valor} mg/L`
+          resultado.toFixed(4) + ' mg/L',
+          'mg/L = ppm × densidad (g/mL)',
+          `${valor} ppm × ${densidad} g/mL = ${resultado} mg/L`
         );
       } else {
+        const resultado = valor / densidad;
         mostrarResultado(
-          valor.toFixed(4) + ' ppm',
-          'En soluciones acuosas diluidas: 1 mg/L = 1 ppm (conversión directa)',
-          `${valor} mg/L → ${valor} ppm`
+          resultado.toFixed(4) + ' ppm',
+          'ppm = mg/L ÷ densidad (g/mL)',
+          `${valor} mg/L ÷ ${densidad} g/mL = ${resultado} ppm`
         );
       }
     }
