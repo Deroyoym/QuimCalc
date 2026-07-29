@@ -1767,3 +1767,93 @@ tr.oculta { display: none; }
   color: var(--color-texto);
 }
 
+
+/* ============================================================
+   BANNER DE CONSENTIMIENTO DE COOKIES (js/consent-banner.js)
+   ============================================================ */
+.consent-banner {
+  position: fixed;
+  left: 50%;
+  bottom: var(--espacio-md);
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: calc(100% - 2 * var(--espacio-md));
+  max-width: var(--ancho-max);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-md);
+  padding: var(--espacio-md) var(--espacio-lg);
+  background: var(--color-header-bg);
+  color: var(--color-header-texto);
+  border-radius: var(--radio-md);
+  box-shadow: var(--sombra-card);
+  opacity: 1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.consent-banner--oculto {
+  opacity: 0;
+  transform: translateX(-50%) translateY(12px);
+}
+
+.consent-banner__texto {
+  margin: 0;
+  flex: 1 1 320px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--color-header-texto);
+}
+
+.consent-banner__link {
+  color: var(--color-header-texto);
+  text-decoration: underline;
+}
+
+.consent-banner__acciones {
+  display: flex;
+  gap: var(--espacio-sm);
+  flex-shrink: 0;
+}
+
+.consent-banner__btn {
+  font-family: var(--fuente-principal);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: var(--espacio-sm) var(--espacio-md);
+  border-radius: var(--radio-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.consent-banner__btn--aceptar {
+  background: var(--color-acento);
+  color: #fff;
+}
+
+.consent-banner__btn--aceptar:hover {
+  background: var(--color-acento-hover);
+}
+
+.consent-banner__btn--rechazar {
+  background: transparent;
+  color: var(--color-header-texto);
+  border-color: rgba(240, 237, 230, 0.4);
+}
+
+.consent-banner__btn--rechazar:hover {
+  border-color: var(--color-header-texto);
+}
+
+@media (max-width: 600px) {
+  .consent-banner {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+  }
+  .consent-banner__acciones {
+    justify-content: flex-end;
+  }
+}
