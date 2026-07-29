@@ -3,3 +3,7 @@
 # fuente) y no protege nada. Se mantiene en el repo para uso local, pero
 # se excluye del deploy para que no quede accesible en quimcalc.com/admin/.
 admin
+
+# Dependencias de Node: el sitio usa la copia vendored js/speed-insights.mjs,
+# node_modules no se necesita en el deploy.
+node_modules

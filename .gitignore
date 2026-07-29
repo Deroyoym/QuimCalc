@@ -1,0 +1,16 @@
+# Dependencias — se regeneran con `npm install` (ver quimcalc/package.json)
+node_modules/
+
+# Vercel
+.vercel/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema operativo / editores
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
