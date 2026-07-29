@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Política de Privacidad | QuimCalc</title>
-  <meta name="description" content="Política de privacidad de QuimCalc. No recopilamos datos personales. Sin cookies de rastreo, sin publicidad, sin registro requerido.">
+  <meta name="description" content="Política de privacidad de QuimCalc: los cálculos corren en tu navegador y usamos Google Analytics solo con tu consentimiento para medir el uso de forma anónima. Sin publicidad, sin registro requerido.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://quimcalc.com/politicas-de-privacidad.html">
   <meta property="og:title" content="Política de Privacidad | QuimCalc">
-  <meta property="og:description" content="Política de privacidad de QuimCalc. No recopilamos datos personales. Sin cookies de rastreo, sin publicidad, sin registro requerido.">
+  <meta property="og:description" content="Política de privacidad de QuimCalc: los cálculos corren en tu navegador y usamos Google Analytics solo con tu consentimiento para medir el uso de forma anónima. Sin publicidad, sin registro requerido.">
   <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
   <meta property="og:site_name" content="QuimCalc">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Política de Privacidad | QuimCalc">
-  <meta name="twitter:description" content="Política de privacidad de QuimCalc. No recopilamos datos personales. Sin cookies de rastreo, sin publicidad, sin registro requerido.">
+  <meta name="twitter:description" content="Política de privacidad de QuimCalc: los cálculos corren en tu navegador y usamos Google Analytics solo con tu consentimiento para medir el uso de forma anónima. Sin publicidad, sin registro requerido.">
   <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
   <meta name="author" content="QuimCalc">
 
@@ -36,16 +36,23 @@
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+  <!-- Google tag (gtag.js) + Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // Consent Mode v2: denegado por defecto hasta que la persona acepte
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-JPQ3QTH9BN');
+  </script>
+  <script src="js/consent-banner.js" defer></script>
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-JPQ3QTH9BN');
-</script>
 
 <body>
 
@@ -74,7 +81,7 @@
         </nav>
 
         <h1>Política de Privacidad</h1>
-        <p class="fecha">Última actualización: abril de 2026</p>
+        <p class="fecha">Última actualización: julio de 2026</p>
 
         <p>
           En QuimCalc tomamos la privacidad en serio. Esta página explica de forma clara qué información manejamos cuando usás el sitio, y cómo puede evolucionar a medida que el proyecto incorpore nuevas funcionalidades.
@@ -83,10 +90,11 @@
         <!-- Qué NO hacemos -->
         <h2>En la versión actual del sitio</h2>
         <ul>
-          <li>No recopilamos datos personales de ningún tipo</li>
+          <li>No te pedimos ni almacenamos datos personales identificatorios (nombre, correo, etc.)</li>
           <li>No registramos los valores que ingresás en las calculadoras</li>
           <li>No compartimos datos con terceros para fines de marketing</li>
           <li>Las herramientas de cálculo no requieren registro para usarse</li>
+          <li>Usamos Google Analytics para medir el uso de forma anónima, y solo si aceptás las cookies (ver más abajo)</li>
         </ul>
 
         <!-- Cómo funciona el sitio -->
@@ -95,22 +103,28 @@
           QuimCalc es un sitio web estático. Todos los cálculos se ejecutan <strong>directamente en tu navegador</strong>, sin enviar ningún dato a un servidor. Cuando ingresás valores en una calculadora, esos valores nunca salen de tu dispositivo.
         </p>
         <p>
-          El sitio no tiene base de datos, no tiene backend propio y no almacena ningún registro de uso.
+          El sitio no tiene base de datos ni backend propio: los valores que ingresás en las calculadoras no se almacenan en ningún servidor. La única medición de uso que hacemos es a través de Google Analytics, que se describe más abajo.
         </p>
 
         <!-- Hosting -->
         <h2>Hosting y servicios de terceros</h2>
         <p>
-          El sitio está alojado en <strong>Netlify</strong>, un servicio de hosting estático. Como parte normal de cualquier servidor web, Netlify puede registrar datos técnicos estándar como la dirección IP de los visitantes, el navegador utilizado y las páginas visitadas. Esta información es manejada exclusivamente por Netlify según su propia <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">política de privacidad</a> y QuimCalc no tiene acceso a esos registros.
+          El sitio está alojado en <strong>Vercel</strong>, un servicio de hosting estático. Como parte normal de cualquier servidor web, Vercel puede registrar datos técnicos estándar como la dirección IP de los visitantes, el navegador utilizado y las páginas visitadas. Esta información es manejada exclusivamente por Vercel según su propia <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">política de privacidad</a> y QuimCalc no tiene acceso a esos registros.
         </p>
         <p>
-          El sitio carga la fuente tipográfica "Inter" desde <strong>Google Fonts</strong>. Esta solicitud de fuente puede implicar que tu navegador se comunique con los servidores de Google. Para evitarlo, podés configurar tu navegador para bloquear solicitudes a fonts.googleapis.com, lo que no afectará la funcionalidad de las calculadoras.
+          El sitio carga las fuentes tipográficas <strong>Source Serif 4</strong> y <strong>DM Sans</strong> desde <strong>Google Fonts</strong>. Esta solicitud de fuente puede implicar que tu navegador se comunique con los servidores de Google. Para evitarlo, podés configurar tu navegador para bloquear solicitudes a fonts.googleapis.com, lo que no afectará la funcionalidad de las calculadoras.
         </p>
 
         <!-- Cookies -->
-        <h2>Cookies y publicidad</h2>
+        <h2>Cookies y analítica</h2>
         <p>
-          Actualmente QuimCalc no utiliza cookies propias. En el futuro, el sitio puede incorporar publicidad a través de servicios como Google AdSense y funcionalidades que requieran registro de usuario (como la generación de informes). En ese caso, esta política se actualizará para explicar qué datos se recopilan y con qué finalidad.
+          QuimCalc utiliza <strong>Google Analytics 4</strong> para entender de forma anónima cómo se usa el sitio (qué páginas se visitan, desde qué tipo de dispositivo, etc.). Con esta finalidad, Google Analytics instala cookies en tu navegador, principalmente la cookie <code>_ga</code> (y variantes como <code>_ga_&lt;ID&gt;</code>), que genera un identificador anónimo y suele durar hasta 2 años. Estos datos son procesados por Google como proveedor del servicio.
+        </p>
+        <p>
+          Estas cookies <strong>no se activan por defecto</strong>. La primera vez que entrás al sitio te mostramos un aviso donde podés <strong>Aceptar</strong> o <strong>Rechazar</strong> las cookies de medición. Google Analytics solo escribe la cookie <code>_ga</code> si aceptás; usamos el <em>Consent Mode v2</em> de Google, que arranca con el consentimiento denegado hasta que decidas. Tu elección se guarda localmente en tu navegador para no volver a preguntarte.
+        </p>
+        <p>
+          Podés cambiar de opinión cuando quieras: borrá los datos del sitio en tu navegador para que el aviso vuelva a aparecer, o instalá el <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">complemento de exclusión de Google Analytics</a>. QuimCalc <strong>no muestra publicidad</strong> ni usa las cookies para fines de marketing. Si en el futuro se incorporara publicidad (por ejemplo, Google AdSense) o funcionalidades con registro de usuario, esta política se actualizará antes de hacerlo.
         </p>
 
         <!-- Menores -->
