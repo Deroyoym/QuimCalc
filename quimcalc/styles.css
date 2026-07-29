@@ -1291,6 +1291,9 @@ a:hover {
 
 /* Respeta preferencia de movimiento reducido */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;   /* anula el scroll suave para quien prefiere menos movimiento */
+  }
   .fade-in,
   .fade-in.visible {
     opacity: 1;
