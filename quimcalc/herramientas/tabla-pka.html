@@ -102,11 +102,10 @@
             type="search"
             id="buscador"
             placeholder="Buscar por nombre o fórmula…"
-            oninput="filtrar()"
             aria-label="Buscar compuesto"
             autocomplete="off"
           >
-          <select id="filtro-cat" onchange="filtrar()" aria-label="Filtrar por categoría">
+          <select id="filtro-cat" aria-label="Filtrar por categoría">
             <option value="">Todas las categorías</option>
             <option value="inorganico">Ácidos inorgánicos</option>
             <option value="carboxilico">Ácidos carboxílicos</option>
@@ -446,40 +445,7 @@
   <script src="../js/compartir.js"></script>
   <script src="../js/copiar-resultado.js"></script>
 
-  <script>
-    /* ── Filtro de búsqueda y categoría ── */
-    var TOTAL = 39;
-
-    function filtrar() {
-      var texto = document.getElementById('buscador').value.toLowerCase().trim();
-      var cat   = document.getElementById('filtro-cat').value;
-      var filas = document.querySelectorAll('#tabla-principal tbody tr:not(.fila-categoria)');
-      var visibles = 0;
-
-      filas.forEach(function (fila) {
-        var coincideTexto = !texto || fila.textContent.toLowerCase().includes(texto);
-        var coincideCat   = !cat   || fila.dataset.cat === cat;
-
-        if (coincideTexto && coincideCat) {
-          fila.classList.remove('oculta');
-          visibles++;
-        } else {
-          fila.classList.add('oculta');
-        }
-      });
-
-      /* Ocultar filas de categoría si no tienen filas visibles */
-      document.querySelectorAll('.fila-categoria').forEach(function (fc) {
-        var catKey = fc.dataset.cat;
-        var hayVisibles = Array.from(
-          document.querySelectorAll('#tabla-principal tbody tr[data-cat="' + catKey + '"]:not(.fila-categoria)')
-        ).some(function (r) { return !r.classList.contains('oculta'); });
-        fc.style.display = hayVisibles ? '' : 'none';
-      });
-
-      document.getElementById('n-visibles').textContent = visibles;
-    }
-  </script>
+  <script src="./js/tabla-pka.js"></script>
 
 </body>
 </html>

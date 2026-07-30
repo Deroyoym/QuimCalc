@@ -111,7 +111,6 @@
             type="search"
             id="buscador"
             placeholder="Buscar indicador…"
-            oninput="filtrar()"
             aria-label="Buscar indicador"
             autocomplete="off"
           >
@@ -335,16 +334,7 @@
   <script src="../js/compartir.js"></script>
   <script src="../js/copiar-resultado.js"></script>
 
-  <script>
-    function filtrar() {
-      var texto = document.getElementById('buscador').value.toLowerCase().trim();
-      var filas = document.querySelectorAll('#tabla-principal tbody tr');
-      filas.forEach(function (fila) {
-        var coincide = !texto || fila.textContent.toLowerCase().includes(texto);
-        fila.classList.toggle('oculta', !coincide);
-      });
-    }
-  </script>
+  <script src="./js/tabla-indicadores.js"></script>
 
 </body>
 </html>
