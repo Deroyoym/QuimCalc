@@ -95,7 +95,8 @@ QuimCalc/
 │   ├── posts.json              ← metadatos de posts (editá acá para agregar)
 │   └── tools.json              ← metadatos de herramientas
 ├── scripts/
-│   └── sync_indexes.py         ← regenera blog/index.html, sitemap y sw.js
+│   ├── sync_indexes.py         ← regenera blog/index.html, sitemap y sw.js
+│   └── build_layout.py         ← inyecta header/footer canónicos en todas las páginas
 ├── INSTRUCCIONES.md            ← guía detallada para agregar contenido
 └── quimcalc/                   ← raíz del sitio (servida por Vercel)
     ├── index.html
@@ -159,6 +160,12 @@ python scripts/sync_indexes.py
 # 5. Publicar
 git add . && git commit -m "Herramienta: agrega 'Nombre'" && git push
 ```
+
+> **Header/footer:** son idénticos en todo el sitio y los genera `scripts/build_layout.py`
+> desde una única definición. **No los edites a mano en cada página.** Cambiá el header o
+> footer en `build_layout.py` y corré `python scripts/build_layout.py --write` (sin `--write`
+> muestra el diff sin tocar nada). Las páginas nuevas los reciben con solo correr el script;
+> `offline.html` se excluye a propósito (header/footer reducidos).
 
 ---
 
