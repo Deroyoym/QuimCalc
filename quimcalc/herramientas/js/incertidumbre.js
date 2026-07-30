@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const kp = parseFloat(inputKp.value) || 2;
     const uc = Math.sqrt(componentes.reduce((acc, comp) => acc + Math.pow(comp.ci * comp.u, 2), 0));
     const U  = kp * uc;
-    const fecha = new Date().toLocaleDateString('es-AR');
+    const fecha = new Date().toLocaleDateString('es');
 
     let texto = `PRESUPUESTO DE INCERTIDUMBRE — QuimCalc (Método GUM)\n`;
     texto += `Fecha: ${fecha}\n\n`;

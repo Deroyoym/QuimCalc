@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         factorAcum:     Math.pow(factor, i),
         vTransferencia: i < pasos ? vTransferencia : '—', /* El último tubo no transfiere */
         vSolvente:      vSolvente,
-        nota:           `1:${Math.pow(factor, i).toLocaleString('es-AR')}`
+        nota:           `1:${Math.pow(factor, i).toLocaleString('es')}`
       });
     }
 
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
       tr.innerHTML = `
         <td>${fila.tubo}</td>
         <td>${concFormateada}</td>
-        <td>1:${fila.factorAcum.toLocaleString('es-AR')}</td>
+        <td>1:${fila.factorAcum.toLocaleString('es')}</td>
         <td>${vTransfFormateado}</td>
         <td>${fila.vSolvente === '—' ? '—' : parseFloat(fila.vSolvente).toFixed(2)}</td>
       `;

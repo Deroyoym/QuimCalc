@@ -7,7 +7,7 @@
 //   • Todo lo demás   → Network-First con fallback al caché
 // ============================================================
 
-const CACHE_VERSION   = 'v3.030';                           // ← incrementar cuando hagas cambios grandes
+const CACHE_VERSION   = 'v3.031';                           // ← incrementar cuando hagas cambios grandes
 const CACHE_ESTATICO  = `quimcalc-estatico-${CACHE_VERSION}`;
 const CACHE_PAGINAS   = `quimcalc-paginas-${CACHE_VERSION}`;
 
@@ -42,7 +42,15 @@ const PRECACHE_URLS = [
 self.addEventListener('install', (evento) => {
   evento.waitUntil(
     caches.open(CACHE_ESTATICO)
-      .then((cache) => cache.addAll(PRECACHE_URLS))
+      // Cacheamos recurso por recurso con allSettled: si alguno falla,
+      // el resto igual se instala (el offline degrada en vez de romperse).
+      .then((cache) => Promise.allSettled(
+        PRECACHE_URLS.map((url) =>
+          cache.add(url).catch((err) => {
+            console.warn('[QuimCalc SW] No se pudo precachear:', url, err);
+          })
+        )
+      ))
       .then(() => self.skipWaiting())   // activa el SW nuevo de inmediato
       .catch((err) => console.error('[QuimCalc SW] Error en pre-cache:', err))
   );
