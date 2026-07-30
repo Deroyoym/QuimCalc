@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ── Función auxiliar: muestra un resultado exitoso ──────── */
   function mostrarResultado(valor, formula) {
+    if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, formula);
     /* Quitamos clase de error por si venía de antes */
     bloqueResultado.classList.remove('resultado--error');
 
