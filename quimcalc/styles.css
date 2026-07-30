@@ -1899,3 +1899,112 @@ tr.oculta { display: none; }
   line-height: 1.75;
   margin-bottom: var(--espacio-md);
 }
+
+/* ============================================================
+   HISTORIAL DE CÁLCULOS (js/historial.js)
+   ============================================================ */
+.historial-boton {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 9998;
+  background: var(--color-header-bg);
+  color: var(--color-header-texto);
+  border: none;
+  border-radius: var(--radio-md);
+  padding: 10px 16px;
+  font-family: var(--fuente-principal);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--sombra-card);
+  transition: background 0.15s;
+}
+
+.historial-boton:hover { background: var(--color-acento-hover); }
+
+.historial-panel {
+  position: fixed;
+  left: 20px;
+  bottom: 64px;
+  z-index: 9998;
+  width: min(340px, calc(100vw - 40px));
+  max-height: 60vh;
+  overflow-y: auto;
+  background: var(--color-fondo);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  box-shadow: var(--sombra-card);
+}
+
+.historial-panel__cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-sm);
+  padding: var(--espacio-sm) var(--espacio-md);
+  border-bottom: 1px solid var(--color-borde);
+  position: sticky;
+  top: 0;
+  background: var(--color-fondo);
+}
+
+.historial-panel__titulo {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-texto-suave);
+}
+
+.historial-panel__borrar {
+  background: transparent;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-sm);
+  color: var(--color-texto-suave);
+  font-size: 0.75rem;
+  font-family: var(--fuente-principal);
+  padding: 3px 10px;
+  cursor: pointer;
+}
+
+.historial-panel__borrar:hover {
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+.historial-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.historial-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--espacio-sm) var(--espacio-md);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.historial-item:last-child { border-bottom: none; }
+
+.historial-item__valor {
+  font-weight: 600;
+  color: var(--color-texto);
+  font-size: 0.9rem;
+}
+
+.historial-item__detalle {
+  color: var(--color-texto-suave);
+  font-size: 0.8rem;
+}
+
+.historial-item__tiempo {
+  color: var(--color-texto-suave);
+  font-size: 0.72rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .historial-boton { transition: none; }
+}

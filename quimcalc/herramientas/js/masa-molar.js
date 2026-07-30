@@ -184,6 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ── Funciones de UI ────────────────────────────────────── */
   function mostrarResultado(valor, descripcion, lineasDesglose) {
+    if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, descripcion);
     bloqueResultado.classList.remove('resultado--error');
     etiquetaResultado.textContent = descripcion;
     valorResultado.textContent    = valor;

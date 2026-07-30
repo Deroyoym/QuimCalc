@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function mostrarResultado(valor, descripcion, formula) {
+    if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, formula);
     bloqueResultado.classList.remove('resultado--error');
     etiquetaResultado.textContent = descripcion;
     valorResultado.textContent    = valor;

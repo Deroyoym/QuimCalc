@@ -106,6 +106,9 @@ QuimCalc/
     ├── js/
     │   ├── animations.js       ← fade-in on scroll (IntersectionObserver)
     │   ├── pwa-register.js
+    │   ├── consent-banner.js   ← banner de cookies + Consent Mode v2
+    │   ├── blog-filtro.js      ← filtrado de posts por categoría
+    │   ├── historial.js        ← "tus últimos 10 cálculos" por herramienta
     │   └── init-speed-insights.js
     ├── herramientas/
     │   ├── *.html
