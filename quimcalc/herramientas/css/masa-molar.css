@@ -20,6 +20,6 @@
     }
 
     .ejemplo-formula-btn:hover {
-      background-color: #EFF6FF;
+      background-color: var(--color-acento-claro);
       border-color: var(--color-acento);
     }

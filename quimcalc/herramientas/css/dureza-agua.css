@@ -29,7 +29,7 @@
 
     /* Fila de la unidad de origen resaltada */
     .tabla-dureza tr.fila-origen td {
-      background-color: #EFF6FF;
+      background-color: var(--color-acento-claro);
       color: var(--color-acento);
       font-weight: 600;
     }
