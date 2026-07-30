@@ -49,7 +49,7 @@ def build_post_card(p):
     cat_style = f' style="color: {p["category_color"]};"' if p.get('category_color') else ''
     return f"""\
             <article>
-              <a href="posts/{p['slug']}.html" class="post-card">
+              <a href="posts/{p['slug']}.html" class="post-card" data-categoria="{p['category']}">
                 <img src="../blog/posts/{p['image']}" alt="{p['image_alt']}" class="post-card__imagen" loading="lazy" width="600" height="200">
                 <span class="post-card__categoria"{cat_style}>{p['category']}</span>
                 <h2 class="post-card__titulo">{p['title']}</h2>
@@ -68,7 +68,31 @@ def build_post_card(p):
             </article>"""
 
 
-def update_blog_index(posts):
+def build_sidebar_categorias(posts, categorias):
+    """Genera la lista de categorías del sidebar desde data/categorias.json.
+       Incluye una opción 'Todas' para resetear el filtro (ver js/blog-filtro.js)."""
+    counts = Counter(p['category'] for p in posts)
+    items = [
+        '              <li>\n'
+        f'                <a href="#" data-categoria="">Todas <span class="count">{len(posts)}</span></a>\n'
+        '              </li>'
+    ]
+    for c in categorias:
+        nombre = c['nombre']
+        items.append(
+            '              <li>\n'
+            f'                <a href="#" data-categoria="{nombre}">{nombre} '
+            f'<span class="count">{counts.get(nombre, 0)}</span></a>\n'
+            '              </li>'
+        )
+    return (
+        '<ul class="categorias-lista" role="list">\n'
+        + '\n'.join(items)
+        + '\n            </ul>'
+    )
+
+
+def update_blog_index(posts, categorias):
     path = os.path.join(SITE, 'blog', 'index.html')
     content = read(path)
 
@@ -86,17 +110,44 @@ def update_blog_index(posts):
         flags=re.DOTALL,
     )
 
-    # Actualizar contadores de categorías en sidebar
-    counts = Counter(p['category'] for p in posts)
-    for cat, count in counts.items():
-        content = re.sub(
-            rf'({re.escape(cat)}\s*<span class="count">)\d+(</span>)',
-            rf'\g<1>{count}\g<2>',
-            content,
-        )
+    # Regenerar la lista de categorías del sidebar desde categorias.json
+    content = re.sub(
+        r'<ul class="categorias-lista".*?</ul>',
+        build_sidebar_categorias(posts, categorias),
+        content,
+        flags=re.DOTALL,
+    )
 
     write(path, content)
-    print(f'✓ blog/index.html  — {len(posts)} posts, categorías actualizadas')
+    print(f'✓ blog/index.html  — {len(posts)} posts, sidebar de categorías regenerado')
+
+
+def update_cms(categorias):
+    """Regenera el <select> de categorías y el mapa COLORES del CMS
+       (admin/index.html) desde data/categorias.json — fuente única."""
+    path = os.path.join(SITE, 'admin', 'index.html')
+    content = read(path)
+
+    # <option> del selector de categoría
+    options = '\n'.join(
+        f'              <option value="{c["nombre"]}" data-color="{c["color"]}">{c["nombre"]}</option>'
+        for c in categorias
+    )
+    content = re.sub(
+        r'<select id="f-categoria">.*?</select>',
+        '<select id="f-categoria">\n' + options + '\n            </select>',
+        content,
+        flags=re.DOTALL,
+    )
+
+    # Objeto JS COLORES
+    colores = 'const COLORES = {\n' + '\n'.join(
+        f"  '{c['nombre']}': '{c['color']}'," for c in categorias
+    ) + '\n};'
+    content = re.sub(r'const COLORES = \{.*?\};', colores, content, flags=re.DOTALL)
+
+    write(path, content)
+    print(f'✓ admin/index.html — {len(categorias)} categorías (select + COLORES)')
 
 
 # ── 2. sitemap.xml ────────────────────────────────────────────────
@@ -203,11 +254,13 @@ def update_sw(tools):
 def main():
     posts = load('posts.json')
     tools = load('tools.json')
+    categorias = load('categorias.json')
 
     # Ordenar posts por fecha descendente
     posts.sort(key=lambda p: p.get('date_sort', ''), reverse=True)
 
-    update_blog_index(posts)
+    update_blog_index(posts, categorias)
+    update_cms(categorias)
     update_sitemap(posts, tools)
     update_sw(tools)
 

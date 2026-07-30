@@ -131,9 +131,14 @@
       text-decoration: none;
     }
 
-    .categorias-lista a:hover {
+    .categorias-lista a:hover,
+    .categorias-lista a.activo {
       color: var(--color-acento);
       background-color: var(--color-acento-claro);
+    }
+
+    .categorias-lista a.activo {
+      font-weight: 600;
     }
 
     .categorias-lista .count {

@@ -1,0 +1,8 @@
+[
+  { "nombre": "Química básica",         "color": "#1A5C38" },
+  { "nombre": "Agua y medio ambiente",  "color": "#059669" },
+  { "nombre": "Análisis volumétrico",   "color": "#D97706" },
+  { "nombre": "Instrumentación",        "color": "#7C3AED" },
+  { "nombre": "Laboratorio industrial", "color": "#0369A1" },
+  { "nombre": "Normativa y calidad",    "color": "#DC2626" }
+]
