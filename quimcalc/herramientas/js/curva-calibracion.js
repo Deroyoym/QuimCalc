@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const reg = regresionLineal(puntos);
     const signoB = reg.b >= 0 ? '+' : '';
-    const fecha = new Date().toLocaleDateString('es-AR');
+    const fecha = new Date().toLocaleDateString('es');
 
     let texto = `CURVA DE CALIBRACIÓN — QuimCalc\n`;
     texto += `Fecha: ${fecha}\n`;

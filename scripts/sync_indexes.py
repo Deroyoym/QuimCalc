@@ -103,22 +103,25 @@ def update_blog_index(posts):
 def update_sitemap(posts, tools):
     today = date.today().strftime('%Y-%m-%d')
 
+    # Cada URL lleva su propio lastmod. Los posts usan su date_sort
+    # (fecha de publicación) en vez de "hoy" uniforme.
     static = [
-        ('https://quimcalc.com/', '1.0', 'weekly'),
-        ('https://quimcalc.com/blog/index.html', '0.8', 'weekly'),
-        ('https://quimcalc.com/sobre-el-proyecto.html', '0.5', 'monthly'),
-        ('https://quimcalc.com/contacto.html', '0.3', 'monthly'),
-        ('https://quimcalc.com/politicas-de-privacidad.html', '0.3', 'monthly'),
-        ('https://quimcalc.com/terminos-de-uso.html', '0.3', 'monthly'),
+        ('https://quimcalc.com/', '1.0', 'weekly', today),
+        ('https://quimcalc.com/blog/index.html', '0.8', 'weekly', today),
+        ('https://quimcalc.com/sobre-el-proyecto.html', '0.5', 'monthly', today),
+        ('https://quimcalc.com/contacto.html', '0.3', 'monthly', today),
+        ('https://quimcalc.com/politicas-de-privacidad.html', '0.3', 'monthly', today),
+        ('https://quimcalc.com/terminos-de-uso.html', '0.3', 'monthly', today),
     ]
 
     tool_urls = [
-        (f'https://quimcalc.com/herramientas/{t["slug"]}.html', '0.9', 'monthly')
+        (f'https://quimcalc.com/herramientas/{t["slug"]}.html', '0.9', 'monthly', today)
         for t in tools
     ]
 
     post_urls = [
-        (f'https://quimcalc.com/blog/posts/{p["slug"]}.html', '0.7', 'monthly')
+        (f'https://quimcalc.com/blog/posts/{p["slug"]}.html', '0.7', 'monthly',
+         p.get('date_sort') or today)
         for p in posts
     ]
 
@@ -127,11 +130,11 @@ def update_sitemap(posts, tools):
     entries = '\n'.join(
         f'  <url>\n'
         f'    <loc>{loc}</loc>\n'
-        f'    <lastmod>{today}</lastmod>\n'
+        f'    <lastmod>{lastmod}</lastmod>\n'
         f'    <changefreq>{freq}</changefreq>\n'
         f'    <priority>{priority}</priority>\n'
         f'  </url>'
-        for loc, priority, freq in all_urls
+        for loc, priority, freq, lastmod in all_urls
     )
 
     sitemap = (
