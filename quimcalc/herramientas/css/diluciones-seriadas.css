@@ -24,14 +24,14 @@
     }
 
     .tabla-serie tr:first-child td {
-      background-color: #EFF6FF;
+      background-color: var(--color-acento-claro);
       color: var(--color-texto);
       font-weight: 600;
       font-family: var(--fuente-principal);
     }
 
     .tabla-serie tr:nth-child(even) td {
-      background-color: #FAFAFA;
+      background-color: var(--color-fondo-card);
     }
 
     /* Contenedor con scroll horizontal en mobile */

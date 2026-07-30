@@ -22,7 +22,7 @@
     }
 
     .tabla-pka tr:nth-child(even) td {
-      background-color: #FAFAFA;
+      background-color: var(--color-fondo-card);
     }
 
     .tabla-pka td:last-child {

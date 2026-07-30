@@ -133,7 +133,7 @@
 
     .categorias-lista a:hover {
       color: var(--color-acento);
-      background-color: #EFF6FF;
+      background-color: var(--color-acento-claro);
     }
 
     .categorias-lista .count {
