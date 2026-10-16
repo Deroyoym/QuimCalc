@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Curva de calibración online: regresión lineal y R² | QuimCalc</title>
-  <meta name="description" content="Generá tu curva de calibración (o curva de calibrado) para espectrofotómetro o cualquier equipo analítico: regresión lineal, R², ecuación y gráfico. Gratis.">
+  <title>Curva de calibrado o de calibración online: recta y R²</title>
+  <meta name="description" content="Generá tu curva de calibración o recta de calibrado: regresión lineal, R², LOD/LOQ e interpolación de muestras. Para espectrofotometría y más. Gratis.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://quimcalc.com/herramientas/curva-calibracion.html">
-  <meta property="og:title" content="Curva de calibración online: regresión lineal y R² | QuimCalc">
-  <meta property="og:description" content="Generá tu curva de calibración (o curva de calibrado) para espectrofotómetro o cualquier equipo analítico: regresión lineal, R², ecuación y gráfico. Gratis.">
+  <meta property="og:title" content="Curva de calibrado o de calibración online: recta y R²">
+  <meta property="og:description" content="Generá tu curva de calibración o recta de calibrado: regresión lineal, R², LOD/LOQ e interpolación de muestras. Para espectrofotometría y más. Gratis.">
   <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
   <meta property="og:site_name" content="QuimCalc">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Curva de calibración online: regresión lineal y R² | QuimCalc">
-  <meta name="twitter:description" content="Generá tu curva de calibración (o curva de calibrado) para espectrofotómetro o cualquier equipo analítico: regresión lineal, R², ecuación y gráfico. Gratis.">
+  <meta name="twitter:title" content="Curva de calibrado o de calibración online: recta y R²">
+  <meta name="twitter:description" content="Generá tu curva de calibración o recta de calibrado: regresión lineal, R², LOD/LOQ e interpolación de muestras. Para espectrofotometría y más. Gratis.">
   <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
   <meta name="author" content="QuimCalc">
   <link rel="canonical" href="https://quimcalc.com/herramientas/curva-calibracion.html">
@@ -35,17 +35,22 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "dateModified": "2026-06-08",
-    "name": "Calculadora de Curva de Calibración",
+    "dateModified": "2026-10-16",
+    "name": "Curva de calibrado (curva de calibración) online",
     "description": "Generá la regresión lineal y el gráfico de tu curva de calibración analítica.",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Web",
     "inLanguage": "es",
     "isAccessibleForFree": true,
     "url": "https://quimcalc.com/herramientas/curva-calibracion.html",
-    "featureList": ["Regresión lineal por mínimos cuadrados",
-               "Gráfico interactivo de la curva",
-               "Calcula R², pendiente e intercepto"],
+    "featureList": [
+      "Regresión lineal por mínimos cuadrados",
+      "Recta de calibrado con R², pendiente y ordenada",
+      "LOD y LOQ estimados desde la curva",
+      "Residuales por punto",
+      "Interpolación de muestras desconocidas",
+      "Gráfico de la curva"
+    ],
     "offers": {
       "@type": "Offer",
       "price": "0"
@@ -61,8 +66,16 @@
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "dateModified": "2026-06-08",
+    "dateModified": "2026-10-16",
     "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Curva de calibrado y curva de calibración son lo mismo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. «Curva de calibración» es la forma más usada en Latinoamérica y «curva de calibrado» o «recta de calibrado» en España. Cuando la relación entre concentración y señal es lineal, la curva es una recta, por eso también se la llama recta de calibrado."
+        }
+      },
       {
         "@type": "Question",
         "name": "¿Cuántos puntos necesito para una curva de calibración válida?",
@@ -84,7 +97,7 @@
         "name": "¿Qué hago si el R² es bajo?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Primero verificá si hay algún punto \"aberrante\" (outlier) visualmente alejado de la recta. Luego revisá si todos los estándares fueron preparados correctamente y si el instrumento fue estabilizado antes de la lectura. Un R² bajo también puede indicar que la relación no es lineal en ese rango, y habría que reducir el rango de la curva o aplicar otro modelo."
+          "text": "Primero mirá la tabla de residuales: un punto con residual mucho mayor que el resto suele ser un error de preparación o de lectura. Si los residuales forman una curva (positivos en los extremos y negativos en el medio, o al revés), la relación no es lineal en ese rango y conviene acotar el rango o usar otro modelo. Revisá también que el instrumento esté estabilizado antes de leer."
         }
       }
     ]
@@ -139,7 +152,7 @@
       </nav>
 
       <div class="pagina-herramienta__encabezado">
-        <h1 class="pagina-herramienta__titulo">Generador de Curva de Calibración</h1>
+        <h1 class="pagina-herramienta__titulo">Curva de calibración (recta de calibrado)</h1>
         <p class="pagina-herramienta__descripcion">
           Ingresá los pares de datos concentración / señal, obtené la ecuación de la recta, el coeficiente R² y el gráfico. Interpolá muestras desconocidas directamente desde la curva.
         </p>
@@ -289,7 +302,28 @@
                 <p class="resultado-item__valor" id="res-se">—</p>
               </div>
 
+              <div class="resultado-item">
+                <p class="resultado-item__label">LOD estimado (3,3·Se/m)</p>
+                <p class="resultado-item__valor" id="res-lod">—</p>
+              </div>
+
+              <div class="resultado-item">
+                <p class="resultado-item__label">LOQ estimado (10·Se/m)</p>
+                <p class="resultado-item__valor" id="res-loq">—</p>
+              </div>
+
             </div>
+
+            <p class="resultado-item__label residuales-titulo">Residuales (y − ŷ)</p>
+            <div class="tabla-wrapper">
+              <table class="tabla-referencia tabla-referencia--compacta">
+                <thead>
+                  <tr><th scope="col">N°</th><th scope="col">X</th><th scope="col">Y medida</th><th scope="col">Y calculada</th><th scope="col">Residual</th></tr>
+                </thead>
+                <tbody id="tabla-residuales"></tbody>
+              </table>
+            </div>
+            <p class="residuales-nota">⚠ marca residuales mayores que 2·Se. LOD y LOQ en unidades de X; para un cálculo completo usá la <a href="lod-loq.html">calculadora de LOD y LOQ</a>.</p>
 
             <!-- Botón exportar -->
             <button id="btn-exportar" class="btn btn--secundario" type="button" style="margin-top:var(--espacio-md);">
@@ -311,6 +345,21 @@
           Una vez calculada la curva, podés ingresar la señal de una muestra desconocida en la sección de interpolación para obtener su concentración directamente desde la ecuación de la recta.
         </p>
 
+        <h2>Recta de calibrado o curva de calibración: es lo mismo</h2>
+        <p>
+          Según el país cambia el nombre, no el procedimiento: en Latinoamérica se dice <strong>curva de calibración</strong> y en España, <strong>curva de calibrado</strong> o <strong>recta de calibrado</strong>. Se habla de «recta» porque, dentro del rango lineal, la relación entre concentración y señal es una línea recta del tipo y = m·x + b.
+        </p>
+
+        <h2>Qué te da la recta de calibrado</h2>
+        <ul>
+          <li><strong>Pendiente (m):</strong> la sensibilidad del método, es decir, cuánto cambia la señal por unidad de concentración.</li>
+          <li><strong>Ordenada al origen (b):</strong> la señal que daría una muestra sin analito; idealmente cercana a la del blanco.</li>
+          <li><strong>R² y Se:</strong> qué tan bien se ajustan los puntos a la recta y cuánto se dispersan alrededor de ella.</li>
+          <li><strong>Interpolación:</strong> la concentración de una muestra desconocida se despeja como x = (y − b) / m. Solo es válida dentro del rango de los estándares.</li>
+          <li><strong>LOD y LOQ estimados:</strong> a partir de Se y la pendiente (3,3·Se/m y 10·Se/m, criterio ICH Q2). Para un cálculo a partir de blancos o con otros criterios, usá la <a href="lod-loq.html">calculadora de LOD y LOQ</a>.</li>
+          <li><strong>Residuales:</strong> la diferencia entre la señal medida y la que predice la recta. Si son chicos y sin patrón, el ajuste lineal es adecuado; si dibujan una curva, la relación no es lineal en ese rango.</li>
+        </ul>
+
         <h2>¿Qué indica el R²?</h2>
 
         <div class="ejemplo-bloque">
@@ -325,6 +374,13 @@
         </p>
 
         <h2>Preguntas frecuentes</h2>
+
+        <div class="faq-item">
+          <h3>¿Curva de calibrado y curva de calibración son lo mismo?</h3>
+          <p>
+            Sí. «Curva de calibración» es la forma más usada en Latinoamérica y «curva de calibrado» o «recta de calibrado» en España. Cuando la relación entre concentración y señal es lineal, la curva es una recta, por eso también se la llama recta de calibrado.
+          </p>
+        </div>
 
         <div class="faq-item">
           <h3>¿Cuántos puntos necesito para una curva de calibración válida?</h3>
@@ -343,9 +399,16 @@
         <div class="faq-item">
           <h3>¿Qué hago si el R² es bajo?</h3>
           <p>
-            Primero verificá si hay algún punto "aberrante" (outlier) visualmente alejado de la recta. Luego revisá si todos los estándares fueron preparados correctamente y si el instrumento fue estabilizado antes de la lectura. Un R² bajo también puede indicar que la relación no es lineal en ese rango, y habría que reducir el rango de la curva o aplicar otro modelo.
+            Primero mirá la tabla de residuales: un punto con residual mucho mayor que el resto suele ser un error de preparación o de lectura. Si los residuales forman una curva (positivos en los extremos y negativos en el medio, o al revés), la relación no es lineal en ese rango y conviene acotar el rango o usar otro modelo. Revisá también que el instrumento esté estabilizado antes de leer.
           </p>
         </div>
+
+        <h2>Herramientas relacionadas</h2>
+        <ul class="otras-conversiones">
+          <li><a href="lod-loq.html">Calculadora de LOD y LOQ</a>: límites de detección y cuantificación con distintos criterios.</li>
+          <li><a href="calculadora-diluciones.html">Calculadora de diluciones C₁V₁ = C₂V₂</a>: para preparar los estándares de la curva.</li>
+          <li><a href="conversor-ppm-mgl.html">Conversor de ppm a mg/L</a>: para expresar los estándares en la unidad que pide tu método.</li>
+        </ul>
 
       </section>
       <!-- BLOQUE "DEL BLOG" — va al final de .seccion-educativa, antes de </main> -->

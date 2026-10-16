@@ -169,3 +169,26 @@
             
 
 #resultado.visible { display: block !important; }
+
+    /* Residuales y LOD/LOQ */
+    .residuales-titulo {
+      margin-top: var(--espacio-lg);
+    }
+
+    .residuales-nota {
+      font-size: 0.8rem;
+      color: var(--color-texto-suave);
+      margin-top: var(--espacio-sm);
+    }
+
+    .residual-alto td {
+      color: var(--color-error);
+      font-weight: 600;
+    }
+
+    /* Los paneles de la grilla no deben crecer con su contenido
+       (la tabla de residuales tiene scroll propio en .tabla-wrapper). */
+    .panel-entrada,
+    .panel-grafico {
+      min-width: 0;
+    }
