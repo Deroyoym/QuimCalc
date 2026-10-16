@@ -7,7 +7,9 @@
    Source Serif 4: títulos — tipografía editorial científica
    DM Sans: cuerpo de texto — geométrica y legible
    ──────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600;700&display=swap');
+/* Las fuentes se cargan con <link> en el <head> de cada página (preconnect +
+   stylesheet): con @import el navegador tenía que bajar este CSS antes de
+   pedirlas, y eso encadenaba dos viajes que bloqueaban el render. */
 
 /* ── 2. VARIABLES CSS ────────────────────────────────────────
    Paleta: verde oscuro / crema — identidad editorial química
