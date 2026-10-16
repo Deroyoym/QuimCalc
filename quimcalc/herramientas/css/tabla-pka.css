@@ -171,3 +171,16 @@
 
     /* Fila oculta por filtro */
     tr.oculta { display: none; }
+
+    /* Destacado del amoníaco + ancla a su fila */
+    .destacado-amonio {
+      margin-bottom: var(--espacio-lg);
+    }
+
+    #amonio {
+      scroll-margin-top: 140px;   /* el header sticky ocupa hasta 2 líneas en mobile */
+    }
+
+    #amonio:target td {
+      background-color: var(--color-acento-claro);
+    }
