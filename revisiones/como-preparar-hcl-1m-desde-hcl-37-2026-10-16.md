@@ -207,23 +207,27 @@ La tabla completa de 41 filas (fragmento → corrección → motivo) está en el
 
 Hay que conservar la FAQ del borrador sobre almacenamiento en PEAD (HDPE) o vidrio de borosilicato, con su etiqueta. Es correcta.
 
-## 7. Checklist de aplicación
+## 7. Checklist de aplicación (aplicado el 2026-10-16, opción «Aplicar todo y maquetar»)
 
-- [ ] 🔢 C1–C2: 12,1 M (12,08) y 41,4 mL, con el rango de 40,3 a 42,9 mL y la nota de valoración
-- [ ] C3–C4: «% p/p» en lugar de «porcentaje molar»; «concentrada» en lugar de «saturada»
-- [ ] C5: quitar ISO 17025 para campanas (citar EN 14175 / ANSI-ASHRAE 110 o nada) y sacarla de las fuentes
-- [ ] C6 + T14: quitar los enlaces forzados a solucion-desde-solido y conversor-temperatura
-- [ ] T7–T13, T15: estabilidad, calor de dilución, dilatación de la solución, agua a 20 °C, probeta, unidades de la fórmula, FAQ de estandarización
-- [ ] Title (A/B/C) y meta (A/B/C)
-- [ ] 🔢 Resumen y primer párrafo con «8,3 mL por cada 100 mL»
-- [ ] Estructura de §2.5 con ids cortos, `post-formula`, `.ejemplo-bloque` y `<ol>`
-- [ ] 🔢 Ejemplo de H<sub>2</sub>SO<sub>4</sub> 0,5 M y tabla de reactivos (**antes de aplicarlos, pasar por el revisor técnico**)
-- [ ] Enlaces internos de §2.4, CTA y barra lateral
-- [ ] FAQ de §6 (5 preguntas más la de almacenamiento), visible y en el JSON-LD
-- [ ] Voseo, «nosotros», regionalismos y terminología
-- [ ] Imagen (generarla) y alt definitivo
-- [ ] Maquetar el HTML desde `PLANTILLA-post.html`, dar de alta en `data/posts.json`, `sync_indexes.py`, validación
-- [ ] Enlace desde `que-es-la-molaridad.html` hacia este post
+- [x] 🔢 C1–C2: 12,08 M (≈ 12,1) y 41,4 mL, con el rango de 40,3 a 42,9 mL y la nota de valoración
+- [x] C3–C4: % p/p (no molar); «concentrado», no «saturado»
+- [x] C5: se quitó ISO 17025; se citan EN 14175 y ANSI/ASHRAE 110 (también en las fuentes)
+- [x] C6 + T14: fuera solucion-desde-solido y conversor-temperatura
+- [x] T7–T13, T15: presión de vapor, calor de dilución moderado en HCl, dilatación de la solución, aforo a 20 °C, probeta de 50 mL + propipeta, unidades y factor 10, estandarización
+- [x] Title A (58) + Meta A (129), en las 3 copias + `posts.json`
+- [x] 🔢 Resumen y primer párrafo con «8,3 mL por cada 100 mL»
+- [x] Estructura de §2.5 con ids cortos, `post-formula`, `.ejemplo-bloque`, `<ol>` y tablas
+- [x] 🔢 Ejemplo de H<sub>2</sub>SO<sub>4</sub> 0,5 M (27,2 mL) y tabla de 6 reactivos, **verificados en una segunda pasada del revisor técnico**. Ajustes que pidió: HNO<sub>3</sub> d 1,39; acético 17,4 M; H<sub>2</sub>SO<sub>4</sub> 17,8–18,4 M; se agregó H<sub>3</sub>PO<sub>4</sub>; nota sobre el NH<sub>3</sub> al 28–30 %
+- [x] Salfumán y muriático: sin rango numérico (no hay fuente); se dejó la redacción que propuso el revisor técnico
+- [x] Estandarización: Na<sub>2</sub>CO<sub>3</sub> 1,32 g y TRIS 3,03 g por cada 25 mL, verificados
+- [x] Enlaces internos (5 calculadoras + 3 artículos), CTA a diluciones-reactivo-comercial y barra lateral podada
+- [x] FAQ: 6 preguntas (las 5 de §6 + almacenamiento), visibles y en el JSON-LD
+- [x] Español neutro: sin voseo ni «nosotros»; «aforar», «vitrina de gases», «PEAD (HDPE)»
+- [x] HTML desde la plantilla, alta en `data/posts.json`, `sync_indexes.py`, JSON-LD válido, sin enlaces ni anclas rotas
+- [x] Enlace desde `que-es-la-molaridad.html` (Ejemplo 2) hacia este post
+- [x] CSS: `.post-layout > article { min-width: 0 }`, para que una tabla ancha no provoque scroll horizontal (detectado a 375 px)
+- [ ] **Imagen** `img/como-preparar-hcl-1m-desde-hcl-37.webp` (1536×1024): pendiente. **No se publica en main hasta tenerla.**
+- [ ] Opcional: og:image propia y HowTo (no aplicados)
 
 ## Anexo: criterio de unión
 

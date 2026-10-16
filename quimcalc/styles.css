@@ -899,6 +899,12 @@ a:hover {
   align-items: start;
 }
 
+/* Sin esto, una tabla ancha estira la columna del artículo y la página
+   scrollea en horizontal; con min-width:0 la tabla scrollea dentro de .tabla-wrapper */
+.post-layout > article {
+  min-width: 0;
+}
+
 /* Encabezado del post */
 .post-header {
   margin-bottom: var(--espacio-xl);
