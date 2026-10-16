@@ -13,7 +13,7 @@
   },
   {
     "slug": "conversor-concentracion",
-    "title": "Conversor de concentración ampliado",
+    "title": "Conversor de concentración molar y másica",
     "icon_svg": "<svg viewBox=\"0 0 24 24\"><path d=\"M4 7h16M4 12h16M4 17h10\"/><path d=\"M18 14l3 3-3 3\"/></svg>",
     "precache": false
   },

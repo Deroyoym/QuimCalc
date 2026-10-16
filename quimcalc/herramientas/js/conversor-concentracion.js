@@ -55,16 +55,18 @@
       }
     }
 
+    /* Unidades másicas entre sí, sin masa molar (referencia: g/L) */
+    var A_GL = { 'g/L':1, 'mg/L':1e-3, 'ug/L':1e-6, 'mg/dL':1e-2, 'ugmL':1e-3,
+                 'pct_mv':10, 'ppm':1e-3, 'ppb':1e-6 };
+
     function formatearValor(n) {
       if (isNaN(n) || !isFinite(n)) return '—';
       if (n === 0) return '0';
       var abs = Math.abs(n);
-      if (abs >= 1e9)   return n.toExponential(4);
-      if (abs >= 1e6)   return n.toLocaleString('es', {maximumFractionDigits:2});
-      if (abs >= 1000)  return n.toLocaleString('es', {maximumFractionDigits:4});
-      if (abs >= 1)     return n.toPrecision(6);
-      if (abs >= 1e-3)  return n.toPrecision(5);
-      return n.toExponential(4);
+      /* Sin separador de miles: mezclado con el punto decimal era ambiguo
+         ("58.440" podía leerse 58,44). Hasta 6 cifras, sin ceros de relleno. */
+      if (abs >= 1e9 || abs < 1e-4) return n.toExponential(4);
+      return String(parseFloat(n.toPrecision(6)));
     }
 
     var grupoActual = '';
@@ -87,11 +89,10 @@
         return;
       }
 
+      /* Unidad másica sin masa molar: se convierte solo entre unidades
+         másicas; las molares quedan como "requiere M". */
       if (necesitaMInput && (isNaN(M) || M <= 0)) {
-        errorDiv.style.display = 'block';
-        document.getElementById('error-texto').textContent =
-          'La unidad "' + unidadIn + '" requiere masa molar para convertir.';
-        renderGrid(null, null, false);
+        renderGrid(null, null, false, unidadIn, val * A_GL[unidadIn]);
         return;
       }
 
@@ -106,7 +107,8 @@
       renderGrid(molL, M, tieneMolar, unidadIn);
     }
 
-    function renderGrid(molL, M, tieneMolar, unidadActiva) {
+    function renderGrid(molL, M, tieneMolar, unidadActiva, gL) {
+      var soloMasa = molL === null && typeof gL === 'number';
       var grid = document.getElementById('conv-grid');
       var html = '';
       var grupoAnterior = '';
@@ -119,12 +121,18 @@
         }
 
         var necesita = u.necesitaM;
-        var puedeCalcular = molL !== null && (!necesita || tieneMolar);
+        var puedeCalcular = soloMasa ? necesita
+                          : molL !== null && (!necesita || tieneMolar);
         var esActiva = u.id === unidadActiva;
+        /* En modo "solo masa" las que faltan son las molares */
+        var faltaM = soloMasa ? !necesita : (necesita && !tieneMolar);
 
         var valorStr;
         if (!puedeCalcular) {
-          valorStr = necesita && !tieneMolar ? '— (requiere M)' : '—';
+          var sinDato = molL === null && !soloMasa;
+          valorStr = !sinDato && faltaM ? '— (requiere M)' : '—';
+        } else if (soloMasa) {
+          valorStr = formatearValor(gL / A_GL[u.id]);
         } else {
           var res = desdeMolL(molL, u.id, M);
           valorStr = formatearValor(res);
@@ -132,7 +140,7 @@
 
         var claseCard = 'conv-card' +
           (esActiva ? ' activa' : '') +
-          (necesita && !tieneMolar ? ' necesita-m' : '');
+          (faltaM ? ' necesita-m' : '');
         var claseValor = 'conv-card__valor' + (valorStr === '—' || valorStr.includes('requiere') ? ' placeholder' : '');
 
         html +=
@@ -145,7 +153,9 @@
       });
 
       /* Nota equivalencias */
-      if (tieneMolar) {
+      if (soloMasa) {
+        html += '<p class="conv-nota">Sin masa molar se convierte solo entre unidades de masa. Ingresá la masa molar para ver también mol/L, mmol/L y µmol/L.</p>';
+      } else if (tieneMolar) {
         html += '<p class="conv-nota">Las unidades ppm, ppb, µg/mL y mg/L son equivalentes para soluciones acuosas diluidas (ρ ≈ 1 g/mL). Hacé clic en cualquier resultado para copiarlo.</p>';
       }
 

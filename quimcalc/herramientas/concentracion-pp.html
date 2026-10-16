@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Calculadora de Concentración % p/p | QuimCalc</title>
-  <meta name="description" content="Calculá la concentración en % peso/peso (p/p), la masa del soluto o del solvente. Herramienta online gratuita para laboratorio químico.">
+  <title>Porcentaje p/p, p/v y v/v: calculadora de soluciones</title>
+  <meta name="description" content="Calculá el porcentaje p/p, p/v o v/v de una solución, o cuánto soluto pesar o medir para prepararla. Con fórmulas y ejemplos resueltos. Gratis.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://quimcalc.com/herramientas/concentracion-pp.html">
-  <meta property="og:title" content="Calculadora de Concentración % p/p | QuimCalc">
-  <meta property="og:description" content="Calculá la concentración en % peso/peso (p/p), la masa del soluto o del solvente. Herramienta online gratuita para laboratorio químico.">
+  <meta property="og:title" content="Porcentaje p/p, p/v y v/v: calculadora de soluciones">
+  <meta property="og:description" content="Calculá el porcentaje p/p, p/v o v/v de una solución, o cuánto soluto pesar o medir para prepararla. Con fórmulas y ejemplos resueltos. Gratis.">
   <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
   <meta property="og:site_name" content="QuimCalc">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Calculadora de Concentración % p/p | QuimCalc">
-  <meta name="twitter:description" content="Calculá la concentración en % peso/peso (p/p), la masa del soluto o del solvente. Herramienta online gratuita para laboratorio químico.">
+  <meta name="twitter:title" content="Porcentaje p/p, p/v y v/v: calculadora de soluciones">
+  <meta name="twitter:description" content="Calculá el porcentaje p/p, p/v o v/v de una solución, o cuánto soluto pesar o medir para prepararla. Con fórmulas y ejemplos resueltos. Gratis.">
   <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
   <meta name="author" content="QuimCalc">
   <link rel="canonical" href="https://quimcalc.com/herramientas/concentracion-pp.html">
@@ -34,16 +34,20 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "dateModified": "2026-06-08",
-    "name": "Calculadora de Concentración % p/p",
-    "description": "Calculá la concentración porcentual masa/masa de soluciones en laboratorio.",
+    "dateModified": "2026-10-16",
+    "name": "Calculadora de porcentaje p/p, p/v y v/v",
+    "description": "Calculá el porcentaje p/p, p/v o v/v de una solución, o la cantidad de soluto o de solución necesaria para prepararla.",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Web",
     "inLanguage": "es",
     "isAccessibleForFree": true,
     "url": "https://quimcalc.com/herramientas/concentracion-pp.html",
-    "featureList": ["Calcula % p/p desde masa de soluto y solución",
-               "Calcula masa de soluto o solución según el dato faltante"],
+    "featureList": [
+      "% p/p desde masas de soluto y solvente",
+      "% p/v y su equivalente en g/L",
+      "% v/v para mezclas de líquidos",
+      "Despeja soluto, solvente, volumen o porcentaje"
+    ],
     "offers": {
       "@type": "Offer",
       "price": "0"
@@ -59,14 +63,22 @@
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "dateModified": "2026-06-08",
+    "dateModified": "2026-10-16",
     "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Qué diferencia hay entre % p/p, % p/v y % v/v?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cambia la base de comparación. El % p/p son gramos de soluto cada 100 g de solución; el % p/v, gramos de soluto cada 100 mL de solución; y el % v/v, mililitros de soluto cada 100 mL de solución. El p/p no depende de la temperatura; p/v y v/v sí, porque el volumen cambia con la temperatura."
+        }
+      },
       {
         "@type": "Question",
         "name": "¿El solvente es la solución o solo el líquido?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "El solvente es solo el líquido en que disolvés (agua, etanol, etc.). La solución es el total: solvente + soluto. Esta calculadora trabaja con la masa del solvente (solo el líquido), no con la masa total de la solución."
+          "text": "El solvente es solo el líquido en que disolvés (agua, etanol, etc.). La solución es el total: solvente + soluto. En modo p/p la calculadora pide la masa del solvente; en p/v y v/v pide el volumen final de la solución, ya enrasado."
         }
       },
       {
@@ -74,7 +86,15 @@
         "name": "¿Cómo convierto % p/p a % p/v?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Necesitás conocer la densidad de la solución: % p/v = % p/p × densidad (g/mL). Para soluciones diluidas en agua, la densidad es ≈ 1 g/mL y ambos porcentajes son prácticamente iguales. Para soluciones concentradas, la densidad puede diferir significativamente."
+          "text": "Necesitás conocer la densidad de la solución: % p/v = % p/p × densidad (g/mL). Para soluciones diluidas en agua, la densidad es ≈ 1 g/mL y ambos porcentajes son prácticamente iguales. Para soluciones concentradas la diferencia es importante: el HCl 37 % p/p (densidad 1,19 g/mL) es 44 % p/v."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo paso de % p/v a g/L?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Multiplicá por 10, porque 1 % p/v es 1 g en 100 mL, o sea 10 g/L. Por ejemplo, una solución al 0,9 % p/v tiene 9 g/L."
         }
       }
     ]
@@ -125,25 +145,34 @@
       <nav class="breadcrumb" aria-label="Ubicación en el sitio">
         <a href="../index.html">Inicio</a>
         <span aria-hidden="true">›</span>
-        <span>Concentración % p/p</span>
+        <span>Porcentaje p/p, p/v y v/v</span>
       </nav>
 
       <div class="pagina-herramienta__encabezado">
-        <h1 class="pagina-herramienta__titulo">Calculadora de Concentración % p/p</h1>
+        <h1 class="pagina-herramienta__titulo">Calculadora de porcentaje p/p, p/v y v/v</h1>
         <p class="pagina-herramienta__descripcion">
-          Completá dos campos y dejá vacío el que querés calcular: porcentaje peso/peso, masa del soluto o masa del solvente.
+          Elegí el tipo de porcentaje, completá dos datos y dejá vacío el que querés calcular: el porcentaje, la cantidad de soluto o la de solvente o solución.
         </p>
       </div>
 
-      <div class="calculadora" role="region" aria-label="Calculadora % p/p">
+      <div class="calculadora" role="region" aria-label="Calculadora de porcentaje p/p, p/v y v/v">
 
         <div class="ejemplo-bloque" style="margin-bottom: var(--espacio-lg);">
           <strong>¿Cómo usar?</strong>
-          <p>Completá dos campos y dejá <strong>vacío</strong> el que querés calcular. Luego presioná "Calcular".</p>
+          <p>Completá dos campos y dejá <b>vacío</b> el que querés calcular. Luego presioná "Calcular".</p>
         </div>
 
         <div class="campo-grupo">
-          <label for="masa-soluto">Masa del soluto (g)</label>
+          <label for="tipo-porc">Tipo de porcentaje</label>
+          <select id="tipo-porc" name="tipo-porc">
+            <option value="pp">% p/p — masa/masa (g/100 g)</option>
+            <option value="pv">% p/v — masa/volumen (g/100 mL)</option>
+            <option value="vv">% v/v — volumen/volumen (mL/100 mL)</option>
+          </select>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="masa-soluto" id="label-soluto">Masa del soluto (g)</label>
           <input
             type="number"
             id="masa-soluto"
@@ -157,7 +186,7 @@
         </div>
 
         <div class="campo-grupo">
-          <label for="masa-solvente">Masa del solvente (g)</label>
+          <label for="masa-solvente" id="label-segundo">Masa del solvente (g)</label>
           <input
             type="number"
             id="masa-solvente"
@@ -171,17 +200,17 @@
         </div>
 
         <div class="campo-grupo">
-          <label for="porc-pp">% p/p (porcentaje peso/peso)</label>
+          <label for="porc-pp" id="label-porc">% p/p (porcentaje peso/peso)</label>
           <input
             type="number"
             id="porc-pp"
             name="porc-pp"
             placeholder="Dejá vacío si es la incógnita"
             min="0"
-            max="100"
             step="any"
+            aria-describedby="ayuda-porc"
           >
-          <span class="ayuda">Valor entre 0 y 100</span>
+          <span class="ayuda" id="ayuda-porc">Valor entre 0 y 100</span>
         </div>
 
         <button id="btn-calcular" class="btn btn--primario" type="button">
@@ -198,42 +227,81 @@
 
       <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
 
-        <h2 id="titulo-explicacion">¿Qué es el % p/p y en qué se diferencia del % p/v?</h2>
+        <h2 id="titulo-explicacion">Porcentaje p/p, p/v y v/v: cuál usar</h2>
         <p>
-          El <strong>porcentaje peso/peso (% p/p)</strong> expresa cuántos gramos de soluto hay por cada 100 gramos de <em>solución total</em> (soluto + solvente). Es una relación de masas puras, independiente de la temperatura y la densidad.
+          Los tres expresan cuánto soluto hay cada 100 partes de <em>solución total</em> (soluto + solvente); lo que cambia es si esas partes se miden en masa o en volumen.
         </p>
+        <div class="tabla-wrapper">
+          <table class="tabla-referencia tabla-referencia--compacta">
+            <thead>
+              <tr><th scope="col">Tipo</th><th scope="col">Fórmula</th><th scope="col">Uso típico</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>% p/p (m/m)</td><td>g soluto / g solución × 100</td><td>Reactivos concentrados (H₂SO₄ 98 %, HCl 37 %), sólidos y pastas</td></tr>
+              <tr><td>% p/v (m/v)</td><td>g soluto / mL solución × 100</td><td>Soluciones preparadas en matraz aforado (suero 0,9 %)</td></tr>
+              <tr><td>% v/v</td><td>mL soluto / mL solución × 100</td><td>Mezclas de líquidos (alcohol 70 %, fases móviles)</td></tr>
+            </tbody>
+          </table>
+        </div>
         <p>
-          El <strong>% p/v</strong> (peso/volumen), en cambio, expresa gramos de soluto por cada 100 mL de solución. Es más práctico en laboratorio porque el volumen es fácil de medir, pero depende de la temperatura (el volumen cambia con T).
+          El <strong>% p/p</strong> no depende de la temperatura porque compara masas. El <strong>% p/v</strong> y el <strong>% v/v</strong> sí, porque el volumen cambia con la temperatura; por eso se enrasa a 20 °C.
         </p>
 
         <div class="ejemplo-bloque">
-          <strong>Ejemplo: agua salada al 5% p/p</strong>
-          <p>Queremos 500 g de solución al 5% p/p.</p>
-          <p>Masa de sal = (5 × 500) / 100 = <strong>25 g de NaCl</strong></p>
-          <p>Masa de agua = 500 − 25 = <strong>475 g de agua</strong></p>
-          <p>Verificación: (25 / 500) × 100 = 5% ✓</p>
+          <strong>Ejemplo % p/p: agua salada al 5 %</strong>
+          <p>Queremos 500 g de solución al 5 % p/p.</p>
+          <p>Masa de sal = (5 × 500) / 100 = <strong>25 g de NaCl</strong>; masa de agua = 500 − 25 = <strong>475 g de agua</strong>.</p>
+          <p>Verificación: 25 / (25 + 475) × 100 = 5 % ✓</p>
         </div>
 
         <div class="ejemplo-bloque">
-          <strong>¿Cuándo conviene usar % p/p?</strong>
-          <p>Es la unidad preferida cuando trabajás con reactivos muy concentrados (ácido sulfúrico 98%, HCl 37%), cuando pesás solvente en lugar de medirlo en volumen, y en formulaciones de sólidos o pastas donde medir volumen es difícil.</p>
+          <strong>Ejemplo % p/v: solución fisiológica al 0,9 %</strong>
+          <p>¿Cuánto NaCl hace falta para 250 mL al 0,9 % p/v?</p>
+          <p>Masa = 0,9 × 250 / 100 = <strong>2,25 g de NaCl</strong>, disueltos y llevados a 250 mL. Equivale a 9 g/L.</p>
+        </div>
+
+        <div class="ejemplo-bloque">
+          <strong>Ejemplo % v/v: alcohol al 70 %</strong>
+          <p>¿Cuánto etanol absoluto necesitás para 500 mL de alcohol al 70 % v/v?</p>
+          <p>Volumen = 70 × 500 / 100 = <strong>350 mL de etanol</strong>, completando a 500 mL con agua. Se enrasa en vez de sumar 150 mL de agua, porque al mezclar etanol y agua el volumen se contrae.</p>
         </div>
 
         <h2>Preguntas frecuentes</h2>
 
         <div class="faq-item">
+          <h3>¿Qué diferencia hay entre % p/p, % p/v y % v/v?</h3>
+          <p>
+            Cambia la base de comparación. El % p/p son gramos de soluto cada 100 g de solución; el % p/v, gramos de soluto cada 100 mL de solución; y el % v/v, mililitros de soluto cada 100 mL de solución. El p/p no depende de la temperatura; p/v y v/v sí, porque el volumen cambia con la temperatura.
+          </p>
+        </div>
+
+        <div class="faq-item">
           <h3>¿El solvente es la solución o solo el líquido?</h3>
           <p>
-            El <strong>solvente</strong> es solo el líquido en que disolvés (agua, etanol, etc.). La <strong>solución</strong> es el total: solvente + soluto. Esta calculadora trabaja con la masa del solvente (solo el líquido), no con la masa total de la solución.
+            El solvente es solo el líquido en que disolvés (agua, etanol, etc.). La solución es el total: solvente + soluto. En modo p/p la calculadora pide la masa del solvente; en p/v y v/v pide el volumen final de la solución, ya enrasado.
           </p>
         </div>
 
         <div class="faq-item">
           <h3>¿Cómo convierto % p/p a % p/v?</h3>
           <p>
-            Necesitás conocer la densidad de la solución: % p/v = % p/p × densidad (g/mL). Para soluciones diluidas en agua, la densidad es ≈ 1 g/mL y ambos porcentajes son prácticamente iguales. Para soluciones concentradas, la densidad puede diferir significativamente.
+            Necesitás conocer la densidad de la solución: % p/v = % p/p × densidad (g/mL). Para soluciones diluidas en agua, la densidad es ≈ 1 g/mL y ambos porcentajes son prácticamente iguales. Para soluciones concentradas la diferencia es importante: el HCl 37 % p/p (densidad 1,19 g/mL) es 44 % p/v.
           </p>
         </div>
+
+        <div class="faq-item">
+          <h3>¿Cómo paso de % p/v a g/L?</h3>
+          <p>
+            Multiplicá por 10, porque 1 % p/v es 1 g en 100 mL, o sea 10 g/L. Por ejemplo, una solución al 0,9 % p/v tiene 9 g/L.
+          </p>
+        </div>
+
+        <h2>Otras conversiones</h2>
+        <ul class="otras-conversiones">
+          <li><a href="conversor-ppm-mgl.html">Conversor de ppm a mg/L</a>: para concentraciones traza (ppm, ppb) corregidas por densidad.</li>
+          <li><a href="conversor-concentracion.html">Conversor de concentración molar y másica</a>: para pasar entre mol/L, g/L, mg/L y mg/dL con la masa molar.</li>
+          <li><a href="solucion-desde-solido.html">Preparar una solución desde un sólido</a>: para calcular cuánto pesar teniendo en cuenta la pureza del reactivo.</li>
+        </ul>
 
       </section>
 

@@ -36,7 +36,7 @@
     "@type": "SoftwareApplication",
     "dateModified": "2026-10-16",
     "name": "Conversor ppm a mg/L con densidad",
-    "description": "Convertí ppm a mg/L y mg/L a ppm con la densidad de la solución, con equivalencias en %, mg/mL, g/L, µg/mL y ppb. Incluye % p/v ↔ g/L y molaridad ↔ normalidad.",
+    "description": "Convertí ppm a mg/L y mg/L a ppm con la densidad de la solución, con equivalencias en %, mg/mL, g/L, µg/mL y ppb. Incluye molaridad ↔ normalidad.",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Web",
     "inLanguage": "es",
@@ -45,8 +45,7 @@
     "featureList": [
       "ppm ↔ mg/L corregido por densidad",
       "Equivalencias en %, mg/mL, g/L, µg/mL y ppb",
-      "% p/v ↔ g/L",
-      "Molaridad ↔ normalidad"
+            "Molaridad ↔ normalidad"
     ],
     "offers": {
       "@type": "Offer",
@@ -167,7 +166,7 @@
       <div class="pagina-herramienta__encabezado">
         <h1 class="pagina-herramienta__titulo">Conversor de ppm a mg/L (y de mg/L a ppm)</h1>
         <p class="pagina-herramienta__descripcion">
-          Convertí ppm a mg/L y mg/L a ppm teniendo en cuenta la densidad de la solución. El resultado incluye las equivalencias en %, mg/mL, g/L, µg/mL y ppb. También convierte % p/v a g/L y molaridad a normalidad.
+          Convertí ppm a mg/L y mg/L a ppm teniendo en cuenta la densidad de la solución. El resultado incluye las equivalencias en %, mg/mL, g/L, µg/mL y ppb. También convierte molaridad a normalidad.
         </p>
       </div>
 
@@ -179,7 +178,6 @@
           <label for="tipo-conversion">Tipo de conversión</label>
           <select id="tipo-conversion" name="tipo-conversion">
             <option value="ppm">ppm ↔ mg/L</option>
-            <option value="porc">% p/v ↔ g/L</option>
             <option value="norm">Molaridad ↔ Normalidad</option>
           </select>
         </div>
@@ -230,36 +228,7 @@
         </div>
 
         <!-- ────────────────────────────────────────────────
-             PANEL 2: % p/v ↔ g/L
-             ─────────────────────────────────────────────── -->
-        <div id="panel-porcentaje" class="panel-conversion" hidden>
-          <p class="conversion-activa">% p/v ↔ g/L</p>
-
-          <div class="campo-grupo">
-            <label for="dir-porc">Dirección de la conversión</label>
-            <select id="dir-porc" name="dir-porc">
-              <option value="porc-a-gl">% p/v → g/L</option>
-              <option value="gl-a-porc">g/L → % p/v</option>
-            </select>
-          </div>
-
-          <div class="campo-grupo">
-            <label for="valor-porc">Valor a convertir</label>
-            <input
-              type="number"
-              id="valor-porc"
-              name="valor-porc"
-              placeholder="Ej: 5"
-              min="0"
-              step="any"
-              aria-describedby="ayuda-porc"
-            >
-            <span class="ayuda" id="ayuda-porc">1% p/v = 1 g/100 mL = 10 g/L</span>
-          </div>
-        </div>
-
-        <!-- ────────────────────────────────────────────────
-             PANEL 3: Molaridad ↔ Normalidad
+             PANEL 2: Molaridad ↔ Normalidad
              ─────────────────────────────────────────────── -->
         <div id="panel-normalidad" class="panel-conversion" hidden>
           <p class="conversion-activa">Molaridad ↔ Normalidad</p>
@@ -384,18 +353,6 @@
           <p><strong>Resultado:</strong> C₁ × V₁ = C₂ × V₂ → V₁ = 5 ppm × 100 mL ÷ 1 000 ppm = <strong>0,5 mL</strong>, y se lleva a 100 mL con agua.</p>
         </div>
 
-        <!-- % p/v y g/L -->
-        <h2>Porcentaje p/v y g/L</h2>
-        <p>
-          El porcentaje peso/volumen (% p/v) expresa cuántos gramos de soluto hay en 100 mL de solución. Al pasar a g/L (gramos por litro), multiplicamos por 10 porque hay 10 veces 100 mL en un litro.
-        </p>
-
-        <div class="ejemplo-bloque">
-          <strong>Ejemplo % p/v ↔ g/L</strong>
-          <p>Un buffer de fosfato está preparado al 0,5 % p/v. ¿Cuánto es en g/L?</p>
-          <p><strong>Resultado:</strong> 0,5 % p/v × 10 = <strong>5 g/L</strong></p>
-        </div>
-
         <!-- Molaridad y Normalidad -->
         <h2>Molaridad y normalidad</h2>
         <p>
@@ -455,7 +412,7 @@
         <h2>Otras conversiones</h2>
         <ul class="otras-conversiones">
           <li><a href="conversor-concentracion.html">Conversor de concentración ampliado</a>: para pasar entre mol/L, mmol/L, g/L, mg/dL y otras unidades con la masa molar.</li>
-          <li><a href="concentracion-pp.html">Calculadora de porcentaje p/p, p/v y v/v</a>: para calcular o preparar soluciones en porcentaje.</li>
+          <li><a href="concentracion-pp.html">Calculadora de porcentaje p/p, p/v y v/v</a>: para calcular o preparar soluciones en porcentaje (y pasar % p/v a g/L).</li>
           <li><a href="calculadora-diluciones.html">Calculadora de diluciones C₁V₁ = C₂V₂</a>: para preparar un patrón diluido a partir de un estándar.</li>
           <li><a href="curva-calibracion.html">Curva de calibrado (curva de calibración)</a>: para obtener la recta, el R² e interpolar tus muestras.</li>
         </ul>
