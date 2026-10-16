@@ -226,7 +226,7 @@ Hay que conservar la FAQ del borrador sobre almacenamiento en PEAD (HDPE) o vidr
 - [x] HTML desde la plantilla, alta en `data/posts.json`, `sync_indexes.py`, JSON-LD válido, sin enlaces ni anclas rotas
 - [x] Enlace desde `que-es-la-molaridad.html` (Ejemplo 2) hacia este post
 - [x] CSS: `.post-layout > article { min-width: 0 }`, para que una tabla ancha no provoque scroll horizontal (detectado a 375 px)
-- [ ] **Imagen** `img/como-preparar-hcl-1m-desde-hcl-37.webp` (1536×1024): pendiente. **No se publica en main hasta tenerla.**
+- [x] Imagen `img/como-preparar-hcl-1m-desde-hcl-37.webp` (1672×941, 130 KB), aportada por el autor; alt reescrito según la imagen real. Publicado en main el 2026-10-16
 - [ ] Opcional: og:image propia y HowTo (no aplicados)
 
 ## Anexo: criterio de unión
