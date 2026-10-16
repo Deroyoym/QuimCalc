@@ -1689,7 +1689,7 @@ tr.oculta { display: none; }
 
 /* Figura destacada al tope de un post */
 .post-figura { margin: 0 0 var(--espacio-lg); }
-.post-figura__img { width: 100%; border-radius: var(--radio-md); }
+.post-figura__img { width: 100%; height: auto; border-radius: var(--radio-md); } /* height:auto: si el <img> trae width/height, conserva la proporción */
 .post-figura__pie {
   font-size: 0.8rem;
   color: var(--color-texto-suave);
