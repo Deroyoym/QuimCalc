@@ -1021,6 +1021,11 @@ a:hover {
 .post-sidebar {
   position: sticky;
   top: 80px; /* Queda debajo del header fijo */
+  /* Si es más alta que la ventana, scrollea por dentro */
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
 }
 
 .sidebar-card {
@@ -1102,6 +1107,8 @@ a:hover {
 
   .post-sidebar {
     position: static;
+    max-height: none;
+    overflow: visible;
   }
 
   /* Hero alineado al centro en mobile */

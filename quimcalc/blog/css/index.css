@@ -106,6 +106,13 @@
     .blog-sidebar {
       position: sticky;
       top: 80px;
+      /* Si la sidebar es más alta que la ventana, scrollea por dentro
+         (un sticky más alto que el viewport nunca muestra su final) */
+      max-height: calc(100vh - 96px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      padding-bottom: var(--espacio-sm);
       display: flex;
       flex-direction: column;
       gap: var(--espacio-lg);
@@ -156,6 +163,8 @@
       }
       .blog-sidebar {
         position: static;
+        max-height: none;
+        overflow: visible;
       }
       .post-card__titulo {
         font-size: 1.2rem;
