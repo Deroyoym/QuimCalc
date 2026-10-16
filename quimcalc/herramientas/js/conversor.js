@@ -4,8 +4,8 @@
 
    Conversiones incluidas:
      1. ppm ↔ mg/L
-     2. % p/v ↔ g/L
-     3. Molaridad ↔ Normalidad
+     2. Molaridad ↔ Normalidad
+   (% p/v ↔ g/L se movió a concentracion-pp.html y conversor-concentracion.html)
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -21,17 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* Paneles de inputs: uno por tipo de conversión */
   const panelPpm        = document.getElementById('panel-ppm');
-  const panelPorcentaje = document.getElementById('panel-porcentaje');
   const panelNorm       = document.getElementById('panel-normalidad');
 
   /* Inputs de ppm ↔ mg/L */
   const inputPpm        = document.getElementById('valor-ppm');
   const selectDirPpm    = document.getElementById('dir-ppm');
   const inputDensidad   = document.getElementById('densidad-ppm');
-
-  /* Inputs de % p/v ↔ g/L */
-  const inputPorc       = document.getElementById('valor-porc');
-  const selectDirPorc   = document.getElementById('dir-porc');
 
   /* Inputs de Molaridad ↔ Normalidad */
   const inputMol        = document.getElementById('valor-mol');
@@ -42,12 +37,10 @@ document.addEventListener('DOMContentLoaded', function () {
   selectTipo.addEventListener('change', function () {
     /* Ocultamos todos los paneles */
     panelPpm.hidden        = true;
-    panelPorcentaje.hidden = true;
     panelNorm.hidden       = true;
 
     /* Mostramos solo el que corresponde al valor seleccionado */
     if (selectTipo.value === 'ppm')     panelPpm.hidden        = false;
-    if (selectTipo.value === 'porc')    panelPorcentaje.hidden = false;
     if (selectTipo.value === 'norm')    panelNorm.hidden       = false;
 
     /* Limpiamos el resultado anterior */
@@ -101,37 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
       mostrarEquivalencias(ppm, mgl);
     }
 
-    /* ── Conversión 2: % p/v ↔ g/L ──────────────────────────
-       1% p/v significa 1 g de soluto en 100 mL de solución.
-       1% p/v = 10 g/L (multiplicamos por 10)
-       ──────────────────────────────────────────────────────── */
-    else if (tipo === 'porc') {
-      const valor = parseFloat(inputPorc.value);
-      const dir   = selectDirPorc.value;
-
-      if (isNaN(valor) || valor < 0) {
-        mostrarError('Ingresá un valor numérico válido (mayor o igual a cero).');
-        return;
-      }
-
-      if (dir === 'porc-a-gl') {
-        const resultado = valor * 10;
-        mostrarResultado(
-          resultado.toFixed(4) + ' g/L',
-          '% p/v × 10 = g/L   (porque 1% p/v = 1 g/100 mL = 10 g/L)',
-          `${valor}% p/v × 10 = ${resultado} g/L`
-        );
-      } else {
-        const resultado = valor / 10;
-        mostrarResultado(
-          resultado.toFixed(4) + ' % p/v',
-          'g/L ÷ 10 = % p/v',
-          `${valor} g/L ÷ 10 = ${resultado}% p/v`
-        );
-      }
-    }
-
-    /* ── Conversión 3: Molaridad ↔ Normalidad ────────────────
+    /* ── Conversión 2: Molaridad ↔ Normalidad ────────────────
        N = M × valencia (número de equivalentes)
        M = N / valencia
        ──────────────────────────────────────────────────────── */
