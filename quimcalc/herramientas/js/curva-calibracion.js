@@ -30,6 +30,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const resR2         = document.getElementById('res-r2');
   const resR          = document.getElementById('res-r');
   const resSe         = document.getElementById('res-se');
+  const resLod        = document.getElementById('res-lod');
+  const resLoq        = document.getElementById('res-loq');
+  const tablaResid    = document.getElementById('tabla-residuales');
   const inputSenal    = document.getElementById('senal-desconocida');
   const btnInterp     = document.getElementById('btn-interpolar');
   const resInterp     = document.getElementById('resultado-interpolacion');
@@ -148,7 +151,37 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 0);
     const Se = n > 2 ? Math.sqrt(ssRes / (n - 2)) : 0;
 
-    return { m, b, R, R2: R * R, Se };
+    /* LOD y LOQ estimados desde la curva (criterio ICH Q2):
+       LOD = 3,3·Se/m   LOQ = 10·Se/m */
+    const pend = Math.abs(m);
+    const LOD = pend > 0 ? 3.3 * Se / pend : NaN;
+    const LOQ = pend > 0 ? 10  * Se / pend : NaN;
+
+    return { m, b, R, R2: R * R, Se, LOD, LOQ };
+  }
+
+  /* Cifras significativas legibles para valores chicos */
+  function sig(n, cifras) {
+    if (!isFinite(n)) return '—';
+    if (n === 0) return '0';
+    return String(parseFloat(n.toPrecision(cifras || 4)));
+  }
+
+  /* Tabla de residuales: y − ŷ por punto. Se marca el punto si el
+     residual supera 2·Se (posible anómalo o falta de linealidad). */
+  function mostrarResiduales(reg) {
+    tablaResid.innerHTML = puntos.map(function (p, i) {
+      const yCalc = reg.m * p.x + reg.b;
+      const res   = p.y - yCalc;
+      const alto  = reg.Se > 0 && Math.abs(res) > 2 * reg.Se;
+      return '<tr' + (alto ? ' class="residual-alto"' : '') + '>' +
+        '<td>' + (i + 1) + '</td>' +
+        '<td>' + p.x + '</td>' +
+        '<td>' + p.y + '</td>' +
+        '<td>' + sig(yCalc, 5) + '</td>' +
+        '<td>' + (res >= 0 ? '+' : '') + sig(res, 3) + (alto ? ' ⚠' : '') + '</td>' +
+        '</tr>';
+    }).join('');
   }
 
   /* ── Calcular y mostrar resultados ──────────────────────── */
@@ -168,6 +201,9 @@ document.addEventListener('DOMContentLoaded', function () {
     resR2.textContent       = reg.R2.toFixed(6);
     resR.textContent        = reg.R.toFixed(6);
     resSe.textContent       = reg.Se.toFixed(6);
+    resLod.textContent      = sig(reg.LOD);
+    resLoq.textContent      = sig(reg.LOQ);
+    mostrarResiduales(reg);
 
     /* Color del R² según calidad del ajuste */
     const r2El = document.getElementById('bloque-r2');
@@ -380,7 +416,14 @@ document.addEventListener('DOMContentLoaded', function () {
     texto += `Coeficiente de correlación (R): ${reg.R.toFixed(6)}\n`;
     texto += `Coeficiente de determinación (R²): ${reg.R2.toFixed(6)}\n`;
     texto += `Error estándar de la regresión (Se): ${reg.Se.toFixed(6)}\n`;
+    texto += `LOD estimado (3,3·Se/m): ${sig(reg.LOD)}\n`;
+    texto += `LOQ estimado (10·Se/m): ${sig(reg.LOQ)}\n`;
     texto += `Número de puntos (n): ${puntos.length}\n`;
+
+    texto += `\nRESIDUALES (y − ŷ)\n`;
+    puntos.forEach((p, i) => {
+      texto += `${i + 1}\t${p.x}\t${sig(p.y - (reg.m * p.x + reg.b), 3)}\n`;
+    });
 
     /* Copiamos al portapapeles */
     navigator.clipboard.writeText(texto).then(function () {
