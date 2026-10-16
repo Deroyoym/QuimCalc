@@ -128,6 +128,15 @@ Esto actualiza automáticamente:
 - ✅ `quimcalc/sitemap.xml` — agrega la URL con fecha de hoy
 - ✅ `quimcalc/sw.js` — incrementa la versión del caché
 
+### Paso 5b — Generar la tarjeta para compartir (og:image)
+
+```bash
+npm i --no-save playwright && npx playwright install chromium   # solo la primera vez
+node scripts/build_og_images.mjs nombre-del-articulo
+```
+
+Crea `quimcalc/blog/posts/img/og/nombre-del-articulo.jpg` (1200×630) con la foto del post, la categoría y el título, y actualiza `og:image`, `twitter:image` y `og:image:*` en el HTML. Sin slug, regenera las tarjetas de todos los posts. Si en `data/posts.json` el post tiene `"og_highlight": {"valor": "8,3 mL", "texto": "por cada 100 mL de HCl 1 M"}`, ese dato aparece destacado en la tarjeta. Después volvé a correr `sync_indexes.py`.
+
 ### Paso 6 — Verificar en el navegador
 
 Antes de publicar, abrí `quimcalc/blog/index.html` en el navegador y verificá que:

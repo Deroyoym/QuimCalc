@@ -9,7 +9,11 @@
     "date_sort": "2026-10-16",
     "minutes": 7,
     "image": "img/como-preparar-hcl-1m-desde-hcl-37.webp",
-    "image_alt": "Frasco de ácido clorhídrico al 37 % junto a matraces aforados de 250, 100 y 50 mL, vaso de precipitados, pipetas, gafas y guantes de seguridad"
+    "image_alt": "Frasco de ácido clorhídrico al 37 % junto a matraces aforados de 250, 100 y 50 mL, vaso de precipitados, pipetas, gafas y guantes de seguridad",
+    "og_highlight": {
+      "valor": "8,3 mL",
+      "texto": "por cada 100 mL de HCl 1 M"
+    }
   },
   {
     "slug": "como-documentar-validacion-metodo-interno",

@@ -104,7 +104,8 @@ def update_blog_index(posts, categorias):
         + '\n\n          </div>'
     )
     content = re.sub(
-        r'<div class="lista-posts">.*?</div>(?=\s*</section>)',
+        # [ \t]* incluye la sangría previa: si no, cada corrida le suma 10 espacios
+        r'[ \t]*<div class="lista-posts">.*?</div>(?=\s*</section>)',
         new_lista,
         content,
         flags=re.DOTALL,
