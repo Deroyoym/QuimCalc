@@ -149,28 +149,28 @@ S+4*O                         # 96.06 (SO4 2−)
 
 Esta FAQ reemplaza a la de «canilla» y conserva la de hidratos. Hay que replicarla igual en el JSON-LD `FAQPage`.
 
-## 6. Checklist de aplicación
+## 6. Checklist de aplicación (aplicado el 2026-10-16, elección una por una)
 
-- [ ] 🔢 C1–C2: decahidrato 322,19 g/mol y sal anhidra 142,04, en el cuerpo y en el JSON-LD
-- [ ] C3: corregir la frase sobre el SI
-- [ ] C4: advertencia «ácido sobre agua» en el Ejemplo 2
-- [ ] 🔢 T6: agregar ≈ 2,72 mL en el Ejemplo 2 y el enlace a diluciones-reactivo-comercial
-- [ ] T8: nota de valoración del NaOH
-- [ ] T9, T10: aclarar normalidad y ppm
-- [ ] 🔢 T11: 98,07 g/mol
-- [ ] T7: cifras significativas en los ejemplos (decisión del editor: datos con más cifras o resultado redondeado)
-- [ ] Title (A/B/C) en 3 copias + `posts.json`
-- [ ] Meta (A/B/C) en 3 copias + `posts.json`
-- [ ] 🔢 C8: H2 «Cómo calcular la molaridad a partir de gramos» con el ejemplo de 0,400 M
-- [ ] Enlaces internos de §2.4 (3 calculadoras + 3 artículos + calculadora principal)
-- [ ] Voseo y regionalismos de §2.3, también en el JSON-LD
-- [ ] FAQ de §5, en la FAQ visible y en el JSON-LD
-- [ ] Imagen `post-molaridad.webp` con alt
-- [ ] JSON-LD: unificar `dateModified` y completar `Article`
-- [ ] Notación: coma decimal, %, °C y `<sub>`
-- [ ] Gramática, puntuación, claridad y terminología de §3
-- [ ] Enlace desde `normalidad-vs-molaridad.html` hacia este artículo
-- [ ] `sync_indexes.py` + validación de JSON-LD y largos
+- [x] 🔢 C1–C2: decahidrato 322,19 g/mol / sal anhidra 142,04 (cuerpo + JSON-LD)
+- [x] C3: frase del SI corregida
+- [x] C4: advertencia «ácido sobre agua»
+- [x] 🔢 T6 + T5: ≈ 2,72 mL y enlace a dilución desde reactivo comercial
+- [x] T8: nota de valoración (NaOH y H<sub>2</sub>SO<sub>4</sub>)
+- [x] T9, T10: normalidad y ppm aclaradas
+- [x] 🔢 T11: 98,07 g/mol (resultado 5,004 g sin cambios)
+- [x] T7: datos con más cifras (0,1000 M · 500,0 mL; 0,05000 M · 1,000 L)
+- [x] Title A (58) en 3 copias. En `posts.json` el `title` es el H1 de la tarjeta, así que no se cambió
+- [x] Meta A (146) en 3 copias + JSON-LD + `posts.json`
+- [x] 🔢 C8: H2 «Cómo calcular la molaridad a partir de gramos» (0,400 M) + TOC
+- [x] Enlaces internos: calculadora de molaridad, masa-molar, solucion-desde-solido, diluciones-reactivo-comercial, conversor-concentracion, normalidad-vs-molaridad, que-son-las-ppm, como-preparar-soluciones-estandar
+- [x] Voseo y regionalismos (también en el JSON-LD); tratamiento impersonal + tú en el CTA
+- [x] FAQ: 6 preguntas (las 5 propuestas + la de temperatura, reescrita sin la afirmación sin fuente); se quitó la de «canilla»
+- [x] Imagen `post-molaridad.webp` (1536×1024) con alt
+- [x] JSON-LD: `dateModified` 2026-10-16 en ambos; `Article` con inLanguage, image, mainEntityOfPage y publisher.logo
+- [x] Notación: coma decimal, %, °C, `<sub>`
+- [x] Gramática, puntuación, claridad y terminología («masa molar», «llevar a volumen (aforar)»)
+- [x] `sync_indexes.py`, JSON-LD validado, largos verificados, enlaces internos existentes, sin scroll horizontal a 375 px
+- [ ] No elegidos (pendientes): renombrar el H2 «¿Cómo se calcula cuánto pesar?», og:image propia + og:locale, enlace desde `normalidad-vs-molaridad.html`, `article:published_time` con `property`, BreadcrumbList, cambiar el post del sidebar, unificar `date_sort`
 
 ## Anexo: criterio de unión
 
