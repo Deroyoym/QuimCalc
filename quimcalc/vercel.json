@@ -4,12 +4,74 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=(), payment=(), usb=()" },
-        { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/herramientas/conversor-mgl-ppm.html",
+      "destination": "/herramientas/conversor-ppm-mgl.html",
+      "permanent": true
+    },
+    {
+      "source": "/herramientas/conversor-mgl.html",
+      "destination": "/herramientas/conversor-ppm-mgl.html",
+      "permanent": true
+    },
+    {
+      "source": "/herramientas/conversor-mg-l-ppm.html",
+      "destination": "/herramientas/conversor-ppm-mgl.html",
+      "permanent": true
+    },
+    {
+      "source": "/herramientas/conversor-conversor-concentracion.html",
+      "destination": "/herramientas/conversor-concentracion.html",
+      "permanent": true
+    },
+    {
+      "source": "/herramientas/tabla-indicadores.",
+      "destination": "/herramientas/tabla-indicadores.html",
+      "permanent": true
+    },
+    {
+      "source": "/herramientas/tabla-indicadores-acido-base-viraje-color-y-pkin{/}?",
+      "destination": "/herramientas/tabla-indicadores.html",
+      "permanent": true
+    },
+    {
+      "source": "/herramientas/tabla-indicadores-viraje-color-y-pkin{/}?",
+      "destination": "/herramientas/tabla-indicadores.html",
+      "permanent": true
+    },
+    {
+      "source": "/herramientas/calculadora-buffers-henderson-hasselbalch{/}?",
+      "destination": "/herramientas/calculadora-buffers.html",
+      "permanent": true
+    },
+    {
+      "source": "/herramientas/:slug((?!js$|css$)[a-z0-9-]+){/}?",
+      "destination": "/herramientas/:slug.html",
+      "permanent": true
     }
   ]
 }
