@@ -2008,3 +2008,79 @@ tr.oculta { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .historial-boton { transition: none; }
 }
+
+/* ============================================================
+   EQUIVALENCIAS DEL RESULTADO + LINKS "OTRAS CONVERSIONES"
+   ============================================================ */
+.resultado__equivalencias {
+  list-style: none;
+  margin: var(--espacio-md) 0 0;
+  padding: var(--espacio-sm) 0 0;
+  border-top: 1px solid var(--color-borde);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--espacio-xs) var(--espacio-md);
+}
+
+.resultado__equivalencias li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--espacio-sm);
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+}
+
+.resultado__equivalencias strong {
+  color: var(--color-texto);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tabla chica (2-3 columnas): sin el ancho mínimo de las tablas grandes */
+.tabla-referencia--compacta {
+  min-width: 0;
+}
+
+.otras-conversiones {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--espacio-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-sm);
+}
+
+.otras-conversiones li {
+  color: var(--color-texto-suave);
+  line-height: 1.6;
+}
+
+.otras-conversiones a {
+  font-weight: 600;
+}
+
+/* Listas simples dentro de la sección educativa (el reset quita el padding) */
+.seccion-educativa ul:not([class]) {
+  padding-left: 1.25rem;
+  margin-bottom: var(--espacio-md);
+  color: var(--color-texto-suave);
+  line-height: 1.7;
+}
+
+.seccion-educativa ul:not([class]) li + li {
+  margin-top: var(--espacio-xs);
+}
+
+/* Variante en línea: debajo de la calculadora, sin tapar contenido */
+.historial-boton--linea {
+  position: static;
+  margin-top: var(--espacio-md);
+  box-shadow: none;
+}
+
+.historial-panel--linea {
+  position: static;
+  width: 100%;
+  max-width: 480px;
+  max-height: none;
+  margin-top: var(--espacio-sm);
+}

@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const valorResultado  = document.getElementById('resultado-valor');
   const formulaResultado = document.getElementById('resultado-formula');
   const etiquetaResultado = document.getElementById('resultado-etiqueta');
+  const listaEquiv      = document.getElementById('resultado-equivalencias');
 
   /* Paneles de inputs: uno por tipo de conversión */
   const panelPpm        = document.getElementById('panel-ppm');
@@ -79,21 +80,25 @@ document.addEventListener('DOMContentLoaded', function () {
       let densidad = parseFloat(inputDensidad.value);
       if (isNaN(densidad) || densidad <= 0) densidad = 1;
 
+      let ppm, mgl;
       if (dir === 'ppm-a-mgl') {
-        const resultado = valor * densidad;
+        ppm = valor;
+        mgl = valor * densidad;
         mostrarResultado(
-          resultado.toFixed(4) + ' mg/L',
+          formatear(mgl) + ' mg/L',
           'mg/L = ppm × densidad (g/mL)',
-          `${valor} ppm × ${densidad} g/mL = ${resultado} mg/L`
+          `${valor} ppm × ${densidad} g/mL = ${formatear(mgl)} mg/L`
         );
       } else {
-        const resultado = valor / densidad;
+        mgl = valor;
+        ppm = valor / densidad;
         mostrarResultado(
-          resultado.toFixed(4) + ' ppm',
+          formatear(ppm) + ' ppm',
           'ppm = mg/L ÷ densidad (g/mL)',
-          `${valor} mg/L ÷ ${densidad} g/mL = ${resultado} ppm`
+          `${valor} mg/L ÷ ${densidad} g/mL = ${formatear(ppm)} ppm`
         );
       }
+      mostrarEquivalencias(ppm, mgl);
     }
 
     /* ── Conversión 2: % p/v ↔ g/L ──────────────────────────
@@ -164,7 +169,42 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /* ── Funciones auxiliares ───────────────────────────────── */
+
+  /* Hasta 6 cifras significativas, sin ceros de relleno;
+     notación científica para valores muy chicos o muy grandes. */
+  function formatear(n) {
+    if (n === 0) return '0';
+    const abs = Math.abs(n);
+    if (abs < 1e-4 || abs >= 1e9) return n.toExponential(3);
+    return String(parseFloat(n.toPrecision(6)));
+  }
+
+  /* Equivalencias del resultado ppm ↔ mg/L.
+     ppm es masa/masa (mg/kg); mg/L es masa/volumen. */
+  function mostrarEquivalencias(ppm, mgl) {
+    const filas = [
+      ['mg/L',             mgl],
+      ['µg/mL',            mgl],          // 1 mg/L = 1 µg/mL
+      ['mg/mL',            mgl / 1000],
+      ['g/L',              mgl / 1000],
+      ['% m/v (g/100 mL)', mgl / 10000],
+      ['ppm (mg/kg)',      ppm],
+      ['% m/m',            ppm / 10000],  // 1 % = 10 000 ppm
+      ['ppb (µg/kg)',      ppm * 1000],
+    ];
+    listaEquiv.innerHTML = filas.map(function (f) {
+      return '<li><span>' + f[0] + '</span><strong>' + formatear(f[1]) + '</strong></li>';
+    }).join('');
+    listaEquiv.hidden = false;
+  }
+
+  function ocultarEquivalencias() {
+    listaEquiv.innerHTML = '';
+    listaEquiv.hidden = true;
+  }
+
   function mostrarResultado(valor, descripcion, formula) {
+    ocultarEquivalencias();
     if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, formula);
     bloqueResultado.classList.remove('resultado--error');
     etiquetaResultado.textContent = descripcion;
@@ -175,6 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function mostrarError(mensaje) {
+    ocultarEquivalencias();
     bloqueResultado.classList.add('resultado--error');
     etiquetaResultado.textContent = 'Error';
     valorResultado.textContent    = mensaje;

@@ -72,8 +72,18 @@
       render();
     });
 
-    document.body.appendChild(panel);
-    document.body.appendChild(boton);
+    // Si la página tiene una calculadora, el historial va debajo de ella,
+    // en el flujo normal: un botón fijo tapaba resultados en mobile.
+    var calc = document.querySelector('.calculadora');
+    if (calc) {
+      boton.classList.add('historial-boton--linea');
+      panel.classList.add('historial-panel--linea');
+      calc.insertAdjacentElement('afterend', boton);
+      boton.insertAdjacentElement('afterend', panel);
+    } else {
+      document.body.appendChild(panel);
+      document.body.appendChild(boton);
+    }
   }
 
   function render() {
