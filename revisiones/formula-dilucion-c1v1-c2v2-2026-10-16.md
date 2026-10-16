@@ -183,19 +183,24 @@ La FAQ se corrigió con el hallazgo T3 del revisor técnico: ppm solo vale si eq
 4. **¿Cuándo no se puede usar C1V1 = C2V2?** Cuando el soluto reacciona, cuando se mezclan dos soluciones del mismo soluto (en ese caso C<sub>1</sub>V<sub>1</sub> + C<sub>2</sub>V<sub>2</sub> = C<sub>f</sub>V<sub>f</sub>) y cuando no se lleva a un volumen final medido.
 5. **¿Cómo se calcula el factor de dilución?** FD = V<sub>2</sub>/V<sub>1</sub> = C<sub>1</sub>/C<sub>2</sub>. Por ejemplo, 5 mL llevados a 250 mL dan FD = 50 🔢. En diluciones sucesivas, los factores se multiplican.
 
-## 7. Checklist de aplicación
+## 7. Checklist de aplicación (aplicado el 2026-10-16, opción «Aplicar todo y maquetar»)
 
-- [ ] C1: corregir el ejemplo o el uso del HCl (decisión del editor: opción a, b, c o d)
-- [ ] C2: enlazar `conversor-concentracion` en lugar de `conversor-ppm-mgl` para pasar de molaridad a ppm
-- [ ] T3: advertencia sobre ppm y % p/p, con el contraejemplo y el enlace a reactivo comercial y al post de HCl
-- [ ] T4–T12: contracción, cifras significativas 🔢, estandarización, procedimiento seguro, «patrón», menisco y GUM
-- [ ] Title (A/B) y meta (A/B/C)
-- [ ] 🔢 Respuesta directa, ejemplos de 10 mg/L y de NaOH 0,1 M, y sección de factor de dilución (**verificar antes de aplicar**)
-- [ ] Estructura de §2.5, `post-formula`, FAQ + `FAQPage`, CTA y enlaces de §2.4
-- [ ] Voseo, «nosotros», regionalismos y frases de relleno
-- [ ] Imagen (con un prompt corregido) y alt
-- [ ] HTML desde la plantilla, entrada en `posts.json` con `og_highlight`, tarjeta para compartir, `sync_indexes.py` y validación
-- [ ] Enlaces entrantes desde el post de HCl, espectrofotometría y ppm
+- [x] C1: se eliminó el ejemplo del HCl para la acidez libre; se reemplazó por los ejemplos del esquema (opción d)
+- [x] C2: el paso de molaridad a ppm enlaza `conversor-concentracion` («conversor de mol/L a mg/L»)
+- [x] T3: unidades por volumen, ppm solo si equivale a mg/L, advertencia de % p/p con el contraejemplo 3,7 % / ≈ 4,3 % y enlaces al post de HCl y a reactivo comercial
+- [x] T4–T12: V<sub>2</sub> = volumen final aforado (los volúmenes no son aditivos), cifras significativas, exactitud = material + estandarización, «soluciones patrón», homogeneizar invirtiendo el matraz, GUM (JCGM 100) e ISO 648 en las fuentes
+- [x] Title A (54) + Meta A (126), en las 3 copias + JSON-LD + `posts.json`; H1 con subíndices
+- [x] 🔢 Respuesta directa (1 mL) y 3 ejemplos: 10,0 mg/L → 1,00 mL; NaOH 0,100 M → 50,0 mL (con valoración con KHP ≈ 0,41 g); C<sub>2</sub> = 0,0100 M con FD 50. **Verificados en una segunda pasada del revisor técnico**
+- [x] 🔢 Factor de dilución, notación 1:10 (1 + 9 frente a 1 + 10) y diluciones sucesivas (FD 100); FAQ de mezcla con C<sub>A</sub>V<sub>A</sub> + C<sub>B</sub>V<sub>B</sub> = C<sub>f</sub>V<sub>f</sub> (0,18 M), verificados
+- [x] 🔢 Error 3: incertidumbre relativa ≈ 0,5 % (1 mL→100 mL) frente a ≈ 0,06 % (50→500) y ≈ 0,18 % en dos pasos, aclarando que solo cuenta el material volumétrico
+- [x] Estructura de §2.5 con ids cortos, `post-formula`, `.ejemplo-bloque`, H3 en los errores, FAQ (5) + `FAQPage`, fuentes y CTA a la calculadora de diluciones
+- [x] Enlaces de §2.4: calculadora de diluciones (2 + CTA), conversor-concentracion, diluciones-seriadas, reactivo comercial, incertidumbre (en el error 3), 4 posts
+- [x] Enlaces entrantes desde el post de HCl, el de espectrofotometría y el de ppm
+- [x] Español neutro: sin voseo, «nosotros», «mesón», «depósito» ni Gran Rosario; «disolvente (solvente)»; «error» en lugar de «falla/fallo»; sin frases de relleno
+- [x] Entrada en `posts.json` con `og_highlight` («1 mL de patrón de 1000 mg/L para 100 mL de 10 mg/L»), `sync_indexes.py`, JSON-LD válido, sin enlaces ni anclas rotas, sin scroll horizontal a 375/1366 px
+- [ ] **Imagen** `img/formula-dilucion-c1v1-c2v2.webp`: pendiente. Al recibirla: agregar `width`/`height`, revisar que el alt la describa, generar la tarjeta con `node scripts/build_og_images.mjs formula-dilucion-c1v1-c2v2` y publicar en main
+- [ ] Sugerencia para la imagen: pipeta aforada con propipeta, líquido incoloro y matraz aforado (no micropipeta ni líquido azul)
+- [ ] Fuera de este artículo: `diluciones-reactivo-comercial` recomienda «probeta si > 10 mL», lo que contradice la recomendación de pipeta aforada
 
 ## Anexo: criterio de unión
 
