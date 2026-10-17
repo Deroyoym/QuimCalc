@@ -1,5 +1,21 @@
 [
   {
+    "slug": "formula-dilucion-c1v1-c2v2",
+    "title": "Fórmula de dilución C₁V₁ = C₂V₂: qué es, cómo se usa y ejemplos",
+    "description": "Para 100 mL de un estándar de 10 mg/L desde uno de 1000 mg/L se toma 1 mL. Fórmula C1V1 = C2V2, ejemplos y calculadora gratis.",
+    "category": "Química básica",
+    "category_color": "#1A5C38",
+    "date": "Octubre 2026",
+    "date_sort": "2026-10-16",
+    "minutes": 7,
+    "image": "img/formula-dilucion-c1v1-c2v2.webp",
+    "image_alt": "Pipeta aforada de 10 mL con pera de succión trasvasando solución a un matraz aforado sobre una mesa de laboratorio",
+    "og_highlight": {
+      "valor": "1 mL → 100 mL",
+      "texto": "de 1000 mg/L a 10 mg/L"
+    }
+  },
+  {
     "slug": "como-preparar-hcl-1m-desde-hcl-37",
     "title": "Cómo preparar HCl 1 M a partir de HCl concentrado al 37 %",
     "description": "Para 100 mL de HCl 1 M se toman 8,3 mL de HCl al 37 % (d = 1,19 g/mL). Fórmula, ejemplo resuelto, seguridad y calculadora gratis.",
