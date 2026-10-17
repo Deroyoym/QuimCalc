@@ -85,12 +85,13 @@
         : (vFinal < 1 ? (vFinal * 1000).toFixed(0) + ' mL' : vFinal + ' L');
 
       pasos.innerHTML = [
-        'Tomá ' + formatNum(vTomarMl) + ' mL del reactivo con una pipeta graduada o bureta apropiada. Si el volumen es mayor a 10 mL, podés usar una probeta.',
+        'Dentro de la campana, medí ' + formatNum(vTomarMl) + ' mL del reactivo con ' + materialMedicion(vTomarMl),
         'Vertí aproximadamente la mitad del agua destilada en el matraz aforado de ' + vFinalLabel + '.',
         'Agregá el reactivo <strong>lentamente</strong> al agua, con agitación constante.',
-        'Si la mezcla se calienta, esperá que vuelva a temperatura ambiente antes de continuar.',
+        'Si la mezcla se calienta, esperá que vuelva a temperatura ambiente (≈ 20 °C, la de calibración del matraz) antes de continuar.',
         'Completá con agua destilada hasta la marca del matraz aforado.',
-        'Tapá el matraz y homogeneizá invirtiendo varias veces. Etiquetá con el nombre del reactivo, la concentración, la fecha y tu nombre.'
+        'Tapá el matraz y homogeneizá invirtiendo varias veces. Etiquetá con el nombre del reactivo, la concentración, la fecha y tu nombre.',
+        'La concentración obtenida es <strong>nominal</strong>: la riqueza real del frasco puede diferir de la etiqueta. Si la solución se va a usar como titulante, valorala frente a un patrón primario antes de usarla.'
       ].map(function (p) {
         return '<li>' + p + '</li>';
       }).join('');
@@ -101,6 +102,28 @@
       if (densidad > 1.1) {
         document.getElementById('alerta-seguridad').classList.add('visible');
       }
+    }
+
+    /*
+     * Material para medir el reactivo concentrado. Su riqueza es nominal (±1 % según
+     * la etiqueta) y la solución se valora después, así que no hace falta material
+     * de máxima exactitud: si el volumen coincide con una pipeta aforada estándar se
+     * sugiere esa; si no, pipeta graduada hasta 25 mL y probeta por encima.
+     */
+    function materialMedicion(v) {
+      var PROPIPETA = ', siempre con propipeta (nunca pipetees con la boca).';
+      var aforadas = [1, 2, 5, 10, 20, 25, 50, 100];
+      for (var i = 0; i < aforadas.length; i++) {
+        if (Math.abs(v - aforadas[i]) / aforadas[i] <= 0.005) {
+          return 'una pipeta aforada de ' + aforadas[i] + ' mL' + PROPIPETA;
+        }
+      }
+      if (v < 1) {
+        return 'una micropipeta calibrada. Un volumen tan pequeño tiene mucho error relativo: ' +
+               'conviene preparar primero una dilución intermedia y diluir a partir de ella.';
+      }
+      if (v <= 25) return 'una pipeta graduada de capacidad adecuada' + PROPIPETA;
+      return 'una probeta de capacidad adecuada (o una bureta, si necesitás más exactitud).';
     }
 
     function formatNum(n) {
