@@ -198,8 +198,8 @@ La FAQ se corrigió con el hallazgo T3 del revisor técnico: ppm solo vale si eq
 - [x] Enlaces entrantes desde el post de HCl, el de espectrofotometría y el de ppm
 - [x] Español neutro: sin voseo, «nosotros», «mesón», «depósito» ni Gran Rosario; «disolvente (solvente)»; «error» en lugar de «falla/fallo»; sin frases de relleno
 - [x] Entrada en `posts.json` con `og_highlight` («1 mL de patrón de 1000 mg/L para 100 mL de 10 mg/L»), `sync_indexes.py`, JSON-LD válido, sin enlaces ni anclas rotas, sin scroll horizontal a 375/1366 px
-- [ ] **Imagen** `img/formula-dilucion-c1v1-c2v2.webp`: pendiente. Al recibirla: agregar `width`/`height`, revisar que el alt la describa, generar la tarjeta con `node scripts/build_og_images.mjs formula-dilucion-c1v1-c2v2` y publicar en main
-- [ ] Sugerencia para la imagen: pipeta aforada con propipeta, líquido incoloro y matraz aforado (no micropipeta ni líquido azul)
+- [x] Imagen `img/formula-dilucion-c1v1-c2v2.webp` (1672×941, 60 KB; pipeta aforada de 10 mL con pera, líquido incoloro), aportada por el autor; alt reescrito; tarjeta og generada con «1 mL → 100 mL / de 1000 mg/L a 10 mg/L». Publicado en main el 2026-10-17
+- [x] La imagen sigue la sugerencia: pipeta aforada con propipeta y líquido incoloro
 - [ ] Fuera de este artículo: `diluciones-reactivo-comercial` recomienda «probeta si > 10 mL», lo que contradice la recomendación de pipeta aforada
 
 ## Anexo: criterio de unión

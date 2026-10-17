@@ -9,10 +9,10 @@
     "date_sort": "2026-10-16",
     "minutes": 7,
     "image": "img/formula-dilucion-c1v1-c2v2.webp",
-    "image_alt": "Pipeta aforada vertiendo solución madre en un matraz aforado sobre una mesa de laboratorio",
+    "image_alt": "Pipeta aforada de 10 mL con pera de succión trasvasando solución a un matraz aforado sobre una mesa de laboratorio",
     "og_highlight": {
-      "valor": "1 mL",
-      "texto": "de patrón de 1000 mg/L para 100 mL de 10 mg/L"
+      "valor": "1 mL → 100 mL",
+      "texto": "de 1000 mg/L a 10 mg/L"
     }
   },
   {

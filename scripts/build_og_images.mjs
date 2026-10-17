@@ -59,6 +59,7 @@ body{width:${W}px;height:${H}px;overflow:hidden;background:#1C2E22;font-family:'
 .cat{margin-top:44px;font-weight:700;font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:#6FCF97}
 h1{margin-top:14px;font-family:'Source Serif 4',serif;font-style:italic;font-weight:700;font-size:54px;line-height:1.08}
 .dato{margin-top:auto;display:inline-flex;align-self:flex-start;align-items:baseline;gap:12px;background:#E8F2EC;color:#1A5C38;border-radius:12px;padding:14px 22px;font-weight:700;font-size:26px}
+.dato,.dato small{white-space:nowrap}
 .dato small{font-weight:500;font-size:19px;color:#276C43}
 .url{margin-top:22px;font-size:19px;color:#B9C7BD;font-weight:500}
 .dato + .url{margin-top:22px}
