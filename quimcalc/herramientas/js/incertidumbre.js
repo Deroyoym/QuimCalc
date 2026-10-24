@@ -22,6 +22,24 @@ document.addEventListener('DOMContentLoaded', function () {
   /* Coma decimal para todo texto visible */
   function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
 
+  /*
+   * Lee una lista de números escrita por el usuario. Separadores: espacio, «;» o
+   * salto de línea. Decimales: coma o punto. Si el texto ya usa punto decimal, la
+   * coma se toma como separador (formato «5.42, 5.38»); si no, «5,42» es un decimal.
+   * Un fragmento con dos o más comas («1,2,3») se separa por comas.
+   */
+  function leerNumeros(texto) {
+    var hayPunto = /\d\.\d/.test(texto);
+    var out = [];
+    texto.split(/[\s;]+/).forEach(function (tok) {
+      if (!tok) return;
+      var comas = (tok.match(/,/g) || []).length;
+      var partes = (hayPunto || comas >= 2) ? tok.split(',') : [tok.replace(',', '.')];
+      partes.forEach(function (p) { var n = parseFloat(p); if (!isNaN(n)) out.push(n); });
+    });
+    return out;
+  }
+
   /* ── Estado: lista de componentes de incertidumbre ──────── */
   let componentes = [];
   let componenteIdCounter = 0;
@@ -60,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (tipo === 'A') {
       /* Tipo A: estadístico — necesitamos s y n */
       const lecturas = document.getElementById('lecturas-tipo-a').value.trim();
-      const vals = lecturas.split(/[\n,;]+/).map(v => parseFloat(v.trim())).filter(v => !isNaN(v));
+      const vals = leerNumeros(lecturas);
 
       if (vals.length < 2) {
         alert('Para una componente Tipo A necesitás al menos 2 lecturas.');

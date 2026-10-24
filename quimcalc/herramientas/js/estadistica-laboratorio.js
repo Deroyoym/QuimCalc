@@ -37,14 +37,28 @@
       return tabla[keys[keys.length - 1]];
     }
 
+
+    /*
+     * Lee una lista de números escrita por el usuario. Separadores: espacio, «;» o
+     * salto de línea. Decimales: coma o punto. Si el texto ya usa punto decimal, la
+     * coma se toma como separador (formato «5.42, 5.38»); si no, «5,42» es un decimal.
+     * Un fragmento con dos o más comas («1,2,3») se separa por comas.
+     */
+    function leerNumeros(texto) {
+      var hayPunto = /\d\.\d/.test(texto);
+      var out = [];
+      texto.split(/[\s;]+/).forEach(function (tok) {
+        if (!tok) return;
+        var comas = (tok.match(/,/g) || []).length;
+        var partes = (hayPunto || comas >= 2) ? tok.split(',') : [tok.replace(',', '.')];
+        partes.forEach(function (p) { var n = parseFloat(p); if (!isNaN(n)) out.push(n); });
+      });
+      return out;
+    }
+
     /* ── Parseo de datos ── */
     function parsear(texto) {
-      return texto
-        .replace(/,/g, ' ')
-        .replace(/;/g, ' ')
-        .split(/\s+/)
-        .map(function(s){ return parseFloat(s.replace(',', '.')); })
-        .filter(function(n){ return !isNaN(n); });
+      return leerNumeros(texto);
     }
 
     /* ── Estadísticos ── */
