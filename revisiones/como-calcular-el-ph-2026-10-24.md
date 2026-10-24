@@ -164,18 +164,21 @@ La tabla completa (44 filas) está en el informe del corrector, en el registro d
 4. **¿Cuándo no se puede usar [H<sup>+</sup>] = √(K<sub>a</sub>·C)?** Cuando la disociación supera el 5 % (C/K<sub>a</sub> < ~400). En ese caso se resuelve la cuadrática: el acético 1,0 × 10<sup>−3</sup> M tiene pH 3,91, no 3,88.
 5. **¿Qué pH tiene el agua destilada?** 7,00 en teoría (a 25 °C). Expuesta al aire, ≈ 5,6 por el CO<sub>2</sub> que absorbe. Por eso no sirve para calibrar un pHmetro: para eso se usan soluciones tampón certificadas.
 
-## 7. Checklist de aplicación
+## 7. Checklist de aplicación (aplicado el 2026-10-24, «Aplicar todo y maquetar», title A + meta B)
 
-- [ ] 🔢 C1: H<sub>2</sub>SO<sub>4</sub> como excepción (pH 1,85 para 0,0100 M); ejemplos de ácido fuerte con HCl, HNO<sub>3</sub> y HClO<sub>4</sub>
-- [ ] 🔢 C2: sección «Cuándo falla la aproximación» (acético 1,0 × 10<sup>−3</sup> M y HCl 1,0 × 10<sup>−8</sup> M)
-- [ ] 🔢 C3: 2,88 en el ejemplo, la FAQ, la meta y `og_highlight`
-- [ ] H1–H10, N1: K<sub>w</sub> según la temperatura, hidróxido, par conjugado, ISO 3696, ácidos orgánicos, C/K<sub>a</sub> ≳ 400 🔢, cifras significativas, alcance de la calculadora, notación
-- [ ] Title (A/B/C) y meta (A/B/C)
-- [ ] 🔢 Respuesta directa, tabla ICE, ejemplo de NH<sub>3</sub> y ejemplo de NaOH en `ejemplo-bloque`
-- [ ] Estructura de §2.5, FAQ + `FAQPage`, CTA, enlaces de §2.4 y enlaces entrantes
-- [ ] Voseo, «nosotros», regionalismos, relleno
-- [ ] Imagen (falta) y alt; tarjeta og; `posts.json`; `sync_indexes.py`; validación
-- [ ] Fuera de este post: la calculadora de pH solo aplica la aproximación (no avisa cuando la disociación supera el 5 % ni en soluciones muy diluidas) y su comentario dice «C/Ka > 100» en lugar de ≈ 400
+- [x] 🔢 C1: H<sub>2</sub>SO<sub>4</sub> como excepción (pH 1,85 para 0,0100 M, ni 2,00 ni 1,70); ácidos fuertes de ejemplo: HCl, HNO<sub>3</sub>, HClO<sub>4</sub>
+- [x] 🔢 C2: sección «Cuándo falla la aproximación» (acético 1,0 × 10<sup>−3</sup> M → 3,91 frente a 3,88; HF 0,10 M → 2,10) y aporte del agua (HCl 1,0 × 10<sup>−8</sup> M → 6,98)
+- [x] 🔢 C3: 2,88 en el ejemplo, la FAQ, la meta y `og_highlight`
+- [x] H1–H10, N1: p<sub>Kw</sub> según la temperatura (14,94 a 0 °C, 13,62 a 37 °C), hidróxido, par conjugado, ISO 3696 (solo grado 3), ácidos orgánicos débiles, C/K<sub>a</sub> ≳ 400, datos con cifras significativas (0,0100 / 0,100 M), notación con sub/sup y «−»; se quitó la cita al NIST WebBook
+- [x] Title A (60) + meta B (144), en las 3 copias + JSON-LD + `posts.json`
+- [x] 🔢 Respuesta directa, tabla ICE, cuadrática, ejemplos de HCl, NaOH, acético y NH<sub>3</sub> (11,12 exacto / 11,13 por aproximación) en `ejemplo-bloque`
+- [x] Estructura de §2.5 con ids cortos, FAQ (5) + `FAQPage`, 5 errores comunes, CTA a la calculadora de pH
+- [x] Enlaces: calculadora de pH (2 + CTA), tabla de pKa, calculadora de buffers, 4 posts (molaridad, normalidad, pKa, titulación en la barra lateral)
+- [x] Enlaces entrantes: calculadora-ph («Para profundizar»), que-es-el-pka-y-como-usar-buffers (#ka-pka), errores-comunes-titulacion (error 3)
+- [x] Español neutro: sin voseo, «nosotros», «mesada» ni «pehachímetro»; relleno eliminado
+- [x] **Calculadora de pH corregida y publicada** (decisión del usuario): solución exacta con K<sub>w</sub>, % de disociación, aviso cuando la aproximación no vale; se corrigieron el H<sub>2</sub>SO<sub>4</sub> y la FAQ «C/Ka > 100» de su página
+- [x] JSON-LD válido, sin enlaces ni anclas rotas, sin scroll horizontal a 375/1366 px, `sync_indexes.py`
+- [ ] **Imagen** `img/como-calcular-el-ph.webp`: pendiente. Al recibirla: `width`/`height`, revisar el alt, `node scripts/build_og_images.mjs como-calcular-el-ph` y publicar en main
 
 ## Anexo: criterio de unión
 
