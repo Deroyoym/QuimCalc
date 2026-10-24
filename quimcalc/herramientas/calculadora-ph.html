@@ -37,7 +37,7 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "dateModified": "2026-06-08",
+    "dateModified": "2026-10-24",
     "name": "Calculadora de pH",
     "description": "Calculá el pH de ácidos y bases fuertes o débiles a partir de la concentración.",
     "applicationCategory": "EducationalApplication",
@@ -63,14 +63,14 @@
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "dateModified": "2026-06-08",
+    "dateModified": "2026-10-24",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "¿Por qué esta calculadora usa una aproximación para ácidos débiles?",
+        "name": "¿La calculadora usa la aproximación √(Ka·C) para ácidos débiles?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "La fórmula exacta requiere resolver una ecuación cuadrática. La aproximación pH = ½(pKa − log C) es válida cuando C/Ka > 100, es decir cuando la disociación es menor al 5%. En la práctica de laboratorio, esta condición se cumple en casi todos los casos relevantes."
+          "text": "No: resuelve el equilibrio de forma exacta, incluido el aporte del agua, así que también sirve para soluciones diluidas o ácidos con Ka grande. Además informa el % de disociación y qué pH habría dado la aproximación √(Ka·C), que solo es válida cuando la disociación es menor al 5 % (en la práctica, cuando C/Ka es mayor que unos 400)."
         }
       },
       {
@@ -217,7 +217,7 @@
 
         <h2>Ácidos fuertes vs. ácidos débiles</h2>
         <p>
-          Los <strong>ácidos fuertes</strong> (HCl, H₂SO₄, HNO₃) se disocian completamente en agua. Si la concentración es 0,1 M, entonces [H⁺] = 0,1 M y el cálculo es directo. Los <strong>ácidos débiles</strong> (ácido acético, HF) solo se disocian parcialmente, por eso necesitamos la constante de acidez Ka para estimar cuánto H⁺ se libera.
+          Los <strong>ácidos fuertes</strong> (HCl, HNO₃, HClO₄) se disocian completamente en agua (el H₂SO₄ solo en su primera etapa; la segunda es parcial). Si la concentración es 0,1 M, entonces [H⁺] = 0,1 M y el cálculo es directo. Los <strong>ácidos débiles</strong> (ácido acético, HF) solo se disocian parcialmente, por eso necesitamos la constante de acidez Ka para estimar cuánto H⁺ se libera.
         </p>
 
         <div class="ejemplo-bloque">
@@ -228,15 +228,16 @@
         <div class="ejemplo-bloque">
           <strong>Ejemplo: Ácido acético 0,1 M (Ka = 1,8 × 10⁻⁵)</strong>
           <p>pKa = -log(1,8 × 10⁻⁵) = 4,74</p>
-          <p>pH = ½ × (4,74 − log(0,1)) = ½ × (4,74 + 1) = <strong>2,87</strong></p>
+          <p>Solución exacta: [H⁺] = 1,33 × 10⁻³ M → pH = <strong>2,88</strong> (disociación 1,3 %)</p>
+          <p>Como la disociación es menor al 5 %, la aproximación pH = ½ × (pKa − log C) = ½ × (4,74 + 1) = 2,87 da casi lo mismo.</p>
         </div>
 
         <h2>Preguntas frecuentes</h2>
 
         <div class="faq-item">
-          <h3>¿Por qué esta calculadora usa una aproximación para ácidos débiles?</h3>
+          <h3>¿La calculadora usa la aproximación √(Ka·C) para ácidos débiles?</h3>
           <p>
-            La fórmula exacta requiere resolver una ecuación cuadrática. La aproximación pH = ½(pKa − log C) es válida cuando C/Ka &gt; 100, es decir cuando la disociación es menor al 5%. En la práctica de laboratorio, esta condición se cumple en casi todos los casos relevantes.
+            No: resuelve el equilibrio de forma exacta, incluido el aporte del agua, así que también sirve para soluciones diluidas o ácidos con Ka grande. Además informa el % de disociación y qué pH habría dado la aproximación √(Ka·C), que solo es válida cuando la disociación es menor al 5 % (en la práctica, cuando C/Ka es mayor que unos 400).
           </p>
         </div>
 
