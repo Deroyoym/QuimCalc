@@ -1,3 +1,6 @@
+  // Coma decimal para todo lo que se muestra
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
   // ── CATEGORÍAS ──────────────────────────────────────────────
   // [clave, nombre, fondo, texto]
   const CAT = [
@@ -276,7 +279,7 @@
       <div class="feat-bloque-sym" style="background:${bg};color:${tx}">
         <span class="feat-z">Z = ${num}</span>
         <span class="feat-simbolo">${sym}</span>
-        <span class="feat-masa">${masa} u</span>
+        <span class="feat-masa">${conComa(masa)} u</span>
       </div>
       <div class="feat-info">
         <div>
@@ -294,11 +297,11 @@
           </div>
           <div class="feat-prop">
             <span class="feat-prop-l">Masa atómica</span>
-            <span class="feat-prop-v">${masa} u</span>
+            <span class="feat-prop-v">${conComa(masa)} u</span>
           </div>
           <div class="feat-prop">
             <span class="feat-prop-l">Electroneg. Pauling</span>
-            <span class="feat-prop-v">${en !== null ? en.toFixed(2) : '—'}</span>
+            <span class="feat-prop-v">${en !== null ? conComa(en.toFixed(2)) : '—'}</span>
           </div>
         </div>
       </div>
@@ -327,7 +330,7 @@
           </div>
           <div class="dp-item">
             <span class="dp-label">Isótopos</span>
-            <span class="dp-val">${isos}</span>
+            <span class="dp-val">${conComa(isos)}</span>
           </div>
           <div class="dp-item">
             <span class="dp-label">Descubrimiento</span>

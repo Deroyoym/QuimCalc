@@ -19,6 +19,27 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  /* Coma decimal para todo texto visible */
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
+  /*
+   * Lee una lista de números escrita por el usuario. Separadores: espacio, «;» o
+   * salto de línea. Decimales: coma o punto. Si el texto ya usa punto decimal, la
+   * coma se toma como separador (formato «5.42, 5.38»); si no, «5,42» es un decimal.
+   * Un fragmento con dos o más comas («1,2,3») se separa por comas.
+   */
+  function leerNumeros(texto) {
+    var hayPunto = /\d\.\d/.test(texto);
+    var out = [];
+    texto.split(/[\s;]+/).forEach(function (tok) {
+      if (!tok) return;
+      var comas = (tok.match(/,/g) || []).length;
+      var partes = (hayPunto || comas >= 2) ? tok.split(',') : [tok.replace(',', '.')];
+      partes.forEach(function (p) { var n = parseFloat(p); if (!isNaN(n)) out.push(n); });
+    });
+    return out;
+  }
+
   /* ── Estado: lista de componentes de incertidumbre ──────── */
   let componentes = [];
   let componenteIdCounter = 0;
@@ -57,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (tipo === 'A') {
       /* Tipo A: estadístico — necesitamos s y n */
       const lecturas = document.getElementById('lecturas-tipo-a').value.trim();
-      const vals = lecturas.split(/[\n,;]+/).map(v => parseFloat(v.trim())).filter(v => !isNaN(v));
+      const vals = leerNumeros(lecturas);
 
       if (vals.length < 2) {
         alert('Para una componente Tipo A necesitás al menos 2 lecturas.');
@@ -69,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const s    = Math.sqrt(vals.reduce((acc, v) => acc + Math.pow(v - media, 2), 0) / (n - 1));
       u = s / Math.sqrt(n); /* Desviación estándar de la media */
 
-      descripcion = `Tipo A · n=${n} · x̄=${media.toFixed(6)} · s=${s.toFixed(6)} · u=s/√n=${u.toFixed(6)}`;
+      descripcion = conComa(`Tipo A · n=${n} · x̄=${media.toFixed(6)} · s=${s.toFixed(6)} · u=s/√n=${u.toFixed(6)}`);
     }
     else {
       /* Tipo B: por especificación — necesitamos semirango y distribución */
@@ -97,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
         u: 'En U (k=√2)',
       };
 
-      descripcion = `Tipo B · a=${a} · ${nombresDistrib[distribucion]} · u=a/k=${u.toFixed(6)}`;
+      descripcion = conComa(`Tipo B · a=${a} · ${nombresDistrib[distribucion]} · u=a/k=${u.toFixed(6)}`);
     }
 
     if (isNaN(u) || u <= 0) {
@@ -146,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
         <p class="componente-item__desc">${comp.descripcion}</p>
         <p class="componente-item__u">
-          u(x) = <strong>${comp.u.toFixed(6)}</strong> · ci = <strong>${comp.ci}</strong> · ci×u = <strong>${(comp.ci * comp.u).toFixed(6)}</strong>
+          u(x) = <strong>${conComa(comp.u.toFixed(6))}</strong> · ci = <strong>${conComa(comp.ci)}</strong> · ci×u = <strong>${conComa((comp.ci * comp.u).toFixed(6))}</strong>
         </p>
       `;
       listaComponentes.appendChild(div);
@@ -186,10 +207,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }[kp] || `k = ${kp}`;
 
     /* Mostramos resultados */
-    resUc.textContent    = uc.toFixed(6);
-    resU.textContent     = U.toFixed(6);
-    resKp.textContent    = kp;
-    resNivel.textContent = nivelConfianza;
+    resUc.textContent    = conComa(uc.toFixed(6));
+    resU.textContent     = conComa(U.toFixed(6));
+    resKp.textContent    = conComa(kp);
+    resNivel.textContent = conComa(nivelConfianza);
 
     /* Tabla de desglose */
     renderizarTablaDesglose(componentes, uc);
@@ -209,10 +230,10 @@ document.addEventListener('DOMContentLoaded', function () {
       tr.innerHTML = `
         <td>${comp.nombre}</td>
         <td>Tipo ${comp.tipo}</td>
-        <td>${comp.u.toFixed(6)}</td>
-        <td>${comp.ci.toFixed(4)}</td>
-        <td>${contribucion.toFixed(6)}</td>
-        <td>${porcentaje.toFixed(1)}%</td>
+        <td>${conComa(comp.u.toFixed(6))}</td>
+        <td>${conComa(comp.ci.toFixed(4))}</td>
+        <td>${conComa(contribucion.toFixed(6))}</td>
+        <td>${conComa(porcentaje.toFixed(1))}%</td>
       `;
       tablaDesglose.appendChild(tr);
     });
@@ -234,14 +255,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     componentes.forEach((comp, i) => {
       const contrib = comp.ci * comp.u;
-      const pct = uc > 0 ? (Math.pow(contrib, 2) / Math.pow(uc, 2) * 100).toFixed(1) : '0.0';
-      texto += `${i+1}\t${comp.nombre}\tTipo ${comp.tipo}\t${comp.u.toFixed(6)}\t${comp.ci.toFixed(4)}\t${contrib.toFixed(6)}\t${pct}%\n`;
+      const pct = uc > 0 ? conComa((Math.pow(contrib, 2) / Math.pow(uc, 2) * 100).toFixed(1)) : '0,0';
+      texto += `${i+1}\t${comp.nombre}\tTipo ${comp.tipo}\t${conComa(comp.u.toFixed(6))}\t${conComa(comp.ci.toFixed(4))}\t${conComa(contrib.toFixed(6))}\t${pct}%\n`;
     });
 
     texto += `\nRESULTADO FINAL\n`;
-    texto += `Incertidumbre combinada (uc): ${uc.toFixed(6)}\n`;
-    texto += `Factor de cobertura (k): ${kp}\n`;
-    texto += `Incertidumbre expandida (U = k×uc): ${U.toFixed(6)}\n`;
+    texto += `Incertidumbre combinada (uc): ${conComa(uc.toFixed(6))}\n`;
+    texto += `Factor de cobertura (k): ${conComa(kp)}\n`;
+    texto += `Incertidumbre expandida (U = k×uc): ${conComa(U.toFixed(6))}\n`;
     texto += `\nDetalle de componentes:\n`;
     componentes.forEach(c => { texto += `  • ${c.nombre}: ${c.descripcion}\n`; });
 

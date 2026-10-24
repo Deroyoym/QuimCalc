@@ -181,11 +181,11 @@
           </p>
 
           <div class="campo-grupo">
-            <label for="lecturas-blanco">Lecturas del blanco (separadas por coma, punto y coma o nueva línea)</label>
+            <label for="lecturas-blanco">Lecturas del blanco (una por línea, o separadas por punto y coma o espacio; decimales con coma o punto)</label>
             <textarea
               id="lecturas-blanco"
               name="lecturas-blanco"
-              placeholder="Ej:&#10;0.0021&#10;0.0019&#10;0.0023&#10;0.0018&#10;0.0022&#10;0.0020&#10;0.0024&#10;0.0019&#10;0.0021&#10;0.0020"
+              placeholder="Ej:&#10;0,0021&#10;0,0019&#10;0,0023&#10;0,0018&#10;0,0022&#10;0,0020&#10;0,0024&#10;0,0019&#10;0,0021&#10;0,0020"
               aria-describedby="ayuda-blanco"
             ></textarea>
             <span class="ayuda" id="ayuda-blanco">Mínimo 5 lecturas. Se recomiendan 10 o más para mayor confiabilidad estadística.</span>
@@ -322,7 +322,7 @@
         <div class="ejemplo-bloque">
           <strong>Método de la curva de calibración (ICH Q2 / ICH Q2R1) — para validación de métodos farmacéuticos</strong>
           <ul>
-            <li><strong>LOD</strong> = 3.3 × Se / m</li>
+            <li><strong>LOD</strong> = 3,3 × Se / m</li>
             <li><strong>LOQ</strong> = 10 × Se / m</li>
           </ul>
           <p>Donde <strong>Se</strong> es el error estándar de la regresión y <strong>m</strong> es la pendiente. Es el método estándar en la industria farmacéutica (guidelines ICH). Requiere haber calculado previamente la curva: podés obtener Se y m con la <a href="curva-calibracion.html">calculadora de curva de calibrado</a>, que ya muestra un LOD y LOQ estimados.</p>

@@ -19,6 +19,27 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  /* Coma decimal para todo texto visible */
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
+  /*
+   * Lee una lista de números escrita por el usuario. Separadores: espacio, «;» o
+   * salto de línea. Decimales: coma o punto. Si el texto ya usa punto decimal, la
+   * coma se toma como separador (formato «5.42, 5.38»); si no, «5,42» es un decimal.
+   * Un fragmento con dos o más comas («1,2,3») se separa por comas.
+   */
+  function leerNumeros(texto) {
+    var hayPunto = /\d\.\d/.test(texto);
+    var out = [];
+    texto.split(/[\s;]+/).forEach(function (tok) {
+      if (!tok) return;
+      var comas = (tok.match(/,/g) || []).length;
+      var partes = (hayPunto || comas >= 2) ? tok.split(',') : [tok.replace(',', '.')];
+      partes.forEach(function (p) { var n = parseFloat(p); if (!isNaN(n)) out.push(n); });
+    });
+    return out;
+  }
+
   /* ── Referencias ────────────────────────────────────────── */
   const selectMetodo    = document.getElementById('metodo');
   const panelBlanco     = document.getElementById('panel-blanco');
@@ -58,15 +79,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const textoLecturas = document.getElementById('lecturas-blanco').value.trim();
       if (!textoLecturas) {
-        mostrarError('Ingresá las lecturas del blanco separadas por comas o saltos de línea.');
+        mostrarError('Ingresá las lecturas del blanco, una por línea o separadas por punto y coma.');
         return;
       }
 
       /* Parseamos los valores: aceptamos comas, punto y coma, o nueva línea como separadores */
-      const lecturas = textoLecturas
-        .split(/[\n,;]+/)
-        .map(v => parseFloat(v.trim()))
-        .filter(v => !isNaN(v));
+      const lecturas = leerNumeros(textoLecturas);
 
       if (lecturas.length < 5) {
         mostrarError(`Necesitás al menos 5 lecturas del blanco (ingresaste ${lecturas.length}). Para mayor confiabilidad se recomiendan 10 o más.`);
@@ -152,10 +170,10 @@ document.addEventListener('DOMContentLoaded', function () {
   function mostrarResultado(LOD, LOQ, unidad, detalle, metodoTexto) {
     bloqueResultado.classList.remove('resultado--error');
 
-    valorLOD.textContent = `${LOD.toFixed(6)} ${unidad}`;
-    valorLOQ.textContent = `${LOQ.toFixed(6)} ${unidad}`;
+    valorLOD.textContent = conComa(`${LOD.toFixed(6)} ${unidad}`);
+    valorLOQ.textContent = conComa(`${LOQ.toFixed(6)} ${unidad}`);
 
-    detalleCalculo.textContent = `${metodoTexto}\n\n${detalle}`;
+    detalleCalculo.textContent = conComa(`${metodoTexto}\n\n${detalle}`);
 
     bloqueResultado.classList.add('visible');
     bloqueResultado.scrollIntoView({ behavior: 'smooth', block: 'nearest' });

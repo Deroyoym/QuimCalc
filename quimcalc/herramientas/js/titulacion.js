@@ -17,6 +17,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
   /* ── Referencias ────────────────────────────────────────── */
   const selectModo       = document.getElementById('modo');
   const inputNtit        = document.getElementById('n-titulante');
@@ -150,6 +152,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ── Funciones auxiliares ───────────────────────────────── */
   function mostrarResultado(valor, descripcion, formula) {
+    /* Solo para mostrar: coma decimal */
+    valor = conComa(valor); descripcion = conComa(descripcion); formula = conComa(formula);
     if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, formula);
     bloqueResultado.classList.remove('resultado--error');
     etiquetaResultado.textContent = descripcion;
@@ -174,8 +178,8 @@ document.addEventListener('DOMContentLoaded', function () {
         <p style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-acento);margin-bottom:4px;">
           ${e.titulo}
         </p>
-        <p style="font-size:1.2rem;font-weight:700;color:var(--color-texto);margin-bottom:4px;">${e.valor}</p>
-        <p style="font-size:0.85rem;color:var(--color-texto-suave);font-family:monospace;">${e.formula}</p>
+        <p style="font-size:1.2rem;font-weight:700;color:var(--color-texto);margin-bottom:4px;">${conComa(e.valor)}</p>
+        <p style="font-size:0.85rem;color:var(--color-texto-suave);font-family:monospace;">${conComa(e.formula)}</p>
       `;
       contenedorExtra.appendChild(div);
     });

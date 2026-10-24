@@ -1,5 +1,8 @@
     /* ── Conversor de concentración ampliado ── */
 
+    /* Coma decimal para todo número que se muestra o se copia */
+    function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
     /* Todas las unidades y su info */
     var UNIDADES = [
       /* Molares */
@@ -148,7 +151,7 @@
           (puedeCalcular ? ' data-valor="' + valorStr + '" title="Clic para copiar"' : '') +
           '>' +
           '<span class="conv-card__unidad">' + u.label + '</span>' +
-          '<span class="' + claseValor + '">' + valorStr + '</span>' +
+          '<span class="' + claseValor + '">' + conComa(valorStr) + '</span>' +
           '</div>';
       });
 
@@ -164,7 +167,7 @@
 
     function copiar(el, texto) {
       if (!texto || texto.includes('requiere') || texto === '—') return;
-      navigator.clipboard.writeText(texto).then(function() {
+      navigator.clipboard.writeText(conComa(texto)).then(function() {
         var toast = document.getElementById('copy-toast');
         toast.classList.add('visible');
         setTimeout(function(){ toast.classList.remove('visible'); }, 1800);

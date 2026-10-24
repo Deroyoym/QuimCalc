@@ -11,6 +11,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
   const inputObtenida  = document.getElementById('masa-obtenida');
   const inputTeorica   = document.getElementById('masa-teorica');
   const inputRend      = document.getElementById('rendimiento');
@@ -81,6 +83,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function mostrarResultado(valor, descripcion, formula) {
+    /* Solo para mostrar: coma decimal */
+    valor = conComa(valor); descripcion = conComa(descripcion); formula = conComa(formula);
     if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, formula);
     bloqueResultado.classList.remove('resultado--error');
     etiquetaResultado.textContent = descripcion;

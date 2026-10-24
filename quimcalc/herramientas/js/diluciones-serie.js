@@ -15,6 +15,14 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
+  /* Factor acumulado: miles con espacio fino sin corte (no punto) y coma decimal */
+  function fmtFactor(n) {
+    return n.toLocaleString('en-US', { maximumFractionDigits: 4 })
+      .replace(/,/g, '\u202F').replace('.', ',');
+  }
+
   const inputConcInicial  = document.getElementById('conc-inicial');
   const inputFactor       = document.getElementById('factor');
   const inputPasos        = document.getElementById('pasos');
@@ -68,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
         factorAcum:     Math.pow(factor, i),
         vTransferencia: i < pasos ? vTransferencia : '—', /* El último tubo no transfiere */
         vSolvente:      vSolvente,
-        nota:           `1:${Math.pow(factor, i).toLocaleString('es')}`
+        nota:           `1:${fmtFactor(Math.pow(factor, i))}`
       });
     }
 
@@ -81,10 +89,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* Mostramos el resumen en el bloque de resultado */
     bloqueResultado.classList.remove('resultado--error');
-    etiquetaResultado.textContent = `Serie generada — Factor 1:${factor} · ${filas.length - 1} pasos`;
+    etiquetaResultado.textContent = conComa(`Serie generada — Factor 1:${factor} · ${filas.length - 1} pasos`);
     valorResultado.textContent    = `${filas.length - 1} diluciones`;
-    formulaResultado.textContent  =
-      `Volumen de transferencia: ${vTransf.toFixed(2)} mL · Volumen de solvente: ${vSolv.toFixed(2)} mL`;
+    formulaResultado.textContent  = conComa(
+      `Volumen de transferencia: ${vTransf.toFixed(2)} mL · Volumen de solvente: ${vSolv.toFixed(2)} mL`);
     bloqueResultado.classList.add('visible');
 
     /* Construimos la tabla */
@@ -121,13 +129,13 @@ document.addEventListener('DOMContentLoaded', function () {
         ? '—'
         : parseFloat(fila.vTransferencia).toFixed(2);
 
-      tr.innerHTML = `
+      tr.innerHTML = conComa(`
         <td>${fila.tubo}</td>
         <td>${concFormateada}</td>
-        <td>1:${fila.factorAcum.toLocaleString('es')}</td>
+        <td>1:${fmtFactor(fila.factorAcum)}</td>
         <td>${vTransfFormateado}</td>
         <td>${fila.vSolvente === '—' ? '—' : parseFloat(fila.vSolvente).toFixed(2)}</td>
-      `;
+      `);
       tbody.appendChild(tr);
     });
 
@@ -149,6 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function mostrarError(mensaje) {
+    mensaje = conComa(mensaje);
     bloqueResultado.classList.add('resultado--error');
     etiquetaResultado.textContent = 'Error';
     valorResultado.textContent    = mensaje;

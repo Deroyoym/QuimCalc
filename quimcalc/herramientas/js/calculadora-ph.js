@@ -11,6 +11,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
   /* ── Referencias ────────────────────────────────────────── */
   const selectTipo      = document.getElementById('tipo-sustancia');
   const inputConc       = document.getElementById('concentracion');
@@ -33,10 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const ayuda = campoKa.querySelector('.ayuda');
     if (tipo === 'acido-debil') {
       label.textContent = 'Ka (constante de acidez)';
-      ayuda.textContent = 'Ej: Ka del ácido acético = 1.8 × 10⁻⁵ → ingresá 0.000018';
+      ayuda.innerHTML = 'Ej: Ka del ácido acético = 1,8 × 10⁻⁵ → en el campo escribí <code>0.000018</code> o <code>1.8e-5</code> (con punto)';
     } else {
       label.textContent = 'Kb (constante de basicidad)';
-      ayuda.textContent = 'Ej: Kb del amoniaco = 1.8 × 10⁻⁵ → ingresá 0.000018';
+      ayuda.innerHTML = 'Ej: Kb del amoniaco = 1,8 × 10⁻⁵ → en el campo escribí <code>0.000018</code> o <code>1.8e-5</code> (con punto)';
     }
 
     bloqueResultado.classList.remove('visible');
@@ -120,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ── Funciones auxiliares ───────────────────────────────── */
   function mostrarResultado(valor, descripcion, formula) {
+    valor = conComa(valor); descripcion = conComa(descripcion); formula = conComa(formula);
     if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, formula);
     bloqueResultado.classList.remove('resultado--error');
     etiquetaResultado.textContent = descripcion;
@@ -130,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function mostrarError(mensaje) {
+    mensaje = conComa(mensaje);
     bloqueResultado.classList.add('resultado--error');
     etiquetaResultado.textContent = 'Error';
     valorResultado.textContent    = mensaje;

@@ -1,4 +1,8 @@
     /* ── Calculadora: dilución desde reactivo comercial ── */
+
+    /* Coma decimal para todo número que se muestra */
+    function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
     document.addEventListener('DOMContentLoaded', function () {
 
       var campos = ['densidad', 'pureza', 'masa-molar', 'c-final', 'v-final'];
@@ -20,7 +24,7 @@
       var r = document.getElementById('resultado');
       r.className = 'resultado resultado--error visible';
       r.querySelector('.resultado__etiqueta').textContent = 'Error';
-      r.querySelector('.resultado__valor').textContent = msg;
+      r.querySelector('.resultado__valor').textContent = conComa(msg);
       r.querySelector('.resultado__formula').textContent = '';
     }
 
@@ -70,13 +74,13 @@
       var r = document.getElementById('resultado');
       r.className = 'resultado visible';
       r.querySelector('.resultado__etiqueta').textContent = 'Volumen a tomar del reactivo comercial';
-      r.querySelector('.resultado__valor').textContent = formatNum(vTomarMl) + ' mL';
-      r.querySelector('.resultado__formula').textContent =
+      r.querySelector('.resultado__valor').textContent = conComa(formatNum(vTomarMl)) + ' mL';
+      r.querySelector('.resultado__formula').textContent = conComa(
         'V = (C_final × V_final) / C_stock = (' + cFinalMolL.toFixed(4) + ' mol/L × ' +
-        (vFinalL * 1000).toFixed(1) + ' mL) / ' + cStockMolL.toFixed(4) + ' mol/L';
+        (vFinalL * 1000).toFixed(1) + ' mL) / ' + cStockMolL.toFixed(4) + ' mol/L');
 
-      document.getElementById('res-stock-mol').textContent = cStockMolL.toFixed(4) + ' mol/L';
-      document.getElementById('res-stock-g').textContent   = cStockGl.toFixed(2)   + ' g/L';
+      document.getElementById('res-stock-mol').textContent = conComa(cStockMolL.toFixed(4)) + ' mol/L';
+      document.getElementById('res-stock-g').textContent   = conComa(cStockGl.toFixed(2))   + ' g/L';
 
       /* Pasos de preparación */
       var pasos = document.getElementById('lista-pasos');
@@ -84,7 +88,8 @@
         ? vFinal + ' mL'
         : (vFinal < 1 ? (vFinal * 1000).toFixed(0) + ' mL' : vFinal + ' L');
 
-      pasos.innerHTML = [
+      /* Los pasos solo llevan texto y <strong>: conComa no toca atributos */
+      pasos.innerHTML = conComa([
         'Dentro de la campana, medí ' + formatNum(vTomarMl) + ' mL del reactivo con ' + materialMedicion(vTomarMl),
         'Vertí aproximadamente la mitad del agua destilada en el matraz aforado de ' + vFinalLabel + '.',
         'Agregá el reactivo <strong>lentamente</strong> al agua, con agitación constante.',
@@ -94,7 +99,7 @@
         'La concentración obtenida es <strong>nominal</strong>: la riqueza real del frasco puede diferir de la etiqueta. Si la solución se va a usar como titulante, valorala frente a un patrón primario antes de usarla.'
       ].map(function (p) {
         return '<li>' + p + '</li>';
-      }).join('');
+      }).join(''));
 
       document.getElementById('pasos').classList.add('visible');
 

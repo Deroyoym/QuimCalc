@@ -1,6 +1,9 @@
     /* ── % Recuperación y error sistemático ── */
     var filaId = 0;
 
+    /* Coma decimal para todo texto visible */
+    function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
     document.addEventListener('DOMContentLoaded', function () {
       /* Comenzar con 5 filas vacías */
       for (var i = 0; i < 5; i++) agregarFila();
@@ -54,10 +57,10 @@
 
         var clase = rec >= limInf && rec <= limSup ? 'ok' : (Math.abs(rec - 100) < 20 ? 'warn' : 'error');
 
-        document.getElementById('rec-'  + id).textContent = rec.toFixed(2)  + ' %';
+        document.getElementById('rec-'  + id).textContent = conComa(rec.toFixed(2))  + ' %';
         document.getElementById('rec-'  + id).className   = 'td-result ' + clase;
-        document.getElementById('eabs-' + id).textContent = (eabs >= 0 ? '+' : '') + eabs.toFixed(4);
-        document.getElementById('erel-' + id).textContent = (erel >= 0 ? '+' : '') + erel.toFixed(2) + ' %';
+        document.getElementById('eabs-' + id).textContent = (eabs >= 0 ? '+' : '') + conComa(eabs.toFixed(4));
+        document.getElementById('erel-' + id).textContent = (erel >= 0 ? '+' : '') + conComa(erel.toFixed(2)) + ' %';
         document.getElementById('erel-' + id).className   = 'td-result ' + (Math.abs(erel) < 5 ? 'ok' : Math.abs(erel) < 20 ? 'warn' : 'error');
       } else {
         ['rec-','eabs-','erel-'].forEach(function(p) {
@@ -125,7 +128,7 @@
         var v = c.fmt === 'str' ? c.val : (c.fmt === '0' ? c.val.toString() : parseFloat(c.val).toFixed(parseInt(c.fmt)));
         return '<div class="resumen-card">' +
           '<p class="resumen-card__label">' + c.label + '</p>' +
-          '<p class="resumen-card__valor ' + c.clase + '">' + v + '</p>' +
+          '<p class="resumen-card__valor ' + c.clase + '">' + conComa(v) + '</p>' +
           '</div>';
       }).join('');
 
@@ -133,16 +136,16 @@
       var ev = document.getElementById('evaluacion');
       if (recovOk && cvOk) {
         ev.className = 'evaluacion-bloque visible ok';
-        ev.textContent = '✓ El método cumple los criterios de aceptación: media de recuperación dentro del rango ' + limInf + '–' + limSup + ' % y CV% ≤ ' + limCV + ' %.';
+        ev.textContent = conComa('✓ El método cumple los criterios de aceptación: media de recuperación dentro del rango ' + limInf + '–' + limSup + ' % y CV% ≤ ' + limCV + ' %.');
       } else if (!recovOk && cvOk) {
         ev.className = 'evaluacion-bloque visible warn';
-        ev.textContent = '⚠ La precisión es aceptable (CV% = ' + cv.toFixed(2) + ' %) pero la recuperación media (' + mean.toFixed(2) + ' %) está fuera del rango ' + limInf + '–' + limSup + ' %. Revisar sesgo sistemático.';
+        ev.textContent = conComa('⚠ La precisión es aceptable (CV% = ' + cv.toFixed(2) + ' %) pero la recuperación media (' + mean.toFixed(2) + ' %) está fuera del rango ' + limInf + '–' + limSup + ' %. Revisar sesgo sistemático.');
       } else if (recovOk && !cvOk) {
         ev.className = 'evaluacion-bloque visible warn';
-        ev.textContent = '⚠ La recuperación media es aceptable (' + mean.toFixed(2) + ' %) pero la dispersión es alta (CV% = ' + cv.toFixed(2) + ' % > ' + limCV + ' %). Revisar repetibilidad.';
+        ev.textContent = conComa('⚠ La recuperación media es aceptable (' + mean.toFixed(2) + ' %) pero la dispersión es alta (CV% = ' + cv.toFixed(2) + ' % > ' + limCV + ' %). Revisar repetibilidad.');
       } else {
         ev.className = 'evaluacion-bloque visible error';
-        ev.textContent = '✗ El método no cumple los criterios: recuperación ' + mean.toFixed(2) + ' % (rango: ' + limInf + '–' + limSup + ' %) y CV% = ' + cv.toFixed(2) + ' % (límite: ' + limCV + ' %). Revisión necesaria.';
+        ev.textContent = conComa('✗ El método no cumple los criterios: recuperación ' + mean.toFixed(2) + ' % (rango: ' + limInf + '–' + limSup + ' %) y CV% = ' + cv.toFixed(2) + ' % (límite: ' + limCV + ' %). Revisión necesaria.');
       }
 
       document.getElementById('seccion-resultados').classList.add('visible');

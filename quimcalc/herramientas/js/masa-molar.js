@@ -13,6 +13,9 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  /* Coma decimal para todo texto visible */
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
   /* ── TABLA DE MASAS ATÓMICAS (g/mol) ────────────────────────
      Fuente: IUPAC 2021. Redondeadas a 3 decimales.
      ──────────────────────────────────────────────────────────── */
@@ -184,6 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ── Funciones de UI ────────────────────────────────────── */
   function mostrarResultado(valor, descripcion, lineasDesglose) {
+    valor = conComa(valor);
     if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, descripcion);
     bloqueResultado.classList.remove('resultado--error');
     etiquetaResultado.textContent = descripcion;
@@ -194,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
     desgloseResultado.innerHTML = '';
     lineasDesglose.forEach(function (linea) {
       const p = document.createElement('p');
-      p.textContent = linea;
+      p.textContent = conComa(linea);
       p.style.cssText = 'font-size:0.85rem; color: var(--color-texto-suave); margin:0; font-family: monospace;';
       desgloseResultado.appendChild(p);
     });

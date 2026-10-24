@@ -37,14 +37,28 @@
       return tabla[keys[keys.length - 1]];
     }
 
+
+    /*
+     * Lee una lista de números escrita por el usuario. Separadores: espacio, «;» o
+     * salto de línea. Decimales: coma o punto. Si el texto ya usa punto decimal, la
+     * coma se toma como separador (formato «5.42, 5.38»); si no, «5,42» es un decimal.
+     * Un fragmento con dos o más comas («1,2,3») se separa por comas.
+     */
+    function leerNumeros(texto) {
+      var hayPunto = /\d\.\d/.test(texto);
+      var out = [];
+      texto.split(/[\s;]+/).forEach(function (tok) {
+        if (!tok) return;
+        var comas = (tok.match(/,/g) || []).length;
+        var partes = (hayPunto || comas >= 2) ? tok.split(',') : [tok.replace(',', '.')];
+        partes.forEach(function (p) { var n = parseFloat(p); if (!isNaN(n)) out.push(n); });
+      });
+      return out;
+    }
+
     /* ── Parseo de datos ── */
     function parsear(texto) {
-      return texto
-        .replace(/,/g, ' ')
-        .replace(/;/g, ' ')
-        .split(/\s+/)
-        .map(function(s){ return parseFloat(s.replace(',', '.')); })
-        .filter(function(n){ return !isNaN(n); });
+      return leerNumeros(texto);
     }
 
     /* ── Estadísticos ── */
@@ -96,6 +110,9 @@
 
       return { stat: Q, crit: Qcrit, isOutlier: Q > Qcrit, val: outlierVal, test: 'Dixon Q' };
     }
+
+    /* ── Coma decimal para todo texto visible ── */
+    function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
 
     /* ── Formato de números ── */
     function fmt(n, sig) {
@@ -175,8 +192,8 @@
         var styleVal  = c.color ? 'style="color:' + c.color + '"' : '';
         return '<div class="' + claseCard + '">' +
           '<p class="stat-card__label">' + c.label + '</p>' +
-          '<p class="stat-card__valor" ' + styleVal + '>' + c.val + '</p>' +
-          (c.sub ? '<p class="stat-card__sub">' + c.sub + '</p>' : '') +
+          '<p class="stat-card__valor" ' + styleVal + '>' + conComa(c.val) + '</p>' +
+          (c.sub ? '<p class="stat-card__sub">' + conComa(c.sub) + '</p>' : '') +
           '</div>';
       }).join('');
 
@@ -187,19 +204,19 @@
         ob.innerHTML = 'Los datos son todos iguales o insuficientes para el test de outliers.';
       } else if (outlierRes.isOutlier) {
         ob.className = 'outlier-bloque warn';
-        ob.innerHTML =
+        ob.innerHTML = conComa(
           '⚠ <strong>Test de ' + outlierRes.test + ' (α = 0,05):</strong> ' +
           'el valor <strong>' + outlierRes.val + '</strong> es un posible outlier. ' +
           outlierRes.test.charAt(0) + '-stat = ' + outlierRes.stat.toFixed(4) +
           ' &gt; ' + outlierRes.test.charAt(0) + '-crit = ' + outlierRes.crit.toFixed(3) +
-          '. Verificá si hay una causa asignable antes de descartarlo.';
+          '. Verificá si hay una causa asignable antes de descartarlo.');
       } else {
         ob.className = 'outlier-bloque ok';
-        ob.innerHTML =
+        ob.innerHTML = conComa(
           '✓ <strong>Test de ' + outlierRes.test + ' (α = 0,05):</strong> ' +
           'no se detectaron outliers significativos. ' +
           outlierRes.test.charAt(0) + '-stat = ' + outlierRes.stat.toFixed(4) +
-          ' ≤ ' + outlierRes.test.charAt(0) + '-crit = ' + outlierRes.crit.toFixed(3) + '.';
+          ' ≤ ' + outlierRes.test.charAt(0) + '-crit = ' + outlierRes.crit.toFixed(3) + '.');
       }
 
       /* ── Dot-plot en canvas ── */
@@ -257,7 +274,7 @@
         ctx.moveTo(xc, 78);
         ctx.lineTo(xc, 84);
         ctx.stroke();
-        ctx.fillText(parseFloat(val.toPrecision(4)).toString(), xc, 96);
+        ctx.fillText(conComa(parseFloat(val.toPrecision(4)).toString()), xc, 96);
       }
 
       /* Puntos — stacking vertical para evitar solapamiento */
@@ -298,7 +315,7 @@
       ctx.fillStyle  = '#1A5C38';
       ctx.font       = 'bold 10px Arial';
       ctx.textAlign  = 'center';
-      ctx.fillText('x̄=' + parseFloat(xb.toPrecision(5)), xMedia, 10);
+      ctx.fillText(conComa('x̄=' + parseFloat(xb.toPrecision(5))), xMedia, 10);
     }
 
 /* ── Wiring de eventos (reemplaza los on* inline del HTML) ── */
