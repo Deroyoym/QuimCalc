@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const ayuda = campoKa.querySelector('.ayuda');
     if (tipo === 'acido-debil') {
       label.textContent = 'Ka (constante de acidez)';
-      ayuda.innerHTML = 'Ej: Ka del ácido acético = 1,8 × 10⁻⁵ → en el campo escribí <code>0.000018</code> o <code>1.8e-5</code> (con punto)';
+      ayuda.innerHTML = 'Ej: Ka del ácido acético = 1,8 × 10⁻⁵ → escribí 0,000018 o 1,8e-5';
     } else {
       label.textContent = 'Kb (constante de basicidad)';
-      ayuda.innerHTML = 'Ej: Kb del amoniaco = 1,8 × 10⁻⁵ → en el campo escribí <code>0.000018</code> o <code>1.8e-5</code> (con punto)';
+      ayuda.innerHTML = 'Ej: Kb del amoniaco = 1,8 × 10⁻⁵ → escribí 0,000018 o 1,8e-5';
     }
 
     bloqueResultado.classList.remove('visible');
