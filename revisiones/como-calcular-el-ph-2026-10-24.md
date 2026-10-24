@@ -178,7 +178,7 @@ La tabla completa (44 filas) está en el informe del corrector, en el registro d
 - [x] Español neutro: sin voseo, «nosotros», «mesada» ni «pehachímetro»; relleno eliminado
 - [x] **Calculadora de pH corregida y publicada** (decisión del usuario): solución exacta con K<sub>w</sub>, % de disociación, aviso cuando la aproximación no vale; se corrigieron el H<sub>2</sub>SO<sub>4</sub> y la FAQ «C/Ka > 100» de su página
 - [x] JSON-LD válido, sin enlaces ni anclas rotas, sin scroll horizontal a 375/1366 px, `sync_indexes.py`
-- [ ] **Imagen** `img/como-calcular-el-ph.webp`: pendiente. Al recibirla: `width`/`height`, revisar el alt, `node scripts/build_og_images.mjs como-calcular-el-ph` y publicar en main
+- [x] Imagen `img/como-calcular-el-ph.webp` (1536×1024, 69 KB; pHmetro con el electrodo en un vaso), aportada por el autor; alt reescrito; tarjeta og «pH 2,88 · ácido acético 0,1 M». Publicado en main el 2026-10-24
 
 ## Anexo: criterio de unión
 
