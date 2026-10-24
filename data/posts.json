@@ -1,5 +1,21 @@
 [
   {
+    "slug": "como-calcular-el-ph",
+    "title": "Cómo calcular el pH de ácidos y bases fuertes y débiles",
+    "description": "El ácido acético 0,1 M tiene pH 2,88, no 1,00. Aprende a calcular el pH de ácidos y bases débiles y fuertes con 4 ejemplos y compruébalo gratis.",
+    "category": "Química básica",
+    "category_color": "#1A5C38",
+    "date": "Octubre 2026",
+    "date_sort": "2026-10-24",
+    "minutes": 8,
+    "image": "img/como-calcular-el-ph.webp",
+    "image_alt": "pHmetro de sobremesa con el electrodo sumergido en un vaso de precipitados, junto a matraces aforados sobre una mesa de laboratorio",
+    "og_highlight": {
+      "valor": "pH 2,88",
+      "texto": "ácido acético 0,1 M"
+    }
+  },
+  {
     "slug": "formula-dilucion-c1v1-c2v2",
     "title": "Fórmula de dilución C₁V₁ = C₂V₂: qué es, cómo se usa y ejemplos",
     "description": "Para 100 mL de un estándar de 10 mg/L desde uno de 1000 mg/L se toma 1 mL. Fórmula C1V1 = C2V2, ejemplos y calculadora gratis.",
