@@ -7,7 +7,7 @@
 //   • Todo lo demás   → Network-First con fallback al caché
 // ============================================================
 
-const CACHE_VERSION   = 'v3.055';                           // ← incrementar cuando hagas cambios grandes
+const CACHE_VERSION   = 'v3.056';                           // ← incrementar cuando hagas cambios grandes
 const CACHE_ESTATICO  = `quimcalc-estatico-${CACHE_VERSION}`;
 const CACHE_PAGINAS   = `quimcalc-paginas-${CACHE_VERSION}`;
 
@@ -18,6 +18,7 @@ const PRECACHE_URLS = [
   '/index.html',
   '/styles.css',
   '/assets/site.webmanifest',
+  '/js/entrada-decimal.js',
   '/herramientas/lod-loq.html',
   '/herramientas/calculadora-titulacion.html',
   '/herramientas/calculadora-buffers.html',

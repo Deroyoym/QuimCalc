@@ -43,7 +43,7 @@
     function recalcularFila(id) {
       var fila = document.getElementById('fila-' + id);
       if (!fila) return;
-      var inputs  = fila.querySelectorAll('input[type="number"]');
+      var inputs  = fila.querySelectorAll('input[type="number"], input[data-decimal]');
       var nominal = parseFloat(inputs[0].value);
       var medido  = parseFloat(inputs[1].value);
 
@@ -83,7 +83,7 @@
       var recs   = [];
 
       filas.forEach(function (fila) {
-        var inputs  = fila.querySelectorAll('input[type="number"]');
+        var inputs  = fila.querySelectorAll('input[type="number"], input[data-decimal]');
         var nominal = parseFloat(inputs[0].value);
         var medido  = parseFloat(inputs[1].value);
         if (!isNaN(nominal) && !isNaN(medido) && nominal !== 0) {

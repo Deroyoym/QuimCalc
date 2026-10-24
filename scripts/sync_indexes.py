@@ -219,6 +219,7 @@ def update_sw(tools):
         "  '/index.html'",
         "  '/styles.css'",
         "  '/assets/site.webmanifest'",
+        "  '/js/entrada-decimal.js'",
     ]
 
     tool_htmls = [
