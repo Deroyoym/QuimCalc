@@ -9,13 +9,15 @@
       document.getElementById('unidad-v').addEventListener('change', limpiar);
     });
 
+    function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
     function actualizarBarra(val) {
       var pct = Math.min(100, Math.max(0, parseFloat(val) || 0));
       var bar  = document.getElementById('pureza-bar');
       var lbl  = document.getElementById('pureza-label');
       bar.style.setProperty('--pureza-pct', pct + '%');
       var impurezas = (100 - pct).toFixed(1);
-      lbl.textContent = 'Pureza: ' + pct.toFixed(1).replace('.', ',') + ' %  —  Impurezas: ' + impurezas.replace('.', ',') + ' %';
+      lbl.textContent = 'Pureza: ' + conComa(pct.toFixed(1)) + ' %  —  Impurezas: ' + conComa(impurezas) + ' %';
     }
 
     function limpiar() {
@@ -58,21 +60,21 @@
       var r = document.getElementById('resultado');
       r.className = 'resultado visible';
       r.querySelector('.resultado__etiqueta').textContent = 'Masa a pesar del reactivo';
-      r.querySelector('.resultado__valor').textContent    = formatNum(masaReact) + ' g';
-      r.querySelector('.resultado__formula').textContent  =
+      r.querySelector('.resultado__valor').textContent    = conComa(formatNum(masaReact)) + ' g';
+      r.querySelector('.resultado__formula').textContent  = conComa(
         'm = (C × V × M) / (P/100) = (' + cMolL.toFixed(4) + ' mol/L × ' +
         (vL * 1000).toFixed(1) + ' mL × ' + masaMolar.toFixed(2) + ' g/mol) / ' +
-        (pureza / 100).toFixed(4);
+        (pureza / 100).toFixed(4));
 
-      document.getElementById('res-masa-pura').textContent = formatNum(masaPura) + ' g';
-      document.getElementById('res-extra').textContent     = formatNum(masaExtra) + ' g';
+      document.getElementById('res-masa-pura').textContent = conComa(formatNum(masaPura)) + ' g';
+      document.getElementById('res-extra').textContent     = conComa(formatNum(masaExtra)) + ' g';
 
       /* Pasos de preparación */
-      var vLabel = unidadV === 'mL' ? vFinal + ' mL' : vFinal + ' L';
+      var vLabel = conComa(unidadV === 'mL' ? vFinal + ' mL' : vFinal + ' L');
       var pasos  = document.getElementById('lista-pasos');
 
       pasos.innerHTML = [
-        'Pesá <strong>' + formatNum(masaReact) + ' g</strong> del reactivo en una balanza analítica usando un recipiente seco y tarado.',
+        'Pesá <strong>' + conComa(formatNum(masaReact)) + ' g</strong> del reactivo en una balanza analítica usando un recipiente seco y tarado.',
         'Disolvé el reactivo en un vaso de precipitados con aproximadamente el 70–80 % del volumen final de agua destilada. Agitá hasta disolución completa.',
         'Trasvasá cuantitativamente al matraz aforado de <strong>' + vLabel + '</strong>.',
         'Enjuagá el vaso de precipitados 2 o 3 veces con porciones pequeñas de agua destilada y agregá los enjuagues al matraz.',

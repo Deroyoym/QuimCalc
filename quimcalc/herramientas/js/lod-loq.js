@@ -19,6 +19,9 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  /* Coma decimal para todo texto visible */
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
   /* ── Referencias ────────────────────────────────────────── */
   const selectMetodo    = document.getElementById('metodo');
   const panelBlanco     = document.getElementById('panel-blanco');
@@ -152,10 +155,10 @@ document.addEventListener('DOMContentLoaded', function () {
   function mostrarResultado(LOD, LOQ, unidad, detalle, metodoTexto) {
     bloqueResultado.classList.remove('resultado--error');
 
-    valorLOD.textContent = `${LOD.toFixed(6)} ${unidad}`;
-    valorLOQ.textContent = `${LOQ.toFixed(6)} ${unidad}`;
+    valorLOD.textContent = conComa(`${LOD.toFixed(6)} ${unidad}`);
+    valorLOQ.textContent = conComa(`${LOQ.toFixed(6)} ${unidad}`);
 
-    detalleCalculo.textContent = `${metodoTexto}\n\n${detalle}`;
+    detalleCalculo.textContent = conComa(`${metodoTexto}\n\n${detalle}`);
 
     bloqueResultado.classList.add('visible');
     bloqueResultado.scrollIntoView({ behavior: 'smooth', block: 'nearest' });

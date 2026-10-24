@@ -12,6 +12,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
   /* ── Referencias ────────────────────────────────────────── */
   const selectIncognita  = document.getElementById('incognita');
   const inputPH          = document.getElementById('ph');
@@ -136,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ── Funciones auxiliares ───────────────────────────────── */
   function mostrarResultado(valor, descripcion, formula) {
+    valor = conComa(valor); descripcion = conComa(descripcion); formula = conComa(formula);
     if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, formula);
     bloqueResultado.classList.remove('resultado--error');
     etiquetaResultado.textContent = descripcion;
@@ -146,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function mostrarError(mensaje) {
+    mensaje = conComa(mensaje);
     bloqueResultado.classList.add('resultado--error');
     etiquetaResultado.textContent = 'Error';
     valorResultado.textContent    = mensaje;

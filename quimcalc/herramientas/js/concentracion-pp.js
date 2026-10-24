@@ -14,6 +14,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
   const selectTipo     = document.getElementById('tipo-porc');
   const inputSoluto    = document.getElementById('masa-soluto');
   const inputSegundo   = document.getElementById('masa-solvente');
@@ -142,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function mostrarResultado(valor, descripcion, formula) {
+    valor = conComa(valor); descripcion = conComa(descripcion); formula = conComa(formula);
     if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, formula);
     bloqueResultado.classList.remove('resultado--error');
     etiquetaResultado.textContent = descripcion;
@@ -152,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function mostrarError(mensaje) {
+    mensaje = conComa(mensaje);
     bloqueResultado.classList.add('resultado--error');
     etiquetaResultado.textContent = 'Error';
     valorResultado.textContent    = mensaje;

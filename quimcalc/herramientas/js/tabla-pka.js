@@ -2,7 +2,9 @@
     var TOTAL = 39;
 
     function filtrar() {
-      var texto = document.getElementById('buscador').value.toLowerCase().trim();
+      var texto = document.getElementById('buscador').value.toLowerCase().trim()
+        /* La tabla usa coma decimal: aceptamos búsqueda con punto o con coma */
+        .replace(/(^|\d)\.(?=\d|$)/g, '$1,');
       var cat   = document.getElementById('filtro-cat').value;
       var filas = document.querySelectorAll('#tabla-principal tbody tr:not(.fila-categoria)');
       var visibles = 0;

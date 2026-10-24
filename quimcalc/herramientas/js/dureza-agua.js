@@ -19,6 +19,9 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  /* Coma decimal para todo texto visible */
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
   const inputValor     = document.getElementById('valor-dureza');
   const selectUnidadDe = document.getElementById('unidad-de');
   const botonCalcular  = document.getElementById('btn-calcular');
@@ -74,8 +77,8 @@ document.addEventListener('DOMContentLoaded', function () {
   function mostrarResultados(valorOrig, nombreOrig, valorBase, resultados) {
 
     bloqueResultado.classList.remove('resultado--error');
-    etiquetaResultado.textContent = `${valorOrig} ${nombreOrig} en todas las unidades`;
-    valorResultado.textContent    = `${valorBase.toFixed(4)} mg/L CaCO₃`;
+    etiquetaResultado.textContent = conComa(`${valorOrig} ${nombreOrig} en todas las unidades`);
+    valorResultado.textContent    = conComa(`${valorBase.toFixed(4)} mg/L CaCO₃`);
     formulaResultado.textContent  = `Valor base de referencia: mg/L CaCO₃`;
     bloqueResultado.classList.add('visible');
 
@@ -121,9 +124,9 @@ document.addEventListener('DOMContentLoaded', function () {
   /* Formatea con decimales apropiados según la magnitud */
   function formatearValor(valor) {
     if (valor === 0) return '0';
-    if (valor >= 100)  return valor.toFixed(2);
-    if (valor >= 1)    return valor.toFixed(4);
-    return valor.toExponential(4);
+    if (valor >= 100)  return conComa(valor.toFixed(2));
+    if (valor >= 1)    return conComa(valor.toFixed(4));
+    return conComa(valor.toExponential(4));
   }
 
   function mostrarError(mensaje) {

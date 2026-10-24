@@ -10,6 +10,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
   /* ── Referencias a elementos del HTML ──────────────────── */
   const selectTipo      = document.getElementById('tipo-conversion');
   const botonCalcular   = document.getElementById('btn-calcular');
@@ -156,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
       ['ppb (µg/kg)',      ppm * 1000],
     ];
     listaEquiv.innerHTML = filas.map(function (f) {
-      return '<li><span>' + f[0] + '</span><strong>' + formatear(f[1]) + '</strong></li>';
+      return '<li><span>' + f[0] + '</span><strong>' + conComa(formatear(f[1])) + '</strong></li>';
     }).join('');
     listaEquiv.hidden = false;
   }
@@ -167,6 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function mostrarResultado(valor, descripcion, formula) {
+    valor = conComa(valor); descripcion = conComa(descripcion); formula = conComa(formula);
     ocultarEquivalencias();
     if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, formula);
     bloqueResultado.classList.remove('resultado--error');
@@ -178,6 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function mostrarError(mensaje) {
+    mensaje = conComa(mensaje);
     ocultarEquivalencias();
     bloqueResultado.classList.add('resultado--error');
     etiquetaResultado.textContent = 'Error';

@@ -5,6 +5,9 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  /* Coma decimal para todo texto visible */
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
   /* ── Referencias a los elementos del HTML ──────────────── */
   const inputC1 = document.getElementById('c1');
   const inputV1 = document.getElementById('v1');
@@ -93,6 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ── Funciones auxiliares ───────────────────────────────── */
   function mostrarResultado(valor, descripcion, formula) {
+    valor = conComa(valor);
+    formula = conComa(formula);
     if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, formula);
     bloqueResultado.classList.remove('resultado--error');
     etiquetaResultado.textContent = descripcion;

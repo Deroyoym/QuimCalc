@@ -13,6 +13,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
   /* ── Estado global: lista de puntos ingresados ──────────── */
   let puntos = []; /* Array de objetos { x: concentracion, y: senal } */
 
@@ -88,8 +90,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${i + 1}</td>
-        <td>${p.x}</td>
-        <td>${p.y}</td>
+        <td>${conComa(p.x)}</td>
+        <td>${conComa(p.y)}</td>
         <td>
           <button
             class="btn-eliminar-punto"
@@ -160,11 +162,11 @@ document.addEventListener('DOMContentLoaded', function () {
     return { m, b, R, R2: R * R, Se, LOD, LOQ };
   }
 
-  /* Cifras significativas legibles para valores chicos */
+  /* Cifras significativas legibles para valores chicos (solo para mostrar/exportar: devuelve coma decimal) */
   function sig(n, cifras) {
     if (!isFinite(n)) return '—';
     if (n === 0) return '0';
-    return String(parseFloat(n.toPrecision(cifras || 4)));
+    return conComa(parseFloat(n.toPrecision(cifras || 4)));
   }
 
   /* Tabla de residuales: y − ŷ por punto. Se marca el punto si el
@@ -176,8 +178,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const alto  = reg.Se > 0 && Math.abs(res) > 2 * reg.Se;
       return '<tr' + (alto ? ' class="residual-alto"' : '') + '>' +
         '<td>' + (i + 1) + '</td>' +
-        '<td>' + p.x + '</td>' +
-        '<td>' + p.y + '</td>' +
+        '<td>' + conComa(p.x) + '</td>' +
+        '<td>' + conComa(p.y) + '</td>' +
         '<td>' + sig(yCalc, 5) + '</td>' +
         '<td>' + (res >= 0 ? '+' : '') + sig(res, 3) + (alto ? ' ⚠' : '') + '</td>' +
         '</tr>';
@@ -197,10 +199,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* Mostramos los resultados numéricos */
     const signoB = reg.b >= 0 ? '+' : '';
-    resEcuacion.textContent = `y = ${reg.m.toFixed(6)}x ${signoB} ${reg.b.toFixed(6)}`;
-    resR2.textContent       = reg.R2.toFixed(6);
-    resR.textContent        = reg.R.toFixed(6);
-    resSe.textContent       = reg.Se.toFixed(6);
+    resEcuacion.textContent = conComa(`y = ${reg.m.toFixed(6)}x ${signoB} ${reg.b.toFixed(6)}`);
+    resR2.textContent       = conComa(reg.R2.toFixed(6));
+    resR.textContent        = conComa(reg.R.toFixed(6));
+    resSe.textContent       = conComa(reg.Se.toFixed(6));
     resLod.textContent      = sig(reg.LOD);
     resLoq.textContent      = sig(reg.LOQ);
     mostrarResiduales(reg);
@@ -273,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
       ctx.fillStyle = '#6B7280';
       ctx.font = '11px Inter, sans-serif';
       ctx.textAlign = 'right';
-      ctx.fillText(yVal.toPrecision(3), ML - 8, yPix + 4);
+      ctx.fillText(conComa(yVal.toPrecision(3)), ML - 8, yPix + 4);
 
       /* Líneas verticales */
       const xVal = xLo + (i / numLineas) * (xHi - xLo);
@@ -285,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       /* Etiqueta eje X */
       ctx.textAlign = 'center';
-      ctx.fillText(xVal.toPrecision(3), xPix, MT + gH + 18);
+      ctx.fillText(conComa(xVal.toPrecision(3)), xPix, MT + gH + 18);
     }
 
     /* ── Ejes principales ── */
@@ -339,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function () {
     ctx.fillStyle = '#1E40AF';
     ctx.font = 'bold 11px Inter, sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText(ecuacion, ML + 10, MT + 18);
+    ctx.fillText(conComa(ecuacion), ML + 10, MT + 18);
   }
 
   function limpiarGrafico() {
@@ -377,10 +379,10 @@ document.addEventListener('DOMContentLoaded', function () {
       advertencia = ' ⚠️ Valor fuera del rango de la curva (extrapolación)';
     }
 
-    document.getElementById('interp-senal').textContent        = senal;
-    document.getElementById('interp-concentracion').textContent = concentracion.toFixed(6);
-    document.getElementById('interp-formula').textContent =
-      `x = (${senal} - (${reg.b.toFixed(6)})) / ${reg.m.toFixed(6)}${advertencia}`;
+    document.getElementById('interp-senal').textContent        = conComa(senal);
+    document.getElementById('interp-concentracion').textContent = conComa(concentracion.toFixed(6));
+    document.getElementById('interp-formula').textContent = conComa(
+      `x = (${senal} - (${reg.b.toFixed(6)})) / ${reg.m.toFixed(6)}${advertencia}`);
 
     resInterp.classList.add('visible');
   });
@@ -424,6 +426,9 @@ document.addEventListener('DOMContentLoaded', function () {
     puntos.forEach((p, i) => {
       texto += `${i + 1}\t${p.x}\t${sig(p.y - (reg.m * p.x + reg.b), 3)}\n`;
     });
+
+    /* Coma decimal en todo el texto (se pega en Excel en español; columnas separadas por tabulador) */
+    texto = conComa(texto);
 
     /* Copiamos al portapapeles */
     navigator.clipboard.writeText(texto).then(function () {

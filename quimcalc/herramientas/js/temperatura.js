@@ -13,6 +13,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
   const inputValor      = document.getElementById('valor-temp');
   const selectDe        = document.getElementById('unidad-de');
   const selectA         = document.getElementById('unidad-a');
@@ -62,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* Validamos que la temperatura en °C no baje de -273.15 */
     if (de === 'C' && valor < -273.15) {
-      mostrarError('El valor en °C no puede ser menor a −273.15 (cero absoluto).');
+      mostrarError('El valor en °C no puede ser menor a −273,15 (cero absoluto).');
       return;
     }
 
@@ -117,6 +119,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function mostrarResultado(valor, descripcion, formula) {
+    /* Solo para mostrar: coma decimal */
+    valor = conComa(valor); descripcion = conComa(descripcion); formula = conComa(formula);
     if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, formula);
     bloqueResultado.classList.remove('resultado--error');
     etiquetaResultado.textContent = descripcion;
