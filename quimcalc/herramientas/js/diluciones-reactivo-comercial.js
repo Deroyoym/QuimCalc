@@ -17,7 +17,7 @@
           'Working in a fume hood, measure ' + v + ' mL of the reagent with ' + material,
           'Pour about half of the distilled water into the ' + vFinalLabel + ' volumetric flask.',
           'Add the reagent <strong>slowly</strong> to the water while swirling or stirring constantly.',
-          'If the mixture warms up, let it cool to room temperature (≈ 20 °C, the calibration temperature of the flask) before continuing.',
+          'If the mixture warms up, let it cool to room temperature (≈\u00a020 °C, the calibration temperature of the flask) before continuing.',
           'Make up to the mark with distilled water.',
           'Stopper the flask and mix by inverting it several times. Label it with the reagent name, concentration, date and your initials.',
           'The concentration you get is <strong>nominal</strong>: the actual assay of the bottle may differ from the label. If the solution will be used as a titrant, standardize it against a primary standard before use.'
