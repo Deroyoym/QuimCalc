@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LOD and LOQ Calculator: 3 Methods (ICH Q2) | QuimCalc</title>
+  <meta name="description" content="Calculate LOD and LOQ by 3 methods: blank (3σ and 10σ), calibration curve (ICH Q2) and signal-to-noise. Free, with the calculation shown step by step.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quimcalc.com/en/tools/lod-loq-calculator.html">
+  <meta property="og:title" content="LOD and LOQ Calculator: 3 Methods (ICH Q2) | QuimCalc">
+  <meta property="og:description" content="Calculate LOD and LOQ by 3 methods: blank (3σ and 10σ), calibration curve (ICH Q2) and signal-to-noise. Free, with the calculation shown step by step.">
+  <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta property="og:site_name" content="QuimCalc">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LOD and LOQ Calculator: 3 Methods (ICH Q2) | QuimCalc">
+  <meta name="twitter:description" content="Calculate LOD and LOQ by 3 methods: blank (3σ and 10σ), calibration curve (ICH Q2) and signal-to-noise. Free, with the calculation shown step by step.">
+  <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/en/tools/lod-loq-calculator.html">
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/lod-loq.html">
+  <link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/lod-loq-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/lod-loq.html">
+  <!-- /hreflang -->
+
+  <link rel="preload" href="../../styles.css" as="style">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16x16.png">
+  <link rel="manifest" href="../../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "dateModified": "2026-10-26",
+    "name": "LOD and LOQ Calculator",
+    "description": "Calculate the limit of detection and limit of quantitation by three methods: blank, calibration curve (ICH Q2) and signal-to-noise.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "url": "https://quimcalc.com/en/tools/lod-loq-calculator.html",
+    "featureList": [
+      "Blank method (3σ / 10σ)",
+      "Calibration curve method (ICH Q2)",
+      "Signal-to-noise method",
+      "Step-by-step calculation"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": "QuimCalc",
+      "url": "https://quimcalc.com/en/"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-10-26",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why is the LOQ always higher than the LOD?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Because quantifying with acceptable precision needs more signal than simply detecting. The LOD says \"something is there\"; the LOQ says \"we can measure it accurately enough for the result to be useful\". In practice, a sample between the LOD and the LOQ is reported as \"detected, not quantifiable\" or simply as below the LOQ."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How often should the LOD and LOQ be verified?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In laboratories accredited to ISO/IEC 17025, the limits are verified when the instrument changes, when a critical reagent lot changes, after major maintenance, or at the frequency set by the laboratory's validation procedure. Annual verification, or verification after any change that may affect method sensitivity, is common practice."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this calculator for accreditation or validation reports?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The calculations follow the standard statistical methods (ISO 11843, ICH Q2). The step-by-step output can be attached to the laboratory's internal records. For formal validation or accreditation reports, the laboratory must verify the results under its own documented procedure and with the original instrument data."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+  <!-- Google tag (gtag.js) + Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // Consent Mode v2: denied by default until the visitor accepts
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-JPQ3QTH9BN');
+  </script>
+  <script src="../../js/consent-banner.js" defer></script>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Main navigation">
+          <a href="../index.html#tools" class="activo">Tools</a>
+          <a href="../../herramientas/lod-loq.html" class="header__idioma" hreflang="es" lang="es" title="Versión en español">ES</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>LOD and LOQ</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">LOD and LOQ Calculator</h1>
+        <p class="pagina-herramienta__descripcion">
+          Calculate the limit of detection (LOD) and the limit of quantitation (LOQ) by three methods: blank, calibration curve (ICH Q2) and signal-to-noise ratio. For analytical method validation under ISO/IEC 17025.
+        </p>
+      </div>
+
+      <div class="calculadora" role="region" aria-label="LOD and LOQ calculator">
+
+        <div class="campo-grupo">
+          <label for="metodo">Calculation method</label>
+          <select id="metodo" name="metodo">
+            <option value="blanco">Blank method — ISO 11843 / IUPAC (recommended)</option>
+            <option value="curva">Calibration curve — ICH Q2</option>
+            <option value="sn">Signal-to-noise ratio (S/N)</option>
+          </select>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="unidad-resultado">Concentration unit</label>
+          <select id="unidad-resultado" name="unidad-resultado">
+            <option value="mg/L">mg/L</option>
+            <option value="µg/L">µg/L</option>
+            <option value="µg/mL">µg/mL</option>
+            <option value="ng/mL">ng/mL</option>
+            <option value="ppm">ppm</option>
+            <option value="ppb">ppb</option>
+            <option value="mol/L">mol/L</option>
+            <option value="%">%</option>
+          </select>
+        </div>
+
+        <div id="panel-blanco" class="panel-conversion">
+          <p class="conversion-activa">
+            BLANK READINGS
+          </p>
+
+          <div class="campo-grupo">
+            <label for="lecturas-blanco">Blank readings, in concentration units (one per line, or separated by spaces, commas or semicolons)</label>
+            <textarea
+              id="lecturas-blanco"
+              name="lecturas-blanco"
+              placeholder="e.g.&#10;0.0021&#10;0.0019&#10;0.0023&#10;0.0018&#10;0.0022&#10;0.0020&#10;0.0024&#10;0.0019&#10;0.0021&#10;0.0020"
+              aria-describedby="ayuda-blanco"
+            ></textarea>
+            <span class="ayuda" id="ayuda-blanco">At least 5 readings; 10 or more are recommended. If your readings are signals (absorbance, area), convert them to concentration with the calibration slope first, or use the calibration curve method.</span>
+          </div>
+        </div>
+
+        <div id="panel-curva" class="panel-conversion" hidden>
+          <p class="conversion-activa">
+            CALIBRATION CURVE PARAMETERS
+          </p>
+
+          <div class="campo-grupo">
+            <label for="pendiente">Slope of the curve (m)</label>
+            <input type="number" id="pendiente" name="pendiente" placeholder="e.g. 0.04523" min="0" step="any" aria-describedby="ayuda-pendiente">
+            <span class="ayuda" id="ayuda-pendiente">The coefficient m in y = mx + b</span>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="se-regresion">Standard error of the regression (Se)</label>
+            <input type="number" id="se-regresion" name="se-regresion" placeholder="e.g. 0.00124" min="0" step="any" aria-describedby="ayuda-se">
+            <span class="ayuda" id="ayuda-se">Residual standard deviation of the linear regression (s<sub>y/x</sub>)</span>
+          </div>
+        </div>
+
+        <div id="panel-sn" class="panel-conversion" hidden>
+          <p class="conversion-activa">
+            SIGNAL-TO-NOISE RATIO
+          </p>
+
+          <div class="campo-grupo">
+            <label for="ruido">Baseline noise amplitude (h)</label>
+            <input type="number" id="ruido" name="ruido" placeholder="e.g. 0.0015" min="0" step="any" aria-describedby="ayuda-ruido">
+            <span class="ayuda" id="ayuda-ruido">Peak-to-peak noise in a blank region, in the same signal units as the calibration curve</span>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="pendiente-sn">Slope of the calibration curve (m)</label>
+            <input type="number" id="pendiente-sn" name="pendiente-sn" placeholder="e.g. 0.04523" min="0" step="any">
+          </div>
+        </div>
+
+        <button id="btn-calcular" class="btn btn--primario btn--separado" type="button">
+          Calculate LOD and LOQ →
+        </button>
+
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta" id="resultado-etiqueta">Result</p>
+
+          <div class="resultado-lodloq">
+            <div class="lodloq-card lodloq-card--lod">
+              <p class="lodloq-card__titulo">LOD — Limit of detection</p>
+              <p class="lodloq-card__valor" id="valor-lod">—</p>
+            </div>
+            <div class="lodloq-card lodloq-card--loq">
+              <p class="lodloq-card__titulo">LOQ — Limit of quantitation</p>
+              <p class="lodloq-card__valor" id="valor-loq">—</p>
+            </div>
+          </div>
+
+          <pre id="detalle-calculo" class="detalle-calculo" aria-label="Calculation details"></pre>
+        </div>
+
+      </div><!-- /calculadora -->
+
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">What are the LOD and the LOQ?</h2>
+        <p>
+          The <strong>limit of detection (LOD)</strong> is the lowest concentration of an analyte that can be distinguished from the background noise with a stated probability of error (typically 5 %). Below the LOD the instrument may "see something", but it cannot confirm that it is the analyte.
+        </p>
+        <p>
+          The <strong>limit of quantitation (LOQ)</strong>, also called limit of quantification, is the lowest concentration that can be measured with acceptable precision and accuracy for the purpose of the analysis. It is always higher than the LOD and sets the lower end of the method's working range.
+        </p>
+
+        <h2>Which method should I use?</h2>
+
+        <div class="ejemplo-bloque">
+          <strong>Blank method (ISO 11843 / IUPAC) — suitable for most cases</strong>
+          <p>Measure the blank at least 10 times and calculate the mean and the standard deviation (s):</p>
+          <ul>
+            <li><strong>LOD</strong> = mean + 3 × s</li>
+            <li><strong>LOQ</strong> = mean + 10 × s</li>
+          </ul>
+          <p>It is experimental and does not depend on the calibration model. The readings must be expressed in concentration units; if you record signals, divide by the calibration slope first.</p>
+        </div>
+
+        <div class="ejemplo-bloque">
+          <strong>Calibration curve method (ICH Q2) — the usual choice in pharmaceutical validation</strong>
+          <ul>
+            <li><strong>LOD</strong> = 3.3 × Se / m</li>
+            <li><strong>LOQ</strong> = 10 × Se / m</li>
+          </ul>
+          <p>Where <strong>Se</strong> is the standard error of the regression (residual standard deviation) and <strong>m</strong> is the slope. This is the approach described in the ICH Q2 guideline and requires a calibration curve: fit it first and use its slope and standard error.</p>
+        </div>
+
+        <div class="ejemplo-bloque">
+          <strong>Signal-to-noise method — for chromatographic and spectroscopic peaks</strong>
+          <ul>
+            <li><strong>LOD</strong>: concentration giving a signal 3 times the baseline noise (S/N = 3)</li>
+            <li><strong>LOQ</strong>: concentration giving S/N = 10</li>
+          </ul>
+          <p>Widely used in HPLC, GC and atomic absorption when the baseline noise can be measured directly on the chromatogram or spectrum.</p>
+        </div>
+
+        <h2>Frequently asked questions</h2>
+
+        <div class="faq-item">
+          <h3>Why is the LOQ always higher than the LOD?</h3>
+          <p>
+            Because quantifying with acceptable precision needs more signal than simply detecting. The LOD says "something is there"; the LOQ says "we can measure it accurately enough for the result to be useful". In practice, a sample between the LOD and the LOQ is reported as "detected, not quantifiable" or simply as below the LOQ.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How often should the LOD and LOQ be verified?</h3>
+          <p>
+            In laboratories accredited to ISO/IEC 17025, the limits are verified when the instrument changes, when a critical reagent lot changes, after major maintenance, or at the frequency set by the laboratory's validation procedure. Annual verification, or verification after any change that may affect method sensitivity, is common practice.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Can I use this calculator for accreditation or validation reports?</h3>
+          <p>
+            The calculations follow the standard statistical methods (ISO 11843, ICH Q2). The step-by-step output can be attached to the laboratory's internal records. For formal validation or accreditation reports, the laboratory must verify the results under its own documented procedure and with the original instrument data.
+          </p>
+        </div>
+
+      </section>
+
+      <p class="ayuda">This calculator is also available <a href="../../herramientas/lod-loq.html" hreflang="es" lang="es">in Spanish</a>.</p>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Tools for the chemistry lab.</p>
+        <nav class="footer__links" aria-label="Footer links">
+          <a href="../privacy.html">Privacy</a>
+          <a href="../../terminos-de-uso.html" hreflang="es">Terms of use (Spanish)</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../herramientas/js/lod-loq.js"></script>
+
+  <script type="module" src="../../js/init-speed-insights.js"></script>
+  <script src="../../js/pwa-register.js"></script>
+  <script src="../../js/compartir.js"></script>
+  <script src="../../js/copiar-resultado.js"></script>
+
+</body>
+</html>

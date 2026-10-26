@@ -16,6 +16,9 @@
 (function () {
   'use strict';
 
+  // En inglés la coma es separador de miles («1,000»): no se toca nada.
+  if ((document.documentElement.lang || '').slice(0, 2) === 'en') return;
+
   var nativo = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
   if (!nativo || !nativo.get || !nativo.set) return;
 

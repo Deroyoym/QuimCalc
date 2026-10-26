@@ -12,6 +12,7 @@
    ============================================================ */
 (function () {
   'use strict';
+  var EN = (document.documentElement.lang || '').slice(0, 2) === 'en';
 
   var MAX = 10;
   var pagina = (location.pathname.split('/').pop() || 'index').replace('.html', '') || 'index';
@@ -32,12 +33,12 @@
 
   function tiempoRelativo(ts) {
     var seg = Math.round((Date.now() - ts) / 1000);
-    if (seg < 60) return 'hace instantes';
+    if (seg < 60) return EN ? 'just now' : 'hace instantes';
     var min = Math.round(seg / 60);
-    if (min < 60) return 'hace ' + min + ' min';
+    if (min < 60) return EN ? min + ' min ago' : 'hace ' + min + ' min';
     var hs = Math.round(min / 60);
-    if (hs < 24) return 'hace ' + hs + ' h';
-    return 'hace ' + Math.round(hs / 24) + ' d';
+    if (hs < 24) return EN ? hs + ' h ago' : 'hace ' + hs + ' h';
+    return EN ? Math.round(hs / 24) + ' d ago' : 'hace ' + Math.round(hs / 24) + ' d';
   }
 
   /* ── UI ── */
@@ -56,8 +57,8 @@
     panel.hidden = true;
     panel.innerHTML =
       '<div class="historial-panel__cab">' +
-        '<span class="historial-panel__titulo">Tus últimos cálculos</span>' +
-        '<button type="button" class="historial-panel__borrar">Borrar</button>' +
+        '<span class="historial-panel__titulo">' + (EN ? 'Your recent calculations' : 'Tus últimos cálculos') + '</span>' +
+        '<button type="button" class="historial-panel__borrar">' + (EN ? 'Clear' : 'Borrar') + '</button>' +
       '</div>' +
       '<ul class="historial-lista"></ul>';
     lista = panel.querySelector('.historial-lista');
@@ -98,7 +99,7 @@
     }
 
     boton.hidden = false;
-    boton.textContent = '🕘 Historial (' + arr.length + ')';
+    boton.textContent = (EN ? '🕘 History (' : '🕘 Historial (') + arr.length + ')';
 
     lista.innerHTML = arr.map(function (e) {
       var detalle = e.d ? '<span class="historial-item__detalle">' + e.d + '</span>' : '';
