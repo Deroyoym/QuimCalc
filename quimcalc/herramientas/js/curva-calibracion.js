@@ -86,6 +86,12 @@ document.addEventListener('DOMContentLoaded', function () {
   /* Coma decimal para todo texto visible (solo en español) */
   function conComa(s) { return EN ? String(s) : String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
 
+  /* Ecuación de la recta con el signo de b bien escrito: «y = 0.1008x − 0.0006» */
+  function ecuacion(reg, dec) {
+    const signo = reg.b < 0 ? '−' : '+';
+    return `y = ${reg.m.toFixed(dec)}x ${signo} ${Math.abs(reg.b).toFixed(dec)}`;
+  }
+
   /* ── Estado global: lista de puntos ingresados ──────────── */
   let puntos = []; /* Array de objetos { x: concentracion, y: senal } */
 
@@ -269,8 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const reg = regresionLineal(puntos);
 
     /* Mostramos los resultados numéricos */
-    const signoB = reg.b >= 0 ? '+' : '';
-    resEcuacion.textContent = conComa(`y = ${reg.m.toFixed(6)}x ${signoB} ${reg.b.toFixed(6)}`);
+    resEcuacion.textContent = conComa(ecuacion(reg, 6));
     resR2.textContent       = conComa(reg.R2.toFixed(6));
     resR.textContent        = conComa(reg.R.toFixed(6));
     resSe.textContent       = conComa(reg.Se.toFixed(6));
@@ -407,12 +412,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     /* ── Ecuación sobre el gráfico ── */
-    const signoB = reg.b >= 0 ? '+' : '';
-    const ecuacion = `y = ${reg.m.toFixed(4)}x ${signoB} ${reg.b.toFixed(4)}   R² = ${reg.R2.toFixed(5)}`;
+    const ecuacionTxt = `${ecuacion(reg, 4)}   R² = ${reg.R2.toFixed(5)}`;
     ctx.fillStyle = '#1E40AF';
     ctx.font = 'bold 11px Inter, sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText(conComa(ecuacion), ML + 10, MT + 18);
+    ctx.fillText(conComa(ecuacionTxt), ML + 10, MT + 18);
   }
 
   function limpiarGrafico() {
@@ -468,7 +472,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const reg = regresionLineal(puntos);
-    const signoB = reg.b >= 0 ? '+' : '';
     const fecha = new Date().toLocaleDateString(T.locale);
 
     let texto = `${T.expTitulo}\n`;
@@ -483,7 +486,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     texto += `\n${T.expRegresion}\n`;
-    texto += `${T.expEcuacion}: y = ${reg.m.toFixed(6)}x ${signoB} ${reg.b.toFixed(6)}\n`;
+    texto += `${T.expEcuacion}: ${ecuacion(reg, 6)}\n`;
     texto += `${T.expPendiente}: ${reg.m.toFixed(6)}\n`;
     texto += `${T.expOrdenada}: ${reg.b.toFixed(6)}\n`;
     texto += `${T.expR}: ${reg.R.toFixed(6)}\n`;

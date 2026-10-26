@@ -84,6 +84,13 @@ document.addEventListener('DOMContentLoaded', function () {
   /* Coma decimal para todo texto visible (solo en español) */
   function conComa(s) { return EN ? String(s) : String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
 
+  /* El nombre de la componente lo escribe el usuario: se escapa antes de insertarlo como HTML */
+  function esc(t) {
+    return String(t).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
   /*
    * Lee una lista de números escrita por el usuario. Separadores: espacio, «;» o
    * salto de línea. Decimales: coma o punto. Si el texto ya usa punto decimal, la
@@ -215,11 +222,11 @@ document.addEventListener('DOMContentLoaded', function () {
           <span class="badge-tipo ${comp.tipo === 'A' ? 'badge-tipo--a' : 'badge-tipo--b'}">
             ${T.tipo} ${comp.tipo}
           </span>
-          <strong class="componente-item__nombre">${comp.nombre}</strong>
+          <strong class="componente-item__nombre">${esc(comp.nombre)}</strong>
           <button
             class="btn-eliminar-comp"
             data-id="${comp.id}"
-            aria-label="${T.eliminar} ${comp.nombre}"
+            aria-label="${T.eliminar} ${esc(comp.nombre)}"
           >✕</button>
         </div>
         <p class="componente-item__desc">${comp.descripcion}</p>
@@ -285,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const porcentaje   = uc > 0 ? (Math.pow(contribucion, 2) / Math.pow(uc, 2) * 100) : 0;
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${comp.nombre}</td>
+        <td>${esc(comp.nombre)}</td>
         <td>${T.tipo} ${comp.tipo}</td>
         <td>${conComa(comp.u.toFixed(6))}</td>
         <td>${conComa(comp.ci.toFixed(4))}</td>

@@ -50,6 +50,9 @@
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/estadistica-laboratorio.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/estadistica-laboratorio.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/grubbs-dixon-outlier-test.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/estadistica-laboratorio.html"/>
     <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -107,12 +110,18 @@
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/incertidumbre.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/incertidumbre.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/measurement-uncertainty-calculator.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/incertidumbre.html"/>
     <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/curva-calibracion.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/curva-calibracion.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/calibration-curve-calculator.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/curva-calibracion.html"/>
     <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -322,10 +331,37 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://quimcalc.com/en/tools/grubbs-dixon-outlier-test.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/estadistica-laboratorio.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/grubbs-dixon-outlier-test.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/estadistica-laboratorio.html"/>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://quimcalc.com/en/tools/lod-loq-calculator.html</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/lod-loq.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/lod-loq-calculator.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/lod-loq.html"/>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://quimcalc.com/en/tools/measurement-uncertainty-calculator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/incertidumbre.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/measurement-uncertainty-calculator.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/incertidumbre.html"/>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://quimcalc.com/en/tools/calibration-curve-calculator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/curva-calibracion.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/calibration-curve-calculator.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/curva-calibracion.html"/>
     <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

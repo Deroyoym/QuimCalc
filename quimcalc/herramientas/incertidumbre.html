@@ -18,6 +18,11 @@
   <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
   <meta name="author" content="QuimCalc">
   <link rel="canonical" href="https://quimcalc.com/herramientas/incertidumbre.html">
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/incertidumbre.html">
+  <link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/measurement-uncertainty-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/incertidumbre.html">
+  <!-- /hreflang -->
 
   <link rel="preload" href="../styles.css" as="style">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -128,6 +133,7 @@
           <a href="../blog/index.html">Blog</a>
           <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
           <a href="../contacto.html">Contacto</a>
+          <a href="../en/tools/measurement-uncertainty-calculator.html" class="header__idioma" hreflang="en" lang="en" title="English version">EN</a>
         </nav>
       </div>
     </div>
@@ -285,7 +291,7 @@
               <p class="gum-card__valor" style="font-size:0.9rem;color:var(--color-texto);">
                 Resultado ± <span id="res-u-inline">U</span>
               </p>
-              <p class="gum-card__sub">Con k = <span id="res-kp-inline">k</span> y NC ≈ 95%</p>
+              <p class="gum-card__sub">Con k = <span id="res-kp-inline">k</span> y nivel de confianza <span id="res-nivel-inline">~95%</span></p>
             </div>
           </div>
 
@@ -398,6 +404,7 @@
         const k = document.getElementById('res-kp').textContent;
         document.getElementById('res-u-inline').textContent = u;
         document.getElementById('res-kp-inline').textContent = k;
+        document.getElementById('res-nivel-inline').textContent = document.getElementById('res-nivel').textContent;
       }, 50);
     });
   </script>
