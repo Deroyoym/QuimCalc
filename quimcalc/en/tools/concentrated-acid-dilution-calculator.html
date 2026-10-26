@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Concentrated Acid Dilution Calculator (% w/w) | QuimCalc</title>
+  <meta name="description" content="How much 37 % HCl do you need for 1 M HCl? Enter % w/w, density and molar mass to get the volume of concentrated acid to measure, plus prep steps.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quimcalc.com/en/tools/concentrated-acid-dilution-calculator.html">
+  <meta property="og:title" content="Concentrated Acid Dilution Calculator (% w/w) | QuimCalc">
+  <meta property="og:description" content="How much 37 % HCl do you need for 1 M HCl? Enter % w/w, density and molar mass to get the volume of concentrated acid to measure, plus prep steps.">
+  <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta property="og:site_name" content="QuimCalc">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Concentrated Acid Dilution Calculator (% w/w) | QuimCalc">
+  <meta name="twitter:description" content="How much 37 % HCl do you need for 1 M HCl? Enter % w/w, density and molar mass to get the volume of concentrated acid to measure, plus prep steps.">
+  <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/en/tools/concentrated-acid-dilution-calculator.html">
+
+  <link rel="preload" href="../../styles.css" as="style">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../herramientas/css/diluciones-reactivo-comercial.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16x16.png">
+  <link rel="manifest" href="../../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "dateModified": "2026-10-26",
+    "name": "Concentrated Acid Dilution Calculator",
+    "description": "Calculate the volume of a concentrated acid, base or other stock reagent to measure for a solution of given concentration and volume, from its % w/w, density and molar mass.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "url": "https://quimcalc.com/en/tools/concentrated-acid-dilution-calculator.html",
+    "featureList": [
+      "Molarity of the concentrated reagent",
+      "Volume to measure",
+      "Suggested measuring glassware",
+      "Step-by-step preparation"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": "QuimCalc",
+      "url": "https://quimcalc.com/en/"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-10-26",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much 37 % HCl do I need to make 1 M HCl?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "With typical concentrated HCl (37 % w/w, density 1.19 g/mL), the stock is about 12.08 mol/L. You need about 8.3 mL for 100 mL of 1 M HCl, 41.4 mL for 500 mL and 82.8 mL for 1 L. For 1 L of 0.1 M HCl, about 8.3 mL is enough. Use the assay and density on your own bottle for the exact volume."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do you always add acid to water and not the other way around?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Concentrated acids and bases release a lot of heat when they mix with water. If you pour water onto the acid, the heat can boil the small amount of water violently and spatter acid. When you add the acid to the water, the large mass of water absorbs the heat safely."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where do I find the density and the purity?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "On the bottle label, on the supplier's certificate of analysis (CoA), or in the safety data sheet (SDS) available on the manufacturer's website (Sigma-Aldrich, Merck, etc.). The purity is usually listed as the assay, in % w/w."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+  <!-- Google tag (gtag.js) + Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // Consent Mode v2: denied by default until the visitor accepts
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-JPQ3QTH9BN');
+  </script>
+  <script src="../../js/consent-banner.js" defer></script>
+</head>
+
+<body>
+
+  <header class="header"></header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Concentrated acid dilution</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Concentrated Acid Dilution Calculator</h1>
+        <p class="pagina-herramienta__descripcion">
+          Find how many milliliters of a concentrated acid, base or other stock reagent to measure for a solution of given concentration and volume. Enter the density, the purity (% w/w) and the molar mass from the bottle label.
+        </p>
+      </div>
+
+      <div class="calculadora" role="form" aria-label="Concentrated acid dilution calculator">
+
+        <!-- Reagent properties -->
+        <fieldset style="border:none;padding:0;margin:0 0 var(--espacio-lg);">
+          <legend class="rotulo-seccion rotulo-seccion--fuerte">
+            Concentrated reagent properties
+          </legend>
+
+          <div class="campo-grupo">
+            <label for="densidad">Density (g/mL)</label>
+            <input type="number" id="densidad" min="0" step="0.001"
+                   placeholder="e.g. 1.84 (conc. H₂SO₄)" aria-required="true">
+            <span class="ayuda">Listed on the bottle label or in the safety data sheet (SDS).</span>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="pureza">Purity (% w/w)</label>
+            <input type="number" id="pureza" min="0" max="100" step="0.1"
+                   placeholder="e.g. 96 (H₂SO₄)" aria-required="true">
+            <span class="ayuda">A value between 0 and 100. On the label it usually appears as the assay.</span>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="masa-molar">Molar mass of the solute (g/mol)</label>
+            <input type="number" id="masa-molar" min="0" step="0.01"
+                   placeholder="e.g. 98.08 (H₂SO₄)" aria-required="true">
+          </div>
+        </fieldset>
+
+        <!-- Solution to prepare -->
+        <fieldset style="border:none;padding:0;margin:0 0 var(--espacio-lg);">
+          <legend class="rotulo-seccion rotulo-seccion--fuerte">
+            Solution to prepare
+          </legend>
+
+          <div class="campo-grupo">
+            <label for="c-final">Target concentration</label>
+            <div class="campo-fila">
+              <input type="number" id="c-final" min="0" step="any"
+                     placeholder="e.g. 1" aria-required="true">
+              <select id="unidad-c" aria-label="Concentration unit">
+                <option value="mol/L">mol/L</option>
+                <option value="g/L">g/L</option>
+                <option value="%m/v">% w/v</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="v-final">Final volume</label>
+            <div class="campo-fila">
+              <input type="number" id="v-final" min="0" step="any"
+                     placeholder="e.g. 1000" aria-required="true">
+              <select id="unidad-v" aria-label="Volume unit">
+                <option value="mL">mL</option>
+                <option value="L">L</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <button class="btn btn--primario" id="btn-calcular" type="button">
+          Calculate
+        </button>
+
+        <!-- Main result -->
+        <div class="resultado" id="resultado" role="status" aria-live="polite">
+          <p class="resultado__etiqueta">Volume of concentrated reagent to measure</p>
+          <p class="resultado__valor" id="res-volumen">— mL</p>
+          <p class="resultado__formula" id="res-formula"></p>
+
+          <div class="resultados-grilla">
+            <div class="resultado-mini">
+              <p class="resultado-mini__etiqueta">Stock concentration</p>
+              <p class="resultado-mini__valor" id="res-stock-mol">—</p>
+            </div>
+            <div class="resultado-mini">
+              <p class="resultado-mini__etiqueta">Stock concentration (g/L)</p>
+              <p class="resultado-mini__valor" id="res-stock-g">—</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Safety alert -->
+        <div class="alerta-seguridad" id="alerta-seguridad">
+          ⚠ <strong>Safety:</strong> With concentrated acids and bases, always add the reagent to the water slowly while stirring, never the other way around (“always add acid to water”). Wear gloves and safety goggles and work in a fume hood.
+        </div>
+
+        <!-- Preparation steps -->
+        <div class="pasos-preparacion" id="pasos">
+          <p class="pasos-preparacion__titulo">Preparation steps</p>
+          <ol class="pasos-lista" id="lista-pasos"></ol>
+        </div>
+
+      </div><!-- /calculadora -->
+
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">What does the purity (% w/w) of a reagent mean?</h2>
+        <p>
+          The <strong>purity</strong>, usually printed on the label as the <strong>assay</strong>, is the mass fraction of the bottle contents that is the compound of interest. Hydrochloric acid at 37 % w/w means that every 100 g of the concentrated acid contains 37 g of HCl and 63 g of water. It is a percentage by mass, not a molarity: to dilute it you first need the density to convert it to mol/L.
+        </p>
+
+        <h2>Formula</h2>
+        <p>
+          First, calculate the concentration of the reagent as it comes in the bottle:
+        </p>
+        <div class="ejemplo-bloque">
+          <strong>Stock concentration</strong>
+          <p>C<sub>stock</sub> (mol/L) = (ρ × 1000 × P / 100) / M</p>
+          <p>Where ρ = density (g/mL), P = purity (% w/w) and M = molar mass (g/mol).</p>
+        </div>
+        <p>
+          Then apply C₁V₁ = C₂V₂:
+        </p>
+        <div class="ejemplo-bloque">
+          <strong>Volume to measure</strong>
+          <p>V<sub>measure</sub> (mL) = (C<sub>final</sub> × V<sub>final</sub>) / C<sub>stock</sub> × 1000</p>
+          <p>With C<sub>final</sub> in mol/L and V<sub>final</sub> in liters.</p>
+        </div>
+
+        <h2>Worked example: 500 mL of 1 M HCl from 37 % HCl</h2>
+        <div class="ejemplo-bloque">
+          <strong>HCl 37 % w/w, density 1.19 g/mL, M = 36.46 g/mol</strong>
+          <p>1. Molarity of the concentrated acid: C<sub>stock</sub> = (1.19 × 1000 × 37 / 100) / 36.46 = 12.08 mol/L</p>
+          <p>2. Volume to measure: V = (1.00 mol/L × 500 mL) / 12.08 mol/L = <strong>41.4 mL</strong></p>
+          <p>3. In a fume hood, measure the acid with a graduated cylinder, add it slowly to about 250 mL of distilled water in a 500 mL volumetric flask, let it cool and make up to the mark.</p>
+        </div>
+
+        <p>Quick reference for 37 % HCl (density 1.19 g/mL):</p>
+        <div class="tabla-wrapper">
+          <table class="tabla-referencia tabla-referencia--compacta">
+            <thead>
+              <tr><th>Solution to prepare</th><th>37 % HCl to measure</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>100 mL of 1 M HCl</td><td>≈ 8.3 mL</td></tr>
+              <tr><td>500 mL of 1 M HCl</td><td>≈ 41.4 mL</td></tr>
+              <tr><td>1 L of 1 M HCl</td><td>≈ 82.8 mL</td></tr>
+              <tr><td>1 L of 0.1 M HCl</td><td>≈ 8.3 mL</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Typical concentrated reagents</h2>
+        <p>
+          Typical values at 20 °C. The exact assay and density vary with the manufacturer and the lot, so for accurate work use the values on the label or the certificate of analysis.
+        </p>
+        <div class="tabla-wrapper">
+          <table class="tabla-referencia tabla-referencia--compacta">
+            <thead>
+              <tr><th>Reagent</th><th>Assay (% w/w)</th><th>Density (g/mL)</th><th>Approx. molarity</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Hydrochloric acid, HCl</td><td>37</td><td>1.18–1.19</td><td>12.0–12.1 M</td></tr>
+              <tr><td>Sulfuric acid, H<sub>2</sub>SO<sub>4</sub></td><td>95–98</td><td>1.84</td><td>17.8–18.4 M</td></tr>
+              <tr><td>Nitric acid, HNO<sub>3</sub></td><td>65</td><td>1.39</td><td>14.3–14.4 M</td></tr>
+              <tr><td>Phosphoric acid, H<sub>3</sub>PO<sub>4</sub></td><td>85</td><td>1.69</td><td>14.7 M</td></tr>
+              <tr><td>Glacial acetic acid, CH<sub>3</sub>COOH</td><td>99.8</td><td>1.05</td><td>17.4 M</td></tr>
+              <tr><td>Ammonia, NH<sub>3</sub> (aq)</td><td>25</td><td>0.91</td><td>13.3–13.4 M</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Concentrated ammonia (ammonium hydroxide) is also sold at 28–30 %, with a molarity close to 14.8 M: check the label before you calculate.
+        </p>
+
+        <h2>Frequently asked questions</h2>
+
+        <div class="faq-item">
+          <h3>How much 37 % HCl do I need to make 1 M HCl?</h3>
+          <p>With typical concentrated HCl (37 % w/w, density 1.19 g/mL), the stock is about 12.08 mol/L. You need about 8.3 mL for 100 mL of 1 M HCl, 41.4 mL for 500 mL and 82.8 mL for 1 L. For 1 L of 0.1 M HCl, about 8.3 mL is enough. Use the assay and density on your own bottle for the exact volume.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Why do you always add acid to water and not the other way around?</h3>
+          <p>Concentrated acids and bases release a lot of heat when they mix with water. If you pour water onto the acid, the heat can boil the small amount of water violently and spatter acid. When you add the acid to the water, the large mass of water absorbs the heat safely.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Where do I find the density and the purity?</h3>
+          <p>On the bottle label, on the supplier's certificate of analysis (CoA), or in the safety data sheet (SDS) available on the manufacturer's website (Sigma-Aldrich, Merck, etc.). The purity is usually listed as the assay, in % w/w.</p>
+        </div>
+
+      </section>
+
+      <p class="ayuda">This calculator is also available <a href="../../herramientas/diluciones-reactivo-comercial.html" hreflang="es" lang="es">in Spanish</a>.</p>
+
+    </div>
+  </main>
+
+  <footer class="footer"></footer>
+
+  <script src="../../herramientas/js/diluciones-reactivo-comercial.js"></script>
+
+  <script type="module" src="../../js/init-speed-insights.js"></script>
+  <script src="../../js/pwa-register.js"></script>
+  <script src="../../js/compartir.js"></script>
+  <script src="../../js/copiar-resultado.js"></script>
+
+</body>
+</html>

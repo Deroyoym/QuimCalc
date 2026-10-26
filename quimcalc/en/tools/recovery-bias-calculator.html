@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Recovery &amp; Bias Calculator: % Recovery and CV% | QuimCalc</title>
+  <meta name="description" content="Free recovery and bias calculator for method validation: % recovery, absolute and relative error, mean, CV% (%RSD) and pass/fail acceptance criteria.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quimcalc.com/en/tools/recovery-bias-calculator.html">
+  <meta property="og:title" content="Recovery &amp; Bias Calculator: % Recovery and CV% | QuimCalc">
+  <meta property="og:description" content="Free recovery and bias calculator for method validation: % recovery, absolute and relative error, mean, CV% (%RSD) and pass/fail acceptance criteria.">
+  <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta property="og:site_name" content="QuimCalc">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Recovery &amp; Bias Calculator: % Recovery and CV% | QuimCalc">
+  <meta name="twitter:description" content="Free recovery and bias calculator for method validation: % recovery, absolute and relative error, mean, CV% (%RSD) and pass/fail acceptance criteria.">
+  <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/en/tools/recovery-bias-calculator.html">
+
+  <link rel="preload" href="../../styles.css" as="style">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../herramientas/css/recuperacion-error.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16x16.png">
+  <link rel="manifest" href="../../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "dateModified": "2026-10-26",
+    "name": "Recovery and Bias Calculator",
+    "description": "Calculate % recovery, absolute and relative error, bias, mean recovery and CV% (%RSD) for analytical method validation, and check them against your acceptance criteria.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "url": "https://quimcalc.com/en/tools/recovery-bias-calculator.html",
+    "featureList": [
+      "% recovery per sample",
+      "Absolute and relative error",
+      "Mean recovery, SD and CV% (%RSD)",
+      "Bias (systematic error)",
+      "Pass/fail check against acceptance criteria"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": "QuimCalc",
+      "url": "https://quimcalc.com/en/"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-10-26",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I use this calculator for spike recovery?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, as long as you subtract the unspiked result first. Enter the amount of analyte added as the nominal value and the amount found (spiked result minus unspiked result) as the measured value. The calculator does not take the unspiked sample as a separate input, so that subtraction is up to you, in the same units."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many samples do I need to evaluate recovery?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "EURACHEM recommends at least 6 independent determinations at each concentration level. For a full validation, at least 3 concentration levels are evaluated (low, medium and high within the working range). ICH Q2 sets a minimum of 9 determinations over at least 3 levels for accuracy."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does a low recovery mean the method is bad?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not necessarily. A consistently low recovery (e.g. 85 %) may be acceptable if it is constant and known; in that case a correction factor is applied. What matters is that the recovery is reproducible: a high CV% is a bigger problem than a recovery that is far from 100 % but stable."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+  <!-- Google tag (gtag.js) + Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // Consent Mode v2: denied by default until the visitor accepts
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-JPQ3QTH9BN');
+  </script>
+  <script src="../../js/consent-banner.js" defer></script>
+</head>
+
+<body>
+
+  <header class="header"></header>
+
+  <main>
+    <div class="pagina-herramienta">
+      <div class="contenedor">
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../index.html">Home</a>
+          <span aria-hidden="true">›</span>
+          <span>Recovery and bias</span>
+        </nav>
+
+        <div class="pagina-herramienta__encabezado">
+          <h1 class="pagina-herramienta__titulo">Recovery and Bias Calculator</h1>
+          <p class="pagina-herramienta__descripcion">
+            Enter the nominal (reference) and measured values to calculate the percent recovery, the systematic error (bias) and the precision statistics. For analytical method validation under ISO/IEC 17025 and EURACHEM guidance.
+          </p>
+        </div>
+
+        <div class="calculadora" style="max-width:100%">
+
+          <!-- Acceptance criteria -->
+          <p class="rotulo-seccion rotulo-seccion--fuerte">
+            Acceptance criteria
+          </p>
+          <div class="criterios-bar">
+            <div class="campo-grupo">
+              <label for="lim-inf">Lower limit (%)</label>
+              <input type="number" id="lim-inf" value="80" min="0" max="100" step="1">
+            </div>
+            <div class="campo-grupo">
+              <label for="lim-sup">Upper limit (%)</label>
+              <input type="number" id="lim-sup" value="120" min="100" max="200" step="1">
+            </div>
+            <div class="campo-grupo">
+              <label for="lim-cv">Maximum acceptable CV%</label>
+              <input type="number" id="lim-cv" value="5" min="0" step="0.1">
+            </div>
+          </div>
+
+          <!-- Table actions -->
+          <div class="tabla-acciones">
+            <button class="btn--secundario" id="btn-agregar">+ Add row</button>
+            <button class="btn--secundario" id="btn-limpiar">✕ Clear all</button>
+          </div>
+
+          <!-- Data table -->
+          <div class="tabla-datos-wrapper">
+            <table class="tabla-datos" id="tabla-datos">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Sample ID (optional)</th>
+                  <th>Nominal / reference value</th>
+                  <th>Measured value</th>
+                  <th>% Recovery</th>
+                  <th>Absolute error</th>
+                  <th>Relative error %</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+
+          <p class="ayuda">For spike recovery, enter the amount added as the nominal value and the amount found (spiked minus unspiked result) as the measured value.</p>
+
+          <button class="btn btn--primario" id="btn-calcular" style="max-width:320px">
+            Calculate summary
+          </button>
+
+          <!-- Statistical summary -->
+          <div class="seccion-resultados" id="seccion-resultados" aria-live="polite">
+
+            <div class="resumen-grid" id="resumen-grid">
+              <!-- Cards generated by JS -->
+            </div>
+
+            <div class="evaluacion-bloque" id="evaluacion"></div>
+
+          </div>
+
+        </div><!-- /calculadora -->
+
+        <!-- Educational section -->
+        <div class="seccion-educativa">
+
+          <h2>What is percent recovery in method validation?</h2>
+          <p>
+            In analytical chemistry, <strong>percent recovery</strong> measures what fraction of the analyte present in a sample is actually detected and quantified by the method. It is the usual way to assess <strong>trueness</strong>: you analyze a sample whose content is known (a certified reference material, a standard or a spiked sample) and compare the result with the expected value. A recovery of 100 % means the method introduces no bias: what is in the sample is exactly what you measure.
+          </p>
+          <p>
+            This is not the same as the percent recovery of a recrystallization or synthesis, where you compare the mass of product obtained with the mass you started with.
+          </p>
+
+          <div class="ejemplo-bloque">
+            <strong>Formulas</strong>
+            <p>% Recovery = (measured value / nominal value) × 100</p>
+            <p>Absolute error = measured value − nominal value</p>
+            <p>Relative error (%) = (absolute error / nominal value) × 100</p>
+            <p>Bias (%) = mean % recovery − 100</p>
+          </div>
+
+          <p>
+            The summary also reports the standard deviation of the recoveries and the <strong>coefficient of variation (CV%)</strong>, which in pharmaceutical work is usually called the relative standard deviation (<strong>%RSD</strong>). Recovery tells you how close you are to the true value; CV% tells you how repeatable that recovery is.
+          </p>
+
+          <h2>Typical acceptance criteria</h2>
+
+          <div class="ejemplo-bloque">
+            <strong>Common ranges for mean recovery and precision</strong>
+            <p><strong>80 – 120 %</strong> → routine methods (water, food, industrial samples)</p>
+            <p><strong>90 – 110 %</strong> → precision methods (pharmaceutical, accredited methods)</p>
+            <p><strong>95 – 105 %</strong> → high-accuracy methods (pharmacopeial, reference methods)</p>
+            <p><strong>CV% &lt; 5 %</strong> → acceptable repeatability in most cases</p>
+          </div>
+
+          <p>
+            These are typical values, not universal limits. The criteria that apply to your method come from your validation plan and from the guideline or standard it follows (for example AOAC, ICH Q2 or a pharmacopeia), which may set different limits depending on the analyte, the matrix and the concentration level. Enter your own limits in the fields above.
+          </p>
+
+          <h2>Frequently asked questions</h2>
+
+          <div class="faq-item">
+            <h3>Can I use this calculator for spike recovery?</h3>
+            <p>Yes, as long as you subtract the unspiked result first. Enter the amount of analyte added as the nominal value and the amount found (spiked result minus unspiked result) as the measured value. The calculator does not take the unspiked sample as a separate input, so that subtraction is up to you, in the same units.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How many samples do I need to evaluate recovery?</h3>
+            <p>EURACHEM recommends at least 6 independent determinations at each concentration level. For a full validation, at least 3 concentration levels are evaluated (low, medium and high within the working range). ICH Q2 sets a minimum of 9 determinations over at least 3 levels for accuracy.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Does a low recovery mean the method is bad?</h3>
+            <p>Not necessarily. A consistently low recovery (e.g. 85 %) may be acceptable if it is constant and known; in that case a correction factor is applied. What matters is that the recovery is <strong>reproducible</strong>: a high CV% is a bigger problem than a recovery that is far from 100 % but stable.</p>
+          </div>
+
+        </div>
+
+        <div class="bloque-blog-relacionado">
+          <p class="bloque-blog-relacionado__etiqueta">Related tools</p>
+          <a href="measurement-uncertainty-calculator.html" class="bloque-blog-relacionado__titulo">Measurement Uncertainty Calculator</a>
+          <p class="bloque-blog-relacionado__descripcion">Combine Type A and Type B uncertainty components and get the expanded uncertainty of your measurement.</p>
+        </div>
+        <div class="bloque-blog-relacionado" style="margin-top:var(--espacio-md)">
+          <p class="bloque-blog-relacionado__etiqueta">Related tools</p>
+          <a href="lod-loq-calculator.html" class="bloque-blog-relacionado__titulo">LOD and LOQ Calculator</a>
+          <p class="bloque-blog-relacionado__descripcion">Calculate the limit of detection and limit of quantitation of your method.</p>
+        </div>
+        <div class="bloque-blog-relacionado" style="margin-top:var(--espacio-md)">
+          <p class="bloque-blog-relacionado__etiqueta">Related tools</p>
+          <a href="grubbs-dixon-outlier-test.html" class="bloque-blog-relacionado__titulo">Grubbs and Dixon Q Test Calculator</a>
+          <p class="bloque-blog-relacionado__descripcion">Check your replicates for outliers before calculating the mean recovery.</p>
+        </div>
+
+        <p class="ayuda">This calculator is also available <a href="../../herramientas/recuperacion-error.html" hreflang="es" lang="es">in Spanish</a>.</p>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"></footer>
+
+  <script src="../../herramientas/js/recuperacion-error.js"></script>
+
+  <script type="module" src="../../js/init-speed-insights.js"></script>
+  <script src="../../js/pwa-register.js"></script>
+  <script src="../../js/compartir.js"></script>
+  <script src="../../js/copiar-resultado.js"></script>
+
+</body>
+</html>

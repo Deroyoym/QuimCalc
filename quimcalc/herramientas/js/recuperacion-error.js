@@ -1,8 +1,48 @@
     /* ── % Recuperación y error sistemático ── */
     var filaId = 0;
 
-    /* Coma decimal para todo texto visible */
-    function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+    /* Idioma de la página: la misma lógica sirve para /herramientas/ (es) y /en/tools/ (en) */
+    var EN = (document.documentElement.lang || '').slice(0, 2) === 'en';
+    var T = EN ? {
+      phId: 'e.g. Sample A',
+      phNominal: 'e.g. 5.00',
+      phMedido: 'e.g. 4.83',
+      quitar: 'Remove row',
+      errPocos: 'Enter at least 2 pairs of values to calculate the statistical summary.',
+      lblN: 'n (samples)',
+      lblMedia: 'Mean recovery %',
+      lblSd: 'Std. dev. (s)',
+      lblCv: 'CV % (%RSD)',
+      lblMin: 'Min. recovery %',
+      lblMax: 'Max. recovery %',
+      lblBias: 'Bias (%)',
+      lblLim: 'Set limits',
+      evOk: function (li, ls, lc) { return '✓ The method meets the acceptance criteria: mean recovery within the ' + li + '–' + ls + ' % range and CV% ≤ ' + lc + ' %.'; },
+      evRec: function (cv, m, li, ls) { return '⚠ Precision is acceptable (CV% = ' + cv + ' %) but the mean recovery (' + m + ' %) is outside the ' + li + '–' + ls + ' % range. Check for systematic error (bias).'; },
+      evCv: function (m, cv, lc) { return '⚠ The mean recovery is acceptable (' + m + ' %) but the spread is high (CV% = ' + cv + ' % > ' + lc + ' %). Check repeatability.'; },
+      evMal: function (m, li, ls, cv, lc) { return '✗ The method does not meet the criteria: recovery ' + m + ' % (range: ' + li + '–' + ls + ' %) and CV% = ' + cv + ' % (limit: ' + lc + ' %). Review required.'; }
+    } : {
+      phId: 'ej: Muestra A',
+      phNominal: 'ej: 5.00',
+      phMedido: 'ej: 4.83',
+      quitar: 'Quitar fila',
+      errPocos: 'Ingresá al menos 2 pares de valores para calcular el resumen estadístico.',
+      lblN: 'n (muestras)',
+      lblMedia: 'Media de rec. %',
+      lblSd: 'Desv. est. (s)',
+      lblCv: 'CV %',
+      lblMin: 'Mín. rec. %',
+      lblMax: 'Máx. rec. %',
+      lblBias: 'Bias (%)',
+      lblLim: 'Límites config.',
+      evOk: function (li, ls, lc) { return '✓ El método cumple los criterios de aceptación: media de recuperación dentro del rango ' + li + '–' + ls + ' % y CV% ≤ ' + lc + ' %.'; },
+      evRec: function (cv, m, li, ls) { return '⚠ La precisión es aceptable (CV% = ' + cv + ' %) pero la recuperación media (' + m + ' %) está fuera del rango ' + li + '–' + ls + ' %. Revisar sesgo sistemático.'; },
+      evCv: function (m, cv, lc) { return '⚠ La recuperación media es aceptable (' + m + ' %) pero la dispersión es alta (CV% = ' + cv + ' % > ' + lc + ' %). Revisar repetibilidad.'; },
+      evMal: function (m, li, ls, cv, lc) { return '✗ El método no cumple los criterios: recuperación ' + m + ' % (rango: ' + li + '–' + ls + ' %) y CV% = ' + cv + ' % (límite: ' + lc + ' %). Revisión necesaria.'; }
+    };
+
+    /* Coma decimal para todo texto visible (solo en español) */
+    function conComa(s) { return EN ? String(s) : String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
 
     document.addEventListener('DOMContentLoaded', function () {
       /* Comenzar con 5 filas vacías */
@@ -17,13 +57,13 @@
       tr.id = 'fila-' + id;
       tr.innerHTML =
         '<td style="text-align:center;color:var(--color-texto-suave);font-size:0.8rem;">' + id + '</td>' +
-        '<td><input type="text"   placeholder="ej: Muestra A"></td>' +
-        '<td><input type="number" placeholder="ej: 5.00"       step="any"></td>' +
-        '<td><input type="number" placeholder="ej: 4.83"       step="any"></td>' +
+        '<td><input type="text"   placeholder="' + T.phId + '"></td>' +
+        '<td><input type="number" placeholder="' + T.phNominal + '"       step="any"></td>' +
+        '<td><input type="number" placeholder="' + T.phMedido + '"       step="any"></td>' +
         '<td class="td-result" id="rec-'   + id + '">—</td>' +
         '<td class="td-result" id="eabs-'  + id + '">—</td>' +
         '<td class="td-result" id="erel-'  + id + '">—</td>' +
-        '<td><button class="btn-quitar" aria-label="Quitar fila">✕</button></td>';
+        '<td><button class="btn-quitar" aria-label="' + T.quitar + '">✕</button></td>';
       tbody.appendChild(tr);
     }
 
@@ -92,7 +132,7 @@
       });
 
       if (recs.length < 2) {
-        alert('Ingresá al menos 2 pares de valores para calcular el resumen estadístico.');
+        alert(T.errPocos);
         return;
       }
 
@@ -116,14 +156,14 @@
       var claseBias= Math.abs(bias) <= 5 ? 'ok' : Math.abs(bias) <= 15 ? 'warn' : 'error';
 
       grid.innerHTML = [
-        { label:'n (muestras)',    val: n,                fmt:'0',       clase:''},
-        { label:'Media de rec. %', val: mean,             fmt:'2',       clase:claseRec},
-        { label:'Desv. est. (s)',  val: sd,               fmt:'3',       clase:''},
-        { label:'CV %',            val: cv,               fmt:'2',       clase:claseCv},
-        { label:'Mín. rec. %',     val: Math.min.apply(null,recs), fmt:'2', clase:''},
-        { label:'Máx. rec. %',     val: Math.max.apply(null,recs), fmt:'2', clase:''},
-        { label:'Bias (%)',         val: bias,             fmt:'2',       clase:claseBias},
-        { label:'Límites config.',  val: limInf+'–'+limSup+'%', fmt:'str', clase:''},
+        { label:T.lblN, val: n,                fmt:'0',       clase:''},
+        { label:T.lblMedia, val: mean,             fmt:'2',       clase:claseRec},
+        { label:T.lblSd, val: sd,               fmt:'3',       clase:''},
+        { label:T.lblCv, val: cv,               fmt:'2',       clase:claseCv},
+        { label:T.lblMin, val: Math.min.apply(null,recs), fmt:'2', clase:''},
+        { label:T.lblMax, val: Math.max.apply(null,recs), fmt:'2', clase:''},
+        { label:T.lblBias, val: bias,             fmt:'2',       clase:claseBias},
+        { label:T.lblLim, val: limInf+'–'+limSup+'%', fmt:'str', clase:''},
       ].map(function(c){
         var v = c.fmt === 'str' ? c.val : (c.fmt === '0' ? c.val.toString() : parseFloat(c.val).toFixed(parseInt(c.fmt)));
         return '<div class="resumen-card">' +
@@ -136,16 +176,16 @@
       var ev = document.getElementById('evaluacion');
       if (recovOk && cvOk) {
         ev.className = 'evaluacion-bloque visible ok';
-        ev.textContent = conComa('✓ El método cumple los criterios de aceptación: media de recuperación dentro del rango ' + limInf + '–' + limSup + ' % y CV% ≤ ' + limCV + ' %.');
+        ev.textContent = conComa(T.evOk(limInf, limSup, limCV));
       } else if (!recovOk && cvOk) {
         ev.className = 'evaluacion-bloque visible warn';
-        ev.textContent = conComa('⚠ La precisión es aceptable (CV% = ' + cv.toFixed(2) + ' %) pero la recuperación media (' + mean.toFixed(2) + ' %) está fuera del rango ' + limInf + '–' + limSup + ' %. Revisar sesgo sistemático.');
+        ev.textContent = conComa(T.evRec(cv.toFixed(2), mean.toFixed(2), limInf, limSup));
       } else if (recovOk && !cvOk) {
         ev.className = 'evaluacion-bloque visible warn';
-        ev.textContent = conComa('⚠ La recuperación media es aceptable (' + mean.toFixed(2) + ' %) pero la dispersión es alta (CV% = ' + cv.toFixed(2) + ' % > ' + limCV + ' %). Revisar repetibilidad.');
+        ev.textContent = conComa(T.evCv(mean.toFixed(2), cv.toFixed(2), limCV));
       } else {
         ev.className = 'evaluacion-bloque visible error';
-        ev.textContent = conComa('✗ El método no cumple los criterios: recuperación ' + mean.toFixed(2) + ' % (rango: ' + limInf + '–' + limSup + ' %) y CV% = ' + cv.toFixed(2) + ' % (límite: ' + limCV + ' %). Revisión necesaria.');
+        ev.textContent = conComa(T.evMal(mean.toFixed(2), limInf, limSup, cv.toFixed(2), limCV));
       }
 
       document.getElementById('seccion-resultados').classList.add('visible');
