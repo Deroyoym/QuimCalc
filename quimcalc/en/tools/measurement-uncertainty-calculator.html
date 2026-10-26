@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Measurement Uncertainty Calculator (GUM Type A/B) | QuimCalc</title>
+  <meta name="description" content="Free GUM uncertainty budget in your browser: Type A and B components, combined and expanded uncertainty (k = 2). No paid templates. For ISO/IEC 17025.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quimcalc.com/en/tools/measurement-uncertainty-calculator.html">
+  <meta property="og:title" content="Measurement Uncertainty Calculator (GUM Type A/B) | QuimCalc">
+  <meta property="og:description" content="Free GUM uncertainty budget in your browser: Type A and B components, combined and expanded uncertainty (k = 2). No paid templates. For ISO/IEC 17025.">
+  <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta property="og:site_name" content="QuimCalc">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Measurement Uncertainty Calculator (GUM Type A/B) | QuimCalc">
+  <meta name="twitter:description" content="Free GUM uncertainty budget in your browser: Type A and B components, combined and expanded uncertainty (k = 2). No paid templates. For ISO/IEC 17025.">
+  <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/en/tools/measurement-uncertainty-calculator.html">
+
+  <link rel="preload" href="../../styles.css" as="style">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../herramientas/css/incertidumbre.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16x16.png">
+  <link rel="manifest" href="../../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "dateModified": "2026-10-26",
+    "name": "Measurement Uncertainty Calculator",
+    "description": "Build a GUM uncertainty budget with Type A and Type B components and calculate the combined standard uncertainty and the expanded uncertainty.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "url": "https://quimcalc.com/en/tools/measurement-uncertainty-calculator.html",
+    "featureList": [
+      "Type A evaluation from repeated readings",
+      "Type B evaluation from certificates and specifications (rectangular, triangular, normal and U-shaped distributions)",
+      "Combined standard uncertainty and expanded uncertainty (GUM)",
+      "Uncertainty budget with percentage contributions, exportable to the clipboard"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": "QuimCalc",
+      "url": "https://quimcalc.com/en/"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-10-26",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many components should I include?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Every component that makes a non-negligible contribution to the final result. At a minimum: instrument repeatability (Type A), calibration of the instrument or reference material (Type B) and instrument resolution (Type B). More complex procedures add others, such as the purity of the standard, solution preparation, temperature and operator effects."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which coverage factor (k) should I use for ISO/IEC 17025?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most laboratories and accreditation bodies, following the ILAC P14 policy, expect k = 2, which gives a level of confidence of approximately 95%. Use it unless your method or your client specifies a different value."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the sensitivity coefficient (ci) always 1?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not always. The sensitivity coefficient ci describes how strongly an input quantity affects the final result. If the result is the measured quantity itself, ci = 1. If there is a dilution factor of 10, ci = 10 for the components that come before the dilution. If the quantity enters a nonlinear equation (pH, for example), ci is the partial derivative of that equation with respect to the input quantity."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+  <!-- Google tag (gtag.js) + Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // Consent Mode v2: denied by default until the visitor accepts
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-JPQ3QTH9BN');
+  </script>
+  <script src="../../js/consent-banner.js" defer></script>
+</head>
+
+<body>
+
+  <header class="header"></header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Measurement Uncertainty</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Measurement Uncertainty Calculator</h1>
+        <p class="pagina-herramienta__descripcion">
+          Build a complete uncertainty budget with the GUM method (JCGM 100, ISO/IEC Guide 98-3). Add Type A and Type B components and get the combined standard uncertainty and the expanded uncertainty for ISO/IEC 17025 reports. Free and in your browser, with no spreadsheet templates to buy.
+        </p>
+      </div>
+
+      <div class="calculadora" role="region" aria-label="GUM uncertainty calculator">
+
+        <!-- ── ADD COMPONENT ──────────────────────────────── -->
+        <p class="rotulo-seccion">
+          STEP 1 — ADD AN UNCERTAINTY COMPONENT
+        </p>
+
+        <div class="campo-grupo">
+          <label for="nombre-componente">Component name</label>
+          <input
+            type="text"
+            id="nombre-componente"
+            placeholder="e.g. Instrument repeatability, Balance calibration..."
+          >
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--espacio-sm);">
+          <div class="campo-grupo" style="margin-bottom:0;">
+            <label for="tipo-componente">Type of evaluation</label>
+            <select id="tipo-componente">
+              <option value="A">Type A — Statistical (repeatability)</option>
+              <option value="B">Type B — Specification / certificate</option>
+            </select>
+          </div>
+          <div class="campo-grupo" style="margin-bottom:0;">
+            <label for="coef-sensibilidad">Sensitivity coefficient (ci)</label>
+            <input
+              type="number"
+              id="coef-sensibilidad"
+              value="1"
+              step="any"
+              aria-describedby="ayuda-ci"
+            >
+          </div>
+        </div>
+        <span class="ayuda" id="ayuda-ci" style="display:block;margin-bottom:var(--espacio-md);">
+          ci = 1 in most cases. Use a different value if the input quantity affects the result through a different factor.
+        </span>
+
+        <!-- Type A panel -->
+        <div id="panel-tipo-a" style="border:1px solid var(--color-borde);border-radius:var(--radio-md);padding:var(--espacio-md);background:var(--color-fondo-card);margin-bottom:var(--espacio-md);">
+          <p style="font-size:0.8rem;font-weight:600;color:var(--color-texto);margin-bottom:var(--espacio-sm);">TYPE A — enter the repeated readings</p>
+          <div class="campo-grupo" style="margin-bottom:0;">
+            <label for="lecturas-tipo-a">Readings (separated by commas, semicolons, spaces or new lines; use a decimal point)</label>
+            <textarea
+              id="lecturas-tipo-a"
+              style="font-family:monospace;font-size:0.875rem;border:1.5px solid var(--color-borde);border-radius:var(--radio-sm);padding:10px;width:100%;min-height:80px;resize:vertical;outline:none;background:white;"
+              placeholder="e.g. 10.23, 10.25, 10.22, 10.24, 10.26, 10.23"
+            ></textarea>
+            <span class="ayuda">u = s/√n (experimental standard deviation of the mean)</span>
+          </div>
+        </div>
+
+        <!-- Type B panel -->
+        <div id="panel-tipo-b" style="border:1px solid #A7F3D0;border-radius:var(--radio-md);padding:var(--espacio-md);background:#ECFDF5;margin-bottom:var(--espacio-md);" hidden>
+          <p style="font-size:0.8rem;font-weight:600;color:#065F46;margin-bottom:var(--espacio-sm);">TYPE B — enter the half-width and the distribution</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--espacio-sm);">
+            <div class="campo-grupo" style="margin-bottom:0;">
+              <label for="semirango">Half-width (a) — half of the uncertainty interval</label>
+              <input
+                type="number"
+                id="semirango"
+                placeholder="e.g. 0.001"
+                min="0"
+                step="any"
+                aria-describedby="ayuda-semirango"
+              >
+              <span class="ayuda" id="ayuda-semirango">e.g. the certificate states ±0.001 → a = 0.001. If it states an expanded uncertainty U with k = 2, enter a = U/2 and choose Normal.</span>
+            </div>
+
+            <div class="campo-grupo" style="margin-bottom:0;">
+              <label for="distribucion">Probability distribution</label>
+              <select id="distribucion">
+                <option value="rectangular">Rectangular (divisor √3) — limits only, no information on the distribution</option>
+                <option value="normal">Normal (divisor 1) — the certificate gives the standard uncertainty directly</option>
+                <option value="triangular">Triangular (divisor √6) — values near the center are most likely</option>
+                <option value="u">U-shaped (divisor √2) — hysteresis-type effects</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <button id="btn-agregar-componente" class="btn btn--primario" type="button">
+          + Add component
+        </button>
+
+        <!-- ── COMPONENT LIST ─────────────────────────────── -->
+        <div style="margin-top:var(--espacio-xl);">
+          <p class="rotulo-seccion rotulo-seccion--sm">
+            STEP 2 — COMPONENTS ADDED
+          </p>
+          <div id="lista-componentes"></div>
+        </div>
+
+        <!-- ── COVERAGE FACTOR ────────────────────────────── -->
+        <div style="margin-top:var(--espacio-xl);">
+          <p class="rotulo-seccion">
+            STEP 3 — COVERAGE FACTOR
+          </p>
+          <div class="campo-grupo">
+            <label for="factor-cobertura">Coverage factor (k)</label>
+            <select id="factor-cobertura">
+              <option value="2">k = 2 — level of confidence ~95% (the usual choice under ISO/IEC 17025)</option>
+              <option value="3">k = 3 — level of confidence ~99.7%</option>
+              <option value="1">k = 1 — level of confidence ~68%</option>
+              <option value="2.576">k = 2.576 — level of confidence ~99%</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="btn-calcular" class="btn btn--primario" type="button">
+          Calculate uncertainty →
+        </button>
+
+        <!-- ── RESULT ─────────────────────────────────────── -->
+        <div id="resultado" class="resultado" role="alert" aria-live="polite">
+          <p class="resultado__etiqueta">Uncertainty budget (GUM)</p>
+
+          <div class="resultado-gum">
+            <div class="gum-card gum-card--principal">
+              <p class="gum-card__label">Expanded uncertainty U = k × uc</p>
+              <p class="gum-card__valor" id="res-u">—</p>
+              <p class="gum-card__sub">Coverage factor k = <span id="res-kp">—</span> · Level of confidence <span id="res-nivel">—</span></p>
+            </div>
+
+            <div class="gum-card">
+              <p class="gum-card__label">Combined standard uncertainty uc</p>
+              <p class="gum-card__valor" id="res-uc" style="font-size:1.1rem;color:var(--color-texto);">—</p>
+            </div>
+
+            <div class="gum-card">
+              <p class="gum-card__label">How to report the result</p>
+              <p class="gum-card__valor" style="font-size:0.9rem;color:var(--color-texto);">
+                Result ± <span id="res-u-inline">U</span>
+              </p>
+              <p class="gum-card__sub">With k = <span id="res-kp-inline">k</span> and a level of confidence of <span id="res-nivel-inline">~95%</span></p>
+            </div>
+          </div>
+
+          <!-- Breakdown table -->
+          <p class="rotulo-seccion rotulo-seccion--sm">
+            BREAKDOWN BY COMPONENT
+          </p>
+          <div style="overflow-x:auto;">
+            <table class="tabla-desglose" role="table">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Type</th>
+                  <th>u(xi)</th>
+                  <th>ci</th>
+                  <th>ci × u(xi)</th>
+                  <th>% contribution</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-desglose"></tbody>
+            </table>
+          </div>
+
+          <button id="btn-exportar" class="btn btn--secundario" type="button" style="margin-top:var(--espacio-lg);">
+            Export uncertainty budget
+          </button>
+        </div>
+
+      </div><!-- /calculadora -->
+
+      <!-- ── EDUCATIONAL SECTION ────────────────────────── -->
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">What is the GUM method?</h2>
+        <p>
+          The GUM (<em>Guide to the Expression of Uncertainty in Measurement</em>, published as JCGM 100:2008 and as ISO/IEC Guide 98-3) is the international document that sets out how to evaluate and express measurement uncertainty. It is the reference for laboratories accredited to ISO/IEC 17025, which must evaluate the uncertainty of their results.
+        </p>
+        <p>
+          The method has four steps: list the sources of uncertainty, evaluate the <strong>standard uncertainty</strong> u(x<sub>i</sub>) of each one, combine them into the <strong>combined standard uncertainty</strong> u<sub>c</sub> = √Σ(c<sub>i</sub> × u(x<sub>i</sub>))², and multiply by a <strong>coverage factor</strong> k to obtain the <strong>expanded uncertainty</strong> U = k × u<sub>c</sub>. The table that lists every component with its contribution is the <strong>uncertainty budget</strong>.
+        </p>
+
+        <h2>Type A and Type B evaluation</h2>
+        <p>
+          <strong>Type A evaluation</strong> uses statistics: you take several repeated measurements and calculate their standard deviation. The standard uncertainty is u = s/√n, the experimental standard deviation of the mean.
+        </p>
+        <p>
+          <strong>Type B evaluation</strong> uses any other information: calibration certificates, manufacturer specifications, published data or the laboratory's experience. The standard uncertainty is the half-width of the interval divided by the divisor of the assumed distribution.
+        </p>
+
+        <div class="ejemplo-bloque">
+          <strong>Distributions most often used in Type B evaluation</strong>
+          <p>Rectangular (divisor √3): when you only know that the value lies within an interval, with no further information. Example: the resolution of a digital instrument.</p>
+          <p>Normal (divisor 1): when the certificate already gives the standard uncertainty. If it gives an expanded uncertainty with k = 2, divide it by 2 first.</p>
+          <p>Triangular (divisor √6): when values near the center are more likely than those at the limits. Example: the tolerance of a volumetric flask or the temperature setting of an oven.</p>
+        </div>
+
+        <h2>Frequently asked questions</h2>
+
+        <div class="faq-item">
+          <h3>How many components should I include?</h3>
+          <p>
+            Every component that makes a non-negligible contribution to the final result. At a minimum: instrument repeatability (Type A), calibration of the instrument or reference material (Type B) and instrument resolution (Type B). More complex procedures add others, such as the purity of the standard, solution preparation, temperature and operator effects.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Which coverage factor (k) should I use for ISO/IEC 17025?</h3>
+          <p>
+            Most laboratories and accreditation bodies, following the ILAC P14 policy, expect k = 2, which gives a level of confidence of approximately 95%. Use it unless your method or your client specifies a different value.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Is the sensitivity coefficient (ci) always 1?</h3>
+          <p>
+            Not always. The sensitivity coefficient ci describes how strongly an input quantity affects the final result. If the result is the measured quantity itself, ci = 1. If there is a dilution factor of 10, ci = 10 for the components that come before the dilution. If the quantity enters a nonlinear equation (pH, for example), ci is the partial derivative of that equation with respect to the input quantity.
+          </p>
+        </div>
+
+      </section>
+
+      <div class="bloque-blog-relacionado bloque-profundizar">
+        <p class="bloque-blog-relacionado__etiqueta">Related tools</p>
+        <ul class="otras-conversiones">
+          <li><a href="lod-loq-calculator.html">LOD and LOQ Calculator</a>: limit of detection and limit of quantitation by three methods (blank, calibration curve and signal-to-noise), for method validation under ISO/IEC 17025.</li>
+        </ul>
+      </div>
+
+      <p class="ayuda">This calculator is also available <a href="../../herramientas/incertidumbre.html" hreflang="es" lang="es">in Spanish</a>.</p>
+
+    </div>
+  </main>
+
+  <footer class="footer"></footer>
+
+  <script src="../../herramientas/js/incertidumbre.js"></script>
+
+  <!-- Copy U, k and the level of confidence into the "How to report" card -->
+  <script>
+    document.getElementById('btn-calcular').addEventListener('click', function () {
+      setTimeout(function () {
+        const u = document.getElementById('res-u').textContent;
+        const k = document.getElementById('res-kp').textContent;
+        const nivel = document.getElementById('res-nivel').textContent;
+        document.getElementById('res-u-inline').textContent = u;
+        document.getElementById('res-kp-inline').textContent = k;
+        document.getElementById('res-nivel-inline').textContent = nivel;
+      }, 50);
+    });
+  </script>
+
+  <script type="module" src="../../js/init-speed-insights.js"></script>
+  <script src="../../js/pwa-register.js"></script>
+  <script src="../../js/compartir.js"></script>
+  <script src="../../js/copiar-resultado.js"></script>
+
+</body>
+</html>
