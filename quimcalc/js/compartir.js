@@ -12,6 +12,7 @@
 
 (function () {
   'use strict';
+  var EN = (document.documentElement.lang || '').slice(0, 2) === 'en';
 
   var URL_ACTUAL = window.location.href;
   var URL_ENC    = encodeURIComponent(URL_ACTUAL);
@@ -63,10 +64,10 @@
     wrap.className = 'compartir';
     wrap.innerHTML = '<p class="compartir__etiqueta"></p><div class="compartir__botones"></div>';
     var cont = wrap.querySelector('.compartir__botones');
-    cont.appendChild(anchor('compartir__btn--wa', '#', 'Compartir por WhatsApp', ICONO_WA));
-    cont.appendChild(anchor('compartir__btn--x',  '#', 'Compartir en X', ICONO_X));
-    cont.appendChild(anchor('compartir__btn--fb', '#', 'Compartir en Facebook', ICONO_FB));
-    cont.appendChild(anchor('compartir__btn--li', '#', 'Compartir en LinkedIn', ICONO_LI));
+    cont.appendChild(anchor('compartir__btn--wa', '#', EN ? 'Share on WhatsApp' : 'Compartir por WhatsApp', ICONO_WA));
+    cont.appendChild(anchor('compartir__btn--x',  '#', EN ? 'Share on X' : 'Compartir en X', ICONO_X));
+    cont.appendChild(anchor('compartir__btn--fb', '#', EN ? 'Share on Facebook' : 'Compartir en Facebook', ICONO_FB));
+    cont.appendChild(anchor('compartir__btn--li', '#', EN ? 'Share on LinkedIn' : 'Compartir en LinkedIn', ICONO_LI));
     return wrap;
   }
 
@@ -76,7 +77,7 @@
 
     // Microcopy con intención
     var et = bloque.querySelector('.compartir__etiqueta');
-    if (et) et.textContent = '¿Te sirvió? Compartilo con tu equipo';
+    if (et) et.textContent = EN ? 'Found it useful? Share it with your team' : '¿Te sirvió? Compartilo con tu equipo';
 
     // (Re)armar los enlaces de cada red
     var mapa = {
@@ -99,8 +100,8 @@
       var nativo = document.createElement('button');
       nativo.type = 'button';
       nativo.className = 'compartir__btn compartir__btn--nativo';
-      nativo.setAttribute('aria-label', 'Compartir');
-      nativo.innerHTML = ICONO_NATIVO + '<span>Compartir</span>';
+      nativo.setAttribute('aria-label', EN ? 'Share' : 'Compartir');
+      nativo.innerHTML = ICONO_NATIVO + '<span>' + (EN ? 'Share' : 'Compartir') + '</span>';
       nativo.addEventListener('click', function () {
         navigator.share({ title: document.title, url: URL_ACTUAL }).catch(function () {});
       });
@@ -112,11 +113,11 @@
       var link = document.createElement('button');
       link.type = 'button';
       link.className = 'compartir__btn compartir__btn--link';
-      link.setAttribute('aria-label', 'Copiar enlace');
+      link.setAttribute('aria-label', EN ? 'Copy link' : 'Copiar enlace');
       link.innerHTML = ICONO_LINK;
       link.addEventListener('click', function () {
         navigator.clipboard.writeText(URL_ACTUAL).then(function () {
-          toast('Enlace copiado ✓');
+          toast(EN ? 'Link copied ✓' : 'Enlace copiado ✓');
         }).catch(function () {});
       });
       cont.appendChild(link);

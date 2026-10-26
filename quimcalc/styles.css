@@ -160,6 +160,16 @@ a:hover {
   text-decoration: none;
 }
 
+/* Selector de idioma (ES ↔ EN): solo aparece en páginas traducidas */
+.header__nav a.header__idioma {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(240, 237, 230, 0.35);
+  padding: 3px 8px;
+  margin-left: 4px;
+}
+
 /* ── 6. HERO (sección introductoria de index.html) ───────────*/
 .hero {
   padding: var(--espacio-2xl) 0 var(--espacio-xl);

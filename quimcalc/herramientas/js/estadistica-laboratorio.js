@@ -6,6 +6,50 @@
          t-Student: tablas estándar, df = n-1, α = 0.05 bilateral
     ═══════════════════════════════════════════════════════════ */
 
+    /* Idioma de la página: la misma lógica sirve para /herramientas/ (es) y /en/tools/ (en) */
+    var EN = (document.documentElement.lang || '').slice(0, 2) === 'en';
+    var T = EN ? {
+      errVacio: 'Enter at least 3 values to calculate.',
+      errPocos: 'At least 3 valid values are needed.',
+      nSub: 'valid values',
+      media: 'Mean (x̄)', mediaSub: 'arithmetic mean',
+      mediana: 'Median', medianaSub: 'middle value',
+      cv: 'CV % (%RSD)', cvSub: 'coefficient of variation',
+      desv: 'Standard deviation (s)', desvSub: 'sample (n−1)',
+      varianza: 'Variance (s²)', varianzaSub: 'sample (n−1)',
+      sem: 'SEM', semSub: 'standard error of the mean',
+      ic: '95 % CI',
+      minimo: 'Minimum', maximo: 'Maximum',
+      rango: 'Range', rangoSub: 'max − min',
+      tcrit: 'Critical t (95 %)',
+      sinTest: 'All values are equal, or there are not enough data for the outlier test.',
+      nombreTest: function (t) { return t === 'Grubbs' ? "Grubbs' test" : "Dixon's Q test"; },
+      simbolo: function (t) { return t === 'Grubbs' ? 'G' : 'Q'; },
+      outlierSi: function (v) { return 'the value <strong>' + v + '</strong> is a possible outlier. '; },
+      outlierSiFin: '. Check for an assignable cause before discarding it.',
+      outlierNo: 'no significant outliers were detected. '
+    } : {
+      errVacio: 'Ingresá al menos 3 valores para calcular.',
+      errPocos: 'Se necesitan al menos 3 valores válidos.',
+      nSub: 'valores válidos',
+      media: 'Media (x̄)', mediaSub: 'promedio aritmético',
+      mediana: 'Mediana', medianaSub: 'valor central',
+      cv: 'CV %', cvSub: 'coef. de variación',
+      desv: 'Desv. estándar (s)', desvSub: 'muestral (n−1)',
+      varianza: 'Varianza (s²)', varianzaSub: 'muestral (n−1)',
+      sem: 'SEM', semSub: 'error estándar media',
+      ic: 'IC 95 %',
+      minimo: 'Mínimo', maximo: 'Máximo',
+      rango: 'Rango', rangoSub: 'max − min',
+      tcrit: 't crítico (95 %)',
+      sinTest: 'Los datos son todos iguales o insuficientes para el test de outliers.',
+      nombreTest: function (t) { return 'Test de ' + t; },
+      simbolo: function (t) { return t.charAt(0); },
+      outlierSi: function (v) { return 'el valor <strong>' + v + '</strong> es un posible outlier. '; },
+      outlierSiFin: '. Verificá si hay una causa asignable antes de descartarlo.',
+      outlierNo: 'no se detectaron outliers significativos. '
+    };
+
     /* ── Tablas de valores críticos ── */
     var GRUBBS_CRIT = {
       3:1.155, 4:1.481, 5:1.715, 6:1.887, 7:2.020,
@@ -15,9 +59,10 @@
       40:3.036, 50:3.128
     };
 
+    /* Valores críticos de Dixon Q para α = 0,05 (Q95; Rorabacher, Anal. Chem. 1991) */
     var DIXON_CRIT = {
-      3:0.941, 4:0.765, 5:0.642, 6:0.560,
-      7:0.507, 8:0.468, 9:0.437, 10:0.412
+      3:0.970, 4:0.829, 5:0.710, 6:0.625,
+      7:0.568, 8:0.526, 9:0.493, 10:0.466
     };
 
     /* t crítico bilateral 95% (α=0.025 por cola), df = n-1 */
@@ -43,9 +88,10 @@
      * salto de línea. Decimales: coma o punto. Si el texto ya usa punto decimal, la
      * coma se toma como separador (formato «5.42, 5.38»); si no, «5,42» es un decimal.
      * Un fragmento con dos o más comas («1,2,3») se separa por comas.
+     * En inglés la coma siempre separa valores.
      */
     function leerNumeros(texto) {
-      var hayPunto = /\d\.\d/.test(texto);
+      var hayPunto = EN || /\d\.\d/.test(texto);
       var out = [];
       texto.split(/[\s;]+/).forEach(function (tok) {
         if (!tok) return;
@@ -111,8 +157,8 @@
       return { stat: Q, crit: Qcrit, isOutlier: Q > Qcrit, val: outlierVal, test: 'Dixon Q' };
     }
 
-    /* ── Coma decimal para todo texto visible ── */
-    function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+    /* ── Coma decimal para todo texto visible (solo en español) ── */
+    function conComa(s) { return EN ? String(s) : String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
 
     /* ── Formato de números ── */
     function fmt(n, sig) {
@@ -143,10 +189,10 @@
     /* ── Cálculo principal ── */
     function calcular() {
       var txt = document.getElementById('datos').value.trim();
-      if (!txt) { alert('Ingresá al menos 3 valores para calcular.'); return; }
+      if (!txt) { alert(T.errVacio); return; }
 
       var arr = parsear(txt);
-      if (arr.length < 3) { alert('Se necesitan al menos 3 valores válidos.'); return; }
+      if (arr.length < 3) { alert(T.errPocos); return; }
 
       var n    = arr.length;
       var xb   = media(arr);
@@ -173,18 +219,18 @@
       var cvClase = cv < 2 ? '#276C43' : cv < 5 ? '#D97706' : '#B83232';
 
       var cards = [
-        { label:'n',                 val: n.toString(),                          sub:'valores válidos',    dest:false },
-        { label:'Media (x̄)',         val: fmt(xb),                               sub:'promedio aritmético',dest:true  },
-        { label:'Mediana',           val: fmt(med),                              sub:'valor central',      dest:false },
-        { label:'CV %',              val: fmt(cv,4) + ' %',                      sub:'coef. de variación', dest:false, color:cvClase },
-        { label:'Desv. estándar (s)',val: fmt(s),                                sub:'muestral (n−1)',     dest:false },
-        { label:'Varianza (s²)',     val: fmt(s2),                               sub:'muestral (n−1)',     dest:false },
-        { label:'SEM',               val: fmt(sem),                              sub:'error estándar media',dest:false},
-        { label:'IC 95 %',           val: '[' + fmt(ciLo) + ' — ' + fmt(ciHi) + ']', sub:'t=' + t95.toFixed(3) + ', df=' + df, dest:true },
-        { label:'Mínimo',            val: fmt(mn),                               sub:'',                   dest:false },
-        { label:'Máximo',            val: fmt(mx),                               sub:'',                   dest:false },
-        { label:'Rango',             val: fmt(rng),                              sub:'max − min',          dest:false },
-        { label:'t crítico (95 %)',  val: t95.toFixed(3),                        sub:'df=' + df,           dest:false },
+        { label:'n',                 val: n.toString(),                          sub:T.nSub,        dest:false },
+        { label:T.media,             val: fmt(xb),                               sub:T.mediaSub,    dest:true  },
+        { label:T.mediana,           val: fmt(med),                              sub:T.medianaSub,  dest:false },
+        { label:T.cv,                val: fmt(cv,4) + ' %',                      sub:T.cvSub,       dest:false, color:cvClase },
+        { label:T.desv,              val: fmt(s),                                sub:T.desvSub,     dest:false },
+        { label:T.varianza,          val: fmt(s2),                               sub:T.varianzaSub, dest:false },
+        { label:T.sem,               val: fmt(sem),                              sub:T.semSub,      dest:false },
+        { label:T.ic,                val: '[' + fmt(ciLo) + ' — ' + fmt(ciHi) + ']', sub:'t=' + t95.toFixed(3) + ', df=' + df, dest:true },
+        { label:T.minimo,            val: fmt(mn),                               sub:'',            dest:false },
+        { label:T.maximo,            val: fmt(mx),                               sub:'',            dest:false },
+        { label:T.rango,             val: fmt(rng),                              sub:T.rangoSub,    dest:false },
+        { label:T.tcrit,             val: t95.toFixed(3),                        sub:'df=' + df,    dest:false },
       ];
 
       document.getElementById('stats-grid').innerHTML = cards.map(function(c) {
@@ -201,22 +247,22 @@
       var ob = document.getElementById('outlier-bloque');
       if (!outlierRes) {
         ob.className = 'outlier-bloque ok';
-        ob.innerHTML = 'Los datos son todos iguales o insuficientes para el test de outliers.';
+        ob.innerHTML = T.sinTest;
       } else if (outlierRes.isOutlier) {
         ob.className = 'outlier-bloque warn';
         ob.innerHTML = conComa(
-          '⚠ <strong>Test de ' + outlierRes.test + ' (α = 0,05):</strong> ' +
-          'el valor <strong>' + outlierRes.val + '</strong> es un posible outlier. ' +
-          outlierRes.test.charAt(0) + '-stat = ' + outlierRes.stat.toFixed(4) +
-          ' &gt; ' + outlierRes.test.charAt(0) + '-crit = ' + outlierRes.crit.toFixed(3) +
-          '. Verificá si hay una causa asignable antes de descartarlo.');
+          '⚠ <strong>' + T.nombreTest(outlierRes.test) + ' (α = 0.05):</strong> ' +
+          T.outlierSi(outlierRes.val) +
+          T.simbolo(outlierRes.test) + '-stat = ' + outlierRes.stat.toFixed(4) +
+          ' &gt; ' + T.simbolo(outlierRes.test) + '-crit = ' + outlierRes.crit.toFixed(3) +
+          T.outlierSiFin);
       } else {
         ob.className = 'outlier-bloque ok';
         ob.innerHTML = conComa(
-          '✓ <strong>Test de ' + outlierRes.test + ' (α = 0,05):</strong> ' +
-          'no se detectaron outliers significativos. ' +
-          outlierRes.test.charAt(0) + '-stat = ' + outlierRes.stat.toFixed(4) +
-          ' ≤ ' + outlierRes.test.charAt(0) + '-crit = ' + outlierRes.crit.toFixed(3) + '.');
+          '✓ <strong>' + T.nombreTest(outlierRes.test) + ' (α = 0.05):</strong> ' +
+          T.outlierNo +
+          T.simbolo(outlierRes.test) + '-stat = ' + outlierRes.stat.toFixed(4) +
+          ' ≤ ' + T.simbolo(outlierRes.test) + '-crit = ' + outlierRes.crit.toFixed(3) + '.');
       }
 
       /* ── Dot-plot en canvas ── */

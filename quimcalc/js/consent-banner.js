@@ -13,7 +13,8 @@
   'use strict';
 
   var CLAVE = 'quimcalc-consent';   /* valores: 'granted' | 'denied' */
-  var POLITICA = '/politicas-de-privacidad.html';
+  var EN = (document.documentElement.lang || '').slice(0, 2) === 'en';
+  var POLITICA = EN ? '/en/privacy.html' : '/politicas-de-privacidad.html';
 
   var almacen;
   try { almacen = window.localStorage; } catch (e) { almacen = null; }
@@ -46,16 +47,20 @@
     banner.className = 'consent-banner';
     banner.setAttribute('role', 'dialog');
     banner.setAttribute('aria-live', 'polite');
-    banner.setAttribute('aria-label', 'Aviso de cookies');
+    banner.setAttribute('aria-label', EN ? 'Cookie notice' : 'Aviso de cookies');
     banner.innerHTML =
       '<p class="consent-banner__texto">' +
-        'Usamos Google Analytics con cookies para medir el uso del sitio de forma anónima. ' +
-        'Podés aceptarlas o rechazarlas. Más información en nuestra ' +
-        '<a href="' + POLITICA + '" class="consent-banner__link">política de privacidad</a>.' +
+        (EN
+          ? 'We use Google Analytics cookies to measure site usage anonymously. ' +
+            'You can accept or reject them. More information in our ' +
+            '<a href="' + POLITICA + '" class="consent-banner__link">privacy policy</a>.'
+          : 'Usamos Google Analytics con cookies para medir el uso del sitio de forma anónima. ' +
+            'Podés aceptarlas o rechazarlas. Más información en nuestra ' +
+            '<a href="' + POLITICA + '" class="consent-banner__link">política de privacidad</a>.') +
       '</p>' +
       '<div class="consent-banner__acciones">' +
-        '<button type="button" class="consent-banner__btn consent-banner__btn--rechazar" data-consent="denied">Rechazar</button>' +
-        '<button type="button" class="consent-banner__btn consent-banner__btn--aceptar" data-consent="granted">Aceptar</button>' +
+        '<button type="button" class="consent-banner__btn consent-banner__btn--rechazar" data-consent="denied">' + (EN ? 'Reject' : 'Rechazar') + '</button>' +
+        '<button type="button" class="consent-banner__btn consent-banner__btn--aceptar" data-consent="granted">' + (EN ? 'Accept' : 'Aceptar') + '</button>' +
       '</div>';
     return banner;
   }

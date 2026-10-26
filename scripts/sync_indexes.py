@@ -9,6 +9,8 @@ Qué actualiza:
   - blog/index.html   → lista de posts + contadores de categorías en sidebar
   - sitemap.xml       → todas las URLs con fecha de hoy
   - sw.js             → PRECACHE_URLS + incrementa versión de caché
+  - hreflang          → <link rel="alternate"> en cada par español ↔ inglés
+  - en/index.html     → lista de herramientas traducidas (si existe)
 
 Uso:
   python scripts/sync_indexes.py
@@ -21,8 +23,12 @@ Cuando agregar una entrada:
 import json
 import re
 import os
+import sys
 from datetime import date
 from collections import Counter
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import i18n  # noqa: E402  (pares español ↔ inglés)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, 'quimcalc')
@@ -177,11 +183,26 @@ def update_sitemap(posts, tools):
         for p in posts
     ]
 
-    all_urls = static + tool_urls + post_urls
+    # Versiones en inglés existentes, con la misma prioridad que su par
+    pares = i18n.pares()
+    url_en = {i18n.url(es): i18n.url(en) for es, en in pares.items()}
+    en_urls = [(url_en[loc], pr, fq, lm) for loc, pr, fq, lm in static + tool_urls + post_urls
+               if loc in url_en]
+
+    all_urls = static + tool_urls + post_urls + en_urls
+
+    # Cada par lleva sus alternates (es, en, x-default → español)
+    alt_de = {}
+    for es_u, en_u in url_en.items():
+        bloque = (f'    <xhtml:link rel="alternate" hreflang="es" href="{es_u}"/>\n'
+                  f'    <xhtml:link rel="alternate" hreflang="en" href="{en_u}"/>\n'
+                  f'    <xhtml:link rel="alternate" hreflang="x-default" href="{es_u}"/>\n')
+        alt_de[es_u] = alt_de[en_u] = bloque
 
     entries = '\n'.join(
         f'  <url>\n'
         f'    <loc>{loc}</loc>\n'
+        + alt_de.get(loc, '') +
         f'    <lastmod>{lastmod}</lastmod>\n'
         f'    <changefreq>{freq}</changefreq>\n'
         f'    <priority>{priority}</priority>\n'
@@ -191,13 +212,77 @@ def update_sitemap(posts, tools):
 
     sitemap = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+        'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
         + entries
         + '\n</urlset>\n'
     )
 
     write(os.path.join(SITE, 'sitemap.xml'), sitemap)
     print(f'✓ sitemap.xml      — {len(all_urls)} URLs, lastmod={today}')
+
+
+# ── 2b. hreflang en cada par español ↔ inglés ──────────────────────
+HREF_RE = re.compile(r'\n?[ \t]*<!-- hreflang -->.*?<!-- /hreflang -->', re.S)
+
+
+def update_hreflang():
+    pares = i18n.pares()
+    rutas = {}
+    for es, en in pares.items():
+        rutas[es] = rutas[en] = (es, en)
+    n = 0
+    for dirpath, _, files in os.walk(SITE):
+        if 'admin' in dirpath.split(os.sep) or 'node_modules' in dirpath.split(os.sep):
+            continue
+        for fn in files:
+            if not fn.endswith('.html'):
+                continue
+            f = os.path.join(dirpath, fn)
+            ruta = os.path.relpath(f, SITE).replace(os.sep, '/')
+            t = read(f)
+            nuevo = HREF_RE.sub('', t)
+            if ruta in rutas:
+                es, en = rutas[ruta]
+                bloque = ('\n  <!-- hreflang -->\n'
+                          f'  <link rel="alternate" hreflang="es" href="{i18n.url(es)}">\n'
+                          f'  <link rel="alternate" hreflang="en" href="{i18n.url(en)}">\n'
+                          f'  <link rel="alternate" hreflang="x-default" href="{i18n.url(es)}">\n'
+                          '  <!-- /hreflang -->')
+                m = re.search(r'<link rel="canonical"[^>]*>', nuevo)
+                if not m:
+                    print(f'  ⚠ {ruta}: sin canonical, no se agregó hreflang')
+                    continue
+                nuevo = nuevo[:m.end()] + bloque + nuevo[m.end():]
+            if nuevo != t:
+                write(f, nuevo)
+                n += 1
+    print(f'✓ hreflang         — {len(pares)} pares, {n} archivo(s) actualizados')
+
+
+# ── 2c. Home en inglés: lista de herramientas traducidas ───────────
+def update_en_home(tools):
+    path = os.path.join(SITE, 'en', 'index.html')
+    if not os.path.exists(path):
+        return
+    content = read(path)
+    items = []
+    for t in tools:
+        en = t.get('en') or {}
+        if not en.get('slug') or not os.path.exists(os.path.join(SITE, 'en', 'tools', en['slug'] + '.html')):
+            continue
+        items.append(
+            f'          <a href="tools/{en["slug"]}.html" class="indice-item" role="listitem">\n'
+            f'            <div class="indice-item__icono" aria-hidden="true">\n'
+            f'              {t.get("icon_svg", "")}\n'
+            f'            </div>\n'
+            f'            <span class="indice-item__texto">{en.get("title", en["slug"])}</span>\n'
+            f'            <span class="indice-item__flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></span>\n'
+            f'          </a>')
+    bloque = '<!-- EN_TOOLS -->\n' + '\n'.join(items) + '\n          <!-- /EN_TOOLS -->'
+    content = re.sub(r'<!-- EN_TOOLS -->.*?<!-- /EN_TOOLS -->', bloque, content, flags=re.S)
+    write(path, content)
+    print(f'✓ en/index.html    — {len(items)} herramienta(s) en inglés')
 
 
 # ── 3. sw.js ──────────────────────────────────────────────────────
@@ -264,6 +349,8 @@ def main():
     update_blog_index(posts, categorias)
     update_cms(categorias)
     update_sitemap(posts, tools)
+    update_hreflang()
+    update_en_home(tools)
     update_sw(tools)
 
     print('\nListo. Todos los índices sincronizados.')

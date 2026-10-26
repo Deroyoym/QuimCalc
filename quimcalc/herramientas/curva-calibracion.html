@@ -18,6 +18,11 @@
   <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
   <meta name="author" content="QuimCalc">
   <link rel="canonical" href="https://quimcalc.com/herramientas/curva-calibracion.html">
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/curva-calibracion.html">
+  <link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/calibration-curve-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/curva-calibracion.html">
+  <!-- /hreflang -->
 
   <link rel="preload" href="../styles.css" as="style">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -141,6 +146,7 @@
           <a href="../blog/index.html">Blog</a>
           <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
           <a href="../contacto.html">Contacto</a>
+          <a href="../en/tools/calibration-curve-calculator.html" class="header__idioma" hreflang="en" lang="en" title="English version">EN</a>
         </nav>
       </div>
     </div>
@@ -367,10 +373,11 @@
         <h2>¿Qué indica el R²?</h2>
 
         <div class="ejemplo-bloque">
-          <strong>Criterios de aceptación habituales en ISO 17025</strong>
+          <strong>Criterios de aceptación habituales</strong>
           <p>R² ≥ 0,9990 → Ajuste excelente (indicador verde)</p>
           <p>R² ≥ 0,9950 → Ajuste aceptable para muchos métodos (indicador naranja)</p>
           <p>R² &lt; 0,9950 → Revisar datos, posible error experimental (indicador rojo)</p>
+          <p>La ISO/IEC 17025 no fija un R² mínimo: el criterio lo establece el método validado o la guía aplicable (por ejemplo, ICH Q2). Un R² alto tampoco demuestra linealidad por sí solo; conviene revisar los residuales.</p>
         </div>
 
         <p>

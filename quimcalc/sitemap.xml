@@ -1,182 +1,200 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://quimcalc.com/</loc>
-    <lastmod>2026-10-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/"/>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/blog/index.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/sobre-el-proyecto.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/contacto.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/politicas-de-privacidad.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/politicas-de-privacidad.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/politicas-de-privacidad.html"/>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/terminos-de-uso.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/tabla-solubilidad.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/estadistica-laboratorio.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/estadistica-laboratorio.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/grubbs-dixon-outlier-test.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/estadistica-laboratorio.html"/>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/conversor-concentracion.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/recuperacion-error.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/diluciones-reactivo-comercial.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/solucion-desde-solido.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/tabla-pka.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/tabla-indicadores.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/tabla-periodica.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/lod-loq.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/lod-loq.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/lod-loq-calculator.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/lod-loq.html"/>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/incertidumbre.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/incertidumbre.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/measurement-uncertainty-calculator.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/incertidumbre.html"/>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/curva-calibracion.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/curva-calibracion.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/calibration-curve-calculator.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/curva-calibracion.html"/>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/calculadora-titulacion.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/diluciones-seriadas.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/calculadora-buffers.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/dureza-agua.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/calculadora-ph.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/masa-molar.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/conversor-temperatura.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/concentracion-pp.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/conversor-ppm-mgl.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/calculadora-diluciones.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/calculadora-molaridad.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://quimcalc.com/herramientas/calculadora-rendimiento.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -293,5 +311,59 @@
     <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://quimcalc.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/"/>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://quimcalc.com/en/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/politicas-de-privacidad.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/politicas-de-privacidad.html"/>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://quimcalc.com/en/tools/grubbs-dixon-outlier-test.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/estadistica-laboratorio.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/grubbs-dixon-outlier-test.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/estadistica-laboratorio.html"/>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://quimcalc.com/en/tools/lod-loq-calculator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/lod-loq.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/lod-loq-calculator.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/lod-loq.html"/>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://quimcalc.com/en/tools/measurement-uncertainty-calculator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/incertidumbre.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/measurement-uncertainty-calculator.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/incertidumbre.html"/>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://quimcalc.com/en/tools/calibration-curve-calculator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/curva-calibracion.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/calibration-curve-calculator.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/curva-calibracion.html"/>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
 </urlset>

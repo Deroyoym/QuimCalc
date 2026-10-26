@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calibration Curve Calculator: R², LOD/LOQ &amp; Plot | QuimCalc</title>
+  <meta name="description" content="Free calibration curve calculator: linear regression, R², residuals, LOD/LOQ and a plot of your standards. Interpolate unknown samples in seconds.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quimcalc.com/en/tools/calibration-curve-calculator.html">
+  <meta property="og:title" content="Calibration Curve Calculator: R², LOD/LOQ &amp; Plot | QuimCalc">
+  <meta property="og:description" content="Free calibration curve calculator: linear regression, R², residuals, LOD/LOQ and a plot of your standards. Interpolate unknown samples in seconds.">
+  <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta property="og:site_name" content="QuimCalc">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Calibration Curve Calculator: R², LOD/LOQ &amp; Plot | QuimCalc">
+  <meta name="twitter:description" content="Free calibration curve calculator: linear regression, R², residuals, LOD/LOQ and a plot of your standards. Interpolate unknown samples in seconds.">
+  <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/en/tools/calibration-curve-calculator.html">
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="es" href="https://quimcalc.com/herramientas/curva-calibracion.html">
+  <link rel="alternate" hreflang="en" href="https://quimcalc.com/en/tools/calibration-curve-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://quimcalc.com/herramientas/curva-calibracion.html">
+  <!-- /hreflang -->
+
+  <link rel="preload" href="../../styles.css" as="style">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../herramientas/css/curva-calibracion.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16x16.png">
+  <link rel="manifest" href="../../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "dateModified": "2026-10-26",
+    "name": "Calibration Curve Calculator",
+    "description": "Fit a linear calibration curve by least squares, check R² and residuals, estimate LOD/LOQ and interpolate unknown samples.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "url": "https://quimcalc.com/en/tools/calibration-curve-calculator.html",
+    "featureList": [
+      "Least-squares linear regression",
+      "Slope, intercept, R and R²",
+      "Standard error of the regression (s_y/x)",
+      "LOD and LOQ estimated from the curve (ICH Q2)",
+      "Residual for each point",
+      "Interpolation of unknown samples",
+      "Calibration curve plot"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": "QuimCalc",
+      "url": "https://quimcalc.com/en/"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-10-26",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is a calibration curve the same as a standard curve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. \"Calibration curve\" is the usual term in analytical chemistry, \"standard curve\" is common in biochemistry and clinical labs, and British texts often say \"calibration graph\". All of them describe the relationship between known concentrations of standards and the measured signal. Within the linear range that relationship is a straight line, y = mx + b."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many points do I need for a valid calibration curve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Three points is the absolute minimum to fit a line and estimate the error. In practice, ICH Q2 recommends at least five concentrations to establish linearity, and standard methods (AOAC, EPA, ISO) usually call for 5 to 7 levels, including the blank, evenly spread across the working range. More points give a more reliable estimate of the standard error."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I include the blank (0, 0) in the curve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It depends on the method. If the instrument is zeroed on the blank before the samples are read, the blank is not added as a point. If the blank gives a non-zero reading (background signal), include it as the first point with its measured signal. Either way, the choice changes the intercept (b) of the equation, so follow what your method specifies."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What should I do if R² is low?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Check the residuals table first: a single point with a much larger residual than the rest usually points to a preparation or reading error. If the residuals form a curved pattern (positive at the ends and negative in the middle, or the reverse), the response is not linear over that range, so narrow the range or use a different model. Also make sure the instrument has warmed up and stabilized before reading."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+  <!-- Google tag (gtag.js) + Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // Consent Mode v2: denied by default until the visitor accepts
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-JPQ3QTH9BN');
+  </script>
+  <script src="../../js/consent-banner.js" defer></script>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Main navigation">
+          <a href="../index.html#tools" class="activo">Tools</a>
+          <a href="../../herramientas/curva-calibracion.html" class="header__idioma" hreflang="es" lang="es" title="Versión en español">ES</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="pagina-herramienta">
+    <div class="contenedor">
+
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a>
+        <span aria-hidden="true">›</span>
+        <span>Calibration Curve</span>
+      </nav>
+
+      <div class="pagina-herramienta__encabezado">
+        <h1 class="pagina-herramienta__titulo">Calibration Curve Calculator</h1>
+        <p class="pagina-herramienta__descripcion">
+          Enter your concentration / signal pairs to get the regression equation, R², residuals, an LOD/LOQ estimate and a plot of the curve. Then calculate the concentration of unknown samples directly from the curve.
+        </p>
+      </div>
+
+      <!-- ── AXIS LABELS (customizable) ─────────── -->
+      <div class="calculadora" style="margin-bottom: var(--espacio-lg);">
+        <p class="rotulo-seccion">
+          CUSTOMIZE THE PLOT AXES
+        </p>
+        <div class="fila-inputs" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--espacio-sm);">
+          <div class="campo-grupo" style="margin-bottom:0;">
+            <label for="label-eje-x">X-axis label</label>
+            <input type="text" id="label-eje-x" placeholder="e.g. Concentration (mg/L)" value="Concentration (mg/L)">
+          </div>
+          <div class="campo-grupo" style="margin-bottom:0;">
+            <label for="label-eje-y">Y-axis label</label>
+            <input type="text" id="label-eje-y" placeholder="e.g. Absorbance" value="Absorbance">
+          </div>
+        </div>
+      </div>
+
+      <!-- ── MAIN LAYOUT ────────────────────────────── -->
+      <div class="calibracion-layout">
+
+        <!-- Left panel: data entry -->
+        <div class="panel-entrada">
+
+          <div class="calculadora">
+            <p class="rotulo-seccion">
+              ENTER CALIBRATION POINTS
+            </p>
+
+            <div class="fila-inputs" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--espacio-sm);">
+              <div class="campo-grupo" style="margin-bottom:0;">
+                <label for="input-x">Concentration (X)</label>
+                <input type="number" id="input-x" placeholder="e.g. 0.5" step="any">
+              </div>
+              <div class="campo-grupo" style="margin-bottom:0;">
+                <label for="input-y">Signal (Y)</label>
+                <input type="number" id="input-y" placeholder="e.g. 0.123" step="any">
+              </div>
+            </div>
+
+            <p style="font-size:0.8rem;color:var(--color-texto-suave);margin:var(--espacio-sm) 0;">
+              Press <strong>Enter</strong> in either field, or use the button, to add the point. Use a decimal point (0.5).
+            </p>
+
+            <div class="botones-accion">
+              <button id="btn-agregar" class="btn btn--primario" type="button">+ Add point</button>
+              <button id="btn-limpiar" class="btn btn--peligro" type="button">Clear all</button>
+            </div>
+          </div>
+
+          <!-- Points table -->
+          <div>
+            <p style="font-size:0.875rem;font-weight:500;margin-bottom:var(--espacio-sm);">
+              Points entered
+            </p>
+            <div class="tabla-puntos-wrapper">
+              <table class="tabla-puntos" role="table" aria-label="Calibration curve points">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">X</th>
+                    <th scope="col">Y</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-puntos"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Calculate button -->
+          <button id="btn-calcular" class="btn btn--primario" type="button">
+            Calculate curve →
+          </button>
+
+          <!-- Interpolation -->
+          <div class="calculadora" id="seccion-interpolacion">
+            <p class="rotulo-seccion">
+              INTERPOLATE AN UNKNOWN SAMPLE
+            </p>
+            <div class="campo-grupo">
+              <label for="senal-desconocida">Sample signal (known Y)</label>
+              <input type="number" id="senal-desconocida" placeholder="e.g. 0.245" step="any">
+              <span class="ayuda">The calculator returns the matching concentration</span>
+            </div>
+            <button id="btn-interpolar" class="btn btn--primario" type="button">
+              Calculate concentration →
+            </button>
+
+            <!-- Interpolation result -->
+            <div id="resultado-interpolacion" class="interpolacion-resultado" style="display:none; margin-top:var(--espacio-md);">
+              <p style="font-size:0.8rem;font-weight:600;text-transform:uppercase;color:var(--color-acento);margin-bottom:4px;">
+                Calculated concentration
+              </p>
+              <p style="font-size:1.4rem;font-weight:700;color:var(--color-texto);margin-bottom:4px;">
+                <span id="interp-concentracion">—</span>
+              </p>
+              <p style="font-size:0.85rem;color:var(--color-texto-suave);font-family:monospace;">
+                For signal = <span id="interp-senal">—</span> → <span id="interp-formula">—</span>
+              </p>
+            </div>
+
+          </div>
+
+        </div><!-- /panel-entrada -->
+
+        <!-- Right panel: plot + results -->
+        <div class="panel-grafico">
+
+          <!-- Plot canvas -->
+          <canvas
+            id="grafico"
+            width="600"
+            height="400"
+            role="img"
+            aria-label="Calibration curve plot"
+          ></canvas>
+
+          <!-- Regression results -->
+          <div id="resultado" class="resultado" role="alert" aria-live="polite" style="display:none;">
+
+            <div class="resultado-regresion">
+
+              <div class="resultado-item resultado-item--full">
+                <p class="resultado-item__label">Regression equation</p>
+                <p class="resultado-item__valor" id="res-ecuacion">—</p>
+              </div>
+
+              <div class="resultado-item" id="bloque-r2">
+                <p class="resultado-item__label">R² (coefficient of determination)</p>
+                <p class="resultado-item__valor" id="res-r2">—</p>
+              </div>
+
+              <div class="resultado-item">
+                <p class="resultado-item__label">R (correlation coefficient)</p>
+                <p class="resultado-item__valor" id="res-r">—</p>
+              </div>
+
+              <div class="resultado-item resultado-item--full">
+                <p class="resultado-item__label">Se (standard error of the regression, s<sub>y/x</sub>)</p>
+                <p class="resultado-item__valor" id="res-se">—</p>
+              </div>
+
+              <div class="resultado-item">
+                <p class="resultado-item__label">Estimated LOD (3.3·Se/m)</p>
+                <p class="resultado-item__valor" id="res-lod">—</p>
+              </div>
+
+              <div class="resultado-item">
+                <p class="resultado-item__label">Estimated LOQ (10·Se/m)</p>
+                <p class="resultado-item__valor" id="res-loq">—</p>
+              </div>
+
+            </div>
+
+            <p class="resultado-item__label residuales-titulo">Residuals (y − ŷ)</p>
+            <div class="tabla-wrapper">
+              <table class="tabla-referencia tabla-referencia--compacta">
+                <thead>
+                  <tr><th scope="col">No.</th><th scope="col">X</th><th scope="col">Measured Y</th><th scope="col">Predicted Y</th><th scope="col">Residual</th></tr>
+                </thead>
+                <tbody id="tabla-residuales"></tbody>
+              </table>
+            </div>
+            <p class="residuales-nota">⚠ flags residuals larger than 2·Se. LOD and LOQ are in X units; for blank-based or signal-to-noise limits, use the <a href="lod-loq-calculator.html">LOD and LOQ calculator</a>.</p>
+
+            <!-- Export button -->
+            <button id="btn-exportar" class="btn btn--secundario" type="button" style="margin-top:var(--espacio-md);">
+              Export for report
+            </button>
+          </div>
+
+        </div><!-- /panel-grafico -->
+      </div><!-- /calibracion-layout -->
+
+      <!-- ── EDUCATIONAL SECTION ──────────────────────────── -->
+      <section class="seccion-educativa" aria-labelledby="titulo-explicacion">
+
+        <h2 id="titulo-explicacion">How to use this calculator</h2>
+        <p>
+          Enter the data for your calibration standards: the known concentration as X and the measured signal as Y (absorbance, peak area, mV, fluorescence intensity, etc.). Add the points one at a time; once there are at least three, the curve is calculated automatically and updated with every new point.
+        </p>
+        <p>
+          With the curve in place, type the signal of an unknown sample in the interpolation box to get its concentration straight from the regression equation. "Export for report" copies the data, the regression results and the residuals to the clipboard as tab-separated text, ready to paste into a spreadsheet or lab notebook.
+        </p>
+
+        <h2>Calibration curve, standard curve or calibration graph?</h2>
+        <p>
+          They are the same thing. <strong>Calibration curve</strong> is the standard term in analytical chemistry, <strong>standard curve</strong> is common in biochemistry and clinical assays (protein assays, ELISA), and British textbooks often use <strong>calibration graph</strong>. In every case you measure standards of known concentration and fit the relationship between concentration and signal. Within the linear range, that relationship is a straight line, y = m·x + b, which is why the fit is a linear regression.
+        </p>
+
+        <h2>What the regression tells you</h2>
+        <ul>
+          <li><strong>Slope (m):</strong> the sensitivity of the method, that is, how much the signal changes per unit of concentration.</li>
+          <li><strong>Intercept (b):</strong> the signal predicted for a sample with no analyte; ideally close to the blank reading.</li>
+          <li><strong>R² and Se:</strong> how closely the points follow the line and how much they scatter around it. Se is the standard error of the regression, also called the residual standard deviation (s<sub>y/x</sub>), and is calculated with n − 2 degrees of freedom.</li>
+          <li><strong>Interpolation:</strong> the concentration of an unknown sample is x = (y − b) / m. It is only valid within the range covered by the standards; the calculator warns you when a result is an extrapolation.</li>
+          <li><strong>Estimated LOD and LOQ:</strong> from Se and the slope (3.3·Se/m and 10·Se/m, the ICH Q2 approach). For limits based on blank replicates or on the signal-to-noise ratio, use the <a href="lod-loq-calculator.html">LOD and LOQ calculator</a>.</li>
+          <li><strong>Residuals:</strong> the difference between each measured signal and the signal predicted by the line. Small residuals with no pattern mean the linear model fits; residuals that trace a curve mean the response is not linear over that range.</li>
+        </ul>
+
+        <h2>What does R² tell you?</h2>
+
+        <div class="ejemplo-bloque">
+          <strong>Common acceptance criteria (the color of the R² box)</strong>
+          <p>R² ≥ 0.9990 → excellent fit (green)</p>
+          <p>R² ≥ 0.9950 → acceptable for many methods (orange)</p>
+          <p>R² &lt; 0.9950 → check the data for a possible experimental error (red)</p>
+        </div>
+
+        <p>
+          <strong>R²</strong> (the coefficient of determination) is the fraction of the variation in the signal that is explained by the concentration. An R² of 0.9995 means that 99.95 % of the variation in the signal comes from changes in concentration and the remaining 0.05 % is noise or experimental error.
+        </p>
+        <p>
+          These thresholds are common practice, not a universal rule: ISO/IEC 17025 does not set a minimum R², so the acceptance criterion comes from your validated method or the applicable guideline. Keep in mind that a high R² alone does not prove linearity. ICH Q2 asks for the regression statistics and a plot of the data, and suggests examining how the points deviate from the line; ISO 8466-1 describes how to evaluate a linear calibration function, so always look at the residuals as well.
+        </p>
+
+        <h2>Frequently asked questions</h2>
+
+        <div class="faq-item">
+          <h3>Is a calibration curve the same as a standard curve?</h3>
+          <p>
+            Yes. "Calibration curve" is the usual term in analytical chemistry, "standard curve" is common in biochemistry and clinical labs, and British texts often say "calibration graph". All of them describe the relationship between known concentrations of standards and the measured signal. Within the linear range that relationship is a straight line, y = mx + b.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How many points do I need for a valid calibration curve?</h3>
+          <p>
+            Three points is the absolute minimum to fit a line and estimate the error. In practice, ICH Q2 recommends at least five concentrations to establish linearity, and standard methods (AOAC, EPA, ISO) usually call for 5 to 7 levels, including the blank, evenly spread across the working range. More points give a more reliable estimate of the standard error.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Should I include the blank (0, 0) in the curve?</h3>
+          <p>
+            It depends on the method. If the instrument is zeroed on the blank before the samples are read, the blank is not added as a point. If the blank gives a non-zero reading (background signal), include it as the first point with its measured signal. Either way, the choice changes the intercept (b) of the equation, so follow what your method specifies.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What should I do if R² is low?</h3>
+          <p>
+            Check the residuals table first: a single point with a much larger residual than the rest usually points to a preparation or reading error. If the residuals form a curved pattern (positive at the ends and negative in the middle, or the reverse), the response is not linear over that range, so narrow the range or use a different model. Also make sure the instrument has warmed up and stabilized before reading.
+          </p>
+        </div>
+
+        <h2>Related tools</h2>
+        <ul class="otras-conversiones">
+          <li><a href="lod-loq-calculator.html">LOD and LOQ calculator</a>: limits of detection and quantitation by the blank, calibration curve (ICH Q2) and signal-to-noise methods.</li>
+        </ul>
+
+      </section>
+
+      <p class="ayuda">This calculator is also available <a href="../../herramientas/curva-calibracion.html" hreflang="es" lang="es">in Spanish</a>.</p>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Tools for the chemistry lab.</p>
+        <nav class="footer__links" aria-label="Footer links">
+          <a href="../privacy.html">Privacy</a>
+          <a href="../../terminos-de-uso.html" hreflang="es">Terms of use (Spanish)</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../herramientas/js/curva-calibracion.js"></script>
+
+  <script type="module" src="../../js/init-speed-insights.js"></script>
+  <script src="../../js/pwa-register.js"></script>
+  <script src="../../js/compartir.js"></script>
+  <script src="../../js/copiar-resultado.js"></script>
+
+</body>
+</html>

@@ -11,6 +11,8 @@
   'use strict';
 
   if (!navigator.clipboard) return;
+  var EN = (document.documentElement.lang || '').slice(0, 2) === 'en';
+  var ETIQUETA = EN ? 'Copy result' : 'Copiar resultado';
 
   // Contenedor del resultado (cubre las variantes de las calculadoras)
   var cont = document.querySelector('#resultado')
@@ -22,22 +24,22 @@
   var btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'btn-copiar-resultado';
-  btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copiar resultado</span>';
+  btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>' + ETIQUETA + '</span>';
 
   btn.addEventListener('click', function () {
     // Texto del resultado, sin el propio texto del botón
-    var texto = (cont.innerText || '').replace('Copiar resultado', '').trim();
+    var texto = (cont.innerText || '').replace(ETIQUETA, '').trim();
     // Evita copiar el placeholder vacío
     if (!texto || texto === '—' || texto.replace(/[—\s]/g, '') === '') return;
 
     navigator.clipboard.writeText(texto).then(function () {
       var toast = window.quimToast;
       if (toast) {
-        toast('Resultado copiado ✓');
+        toast(EN ? 'Result copied ✓' : 'Resultado copiado ✓');
       } else {
         var span = btn.querySelector('span');
         var prev = span.textContent;
-        span.textContent = '¡Copiado! ✓';
+        span.textContent = EN ? 'Copied! ✓' : '¡Copiado! ✓';
         setTimeout(function () { span.textContent = prev; }, 1800);
       }
     }).catch(function () {});

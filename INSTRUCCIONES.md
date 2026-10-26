@@ -11,6 +11,7 @@ Paso a paso para agregar posts nuevos, herramientas nuevas y mantener el sitio a
 3. [Sincronizar los índices automáticamente](#3-sincronizar-los-índices-automáticamente)
 4. [Publicar los cambios](#4-publicar-los-cambios)
 5. [Referencia rápida de archivos](#5-referencia-rápida-de-archivos)
+6. [Versión en inglés (/en/)](#6-versión-en-inglés-en)
 
 ---
 
@@ -327,6 +328,30 @@ QuimCalc/
         └── js/
             └── *.js
 ```
+
+---
+
+## 6. Versión en inglés (/en/)
+
+El sitio en inglés vive en `quimcalc/en/` y reutiliza el mismo CSS y el mismo JavaScript que la versión en español.
+
+| Español | Inglés |
+|---|---|
+| `/index.html` | `/en/index.html` |
+| `/politicas-de-privacidad.html` | `/en/privacy.html` |
+| `/herramientas/<slug>.html` | `/en/tools/<slug-en>.html` |
+| `/blog/posts/<slug>.html` | `/en/blog/<slug-en>.html` |
+
+**Traducir una herramienta**
+
+1. En `data/tools.json`, agregá a la herramienta: `"en": {"slug": "lod-loq-calculator", "title": "LOD and LOQ calculator"}`.
+2. Creá `quimcalc/en/tools/<slug-en>.html` con `<html lang="en">`, rutas `../../` y el JS de la versión en español (`../../herramientas/js/<archivo>.js`). Dejá `<header class="header"></header>` y `<footer class="footer"></footer>` vacíos: los completa el script. No cargues `entrada-decimal.js`.
+3. En el JS de la herramienta, los textos van en un objeto `T` según `EN = document.documentElement.lang === 'en'`, y `conComa()` devuelve el número sin cambios en inglés (ver `herramientas/js/lod-loq.js`).
+4. Corré `python3 scripts/build_layout.py --write` y `python3 scripts/sync_indexes.py`.
+
+El script agrega solo el selector ES/EN en ambas páginas, los `hreflang` (es, en, x-default → español), las entradas del sitemap con sus alternates y la tarjeta en `/en/index.html`. Un par solo se activa cuando el archivo en inglés existe.
+
+Los scripts compartidos (historial, copiar resultado, compartir, cookies, instalar) detectan el idioma solos. Glosario y estilo: `revisiones/investigacion-ingles-2026-10-25.md`.
 
 ---
 

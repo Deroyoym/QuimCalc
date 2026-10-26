@@ -8,6 +8,8 @@
 
 (function () {
 
+  var EN = (document.documentElement.lang || '').slice(0, 2) === 'en';
+
   // ── 1. Registro del Service Worker ─────────────────────
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -99,8 +101,8 @@
 
     const boton = document.createElement('button');
     boton.id          = 'btn-instalar-pwa';
-    boton.textContent = '📲 Instalar QuimCalc';
-    boton.setAttribute('aria-label', 'Instalar la aplicación QuimCalc en tu dispositivo');
+    boton.textContent = EN ? '📲 Install QuimCalc' : '📲 Instalar QuimCalc';
+    boton.setAttribute('aria-label', EN ? 'Install the QuimCalc app on your device' : 'Instalar la aplicación QuimCalc en tu dispositivo');
     Object.assign(boton.style, ESTILO_BASE, { padding: '12px 20px' });
     conHover(boton);
     boton.addEventListener('click', async () => {
@@ -115,7 +117,7 @@
     const cerrar = document.createElement('button');
     cerrar.id          = 'btn-cerrar-pwa';
     cerrar.textContent = '×';
-    cerrar.setAttribute('aria-label', 'No mostrar más el botón de instalación');
+    cerrar.setAttribute('aria-label', EN ? 'Do not show the install button again' : 'No mostrar más el botón de instalación');
     Object.assign(cerrar.style, ESTILO_BASE, { width: '40px', fontSize: '1.2rem', lineHeight: '1', padding: '0' });
     conHover(cerrar);
     cerrar.addEventListener('click', () => {

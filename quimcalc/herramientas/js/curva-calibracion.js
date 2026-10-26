@@ -13,7 +13,84 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+  /* Idioma de la página: la misma lógica sirve para /herramientas/ (es) y /en/tools/ (en) */
+  const EN = (document.documentElement.lang || '').slice(0, 2) === 'en';
+  const T = EN ? {
+    errValores: 'Enter valid numbers in both fields.',
+    sinPuntos: 'No points entered yet',
+    eliminar: n => `Delete point ${n}`,
+    errMinPuntos: 'You need at least 3 points to calculate the curve.',
+    errInterpPuntos: 'Enter at least 3 points and calculate the curve first.',
+    errSenal: 'Enter a numeric signal value.',
+    errPendiente: 'The slope is practically zero. The curve cannot be used to interpolate.',
+    extrapolacion: ' ⚠️ Value outside the calibration range (extrapolation)',
+    errExportar: 'Calculate the curve first.',
+    ejeX: 'Concentration',
+    ejeY: 'Signal',
+    locale: 'en-US',
+    expTitulo: 'CALIBRATION CURVE — QuimCalc',
+    expFecha: 'Date',
+    expEjeX: 'X axis',
+    expEjeY: 'Y axis',
+    expDatos: 'EXPERIMENTAL DATA',
+    expCabecera: 'No.\tConcentration\tSignal',
+    expRegresion: 'LINEAR REGRESSION RESULTS',
+    expEcuacion: 'Equation',
+    expPendiente: 'Slope (m)',
+    expOrdenada: 'Intercept (b)',
+    expR: 'Correlation coefficient (R)',
+    expR2: 'Coefficient of determination (R²)',
+    expSe: 'Standard error of the regression (Se = s_y/x)',
+    expLod: 'Estimated LOD (3.3·Se/m)',
+    expLoq: 'Estimated LOQ (10·Se/m)',
+    expN: 'Number of points (n)',
+    expResiduales: 'RESIDUALS (y − ŷ)',
+    copiado: '✓ Copied to clipboard',
+    exportar: 'Export for report',
+    copiaManual: 'Copy the text (Ctrl+A, Ctrl+C):'
+  } : {
+    errValores: 'Ingresá valores numéricos válidos en ambos campos.',
+    sinPuntos: 'Todavía no hay puntos ingresados',
+    eliminar: n => `Eliminar punto ${n}`,
+    errMinPuntos: 'Necesitás al menos 3 puntos para calcular la curva.',
+    errInterpPuntos: 'Primero ingresá al menos 3 puntos y calculá la curva.',
+    errSenal: 'Ingresá un valor numérico de señal.',
+    errPendiente: 'La pendiente es prácticamente cero. La curva no permite interpolar.',
+    extrapolacion: ' ⚠️ Valor fuera del rango de la curva (extrapolación)',
+    errExportar: 'Primero calculá la curva.',
+    ejeX: 'Concentración',
+    ejeY: 'Señal',
+    locale: 'es',
+    expTitulo: 'CURVA DE CALIBRACIÓN — QuimCalc',
+    expFecha: 'Fecha',
+    expEjeX: 'Eje X',
+    expEjeY: 'Eje Y',
+    expDatos: 'DATOS EXPERIMENTALES',
+    expCabecera: 'N°\tConcentración\tSeñal',
+    expRegresion: 'RESULTADOS DE REGRESIÓN LINEAL',
+    expEcuacion: 'Ecuación',
+    expPendiente: 'Pendiente (m)',
+    expOrdenada: 'Ordenada al origen (b)',
+    expR: 'Coeficiente de correlación (R)',
+    expR2: 'Coeficiente de determinación (R²)',
+    expSe: 'Error estándar de la regresión (Se)',
+    expLod: 'LOD estimado (3,3·Se/m)',
+    expLoq: 'LOQ estimado (10·Se/m)',
+    expN: 'Número de puntos (n)',
+    expResiduales: 'RESIDUALES (y − ŷ)',
+    copiado: '✓ Copiado al portapapeles',
+    exportar: 'Exportar para informe',
+    copiaManual: 'Copiá el texto (Ctrl+A, Ctrl+C):'
+  };
+
+  /* Coma decimal para todo texto visible (solo en español) */
+  function conComa(s) { return EN ? String(s) : String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
+
+  /* Ecuación de la recta con el signo de b bien escrito: «y = 0.1008x − 0.0006» */
+  function ecuacion(reg, dec) {
+    const signo = reg.b < 0 ? '−' : '+';
+    return `y = ${reg.m.toFixed(dec)}x ${signo} ${Math.abs(reg.b).toFixed(dec)}`;
+  }
 
   /* ── Estado global: lista de puntos ingresados ──────────── */
   let puntos = []; /* Array de objetos { x: concentracion, y: senal } */
@@ -56,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const y = parseFloat(inputY.value);
 
     if (isNaN(x) || isNaN(y)) {
-      alert('Ingresá valores numéricos válidos en ambos campos.');
+      alert(T.errValores);
       return;
     }
 
@@ -80,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
       tablaCuerpo.innerHTML = `
         <tr>
           <td colspan="3" style="text-align:center; color:var(--color-texto-suave); font-style:italic;">
-            Todavía no hay puntos ingresados
+            ${T.sinPuntos}
           </td>
         </tr>`;
       return;
@@ -96,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
           <button
             class="btn-eliminar-punto"
             data-index="${i}"
-            aria-label="Eliminar punto ${i + 1}"
+            aria-label="${T.eliminar(i + 1)}"
             style="background:none;border:none;cursor:pointer;color:var(--color-error);font-size:1rem;padding:4px;"
           >✕</button>
         </td>`;
@@ -191,15 +268,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function calcular() {
     if (puntos.length < 3) {
-      alert('Necesitás al menos 3 puntos para calcular la curva.');
+      alert(T.errMinPuntos);
       return;
     }
 
     const reg = regresionLineal(puntos);
 
     /* Mostramos los resultados numéricos */
-    const signoB = reg.b >= 0 ? '+' : '';
-    resEcuacion.textContent = conComa(`y = ${reg.m.toFixed(6)}x ${signoB} ${reg.b.toFixed(6)}`);
+    resEcuacion.textContent = conComa(ecuacion(reg, 6));
     resR2.textContent       = conComa(reg.R2.toFixed(6));
     resR.textContent        = conComa(reg.R.toFixed(6));
     resSe.textContent       = conComa(reg.Se.toFixed(6));
@@ -300,8 +376,8 @@ document.addEventListener('DOMContentLoaded', function () {
     ctx.stroke();
 
     /* ── Etiquetas de ejes ── */
-    const etX = labelEjeX.value || 'Concentración';
-    const etY = labelEjeY.value || 'Señal';
+    const etX = labelEjeX.value || T.ejeX;
+    const etY = labelEjeY.value || T.ejeY;
 
     ctx.fillStyle = '#374151';
     ctx.font = 'bold 12px Inter, sans-serif';
@@ -336,12 +412,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     /* ── Ecuación sobre el gráfico ── */
-    const signoB = reg.b >= 0 ? '+' : '';
-    const ecuacion = `y = ${reg.m.toFixed(4)}x ${signoB} ${reg.b.toFixed(4)}   R² = ${reg.R2.toFixed(5)}`;
+    const ecuacionTxt = `${ecuacion(reg, 4)}   R² = ${reg.R2.toFixed(5)}`;
     ctx.fillStyle = '#1E40AF';
     ctx.font = 'bold 11px Inter, sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText(conComa(ecuacion), ML + 10, MT + 18);
+    ctx.fillText(conComa(ecuacionTxt), ML + 10, MT + 18);
   }
 
   function limpiarGrafico() {
@@ -351,20 +426,20 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ── INTERPOLACIÓN: señal desconocida → concentración ───── */
   btnInterp.addEventListener('click', function () {
     if (puntos.length < 3) {
-      alert('Primero ingresá al menos 3 puntos y calculá la curva.');
+      alert(T.errInterpPuntos);
       return;
     }
 
     const senal = parseFloat(inputSenal.value);
     if (isNaN(senal)) {
-      alert('Ingresá un valor numérico de señal.');
+      alert(T.errSenal);
       return;
     }
 
     const reg = regresionLineal(puntos);
 
     if (Math.abs(reg.m) < 1e-10) {
-      alert('La pendiente es prácticamente cero. La curva no permite interpolar.');
+      alert(T.errPendiente);
       return;
     }
 
@@ -376,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const xMax = Math.max(...puntos.map(p => p.x));
     let advertencia = '';
     if (concentracion < xMin || concentracion > xMax) {
-      advertencia = ' ⚠️ Valor fuera del rango de la curva (extrapolación)';
+      advertencia = T.extrapolacion;
     }
 
     document.getElementById('interp-senal').textContent        = conComa(senal);
@@ -392,51 +467,51 @@ document.addEventListener('DOMContentLoaded', function () {
      ──────────────────────────────────────────────────────── */
   btnExportar.addEventListener('click', function () {
     if (puntos.length < 3) {
-      alert('Primero calculá la curva.');
+      alert(T.errExportar);
       return;
     }
 
     const reg = regresionLineal(puntos);
-    const signoB = reg.b >= 0 ? '+' : '';
-    const fecha = new Date().toLocaleDateString('es');
+    const fecha = new Date().toLocaleDateString(T.locale);
 
-    let texto = `CURVA DE CALIBRACIÓN — QuimCalc\n`;
-    texto += `Fecha: ${fecha}\n`;
-    texto += `Eje X: ${labelEjeX.value || 'Concentración'}\n`;
-    texto += `Eje Y: ${labelEjeY.value || 'Señal'}\n\n`;
+    let texto = `${T.expTitulo}\n`;
+    texto += `${T.expFecha}: ${fecha}\n`;
+    texto += `${T.expEjeX}: ${labelEjeX.value || T.ejeX}\n`;
+    texto += `${T.expEjeY}: ${labelEjeY.value || T.ejeY}\n\n`;
 
-    texto += `DATOS EXPERIMENTALES\n`;
-    texto += `N°\tConcentración\tSeñal\n`;
+    texto += `${T.expDatos}\n`;
+    texto += `${T.expCabecera}\n`;
     puntos.forEach((p, i) => {
       texto += `${i + 1}\t${p.x}\t${p.y}\n`;
     });
 
-    texto += `\nRESULTADOS DE REGRESIÓN LINEAL\n`;
-    texto += `Ecuación: y = ${reg.m.toFixed(6)}x ${signoB} ${reg.b.toFixed(6)}\n`;
-    texto += `Pendiente (m): ${reg.m.toFixed(6)}\n`;
-    texto += `Ordenada al origen (b): ${reg.b.toFixed(6)}\n`;
-    texto += `Coeficiente de correlación (R): ${reg.R.toFixed(6)}\n`;
-    texto += `Coeficiente de determinación (R²): ${reg.R2.toFixed(6)}\n`;
-    texto += `Error estándar de la regresión (Se): ${reg.Se.toFixed(6)}\n`;
-    texto += `LOD estimado (3,3·Se/m): ${sig(reg.LOD)}\n`;
-    texto += `LOQ estimado (10·Se/m): ${sig(reg.LOQ)}\n`;
-    texto += `Número de puntos (n): ${puntos.length}\n`;
+    texto += `\n${T.expRegresion}\n`;
+    texto += `${T.expEcuacion}: ${ecuacion(reg, 6)}\n`;
+    texto += `${T.expPendiente}: ${reg.m.toFixed(6)}\n`;
+    texto += `${T.expOrdenada}: ${reg.b.toFixed(6)}\n`;
+    texto += `${T.expR}: ${reg.R.toFixed(6)}\n`;
+    texto += `${T.expR2}: ${reg.R2.toFixed(6)}\n`;
+    texto += `${T.expSe}: ${reg.Se.toFixed(6)}\n`;
+    texto += `${T.expLod}: ${sig(reg.LOD)}\n`;
+    texto += `${T.expLoq}: ${sig(reg.LOQ)}\n`;
+    texto += `${T.expN}: ${puntos.length}\n`;
 
-    texto += `\nRESIDUALES (y − ŷ)\n`;
+    texto += `\n${T.expResiduales}\n`;
     puntos.forEach((p, i) => {
       texto += `${i + 1}\t${p.x}\t${sig(p.y - (reg.m * p.x + reg.b), 3)}\n`;
     });
 
-    /* Coma decimal en todo el texto (se pega en Excel en español; columnas separadas por tabulador) */
+    /* Coma decimal en todo el texto en español (se pega en Excel en español; columnas separadas por tabulador).
+       En inglés conComa no cambia nada: punto decimal. */
     texto = conComa(texto);
 
     /* Copiamos al portapapeles */
     navigator.clipboard.writeText(texto).then(function () {
-      btnExportar.textContent = '✓ Copiado al portapapeles';
-      setTimeout(() => { btnExportar.textContent = 'Exportar para informe'; }, 2500);
+      btnExportar.textContent = T.copiado;
+      setTimeout(() => { btnExportar.textContent = T.exportar; }, 2500);
     }).catch(function () {
       /* Fallback: mostramos en un prompt para copiar manualmente */
-      prompt('Copiá el texto (Ctrl+A, Ctrl+C):', texto);
+      prompt(T.copiaManual, texto);
     });
   });
 
