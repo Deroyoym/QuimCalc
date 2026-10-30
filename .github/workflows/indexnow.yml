@@ -1,8 +1,12 @@
 name: IndexNow — notificar a Bing
 
-# Avisa a Bing (protocolo IndexNow) las URLs del sitio cada vez que se
-# publica un cambio de contenido en main. Vercel deploya en paralelo, así
-# que primero esperamos a que el sitio esté vivo y recién ahí enviamos.
+# Avisa a Bing (protocolo IndexNow) SOLO las páginas .html que cambiaron
+# en cada push a main (agregadas, modificadas o renombradas). Reenviar el
+# sitemap entero hace que Bing ignore parte de los avisos.
+# Solo se envían URLs que figuran en sitemap.xml: así quedan afuera
+# offline.html, admin/ y las páginas noindex.
+# Vercel deploya en paralelo, así que primero esperamos a que el sitio
+# esté vivo y recién ahí enviamos.
 #
 # La clave de IndexNow es pública por diseño (se sirve en
 # https://quimcalc.com/<clave>.txt), por lo que NO se usan secrets.
@@ -11,7 +15,8 @@ on:
   push:
     branches: [main]
     paths:
-      - 'quimcalc/**'
+      - 'quimcalc/*.html'
+      - 'quimcalc/**/*.html'
 
 # Evita corridas solapadas si se pushea varias veces seguidas.
 concurrency:
@@ -24,8 +29,42 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # historial completo para comparar con el push anterior
+
+      - name: Detectar páginas cambiadas
+        id: cambios
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          # Commit base: el estado de main antes de este push. Si no existe
+          # (primer push o force push), se compara contra el commit anterior.
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] \
+             || ! git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then
+            BEFORE="${AFTER}~1"
+          fi
+          echo "Comparando ${BEFORE} → ${AFTER}"
+
+          # .html agregados, modificados o renombrados dentro de quimcalc/
+          git diff --name-only --diff-filter=AMR "$BEFORE" "$AFTER" -- 'quimcalc/*.html' \
+            | sed -E 's#^quimcalc/##' \
+            | sed -E 's#^index\.html$##; s#^en/index\.html$#en/#' \
+            | sed -E 's#^#https://quimcalc.com/#' \
+            | sort -u > /tmp/cambiadas.txt
+
+          # Quedarse solo con las que están en el sitemap (excluye noindex, admin, offline)
+          grep -oE '<loc>[^<]+</loc>' quimcalc/sitemap.xml | sed -E 's#</?loc>##g' | sort -u > /tmp/sitemap.txt
+          comm -12 /tmp/cambiadas.txt /tmp/sitemap.txt > /tmp/urls.txt
+
+          count=$(grep -c . /tmp/urls.txt || true)
+          echo "Páginas .html cambiadas: $(grep -c . /tmp/cambiadas.txt || true) — en sitemap: $count"
+          cat /tmp/urls.txt
+          echo "count=$count" >> "$GITHUB_OUTPUT"
 
       - name: Enviar URLs a IndexNow
+        if: steps.cambios.outputs.count != '0'
         env:
           KEY: aa441e507c4b364ef44a8407ef96f2e3
           HOST: quimcalc.com
@@ -52,10 +91,9 @@ jobs:
             exit 1
           fi
 
-          # 2) Extraer las URLs del sitemap.
-          urls=$(grep -oE '<loc>[^<]+</loc>' quimcalc/sitemap.xml | sed -E 's#</?loc>##g')
-          count=$(printf '%s\n' "$urls" | grep -c . || true)
-          echo "URLs a enviar: $count"
+          # 2) URLs cambiadas (calculadas en el paso anterior).
+          urls=$(cat /tmp/urls.txt)
+          echo "URLs a enviar: $(grep -c . /tmp/urls.txt || true)"
 
           # 3) Construir el payload JSON de IndexNow.
           payload=$(jq -n \
