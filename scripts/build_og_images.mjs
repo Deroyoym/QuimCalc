@@ -38,7 +38,9 @@ function loadChromium() {
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 // Espacio duro entre número y unidad («1 M», «37 %») para que no se corten de línea
-const nbsp = (s) => esc(s).replace(/(\d) (M|N|%|mL|L|g|mg)(?![\w])/g, '$1&nbsp;$2');
+const nbsp = (s) => esc(s)
+  .replace(/(\d) (M|N|%|mL|L|g|mg)(?![\w])/g, '$1&nbsp;$2')
+  .replace(/% ([pmv]\/[pmv])/g, '%&nbsp;$1');   // «% p/v» no se parte
 
 function cardHtml(p) {
   // La foto va incrustada: una página creada con setContent no puede leer file://

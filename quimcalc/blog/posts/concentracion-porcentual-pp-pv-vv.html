@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Concentración porcentual: % p/p, p/v y v/v | QuimCalc</title>
+  <meta name="description" content="10 g de sal en 100 g de agua no es 10 %, sino 9,1 % p/p. Aprende a calcular % p/p, % p/v y % v/v con 4 ejemplos y calculadora gratis.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://quimcalc.com/blog/posts/concentracion-porcentual-pp-pv-vv.html">
+  <link rel="canonical" href="https://quimcalc.com/blog/posts/concentracion-porcentual-pp-pv-vv.html" />
+  <meta property="og:title" content="Concentración porcentual: % p/p, p/v y v/v | QuimCalc">
+  <meta property="og:description" content="10 g de sal en 100 g de agua no es 10 %, sino 9,1 % p/p. Aprende a calcular % p/p, % p/v y % v/v con 4 ejemplos y calculadora gratis.">
+  <meta property="og:image" content="https://quimcalc.com/blog/posts/img/og/concentracion-porcentual-pp-pv-vv.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Concentración porcentual: cómo calcular % p/p, % p/v y % v/v — QuimCalc">
+  <meta property="og:site_name" content="QuimCalc">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Concentración porcentual: % p/p, p/v y v/v | QuimCalc">
+  <meta name="twitter:description" content="10 g de sal en 100 g de agua no es 10 %, sino 9,1 % p/p. Aprende a calcular % p/p, % p/v y % v/v con 4 ejemplos y calculadora gratis.">
+  <meta name="twitter:image" content="https://quimcalc.com/blog/posts/img/og/concentracion-porcentual-pp-pv-vv.jpg">
+  <meta name="author" content="QuimCalc">
+  <meta property="article:published_time" content="2026-11-05">
+
+  <link rel="preload" href="../../styles.css" as="style">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16x16.png">
+  <link rel="manifest" href="../../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Concentración porcentual: cómo calcular % p/p, % p/v y % v/v",
+    "description": "10 g de sal en 100 g de agua no es 10 %, sino 9,1 % p/p. Aprende a calcular % p/p, % p/v y % v/v con 4 ejemplos y calculadora gratis.",
+    "image": "https://quimcalc.com/blog/posts/img/concentracion-porcentual-pp-pv-vv.webp",
+    "datePublished": "2026-11-05",
+    "dateModified": "2026-11-05",
+    "author": {
+      "@type": "Organization",
+      "name": "QuimCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "QuimCalc",
+      "url": "https://quimcalc.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://quimcalc.com/assets/android-chrome-512x512.png"
+      }
+    },
+    "mainEntityOfPage": "https://quimcalc.com/blog/posts/concentracion-porcentual-pp-pv-vv.html",
+    "inLanguage": "es"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-11-05",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Cuál es la diferencia entre % p/p, % p/v y % v/v?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El % p/p compara masas: gramos de soluto en 100 g de solución. El % p/v indica gramos de soluto en 100 mL de solución. El % v/v indica mililitros de soluto en 100 mL de solución y se usa con líquidos, como el alcohol. Solo el % p/p no cambia con la temperatura, porque no depende de ningún volumen."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Es lo mismo % p/p que % m/m?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. «Peso» y «masa» se usan como sinónimos en este contexto: ambas expresiones indican gramos de soluto por cada 100 g de solución (o disolución). En España y en muchos libros de texto se prefiere % m/m o «tanto por ciento en masa»; en las etiquetas de reactivos es habitual % p/p o «riqueza»."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo se pasa de % p/p a molaridad?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Se multiplica el porcentaje por la densidad de la solución (g/mL) y por 10 para obtener gramos por litro, y el resultado se divide por la masa molar. Para H₂SO₄ al 98 % p/p (ρ = 1,84 g/mL; Mm = 98,07 g/mol): 98 × 1,84 × 10 / 98,07 = 18,4 mol/L. Sin la densidad no se puede convertir."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo se pasa de % p/v a g/L?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Se multiplica por 10, porque 1 % p/v son 1 g en 100 mL, es decir, 10 g en un litro. La solución salina al 0,9 % p/v contiene 9 g/L de NaCl. Para concentraciones muy bajas conviene trabajar en mg/L o ppm: una solución al 0,01 % p/v equivale a 100 mg/L."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué significa una solución «al 5 %» si no se indica el tipo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Depende del contexto. En reactivos líquidos concentrados suele ser % p/p; en soluciones clínicas y biológicas, % p/v, y en alcoholes y bebidas, % v/v. Si la etiqueta no lo aclara, hay que consultar la ficha técnica o el certificado de análisis antes de hacer cualquier cálculo con ese valor."
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Inicio",
+        "item": "https://quimcalc.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://quimcalc.com/blog/index.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Concentración porcentual"
+      }
+    ]
+  }
+  </script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Google tag (gtag.js) + Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // Consent Mode v2: denegado por defecto hasta que la persona acepte
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-JPQ3QTH9BN');
+  </script>
+  <script src="../../js/consent-banner.js" defer></script>
+</head>
+
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────── -->
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../../index.html#herramientas">Herramientas</a>
+          <a href="../index.html" class="activo">Blog</a>
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="contenedor">
+
+      <nav class="breadcrumb breadcrumb--top" aria-label="Ubicación en el sitio">
+        <a href="../../index.html">Inicio</a>
+        <span aria-hidden="true">›</span>
+        <a href="../index.html">Blog</a>
+        <span aria-hidden="true">›</span>
+        <span>Concentración porcentual</span>
+      </nav>
+
+      <div class="post-layout">
+
+        <!-- ── ARTÍCULO ────────────────────────────────── -->
+        <article>
+
+          <header class="post-header">
+            <p class="post-header__categoria">
+              <span style="color: #1A5C38;">Química básica</span>
+            </p>
+            <h1 class="post-header__titulo">
+              Concentración porcentual: cómo calcular % p/p, % p/v y % v/v
+            </h1>
+            <p class="post-header__resumen">
+              Las fórmulas del % p/p, % p/v y % v/v, cómo pasar de porcentaje a molaridad con la densidad, el error más común y cuatro ejemplos resueltos: NaOH, solución salina, etanol y ácido sulfúrico.
+            </p>
+            <div class="post-header__meta">
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Noviembre 2026
+              </span>
+              <span class="post-header__meta-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                8 min de lectura
+              </span>
+            </div>
+          </header>
+
+          <figure class="post-figura">
+            <img src="img/concentracion-porcentual-pp-pv-vv.webp"
+                 alt="Balanza analítica con cloruro de sodio pesado junto a un matraz aforado, una probeta con etanol y un frasco ámbar de reactivo sobre una mesa de laboratorio"
+                 class="post-figura__img" width="1536" height="864" loading="eager">
+          </figure>
+
+          <div class="post-contenido">
+
+            <p>
+              La concentración porcentual indica cuánto soluto hay en 100 partes de solución (o disolución): % p/p = g de soluto / g de solución × 100; % p/v = g de soluto / mL de solución × 100; % v/v = mL de soluto / mL de solución × 100. Puedes resolver los tres casos con la <a href="../../herramientas/concentracion-pp.html">calculadora de porcentaje p/p, p/v y v/v</a>.
+            </p>
+
+            <p>
+              La etiqueta de un frasco de ácido dice «37 %». Un protocolo pide «NaCl al 0,9 %». Una botella de alcohol indica «70 % vol». Las tres cifras son concentraciones porcentuales, pero no significan lo mismo, y confundirlas es uno de los errores más comunes al preparar soluciones, tanto en clase como en el laboratorio.
+            </p>
+
+            <p>
+              En esta guía aprenderás a calcular los tres tipos de concentración porcentual, cuándo se usa cada uno, cómo convertir entre ellos y cuatro ejemplos resueltos paso a paso.
+            </p>
+
+            <h2 id="que-es">¿Qué es la concentración porcentual?</h2>
+
+            <p>
+              La concentración porcentual indica cuánto soluto hay en 100 partes de solución: 100 g o 100 mL, según el tipo. Es la forma más intuitiva de expresar una concentración porque no requiere conocer la masa molar del soluto.
+            </p>
+
+            <p>Antes de calcular, conviene tener claros tres términos:</p>
+
+            <ul>
+              <li><strong>Soluto:</strong> la sustancia que se disuelve (sal, azúcar, ácido, etanol).</li>
+              <li><strong>Solvente (disolvente):</strong> el medio en el que se disuelve, casi siempre agua.</li>
+              <li><strong>Solución:</strong> la mezcla final. Su masa es la suma de la masa de soluto y la de solvente (los volúmenes, en cambio, no siempre se suman).</li>
+            </ul>
+
+            <h2 id="tipos">Tipos de concentración porcentual: % p/p, % p/v y % v/v</h2>
+
+            <div class="tabla-wrapper">
+              <table class="tabla-referencia">
+                <thead>
+                  <tr><th>Tipo</th><th>Otros nombres</th><th>Qué expresa</th><th>Uso típico</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>% p/p</td><td>% m/m, porcentaje en masa, tanto por ciento en masa, riqueza</td><td>gramos de soluto en 100 g de solución</td><td>ácidos y bases comerciales, aleaciones, alimentos</td></tr>
+                  <tr><td>% p/v</td><td>% m/v, porcentaje masa/volumen</td><td>gramos de soluto en 100 mL de solución</td><td>solución salina fisiológica, reactivos de laboratorio</td></tr>
+                  <tr><td>% v/v</td><td>porcentaje en volumen, % vol</td><td>mililitros de soluto en 100 mL de solución</td><td>alcoholes, bebidas, mezclas de solventes</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              «p» (peso) y «m» (masa) se usan como sinónimos. En rigor, lo que se mide es masa; por eso, en España y en muchos libros de texto, se prefiere % m/m. En este artículo usamos % p/p, la forma habitual en las etiquetas de reactivos.
+            </p>
+
+            <h3>Porcentaje masa/masa (% p/p o % m/m)</h3>
+
+            <div class="post-formula" role="note" aria-label="Fórmula del porcentaje masa/masa">
+              % p/p = m<sub>soluto</sub> (g) / m<sub>solución</sub> (g) × 100
+            </div>
+
+            <p>
+              También se llama porcentaje en masa o tanto por ciento en masa; en las etiquetas de reactivos aparece como <em>riqueza</em>, y la IUPAC lo expresa como fracción másica (<em>w</em>). Como compara dos masas, no depende de la temperatura: solo cambia si la solución pierde algún componente, por ejemplo cuando el HCl concentrado libera gas. Por eso es la forma estándar para reactivos concentrados como el HCl al 37 % o el H<sub>2</sub>SO<sub>4</sub> al 98 %.
+            </p>
+
+            <h3>Porcentaje masa/volumen (% p/v o % m/v)</h3>
+
+            <div class="post-formula" role="note" aria-label="Fórmula del porcentaje masa/volumen">
+              % p/v = m<sub>soluto</sub> (g) / V<sub>solución</sub> (mL) × 100
+            </div>
+
+            <p>
+              El volumen es el de la solución final, una vez aforada (llevada a volumen), no el del agua agregada. Un dato útil: 1 % p/v equivale a 10 g/L. A partir de los g/L, el <a href="../../herramientas/conversor-concentracion.html">conversor de concentración (g/L, mg/L y mol/L)</a> hace el resto.
+            </p>
+
+            <h3>Porcentaje volumen/volumen (% v/v)</h3>
+
+            <div class="post-formula" role="note" aria-label="Fórmula del porcentaje volumen/volumen">
+              % v/v = V<sub>soluto</sub> (mL) / V<sub>solución</sub> (mL) × 100
+            </div>
+
+            <p>
+              Se usa cuando soluto y solvente son líquidos. Atención: los volúmenes no siempre se suman. Al mezclar 50 mL de etanol con 50 mL de agua se obtienen unos 96 mL, no 100 mL. Por eso siempre se mide el soluto y se afora con solvente hasta el volumen final.
+            </p>
+
+            <p>
+              Si no quieres despejar a mano, calcula la masa de soluto, el volumen o el porcentaje con la <a href="../../herramientas/concentracion-pp.html">calculadora de concentración en %</a>.
+            </p>
+
+            <h2 id="convertir">Cómo pasar de % p/p a % p/v y a molaridad</h2>
+
+            <p>Para pasar de masa a volumen necesitas la densidad (ρ) de la solución, en g/mL:</p>
+
+            <div class="post-formula" role="note" aria-label="Conversión de porcentaje masa/masa a masa/volumen">
+              % p/v = % p/p × ρ (g/mL)
+            </div>
+
+            <p>
+              En soluciones acuosas diluidas la densidad es cercana a 1 g/mL y ambos valores casi coinciden. En reactivos concentrados la diferencia es grande: el HCl al 37 % p/p (ρ = 1,19 g/mL, según la etiqueta del lote) equivale a unos 44 % p/v.
+            </p>
+
+            <p>
+              Si además conoces la masa molar (M<sub>m</sub>, en g/mol; no confundir con la M de molaridad), puedes obtener la <a href="que-es-la-molaridad.html">molaridad</a>:
+            </p>
+
+            <div class="post-formula" role="note" aria-label="Conversión de porcentaje masa/masa a molaridad">
+              C (mol/L) = % p/p × ρ (g/mL) × 10 / M<sub>m</sub> (g/mol)
+            </div>
+
+            <p>
+              % p/p × ρ da gramos de soluto por 100 mL de solución; el factor 10 los convierte en gramos por litro. La masa molar se obtiene con la <a href="../../herramientas/masa-molar.html">calculadora de masa molar</a>, y el resultado se puede comprobar con la <a href="../../herramientas/calculadora-molaridad.html">calculadora de molaridad</a>.
+            </p>
+
+            <p>
+              Para diluir un reactivo concentrado, la <a href="formula-dilucion-c1v1-c2v2.html">fórmula de dilución C₁V₁ = C₂V₂</a> funciona con % p/v o mol/L, pero no directamente con el % p/p, que necesita la densidad. La <a href="../../herramientas/diluciones-reactivo-comercial.html">calculadora de dilución desde reactivo comercial</a> hace esa conversión por ti.
+            </p>
+
+            <p>
+              Para concentraciones muy bajas resulta más práctico trabajar en ppm: 1 ppm equivale aproximadamente a 0,0001 % en soluciones acuosas diluidas. Más detalle en <a href="que-son-las-ppm-y-como-convertirlas.html">qué son las ppm y cómo convertirlas</a>, o directamente con el <a href="../../herramientas/conversor-ppm-mgl.html">conversor de ppm a mg/L</a>.
+            </p>
+
+            <h2 id="ejemplos">Ejemplos resueltos paso a paso</h2>
+
+            <h3>Ejemplo 1: % p/p de una solución de NaOH</h3>
+
+            <p>Se disuelven 25 g de NaOH en 225 g de agua. ¿Cuál es la concentración en % p/p?</p>
+
+            <ol>
+              <li>Calcula la masa de la solución: 25 g + 225 g = 250 g.</li>
+              <li>Aplica la fórmula: (25 g / 250 g) × 100.</li>
+              <li><strong>Resultado: 10 % p/p.</strong></li>
+            </ol>
+
+            <p>
+              Precaución: el NaOH absorbe la humedad del aire y su disolución libera mucho calor. Pésalo rápido, agrégalo al agua poco a poco y usa gafas y guantes.
+            </p>
+
+            <h3>Ejemplo 2: 500 mL de solución salina fisiológica (NaCl 0,9 % p/v)</h3>
+
+            <ol>
+              <li>Despeja la masa: m = (% p/v × V) / 100 = (0,9 × 500 mL) / 100.</li>
+              <li><strong>Resultado: 4,5 g de NaCl.</strong></li>
+              <li>Pesa 4,5 g, disuélvelos en unos 400 mL de agua destilada, trasvasa la solución a un matraz aforado de 500 mL y afora con agua destilada.</li>
+            </ol>
+
+            <p>
+              Comprobación: 4,5 g en 0,5 L son 9 g/L, que coincide con la regla 1 % p/v = 10 g/L.
+            </p>
+
+            <p>
+              Esta solución tiene la misma composición que el suero fisiológico, pero es para uso de laboratorio: no es estéril y no es apta para uso clínico ni para aplicar en los ojos.
+            </p>
+
+            <h3>Ejemplo 3: 250 mL de etanol al 70 % v/v</h3>
+
+            <ol>
+              <li>Volumen de etanol: (70 × 250 mL) / 100 = 175 mL.</li>
+              <li>Mide 175 mL de etanol absoluto, pásalos a un matraz aforado de 250 mL y agrega agua hasta poco antes del aforo.</li>
+              <li>Mezcla, deja que la solución vuelva a temperatura ambiente (unos 20 °C), porque la mezcla se calienta, y afora con agua.</li>
+            </ol>
+
+            <p>
+              <strong>No</strong> agregues simplemente 75 mL de agua: por la contracción de volumen, el total quedaría por debajo de 250 mL y la concentración sería algo mayor que 70 % v/v. Si usas etanol al 96 % v/v, el habitual en el laboratorio, necesitas 70 × 250 / 96 ≈ 182 mL.
+            </p>
+
+            <h3>Ejemplo 4: molaridad del ácido sulfúrico al 98 % p/p</h3>
+
+            <p>Datos de la etiqueta: 98 % p/p y densidad 1,84 g/mL. Masa molar del H<sub>2</sub>SO<sub>4</sub>: 98,07 g/mol.</p>
+
+            <ol>
+              <li>Pasa a % p/v: 98 × 1,84 = 180,3 % p/v, es decir, 180,3 g por 100 mL o 1803 g/L.</li>
+              <li>Divide por la masa molar: 1803 g/L ÷ 98,07 g/mol.</li>
+              <li><strong>Resultado: 18,4 mol/L.</strong></li>
+            </ol>
+
+            <p>
+              Un % p/v mayor que 100 no es un error: esta solución pesa 1,84 g por mililitro, así que 100 mL contienen más de 100 g de solución.
+            </p>
+
+            <p>
+              Con el mismo procedimiento, el HCl al 37 % p/p (ρ = 1,19 g/mL; M<sub>m</sub> = 36,46 g/mol) da 12,1 mol/L. Si necesitas diluirlo, sigue la guía <a href="como-preparar-hcl-1m-desde-hcl-37.html">Cómo preparar HCl 1 M a partir de HCl al 37 %</a>.
+            </p>
+
+            <h2 id="errores-comunes">Errores comunes al calcular el porcentaje de una solución</h2>
+
+            <h3>1. Dividir por el solvente y no por la solución</h3>
+            <p>
+              El denominador es siempre la <strong>solución</strong>, no el solvente. Si disuelves 10 g de sal en 100 g de agua, la solución pesa 110 g y la concentración es 9,09 % p/p, no 10 %. Para obtener una solución al 10 % p/p necesitas 10 g de sal y 90 g de agua.
+            </p>
+
+            <h3>2. Sumar volúmenes en % v/v</h3>
+            <p>
+              Al mezclar algunos líquidos, como el etanol y el agua, el volumen final es menor que la suma de los volúmenes. Por eso se mide el soluto y se afora con solvente hasta el volumen final.
+            </p>
+
+            <h3>3. Ignorar la temperatura en % p/v y % v/v</h3>
+            <p>
+              El % p/p no cambia con la temperatura; el % p/v y el % v/v sí, porque el volumen se dilata o se contrae. Afora (enrasa) a unos 20 °C, la temperatura a la que suele estar calibrado el material volumétrico.
+            </p>
+
+            <h3>4. No indicar el tipo de porcentaje</h3>
+            <p>
+              «Al 5 %» sin aclarar puede ser p/p, p/v o v/v. Indica siempre el tipo en etiquetas, protocolos e informes.
+            </p>
+
+            <h3>5. No corregir por la pureza del reactivo</h3>
+            <p>
+              Si el reactivo sólido tiene una pureza menor que el 100 %, hay que corregir la masa. La calculadora <a href="../../herramientas/solucion-desde-solido.html">Solución desde sólido con pureza</a> lo hace automáticamente. Para el procedimiento completo, repasa <a href="como-preparar-soluciones-estandar-correctamente.html">cómo preparar soluciones estándar correctamente</a>.
+            </p>
+
+            <h2 id="preguntas-frecuentes">Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+              <h3>¿Cuál es la diferencia entre % p/p, % p/v y % v/v?</h3>
+              <p>
+                El % p/p compara masas: gramos de soluto en 100 g de solución. El % p/v indica gramos de soluto en 100 mL de solución. El % v/v indica mililitros de soluto en 100 mL de solución y se usa con líquidos, como el alcohol. Solo el % p/p no cambia con la temperatura, porque no depende de ningún volumen.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Es lo mismo % p/p que % m/m?</h3>
+              <p>
+                Sí. «Peso» y «masa» se usan como sinónimos en este contexto: ambas expresiones indican gramos de soluto por cada 100 g de solución (o disolución). En España y en muchos libros de texto se prefiere % m/m o «tanto por ciento en masa»; en las etiquetas de reactivos es habitual % p/p o «riqueza».
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Cómo se pasa de % p/p a molaridad?</h3>
+              <p>
+                Se multiplica el porcentaje por la densidad de la solución (g/mL) y por 10 para obtener gramos por litro, y el resultado se divide por la masa molar. Para H<sub>2</sub>SO<sub>4</sub> al 98 % p/p (ρ = 1,84 g/mL; M<sub>m</sub> = 98,07 g/mol): 98 × 1,84 × 10 / 98,07 = 18,4 mol/L. Sin la densidad no se puede convertir.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Cómo se pasa de % p/v a g/L?</h3>
+              <p>
+                Se multiplica por 10, porque 1 % p/v son 1 g en 100 mL, es decir, 10 g en un litro. La solución salina al 0,9 % p/v contiene 9 g/L de NaCl. Para concentraciones muy bajas conviene trabajar en mg/L o ppm: una solución al 0,01 % p/v equivale a 100 mg/L.
+              </p>
+            </div>
+
+            <div class="faq-item">
+              <h3>¿Qué significa una solución «al 5 %» si no se indica el tipo?</h3>
+              <p>
+                Depende del contexto. En reactivos líquidos concentrados suele ser % p/p; en soluciones clínicas y biológicas, % p/v, y en alcoholes y bebidas, % v/v. Si la etiqueta no lo aclara, hay que consultar la ficha técnica o el certificado de análisis antes de hacer cualquier cálculo con ese valor.
+              </p>
+            </div>
+
+            <h2 id="fuentes-consultadas">Fuentes consultadas</h2>
+
+            <ul>
+              <li>Skoog, D. A., West, D. M., Holler, F. J. y Crouch, S. R. (2014). <em>Fundamentos de química analítica</em> (9.ª ed.). Cengage Learning.</li>
+              <li>Harris, D. C. (2016). <em>Análisis químico cuantitativo</em> (9.ª ed.). Reverté.</li>
+              <li>Cohen, E. R. et al. (2007). <em>Quantities, Units and Symbols in Physical Chemistry</em> (IUPAC Green Book, 3.ª ed.). RSC Publishing. (Fracción másica y notación de concentraciones.)</li>
+              <li>Rumble, J. R. (ed.). <em>CRC Handbook of Chemistry and Physics</em> (103.ª ed.). CRC Press. (Densidades de soluciones acuosas de ácidos y de mezclas etanol-agua.)</li>
+            </ul>
+
+          </div><!-- /post-contenido -->
+          <div class="cta-herramienta">
+            <p class="cta-herramienta__texto">¿No quieres despejar fórmulas a mano? Elige el tipo de porcentaje, introduce dos datos y la calculadora te dará el tercero: la cantidad de soluto (masa o volumen), la de solvente (en % p/p) o la de solución final (en % p/v y % v/v), o el porcentaje.</p>
+            <a href="../../herramientas/concentracion-pp.html" class="btn btn--primario cta-herramienta__btn">Usar la calculadora de porcentaje →</a>
+          </div>
+
+          <!-- Botones de compartir -->
+          <div class="compartir">
+            <p class="compartir__etiqueta">Compartir:</p>
+            <div class="compartir__botones">
+          
+              <a class="compartir__btn compartir__btn--fb"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en Facebook">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+                </svg>
+              </a>
+          
+              <a class="compartir__btn compartir__btn--x"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en X (Twitter)">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+          
+              <a class="compartir__btn compartir__btn--li"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir en LinkedIn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+          
+              <a class="compartir__btn compartir__btn--wa"
+                 href="#" target="_blank" rel="noopener noreferrer"
+                 aria-label="Compartir por WhatsApp">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+                </svg>
+              </a>
+          
+            </div>
+          </div>
+          <script>
+            // Rellena los links de compartir con la URL y título del post actual
+            (function () {
+              var url    = encodeURIComponent(window.location.href);
+              var titulo = encodeURIComponent(document.title);
+          
+              var mapa = {
+                'compartir__btn--fb': 'https://www.facebook.com/sharer/sharer.php?u=' + url,
+                'compartir__btn--x' : 'https://twitter.com/intent/tweet?url=' + url + '&text=' + titulo,
+                'compartir__btn--li': 'https://www.linkedin.com/sharing/share-offsite/?url=' + url,
+                'compartir__btn--wa': 'https://wa.me/?text=' + titulo + '%20' + url,
+              };
+          
+              Object.keys(mapa).forEach(function (clase) {
+                var btn = document.querySelector('.' + clase);
+                if (btn) btn.href = mapa[clase];
+              });
+            })();
+          </script>
+
+        </article>
+
+        <!-- ── SIDEBAR ──────────────────────────────────── -->
+        <aside class="post-sidebar" aria-label="Contenido relacionado">
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">En este artículo</p>
+            <ul class="toc-lista" role="list">
+              <li><a href="#que-es">Qué es la concentración porcentual</a></li>
+              <li><a href="#tipos">Tipos: % p/p, % p/v y % v/v</a></li>
+              <li><a href="#convertir">De % p/p a % p/v y molaridad</a></li>
+              <li><a href="#ejemplos">Ejemplos resueltos</a></li>
+              <li><a href="#errores-comunes">Errores comunes</a></li>
+              <li><a href="#preguntas-frecuentes">Preguntas frecuentes</a></li>
+              <li><a href="#fuentes-consultadas">Fuentes consultadas</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">Herramientas relacionadas</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="../../herramientas/concentracion-pp.html">→ Porcentaje p/p, p/v y v/v</a></li>
+              <li><a href="../../herramientas/solucion-desde-solido.html">→ Solución desde sólido con pureza</a></li>
+              <li><a href="../../herramientas/diluciones-reactivo-comercial.html">→ Dilución desde reactivo comercial</a></li>
+              <li><a href="../../herramientas/calculadora-molaridad.html">→ Calculadora de molaridad</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <p class="sidebar-card__titulo">También te puede interesar</p>
+            <ul class="herramientas-relacionadas" role="list">
+              <li><a href="que-es-la-molaridad.html">→ ¿Qué es la molaridad?</a></li>
+              <li><a href="como-preparar-hcl-1m-desde-hcl-37.html">→ Cómo preparar HCl 1 M desde HCl al 37 %</a></li>
+              <li><a href="formula-dilucion-c1v1-c2v2.html">→ Fórmula de dilución C₁V₁ = C₂V₂</a></li>
+            </ul>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vercel Speed Insights -->
+  <script type="module" src="../../js/init-speed-insights.js"></script>
+  <script src="../../js/pwa-register.js"></script>
+  <script src="../../js/compartir.js"></script>
+
+</body>
+</html>

@@ -1,5 +1,21 @@
 [
   {
+    "slug": "concentracion-porcentual-pp-pv-vv",
+    "title": "Concentración porcentual: cómo calcular % p/p, % p/v y % v/v",
+    "description": "10 g de sal en 100 g de agua no es 10 %, sino 9,1 % p/p. Aprende a calcular % p/p, % p/v y % v/v con 4 ejemplos y calculadora gratis.",
+    "category": "Química básica",
+    "category_color": "#1A5C38",
+    "date": "Noviembre 2026",
+    "date_sort": "2026-11-05",
+    "minutes": 8,
+    "image": "img/concentracion-porcentual-pp-pv-vv.webp",
+    "image_alt": "Balanza analítica con cloruro de sodio pesado junto a un matraz aforado, una probeta con etanol y un frasco ámbar de reactivo sobre una mesa de laboratorio",
+    "og_highlight": {
+      "valor": "9,1 % p/p",
+      "texto": "10 g de sal en 100 g de agua"
+    }
+  },
+  {
     "slug": "como-calcular-el-ph",
     "title": "Cómo calcular el pH de ácidos y bases fuertes y débiles",
     "description": "El ácido acético 0,1 M tiene pH 2,88, no 1,00. Aprende a calcular el pH de ácidos y bases débiles y fuertes con 4 ejemplos y compruébalo gratis.",
