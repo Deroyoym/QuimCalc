@@ -179,7 +179,7 @@ Aplicado el 2026-11-05 («Aplicar todo y maquetar»):
 - [x] Enlaces internos relativos + los faltantes (reactivo comercial, conversor de concentración, masa molar, molaridad, ppm, C₁V₁). `normalidad-vs-molaridad` (opcional) no se agregó
 - [x] FAQ de 5 preguntas en H3, generada igual en el JSON-LD `FAQPage`
 - [x] Schema Article (headline = H1) + BreadcrumbList (primera del sitio; ítem Blog = `/blog/index.html`, como en el sitemap)
-- [ ] Imagen destacada .webp + tarjeta OG: **pendiente de la imagen**. El alt está escrito para el prompt entregado; ajustarlo si la imagen difiere
+- [x] Imagen destacada (1536×864, 16:9; alt ajustado a «frasco ámbar de reactivo») + tarjeta OG
 - [x] Entrada en `data/posts.json` y `sync_indexes.py`
 - [x] Enlaces entrantes: calculadora `concentracion-pp` (Para profundizar), `que-es-la-molaridad`, `formula-dilucion-c1v1-c2v2`, `como-preparar-hcl-1m-desde-hcl-37` (texto + sidebar), `que-son-las-ppm-y-como-convertirlas` (solo la FAQ visible; la del JSON-LD es texto plano)
 - [x] Post de LinkedIn: L1–L9 aplicadas, en tuteo neutro (decisión por «Aplicar todo»)
