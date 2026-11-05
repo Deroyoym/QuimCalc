@@ -91,7 +91,27 @@ document.addEventListener('DOMContentLoaded', function () {
       unidad      = '';
     }
 
-    mostrarResultado(resultado.toFixed(4), descripcion, formula);
+    /* Valores completos para el resumen y los controles */
+    const c1 = incognita === 'C1' ? resultado : C1;
+    const v1 = incognita === 'V1' ? resultado : V1;
+    const c2 = incognita === 'C2' ? resultado : C2;
+    const v2 = incognita === 'V2' ? resultado : V2;
+
+    /* Una dilución no puede aumentar la concentración */
+    if (c2 > c1 * (1 + 1e-9)) {
+      mostrarError('C₂ no puede ser mayor que C₁: al diluir, la concentración baja. Revisá si invertiste los valores.');
+      return;
+    }
+
+    const esVolumen = incognita === 'V1' || incognita === 'V2';
+    let valorTexto = QCFormato.num(resultado);
+    valorTexto += esVolumen ? ' (misma unidad de volumen que el otro V)' : ' (misma unidad que la otra C)';
+
+    const extras = [];
+    if (c2 > 0) extras.push('Factor de dilución: 1:' + QCFormato.num(c1 / c2, 4));
+    if (v2 > v1) extras.push('Solvente a agregar: V₂ − V₁ = ' + QCFormato.num(v2 - v1));
+
+    mostrarResultado(valorTexto, descripcion, formula + (extras.length ? '  ·  ' + extras.join('  ·  ') : ''));
   });
 
   /* ── Funciones auxiliares ───────────────────────────────── */

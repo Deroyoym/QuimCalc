@@ -305,6 +305,8 @@ def update_sw(tools):
         "  '/styles.css'",
         "  '/assets/site.webmanifest'",
         "  '/js/entrada-decimal.js'",
+        "  '/js/formato-numero.js'",                  # QCFormato: lo usan varias calculadoras
+        "  '/herramientas/js/masas-atomicas.js'",     # masas atómicas (masa molar)
     ]
 
     tool_htmls = [

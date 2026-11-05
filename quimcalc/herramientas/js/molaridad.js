@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
       camposInvalidos.push('Peso Molecular');
 
     if (isNaN(pureza) || pureza <= 0 || pureza > 100)
-      camposInvalidos.push('Pureza (debe estar entre 1 y 100)');
+      camposInvalidos.push('Pureza (mayor que 0 y hasta 100 %)');
 
     /* Si hay campos inválidos, mostramos el error y detenemos el cálculo */
     if (camposInvalidos.length > 0) {
@@ -75,12 +75,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const masa = (molaridad * volumenLitros * pesoMolecular) / (pureza / 100);
 
     /* ── Mostramos el resultado ──────────────────────────────
-       toFixed(4) muestra 4 decimales: ej. 2.0408
+       QCFormato.masa usa cifras significativas y pasa a mg o µg
+       si la masa es chica (antes toFixed(4) mostraba «0,0000 g»).
        ──────────────────────────────────────────────────────── */
     const textoFormula =
       `masa = (${molaridad} mol/L × ${volumenLitros} L × ${pesoMolecular} g/mol) / (${pureza}% / 100)`;
 
-    mostrarResultado(masa.toFixed(4) + ' g', textoFormula);
+    mostrarResultado(QCFormato.masa(masa), textoFormula);
   });
 
   /* ── Función auxiliar: muestra un resultado exitoso ──────── */

@@ -12,11 +12,32 @@
    El usuario puede escribir con coma o con punto. También se adaptan
    los campos que las herramientas crean después (MutationObserver).
    Los campos adaptados quedan marcados con data-decimal.
+
+   Validación estricta: si el texto no es un número completo
+   («1.000,5», «1,2,3», «5-3»), la lectura devuelve «NaN» y el campo
+   se marca con aria-invalid, para que la calculadora muestre su
+   mensaje de error en lugar de calcular con un número truncado.
+
+   En todas las páginas (también en inglés), Enter en un campo de
+   una calculadora equivale a pulsar su botón principal.
    ============================================================ */
 (function () {
   'use strict';
 
-  // En inglés la coma es separador de miles («1,000»): no se toca nada.
+  // Enter = calcular (botón principal de la misma calculadora)
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Enter' || ev.isComposing || ev.defaultPrevented) return;
+    var campo = ev.target;
+    if (!campo || campo.tagName !== 'INPUT' || /^(button|submit|checkbox|radio|search)$/.test(campo.type)) return;
+    if (campo.closest('form')) return;   // un formulario ya maneja su envío
+    var cont = campo.closest('.calculadora, .card-calculadora, .tarjeta-calculadora, section, main');
+    var boton = cont && cont.querySelector('.btn--primario');
+    if (!boton || boton.disabled) return;
+    ev.preventDefault();
+    boton.click();
+  });
+
+  // En inglés la coma es separador de miles («1,000»): no se toca nada más.
   if ((document.documentElement.lang || '').slice(0, 2) === 'en') return;
 
   var nativo = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
@@ -26,6 +47,18 @@
   function aComa(s)  { return String(s).replace(/\./g, ','); }
   // Solo dígitos, separador decimal, signo y exponente (1,8e-5)
   var PERMITIDOS = /[^0-9.,eE+\-]/g;
+  // Número completo: signo opcional, un solo separador decimal, exponente opcional
+  var NUMERO = /^[+-]?(\d+([.]\d*)?|[.]\d+)([eE][+-]?\d+)?$/;
+
+  function leer(input) {
+    var crudo = aPunto(nativo.get.call(input));
+    if (crudo === '' || NUMERO.test(crudo)) {
+      input.removeAttribute('aria-invalid');
+      return crudo;
+    }
+    input.setAttribute('aria-invalid', 'true');
+    return 'NaN';   // parseFloat('NaN') → NaN: la calculadora pide revisar el campo
+  }
 
   function adaptar(input) {
     if (input.dataset.decimal || input.type !== 'number') return;
@@ -39,7 +72,7 @@
 
     Object.defineProperty(input, 'value', {
       configurable: true,
-      get: function () { return aPunto(nativo.get.call(this)); },
+      get: function () { return leer(this); },
       set: function (v) { nativo.set.call(this, v == null ? '' : aComa(v)); }
     });
     if (previo) input.value = previo;

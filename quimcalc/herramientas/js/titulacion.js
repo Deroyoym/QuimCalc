@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const inputValenciaAn  = document.getElementById('valencia-analito');
   const inputPM          = document.getElementById('pm-analito');
   const inputMasaMuestra = document.getElementById('masa-muestra');
+  const inputVolMatraz   = document.getElementById('vol-matraz');
   const botonCalcular    = document.getElementById('btn-calcular');
   const bloqueResultado  = document.getElementById('resultado');
   const valorResultado   = document.getElementById('resultado-valor');
@@ -54,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
       inputVtit.readOnly = true;
       grupoOpcionales.hidden = true;
     } else {
-      inputVtit.placeholder = 'Ej: 12.5';
+      inputVtit.placeholder = 'Ej: 12,5';
       inputVtit.readOnly = false;
       grupoOpcionales.hidden = false;
     }
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const formula  = `N(analito) = (${Ntit} N × ${Vtit} mL) / ${Vmuestra} mL`;
 
       mostrarResultado(
-        `N(analito) = ${Nanalito.toFixed(5)} N`,
+        `N(analito) = ${QCFormato.num(Nanalito, 5)} N`,
         'Normalidad del analito',
         formula
       );
@@ -92,15 +93,25 @@ document.addEventListener('DOMContentLoaded', function () {
       const valencia    = parseFloat(inputValenciaAn.value);
       const PM          = parseFloat(inputPM.value);
       const masaMuestra = parseFloat(inputMasaMuestra.value);
+      const vMatraz     = parseFloat(inputVolMatraz.value);
       const extras      = [];
+
+      /* Datos opcionales cargados sin la valencia: avisar en lugar de ignorarlos */
+      if ((isNaN(valencia) || valencia <= 0) && (!isNaN(PM) || !isNaN(masaMuestra))) {
+        extras.push({
+          titulo: 'Falta la valencia del analito',
+          valor:  'Completá la valencia para calcular la molaridad, la masa y el %.',
+          formula: 'M = N / valencia',
+        });
+      }
 
       /* Concentración molar */
       if (!isNaN(valencia) && valencia > 0) {
         const Manalito = Nanalito / valencia;
         extras.push({
           titulo: 'Concentración molar del analito',
-          valor:  `M(analito) = ${Manalito.toFixed(5)} mol/L`,
-          formula: `M = N / valencia = ${Nanalito.toFixed(5)} / ${valencia}`,
+          valor:  `M(analito) = ${QCFormato.num(Manalito, 5)} mol/L`,
+          formula: `M = N / valencia = ${QCFormato.num(Nanalito, 5)} / ${valencia}`,
         });
 
         /* Masa del analito en la muestra */
@@ -109,18 +120,31 @@ document.addEventListener('DOMContentLoaded', function () {
           const masaAnalito = Manalito * (Vmuestra / 1000) * PM;
           extras.push({
             titulo: 'Masa del analito en la alícuota',
-            valor:  `${masaAnalito.toFixed(5)} g`,
-            formula: `masa = M × V(muestra en L) × PM = ${Manalito.toFixed(5)} × ${(Vmuestra/1000).toFixed(4)} × ${PM}`,
+            valor:  QCFormato.masa(masaAnalito, 5),
+            formula: `masa = M × V(muestra en L) × PM = ${QCFormato.num(Manalito, 5)} × ${Vmuestra/1000} × ${PM}`,
           });
 
           /* % del analito en muestra sólida */
           if (!isNaN(masaMuestra) && masaMuestra > 0) {
-            const porcentaje = (masaAnalito / masaMuestra) * 100;
-            extras.push({
-              titulo: '% del analito en la muestra',
-              valor:  `${porcentaje.toFixed(4)} %`,
-              formula: `% = (${masaAnalito.toFixed(5)} g / ${masaMuestra} g) × 100`,
-            });
+            /* Si se tituló una alícuota de un matraz, la masa total es mayor */
+            const usaMatraz  = !isNaN(vMatraz) && vMatraz > 0;
+            if (usaMatraz && vMatraz < Vmuestra) {
+              extras.push({
+                titulo: 'Revisá el volumen del matraz',
+                valor:  'El volumen del matraz no puede ser menor que el de la alícuota titulada.',
+                formula: '',
+              });
+            } else {
+              const factorAl   = usaMatraz ? vMatraz / Vmuestra : 1;
+              const porcentaje = (masaAnalito * factorAl / masaMuestra) * 100;
+              extras.push({
+                titulo: '% del analito en la muestra',
+                valor:  `${QCFormato.num(porcentaje, 5)} %`,
+                formula: usaMatraz
+                  ? `% = (${QCFormato.num(masaAnalito, 5)} g × ${vMatraz} mL / ${Vmuestra} mL) / ${masaMuestra} g × 100`
+                  : `% = (${QCFormato.num(masaAnalito, 5)} g / ${masaMuestra} g) × 100`,
+              });
+            }
           }
         }
       }
@@ -142,8 +166,9 @@ document.addEventListener('DOMContentLoaded', function () {
       const VtitCalc = (Nanalito * Vmuestra) / Ntit;
       const formula  = `V(tit) = (${Nanalito} N × ${Vmuestra} mL) / ${Ntit} N`;
 
+      inputVtit.value = Number(VtitCalc.toPrecision(5));   /* el campo decía «Se calculará automáticamente» */
       mostrarResultado(
-        `V(titulante) = ${VtitCalc.toFixed(4)} mL`,
+        `V(titulante) = ${QCFormato.num(VtitCalc, 5)} mL`,
         'Volumen de titulante esperado',
         formula
       );

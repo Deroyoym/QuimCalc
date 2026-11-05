@@ -88,6 +88,10 @@
       var necesitaMInput = unidadInfo && unidadInfo.necesitaM;
 
       if (!valStr || isNaN(val) || val < 0) {
+        if (valStr && (isNaN(val) || val < 0)) {
+          document.getElementById('error-texto').textContent = 'Ingresá una concentración válida, mayor o igual a cero.';
+          errorDiv.style.display = 'block';
+        }
         renderGrid(null, null, false);
         return;
       }
@@ -148,7 +152,7 @@
 
         html +=
           '<div class="' + claseCard + '" role="listitem"' +
-          (puedeCalcular ? ' data-valor="' + valorStr + '" title="Clic para copiar"' : '') +
+          (puedeCalcular ? ' data-valor="' + valorStr + ' ' + u.label.replace(/<[^>]+>/g, '') + '" title="Clic para copiar"' : '') +
           '>' +
           '<span class="conv-card__unidad">' + u.label + '</span>' +
           '<span class="' + claseValor + '">' + conComa(valorStr) + '</span>' +

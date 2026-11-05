@@ -32,10 +32,10 @@
 
     .tp-grilla {
       display: grid;
-      grid-template-columns: repeat(18, minmax(32px, 1fr));
+      grid-template-columns: repeat(18, minmax(38px, 1fr));
       grid-auto-rows: auto;
       gap: 2px;
-      min-width: 590px;
+      min-width: 700px;
     }
 
     /* ── CELDA DE ELEMENTO ────────────────────────────────── */
@@ -72,9 +72,11 @@
       pointer-events: none;
     }
 
-    .el-n  { font-size: 7px;   line-height: 1;   opacity: 0.8; align-self: flex-start; padding-left: 2px; }
-    .el-s  { font-size: 14px;  font-weight: 600; line-height: 1.1; }
-    .el-nm { font-size: 5.5px; opacity: 0.75;    line-height: 1; text-align: center; }
+    .el-n  { font-size: 9px;   line-height: 1;   align-self: flex-start; padding-left: 2px; }
+    .el-s  { font-size: 15px;  font-weight: 600; line-height: 1.1; }
+    .el-nm { font-size: 8px;   line-height: 1.1; text-align: center; max-width: 100%;
+             overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 1px; }
+    .el-cel:focus-visible, .ley-item:focus-visible { outline: 3px solid var(--color-acento, #1A5C38); outline-offset: 1px; z-index: 11; }
 
     /* ── PLACEHOLDERS Y ETIQUETAS ─────────────────────────── */
     .el-ph {
@@ -82,7 +84,7 @@
       align-items: center;
       justify-content: center;
       min-height: 50px;
-      font-size: 7px;
+      font-size: 9px;
       color: var(--color-texto-suave);
       border: 1px dashed var(--color-borde);
       border-radius: 3px;
@@ -93,7 +95,7 @@
       align-items: center;
       justify-content: flex-end;
       min-height: 50px;
-      font-size: 6.5px;
+      font-size: 9px;
       font-style: italic;
       color: var(--color-texto-suave);
       padding-right: 3px;

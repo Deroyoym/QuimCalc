@@ -28,6 +28,7 @@
     'TET': 'Tetragonal',
     'TRI': 'Trigonal',
     'CUB': 'Cúbica simple',
+    'CUBC': 'Cúbica compleja (α-Mn, 58 átomos por celda)',
     'HEX': 'Hexagonal (molecular)',
     '?':   '—',
   };
@@ -40,11 +41,11 @@
   //          [7]estado [8]EN [9]oxidacion [10]config [11]cristal [12]año [13]isótopos
   const EL = [
     [1,'H','Hidrógeno','1.008',5,1,1,'g',2.20,'+1, −1','1s¹','HEX',1766,'2 estables (¹H, ²H)'],
-    [2,'He','Helio','4.003',7,18,1,'g',null,'0','1s²','FCC',1895,'2 estables (³He, ⁴He)'],
-    [3,'Li','Litio','6.941',0,1,2,'s',0.98,'+1','[He] 2s¹','CC',1817,'2 estables (⁶Li, ⁷Li)'],
+    [2,'He','Helio','4.003',7,18,1,'g',null,'0','1s²','HCP',1895,'2 estables (³He, ⁴He)'],
+    [3,'Li','Litio','6.94',0,1,2,'s',0.98,'+1','[He] 2s¹','CC',1817,'2 estables (⁶Li, ⁷Li)'],
     [4,'Be','Berilio','9.012',1,2,2,'s',1.57,'+2','[He] 2s²','HCP',1797,'1 estable (⁹Be)'],
     [5,'B','Boro','10.81',4,13,2,'s',2.04,'+3','[He] 2s²2p¹','ROM',1808,'2 estables (¹⁰B, ¹¹B)'],
-    [6,'C','Carbono','12.01',5,14,2,'s',2.55,'+4, −4','[He] 2s²2p²','DIA',null,'3 estables (¹²C, ¹³C, ¹⁴C*)'],
+    [6,'C','Carbono','12.01',5,14,2,'s',2.55,'+4, −4','[He] 2s²2p²','DIA',null,'2 estables (¹²C, ¹³C); ¹⁴C radiactivo'],
     [7,'N','Nitrógeno','14.01',5,15,2,'g',3.04,'−3, +3, +5','[He] 2s²2p³','HEX',1772,'2 estables (¹⁴N, ¹⁵N)'],
     [8,'O','Oxígeno','16.00',5,16,2,'g',3.44,'−2','[He] 2s²2p⁴','CUB',1774,'3 estables (¹⁶O, ¹⁷O, ¹⁸O)'],
     [9,'F','Flúor','19.00',6,17,2,'g',3.98,'−1','[He] 2s²2p⁵','MON',1886,'1 estable (¹⁹F)'],
@@ -57,13 +58,13 @@
     [16,'S','Azufre','32.06',5,16,3,'s',2.58,'−2, +4, +6','[Ne] 3s²3p⁴','ORT',null,'4 estables (³²S–³⁶S)'],
     [17,'Cl','Cloro','35.45',6,17,3,'g',3.16,'−1, +1, +5, +7','[Ne] 3s²3p⁵','ORT',1774,'2 estables (³⁵Cl, ³⁷Cl)'],
     [18,'Ar','Argón','39.95',7,18,3,'g',null,'0','[Ne] 3s²3p⁶','FCC',1894,'3 estables (³⁶Ar, ³⁸Ar, ⁴⁰Ar)'],
-    [19,'K','Potasio','39.10',0,1,4,'s',0.82,'+1','[Ar] 4s¹','CC',1807,'3 estables (³⁹K, ⁴⁰K*, ⁴¹K)'],
+    [19,'K','Potasio','39.10',0,1,4,'s',0.82,'+1','[Ar] 4s¹','CC',1807,'2 estables (³⁹K, ⁴¹K); ⁴⁰K radiactivo natural'],
     [20,'Ca','Calcio','40.08',1,2,4,'s',1.00,'+2','[Ar] 4s²','FCC',1808,'6 estables (⁴⁰Ca–⁴⁸Ca)'],
     [21,'Sc','Escandio','44.96',2,3,4,'s',1.36,'+3','[Ar] 3d¹4s²','HCP',1879,'1 estable (⁴⁵Sc)'],
     [22,'Ti','Titanio','47.87',2,4,4,'s',1.54,'+2, +3, +4','[Ar] 3d²4s²','HCP',1791,'5 estables (⁴⁶Ti–⁵⁰Ti)'],
     [23,'V','Vanadio','50.94',2,5,4,'s',1.63,'+2, +3, +4, +5','[Ar] 3d³4s²','CC',1801,'2 estables (⁵⁰V, ⁵¹V)'],
     [24,'Cr','Cromo','52.00',2,6,4,'s',1.66,'+2, +3, +6','[Ar] 3d⁵4s¹','CC',1797,'4 estables (⁵⁰Cr, ⁵²Cr, ⁵³Cr, ⁵⁴Cr)'],
-    [25,'Mn','Manganeso','54.94',2,7,4,'s',1.55,'+2, +4, +7','[Ar] 3d⁵4s²','CUB',1774,'1 estable (⁵⁵Mn)'],
+    [25,'Mn','Manganeso','54.94',2,7,4,'s',1.55,'+2, +4, +7','[Ar] 3d⁵4s²','CUBC',1774,'1 estable (⁵⁵Mn)'],
     [26,'Fe','Hierro','55.85',2,8,4,'s',1.83,'+2, +3','[Ar] 3d⁶4s²','CC',null,'4 estables (⁵⁴Fe, ⁵⁶Fe, ⁵⁷Fe, ⁵⁸Fe)'],
     [27,'Co','Cobalto','58.93',2,9,4,'s',1.88,'+2, +3','[Ar] 3d⁷4s²','HCP',1735,'1 estable (⁵⁹Co)'],
     [28,'Ni','Níquel','58.69',2,10,4,'s',1.91,'+2','[Ar] 3d⁸4s²','FCC',1751,'5 estables (⁵⁸Ni, ⁶⁰Ni, ⁶¹Ni, ⁶²Ni, ⁶⁴Ni)'],
@@ -80,7 +81,7 @@
     [39,'Y','Itrio','88.91',2,3,5,'s',1.22,'+3','[Kr] 4d¹5s²','HCP',1794,'1 estable (⁸⁹Y)'],
     [40,'Zr','Circonio','91.22',2,4,5,'s',1.33,'+4','[Kr] 4d²5s²','HCP',1789,'5 estables (⁹⁰Zr–⁹⁶Zr)'],
     [41,'Nb','Niobio','92.91',2,5,5,'s',1.60,'+3, +5','[Kr] 4d⁴5s¹','CC',1801,'1 estable (⁹³Nb)'],
-    [42,'Mo','Molibdeno','95.96',2,6,5,'s',2.16,'+4, +6','[Kr] 4d⁵5s¹','CC',1778,'7 estables (⁹²Mo–¹⁰⁰Mo)'],
+    [42,'Mo','Molibdeno','95.95',2,6,5,'s',2.16,'+4, +6','[Kr] 4d⁵5s¹','CC',1778,'7 estables (⁹²Mo–¹⁰⁰Mo)'],
     [43,'Tc','Tecnecio','(98)',2,7,5,'s',1.90,'+4, +7','[Kr] 4d⁵5s²','HCP',1937,'Radiactivo (⁹⁸Tc, t½ = 4.2 Ma)'],
     [44,'Ru','Rutenio','101.1',2,8,5,'s',2.20,'+2, +3, +4','[Kr] 4d⁷5s¹','HCP',1844,'7 estables (⁹⁶Ru–¹⁰⁴Ru)'],
     [45,'Rh','Rodio','102.9',2,9,5,'s',2.28,'+2, +3','[Kr] 4d⁸5s¹','FCC',1803,'1 estable (¹⁰³Rh)'],
@@ -102,10 +103,10 @@
     [61,'Pm','Prometio','(145)',8,7,9,'s',null,'+3','[Xe] 4f⁵6s²','HCP',1945,'Radiactivo (¹⁴⁵Pm, t½ = 17.7 a)'],
     [62,'Sm','Samario','150.4',8,8,9,'s',1.17,'+2, +3','[Xe] 4f⁶6s²','ROM',1879,'7 estables (¹⁴⁴Sm–¹⁵⁴Sm)'],
     [63,'Eu','Europio','152.0',8,9,9,'s',null,'+2, +3','[Xe] 4f⁷6s²','CC',1901,'2 estables (¹⁵¹Eu, ¹⁵³Eu)'],
-    [64,'Gd','Gadolinio','157.3',8,10,9,'s',1.20,'+3','[Xe] 4f⁷5d¹6s²','HCP',1880,'7 estables (¹⁵²Gd–¹⁶⁰Gd)'],
+    [64,'Gd','Gadolinio','157.25',8,10,9,'s',1.20,'+3','[Xe] 4f⁷5d¹6s²','HCP',1880,'7 estables (¹⁵²Gd–¹⁶⁰Gd)'],
     [65,'Tb','Terbio','158.9',8,11,9,'s',null,'+3, +4','[Xe] 4f⁹6s²','HCP',1843,'1 estable (¹⁵⁹Tb)'],
     [66,'Dy','Disprosio','162.5',8,12,9,'s',1.22,'+3','[Xe] 4f¹⁰6s²','HCP',1886,'7 estables (¹⁵⁶Dy–¹⁶⁴Dy)'],
-    [67,'Ho','Holmio','164.9',8,13,9,'s',1.23,'+3','[Xe] 4f¹¹6s²','HCP',1867,'1 estable (¹⁶⁵Ho)'],
+    [67,'Ho','Holmio','164.9',8,13,9,'s',1.23,'+3','[Xe] 4f¹¹6s²','HCP',1878,'1 estable (¹⁶⁵Ho)'],
     [68,'Er','Erbio','167.3',8,14,9,'s',1.24,'+3','[Xe] 4f¹²6s²','HCP',1843,'6 estables (¹⁶²Er–¹⁷⁰Er)'],
     [69,'Tm','Tulio','168.9',8,15,9,'s',1.25,'+3','[Xe] 4f¹³6s²','HCP',1879,'1 estable (¹⁶⁹Tm)'],
     [70,'Yb','Iterbio','173.0',8,16,9,'s',null,'+2, +3','[Xe] 4f¹⁴6s²','FCC',1878,'7 estables (¹⁶⁸Yb–¹⁷⁶Yb)'],
@@ -122,7 +123,7 @@
     [81,'Tl','Talio','204.4',3,13,6,'s',1.62,'+1, +3','[Xe] 4f¹⁴5d¹⁰6s²6p¹','HCP',1861,'2 estables (²⁰³Tl, ²⁰⁵Tl)'],
     [82,'Pb','Plomo','207.2',3,14,6,'s',2.33,'+2, +4','[Xe] 4f¹⁴5d¹⁰6s²6p²','FCC',null,'4 estables (²⁰⁴Pb–²⁰⁸Pb)'],
     [83,'Bi','Bismuto','209.0',3,15,6,'s',2.02,'+3, +5','[Xe] 4f¹⁴5d¹⁰6s²6p³','ROM',1753,'1 estable (²⁰⁹Bi*)'],
-    [84,'Po','Polonio','(209)',4,16,6,'s',2.00,'+2, +4','[Xe] 4f¹⁴5d¹⁰6s²6p⁴','CUB',1898,'Radiactivo (²⁰⁹Po, t½ = 102 a)'],
+    [84,'Po','Polonio','(209)',4,16,6,'s',2.00,'+2, +4','[Xe] 4f¹⁴5d¹⁰6s²6p⁴','CUB',1898,'Radiactivo (²⁰⁹Po, t½ ≈ 124 a)'],
     [85,'At','Astato','(210)',6,17,6,'s',2.20,'−1, +1','[Xe] 4f¹⁴5d¹⁰6s²6p⁵','?',1940,'Radiactivo (²¹⁰At, t½ = 8.1 h)'],
     [86,'Rn','Radón','(222)',7,18,6,'g',null,'0','[Xe] 4f¹⁴5d¹⁰6s²6p⁶','FCC',1900,'Radiactivo (²²²Rn, t½ = 3.8 d)'],
     [87,'Fr','Francio','(223)',0,1,7,'s',0.70,'+1','[Rn] 7s¹','CC',1939,'Radiactivo (²²³Fr, t½ = 22 min)'],
@@ -130,7 +131,7 @@
     [89,'Ac','Actinio','(227)',9,3,10,'s',1.10,'+3','[Rn] 6d¹7s²','FCC',1899,'Radiactivo (²²⁷Ac, t½ = 21.8 a)'],
     [90,'Th','Torio','232.0',9,4,10,'s',1.30,'+4','[Rn] 6d²7s²','FCC',1829,'Radiactivo (²³²Th, t½ = 14 Ga)'],
     [91,'Pa','Protactinio','231.0',9,5,10,'s',1.50,'+5','[Rn] 5f²6d¹7s²','TET',1913,'Radiactivo (²³¹Pa, t½ = 32760 a)'],
-    [92,'U','Uranio','238.0',9,6,10,'s',1.38,'+3, +4, +5, +6','[Rn] 5f³6d¹7s²','ORT',1789,'3 estables (²³⁴U, ²³⁵U, ²³⁸U)'],
+    [92,'U','Uranio','238.0',9,6,10,'s',1.38,'+3, +4, +5, +6','[Rn] 5f³6d¹7s²','ORT',1789,'Radiactivo, sin isótopos estables (²³⁸U, t½ = 4,47 × 10⁹ a)'],
     [93,'Np','Neptunio','(237)',9,7,10,'s',1.36,'+3, +4, +5, +6','[Rn] 5f⁴6d¹7s²','ORT',1940,'Radiactivo (²³⁷Np, t½ = 2.14 Ma)'],
     [94,'Pu','Plutonio','(244)',9,8,10,'s',1.28,'+3, +4, +5, +6','[Rn] 5f⁶7s²','MON',1940,'Radiactivo (²⁴⁴Pu, t½ = 80 Ma)'],
     [95,'Am','Americio','(243)',9,9,10,'s',1.13,'+3','[Rn] 5f⁷7s²','HCP',1944,'Radiactivo (²⁴³Am, t½ = 7370 a)'],
@@ -141,7 +142,7 @@
     [100,'Fm','Fermio','(257)',9,14,10,'s',null,'+3','[Rn] 5f¹²7s²','?',1952,'Radiactivo (²⁵⁷Fm, t½ = 100.5 d)'],
     [101,'Md','Mendelevio','(258)',9,15,10,'s',null,'+2, +3','[Rn] 5f¹³7s²','?',1955,'Radiactivo (²⁵⁸Md, t½ = 51.5 d)'],
     [102,'No','Nobelio','(259)',9,16,10,'s',null,'+2, +3','[Rn] 5f¹⁴7s²','?',1958,'Radiactivo (²⁵⁹No, t½ = 58 min)'],
-    [103,'Lr','Laurencio','(266)',9,17,10,'s',null,'+3','[Rn] 5f¹⁴7s²7p¹','?',1961,'Radiactivo (²⁶²Lr, t½ = 3.6 h)'],
+    [103,'Lr','Laurencio','(266)',9,17,10,'s',null,'+3','[Rn] 5f¹⁴7s²7p¹','?',1961,'Radiactivo (²⁶⁶Lr, t½ ≈ 11 h)'],
     [104,'Rf','Rutherfordio','(267)',2,4,7,'s',null,'+4','[Rn] 5f¹⁴6d²7s²','?',1964,'Radiactivo (²⁶⁷Rf, t½ = 1.3 h)'],
     [105,'Db','Dubnio','(268)',2,5,7,'s',null,'+5','[Rn] 5f¹⁴6d³7s²','?',1970,'Radiactivo (²⁶⁸Db, t½ = 29 h)'],
     [106,'Sg','Seaborgio','(271)',2,6,7,'s',null,'+6','[Rn] 5f¹⁴6d⁴7s²','?',1974,'Radiactivo (²⁷¹Sg, t½ = 2.4 min)'],
@@ -165,6 +166,7 @@
   const buscarInput  = document.getElementById('tp-buscar');
   const featureZona  = document.getElementById('feature-zona');
   const featureCard  = document.getElementById('feature-card');
+  featureCard.setAttribute('aria-live', 'polite');
   const featureFrente = document.getElementById('feature-frente');
   const featureDorso  = document.getElementById('feature-dorso');
   const flipHint     = document.getElementById('flip-hint');
@@ -179,16 +181,36 @@
     const [num, sym, name, , ci, col, fila] = e;
     const d = document.createElement('div');
     d.className = 'el-cel';
-    d.setAttribute('role', 'listitem');
+    d.setAttribute('role', 'button');
+    d.tabIndex = 0;
+    d.dataset.col = col;
+    d.dataset.fila = fila;
     d.setAttribute('aria-label', `${name}, número atómico ${num}`);
     d.title = `${name} (${sym})  Z = ${num}`;
     d.style.cssText = `grid-column:${col};grid-row:${fila};background:${CAT[ci][2]};color:${CAT[ci][3]}`;
     const disp = name.length > 9 ? name.slice(0, 8) + '…' : name;
     d.innerHTML = `<span class="el-n">${num}</span><span class="el-s">${sym}</span><span class="el-nm">${disp}</span>`;
     d.addEventListener('click', () => seleccionar(e, d));
+    d.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); seleccionar(e, d); return; }
+      const mov = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[ev.key];
+      if (!mov) return;
+      ev.preventDefault();
+      moverFoco(col, fila, mov[0], mov[1]);
+    });
     grilla.appendChild(d);
     cells[num] = d;
   });
+
+  // Navegación con flechas: busca la celda más cercana en esa dirección
+  function moverFoco(col, fila, dc, df) {
+    let c = col + dc, f = fila + df;
+    for (let i = 0; i < 18; i++, c += dc, f += df) {
+      if (c < 1 || c > 18 || f < 1 || f > 10) return;
+      const destino = grilla.querySelector(`.el-cel[data-col="${c}"][data-fila="${f}"]`);
+      if (destino) { destino.focus(); return; }
+    }
+  }
 
   // Placeholders de lantánidos/actínidos en la tabla principal
   [[3,6,'57–71'],[3,7,'89–103']].forEach(([c,r,lbl]) => {
@@ -218,30 +240,41 @@
   CAT.forEach(([, nombre, bg], i) => {
     const li = document.createElement('div');
     li.className = 'ley-item';
-    li.setAttribute('role', 'listitem');
+    li.setAttribute('role', 'button');
+    li.tabIndex = 0;
+    li.setAttribute('aria-pressed', 'false');
     li.innerHTML = `<span class="ley-color" style="background:${bg}"></span>${nombre}`;
-    li.addEventListener('click', () => {
+    const alternar = () => {
       if (catActiva === i) {
         catActiva = null;
         li.classList.remove('activo');
+        li.setAttribute('aria-pressed', 'false');
       } else {
-        document.querySelectorAll('.ley-item').forEach(x => x.classList.remove('activo'));
+        document.querySelectorAll('.ley-item').forEach(x => { x.classList.remove('activo'); x.setAttribute('aria-pressed', 'false'); });
         catActiva = i;
         li.classList.add('activo');
+        li.setAttribute('aria-pressed', 'true');
       }
       filtrar();
+    };
+    li.addEventListener('click', alternar);
+    li.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); alternar(); }
     });
     leyendaEl.appendChild(li);
   });
 
   // ── FILTRADO ─────────────────────────────────────────────────
+  // «oxigeno» encuentra «Oxígeno»
+  function sinTildes(s) { return s.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+
   function filtrar() {
-    const q = buscarInput.value.toLowerCase().trim();
+    const q = sinTildes(buscarInput.value.toLowerCase().trim());
     EL.forEach(e => {
       const [num, sym, name, , ci] = e;
       const cel = cells[num];
       if (!cel) return;
-      const mq = !q || sym.toLowerCase().includes(q) || name.toLowerCase().includes(q) || String(num).includes(q);
+      const mq = !q || sym.toLowerCase().includes(q) || sinTildes(name.toLowerCase()).includes(q) || String(num).includes(q);
       const mc = catActiva === null || ci === catActiva;
       cel.classList.toggle('dim', !(mq && mc));
     });

@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ── Agregar punto con Enter o botón ────────────────────── */
   [inputX, inputY].forEach(function (el) {
     el.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') agregarPunto();
+      if (e.key === 'Enter') { e.preventDefault(); agregarPunto(); }
     });
   });
 

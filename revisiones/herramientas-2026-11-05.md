@@ -193,3 +193,64 @@ No hace falta un agente de navegador aparte: esa parte la cubre la batería de p
 | **3. Herramientas nuevas rápidas** | Karl Fischer, factor de corrección/estandarización, normalidad | M |
 | **4. Mejoras de las existentes** | Molaridad multi-incógnita y desde % + densidad; receta de buffer con cálculo exacto; titulación con alícuota, blanco y modo molar; diluciones con unidades, solvente y CSV; búsqueda robusta y filtros en las tablas; enlaces pKa → buffers y tabla periódica → masa molar; selector de indicador | L |
 | **5. Herramientas nuevas medianas** | Calibración gravimétrica, Beer-Lambert, carta de control, t/F, reactivo limitante | L |
+
+---
+
+## 7. Aplicado el 2026-11-05 (fases 1 y 2)
+
+**Fase 1: correcciones**
+- [x] C1: formateador común `js/formato-numero.js` (`QCFormato`). Se aplicó en molaridad, diluciones, diluciones seriadas, solución desde sólido, conversor M↔N y ppm, dureza, concentración %, titulación y relación de buffers.
+- [x] C2: masa molar.
+  - Analizador estricto: minúsculas, caracteres raros, «()» y separadores mal puestos dan error.
+  - Acepta hidratos (·, •, *, .), corchetes y coeficiente inicial.
+  - 118 elementos en `herramientas/js/masas-atomicas.js` (CIAAW/IUPAC 2021 + 2024).
+  - % en masa por elemento.
+  - Ejemplo: H₂SO₄ 98,072. FAQ de M<sub>r</sub>/u corregida.
+- [x] C3: °F por debajo de −459,67 da error.
+- [x] C4: solubilidad.
+  - AgOH → I (Ag₂O); Ag₂CrO₄ → I; CuI₂, FeI₃, Fe₂S₃ y FeCrO₄ → «—».
+  - MgS y CaS → «—»; BaS → S; Pb(OAc)₂ → S; HgCl₂ y Hg(OAc)₂ → S; HgSO₄ → «—»; Li₃PO₄ → I; CaCrO₄ → S; ZnCrO₄ → I.
+  - Fila Hg₂²⁺ nueva; cationes con `th scope=row`; reglas corregidas.
+  - «Resaltar» atenúa celdas y combina con el buscador; contraste de «—» corregido.
+- [x] C5: indicadores.
+  - «Uso típico» corregido en azul de bromofenol y azul de timol (2.ª).
+  - Verde y púrpura de bromocresol agregados (17 indicadores); orden por rango.
+  - Búsqueda sin tildes, aviso «sin resultados» y nota de la fenolftaleína a pH > 12.
+- [x] Tabla periódica.
+  - U sin isótopos estables; C y K corregidos; Lr ²⁶⁶Lr; Ho 1878; Mn cúbica compleja; He HCP; ²⁰⁹Po 124 a.
+  - Masas Li 6,94, Mo 95,95 y Gd 157,25.
+  - Celdas accesibles con teclado (Tab, flechas, Enter); leyenda con `aria-pressed`.
+  - Letra ≥ 8 px; búsqueda sin tildes; `aria-live` en la ficha.
+- [x] Tabla de pKa.
+  - Buffers de Good a 25 °C (Sigma); H₂SO₃, ftálico, tartárico y HNO₂ (Harris).
+  - EDTA con sus 6 pKa (Harris); fuentes corregidas, sin «NIST WebBook».
+  - Búsqueda con subíndices, tildes, «ácido» y sinónimos; contador con `aria-live`.
+- [x] Buffers: aviso con el pH exacto (balance de carga) cuando Henderson-Hasselbalch se aparta más de 0,05; aviso si la relación sale de 0,1–10. pH con 2 decimales; B(OH)₃/B(OH)₄⁻.
+- [x] Titulación: campo «volumen del matraz» (factor de alícuota), aviso si falta la valencia, placeholder con coma, el modo volumen completa el campo.
+- [x] Dureza.
+  - Sin «e-1»; °fH/°dH.
+  - Factores 17,848, 14,254 y 17,118.
+  - Atribuciones corregidas (la OMS no fija valor guía; los 400 mg/L son del CAA; la clasificación es de USGS).
+- [x] Rendimiento > 100 %: resultado con aviso; FAQ corregida.
+- [x] Diluciones: aviso si C₂ > C₁, unidad aclarada, factor de dilución y solvente a agregar.
+- [x] Diluciones seriadas: µL automático, sin «e+4», pasos enteros, frase del error acumulado.
+- [x] Solución desde sólido: g/L sin masa molar, grilla limpia tras error, barra de pureza > 100 %, ejemplo 2,937 g y 15 mg.
+- [x] Conversores: densidad ≤ 0 da error; sin ruido de coma flotante; valor negativo con mensaje; copiar con unidad.
+- [x] Transversales: `entrada-decimal.js` rechaza «1.000,5» y «1,2,3» (`aria-invalid`); Enter calcula; «Copiar resultado» sin MAYÚSCULAS.
+
+**Fase 2: proceso**
+- [x] `scripts/test_calculadoras.mjs`: 80 pruebas. Incluye las 30 páginas de herramientas (ES y EN), los casos por calculadora, las tablas y las masas atómicas.
+- [x] Agente `auditor-calculadoras`.
+- [x] Comandos `/revisar-herramienta` y `/nueva-herramienta`.
+- [x] INSTRUCCIONES.md, sección 7.
+
+**Pendiente (fases 3–5):**
+- Herramientas nuevas.
+- Molaridad con varias incógnitas.
+- Receta de buffer.
+- Retrotitulación y modo molar.
+- Dureza desde Ca/Mg.
+- CSV en diluciones seriadas.
+- Enlaces pKa → buffers y tabla periódica → masa molar.
+- Selector de indicador.
+- Kps.

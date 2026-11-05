@@ -54,12 +54,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* ── Calcular % de rendimiento ── */
     if (incognita === '% Rendimiento') {
-      if (mObt > mTeo) {
-        mostrarError('La masa obtenida no puede ser mayor a la masa teórica. Verificá los datos.');
-        return;
-      }
       resultado   = (mObt / mTeo) * 100;
       descripcion = '% de Rendimiento';
+      /* Más del 100 % ocurre con producto húmedo o impuro: se muestra con aviso */
+      if (mObt > mTeo) {
+        descripcion += ' — ⚠️ supera el 100 %: el producto probablemente está húmedo, impuro o con restos de solvente. Revisá el secado y la pureza, y también la masa teórica.';
+      }
       formula     = `% Rend. = (${mObt} g / ${mTeo} g) × 100`;
     }
 

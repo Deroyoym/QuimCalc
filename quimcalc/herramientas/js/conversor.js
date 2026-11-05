@@ -72,8 +72,15 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       /* Densidad de la solución; si queda vacía o es inválida, usamos 1 */
-      let densidad = parseFloat(inputDensidad.value);
-      if (isNaN(densidad) || densidad <= 0) densidad = 1;
+      /* Densidad: vacía → 1 g/mL (acuosa diluida); inválida o ≤ 0 → error */
+      let densidad = 1;
+      if (String(inputDensidad.value).trim() !== '') {
+        densidad = parseFloat(inputDensidad.value);
+        if (isNaN(densidad) || densidad <= 0) {
+          mostrarError('La densidad debe ser un número mayor que 0 (o dejala vacía para usar 1 g/mL).');
+          return;
+        }
+      }
 
       let ppm, mgl;
       if (dir === 'ppm-a-mgl') {
@@ -118,16 +125,16 @@ document.addEventListener('DOMContentLoaded', function () {
       if (dir === 'mol-a-norm') {
         const resultado = valor * valencia;
         mostrarResultado(
-          resultado.toFixed(4) + ' N',
+          formatear(resultado) + ' N',
           'N = M × valencia',
-          `${valor} M × ${valencia} = ${resultado} N`
+          `${valor} M × ${valencia} = ${formatear(resultado)} N`
         );
       } else {
         const resultado = valor / valencia;
         mostrarResultado(
-          resultado.toFixed(4) + ' M',
+          formatear(resultado) + ' M',
           'M = N / valencia',
-          `${valor} N ÷ ${valencia} = ${resultado} M`
+          `${valor} N ÷ ${valencia} = ${formatear(resultado)} M`
         );
       }
     }
@@ -138,10 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* Hasta 6 cifras significativas, sin ceros de relleno;
      notación científica para valores muy chicos o muy grandes. */
   function formatear(n) {
-    if (n === 0) return '0';
-    const abs = Math.abs(n);
-    if (abs < 1e-4 || abs >= 1e9) return n.toExponential(3);
-    return String(parseFloat(n.toPrecision(6)));
+    return QCFormato.num(n, 6, true);
   }
 
   /* Equivalencias del resultado ppm ↔ mg/L.

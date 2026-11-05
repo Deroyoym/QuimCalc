@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
   selectTipo.addEventListener('change', aplicarModo);
   aplicarModo();
 
-  function fmt(n) { return String(parseFloat(n.toPrecision(6))); }
+  function fmt(n) { return QCFormato.num(n, 6, true); }
 
   botonCalcular.addEventListener('click', function () {
 

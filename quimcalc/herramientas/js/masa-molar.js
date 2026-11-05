@@ -2,13 +2,16 @@
    CALCULADORA DE MASA MOLAR
    Archivo: herramientas/js/masa-molar.js
 
-   El usuario ingresa una fórmula química como "H2SO4" o "Ca(OH)2"
-   y el script suma los pesos atómicos de cada elemento.
+   El usuario ingresa una fórmula química como "H2SO4", "Ca(OH)2",
+   "CuSO4·5H2O" o "K4[Fe(CN)6]" y el script suma las masas atómicas.
 
    Lógica:
-     1. Tabla de masas atómicas (primeros 56 elementos + comunes)
-     2. Parser de fórmula química: maneja paréntesis y subíndices
-     3. Suma de masas y muestra el resultado con desglose
+     1. Masas atómicas de los 118 elementos (masas-atomicas.js, CIAAW/IUPAC)
+     2. Analizador estricto: cualquier carácter que no forme parte de un
+        símbolo, número, paréntesis o corchete da error (antes «h2o»
+        devolvía 0 sin avisar)
+     3. Hidratos con «·», «•», «*» o «.», y coeficiente inicial («2H2O»)
+     4. Suma de masas con desglose y % en masa de cada elemento
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -16,27 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* Coma decimal para todo texto visible */
   function conComa(s) { return String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
 
-  /* ── TABLA DE MASAS ATÓMICAS (g/mol) ────────────────────────
-     Fuente: IUPAC 2021. Redondeadas a 3 decimales.
-     ──────────────────────────────────────────────────────────── */
-  const MASAS_ATOMICAS = {
-    H:  1.008,   He: 4.003,   Li: 6.941,   Be: 9.012,
-    B:  10.811,  C:  12.011,  N:  14.007,  O:  15.999,
-    F:  18.998,  Ne: 20.180,  Na: 22.990,  Mg: 24.305,
-    Al: 26.982,  Si: 28.086,  P:  30.974,  S:  32.065,
-    Cl: 35.453,  Ar: 39.948,  K:  39.098,  Ca: 40.078,
-    Sc: 44.956,  Ti: 47.867,  V:  50.942,  Cr: 51.996,
-    Mn: 54.938,  Fe: 55.845,  Co: 58.933,  Ni: 58.693,
-    Cu: 63.546,  Zn: 65.38,   Ga: 69.723,  Ge: 72.630,
-    As: 74.922,  Se: 78.971,  Br: 79.904,  Kr: 83.798,
-    Rb: 85.468,  Sr: 87.620,  Y:  88.906,  Zr: 91.224,
-    Nb: 92.906,  Mo: 95.960,  Tc: 98.000,  Ru: 101.070,
-    Rh: 102.906, Pd: 106.420, Ag: 107.868, Cd: 112.411,
-    In: 114.818, Sn: 118.710, Sb: 121.760, Te: 127.600,
-    I:  126.904, Xe: 131.293, Cs: 132.905, Ba: 137.327,
-    La: 138.905, Ce: 140.116, Pb: 207.200, Hg: 200.590,
-    Au: 196.967, Pt: 195.084, W:  183.840, U:  238.029,
-  };
+  const MASAS_ATOMICAS = window.QCMasasAtomicas.MASAS;
 
   /* ── Referencias ────────────────────────────────────────── */
   const inputFormula    = document.getElementById('formula');
@@ -49,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* Calculamos también al presionar Enter en el input */
   inputFormula.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') botonCalcular.click();
+    if (e.key === 'Enter') { e.preventDefault(); botonCalcular.click(); }
   });
 
   botonCalcular.addEventListener('click', function () {
@@ -57,11 +40,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const formula = inputFormula.value.trim();
 
     if (!formula) {
-      mostrarError('Ingresá una fórmula química. Ej: H2SO4, Ca(OH)2, NaCl');
+      mostrarError('Ingresá una fórmula química. Ej: H2SO4, Ca(OH)2, CuSO4·5H2O');
       return;
     }
 
-    /* Intentamos parsear la fórmula */
     let composicion;
     try {
       composicion = parsearFormula(formula);
@@ -70,127 +52,123 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    /* Verificamos que todos los elementos estén en nuestra tabla */
-    const elementosDesconocidos = Object.keys(composicion).filter(
-      el => !(el in MASAS_ATOMICAS)
-    );
-
-    if (elementosDesconocidos.length > 0) {
-      mostrarError(
-        `Elemento(s) no reconocido(s): ${elementosDesconocidos.join(', ')}. ` +
-        'Verificá que el símbolo esté bien escrito (ej: Fe, no fe ni FE).'
-      );
-      return;
-    }
-
-    /* ── Calculamos la masa molar total ─────────────────────
-       Sumamos masa_atomica × cantidad para cada elemento.
-       ──────────────────────────────────────────────────────── */
+    /* ── Masa molar total y % en masa de cada elemento ───── */
     let masaTotal = 0;
-    const lineasDesglose = [];
+    for (const [el, n] of Object.entries(composicion)) masaTotal += MASAS_ATOMICAS[el] * n;
 
-    for (const [elemento, cantidad] of Object.entries(composicion)) {
-      const masaAtom   = MASAS_ATOMICAS[elemento];
-      const masaParcial = masaAtom * cantidad;
-      masaTotal        += masaParcial;
+    const lineasDesglose = Object.entries(composicion).map(function ([el, n]) {
+      const masaAtom = MASAS_ATOMICAS[el];
+      const parcial  = masaAtom * n;
+      return `${el}: ${n} × ${masaAtom} g/mol = ${parcial.toFixed(3)} g/mol (${(parcial / masaTotal * 100).toFixed(2)} %)`;
+    });
 
-      lineasDesglose.push(
-        `${elemento}: ${cantidad} × ${masaAtom.toFixed(3)} g/mol = ${masaParcial.toFixed(3)} g/mol`
-      );
-    }
-
-    mostrarResultado(
-      masaTotal.toFixed(3) + ' g/mol',
-      `Masa molar de ${formula}`,
-      lineasDesglose
-    );
+    mostrarResultado(masaTotal.toFixed(3) + ' g/mol', formula, lineasDesglose);
   });
 
-  /* ── PARSER DE FÓRMULA QUÍMICA ───────────────────────────
+  /* ── ANALIZADOR DE FÓRMULAS ──────────────────────────────
      Convierte "Ca(OH)2" → { Ca: 1, O: 2, H: 2 }
-     Maneja:
-       - Elementos con una o dos letras: H, Fe, Ca
-       - Subíndices numéricos: H2O → { H:2, O:1 }
-       - Paréntesis con subíndice: Ca(OH)2 → { Ca:1, O:2, H:2 }
-       - Paréntesis anidados: no es común en química inorgánica básica
+       - Símbolos de una o dos letras (mayúscula + minúscula opcional)
+       - Subíndices: H2O; paréntesis y corchetes anidados: K4[Fe(CN)6]
+       - Hidratos: CuSO4·5H2O (también con •, * o .)
+       - Coeficiente inicial: 2H2O → H4O2
+     Cualquier otro carácter da un error explicativo.
      ──────────────────────────────────────────────────────── */
-  function parsearFormula(formula) {
-    /* Usamos una función recursiva para manejar paréntesis */
-    const resultado = {};
+  function parsearFormula(texto) {
+    const limpio = texto.replace(/\s+/g, '')
+      .replace(/[\[{]/g, '(').replace(/[\]}]/g, ')')
+      .replace(/[₀-₉]/g, function (c) { return String(c.charCodeAt(0) - 0x2080); });
 
-    /* Expresión regular que encuentra:
-       - Paréntesis con contenido: \(([^()]+)\)(\d*)
-       - Elemento + subíndice: ([A-Z][a-z]?)(\d*)
-    */
-    function parsearGrupo(str) {
+    const total = {};
+    const partes = limpio.split(/[·•*.]/);
+    if (partes.some(function (p) { return p === ''; })) {
+      throw new Error('Revisá los separadores de hidrato: deben ir entre dos partes de la fórmula (ej: CuSO4·5H2O).');
+    }
+
+    partes.forEach(function (parte) {
+      /* Coeficiente inicial de cada parte («5H2O») */
+      const m = parte.match(/^(\d+)(.*)$/);
+      const coef = m ? parseInt(m[1], 10) : 1;
+      const resto = m ? m[2] : parte;
+      if (coef === 0) throw new Error('Un coeficiente no puede ser 0.');
+      if (!resto) throw new Error('Falta la fórmula después del número ' + coef + '.');
+      const conteo = analizar(resto);
+      for (const el in conteo) total[el] = (total[el] || 0) + conteo[el] * coef;
+    });
+    return total;
+  }
+
+  function analizar(f) {
+    let pos = 0;
+
+    function numero() {
+      const m = f.slice(pos).match(/^\d+/);
+      if (!m) return 1;
+      pos += m[0].length;
+      const n = parseInt(m[0], 10);
+      if (n === 0) throw new Error('Un subíndice no puede ser 0.');
+      return n;
+    }
+
+    function grupo(dentro) {
       const conteo = {};
-
-      /* Primero resolvemos los paréntesis de adentro hacia afuera */
-      let texto = str;
-
-      /* Reemplazamos grupos entre paréntesis por un marcador mientras procesamos */
-      const regexParentesis = /\(([^()]+)\)(\d*)/g;
-      let match;
-
-      /* Seguimos mientras haya paréntesis */
-      while (regexParentesis.test(texto)) {
-        texto = texto.replace(/\(([^()]+)\)(\d*)/g, function (_, contenido, multiplicador) {
-          const mult    = multiplicador ? parseInt(multiplicador) : 1;
-          const subConteoParsed = parsearGrupo(contenido);
-
-          /* Convertimos el subgrupo a una secuencia sin paréntesis */
-          /* Ej: OH con mult 2 → O2H2 */
-          let expansion = '';
-          for (const [el, cant] of Object.entries(subConteoParsed)) {
-            expansion += el + (cant * mult > 1 ? cant * mult : '');
+      let vacio = true;
+      while (pos < f.length) {
+        const c = f[pos];
+        if (c === '(') {
+          pos++;
+          const sub = grupo(true);
+          if (f[pos] !== ')') throw new Error('Falta cerrar un paréntesis. Revisá la fórmula.');
+          pos++;
+          const k = numero();
+          for (const el in sub) conteo[el] = (conteo[el] || 0) + sub[el] * k;
+          vacio = false;
+        } else if (c === ')') {
+          if (!dentro) throw new Error('Hay un paréntesis de cierre sin su apertura.');
+          break;
+        } else if (/[A-Z]/.test(c)) {
+          let simbolo = c;
+          if (/[a-z]/.test(f[pos + 1] || '')) simbolo += f[pos + 1];
+          if (!(simbolo in MASAS_ATOMICAS)) {
+            throw new Error(`Elemento no reconocido: «${simbolo}». Verificá el símbolo (ej: Fe, Cl, Ca).`);
           }
-          return expansion;
-        });
-
-        regexParentesis.lastIndex = 0; /* Reset del índice para re-evaluar */
+          pos += simbolo.length;
+          const k = numero();
+          conteo[simbolo] = (conteo[simbolo] || 0) + k;
+          vacio = false;
+        } else if (/[a-z]/.test(c)) {
+          throw new Error(`Los símbolos empiezan con mayúscula: revisá «${c}» (ej: Fe, no fe; H2O, no h2o).`);
+        } else if (/\d/.test(c)) {
+          throw new Error('Hay un número en un lugar inesperado. Los subíndices van después del símbolo o del paréntesis (ej: H2O, Ca(OH)2).');
+        } else {
+          throw new Error(`Carácter no válido: «${c}». Usá letras, números, paréntesis o corchetes, y «·» para los hidratos.`);
+        }
       }
-
-      /* Ahora parseamos la cadena limpia (sin paréntesis) */
-      const regexElemento = /([A-Z][a-z]?)(\d*)/g;
-      let matchEl;
-
-      while ((matchEl = regexElemento.exec(texto)) !== null) {
-        const elemento  = matchEl[1];
-        const cantidad  = matchEl[2] ? parseInt(matchEl[2]) : 1;
-
-        if (!conteo[elemento]) conteo[elemento] = 0;
-        conteo[elemento] += cantidad;
-      }
-
+      if (vacio) throw new Error(dentro ? 'Hay un paréntesis vacío.' : 'No se encontró ningún elemento en la fórmula.');
       return conteo;
     }
 
-    /* Validación básica: la fórmula solo debe tener letras, dígitos y paréntesis */
-    if (!/^[A-Za-z0-9()]+$/.test(formula)) {
-      throw new Error(
-        'La fórmula contiene caracteres no válidos. ' +
-        'Solo letras, números y paréntesis. Ej: Ca(OH)2, H2SO4'
-      );
-    }
+    const res = grupo(false);
+    if (pos < f.length) throw new Error('Hay un paréntesis de cierre sin su apertura.');
+    return res;
+  }
 
-    /* Verificamos que los paréntesis estén balanceados */
-    let nivel = 0;
-    for (const char of formula) {
-      if (char === '(') nivel++;
-      if (char === ')') nivel--;
-      if (nivel < 0) throw new Error('Los paréntesis no están balanceados. Revisá la fórmula.');
-    }
-    if (nivel !== 0) throw new Error('Los paréntesis no están balanceados. Revisá la fórmula.');
-
-    return parsearGrupo(formula);
+  /* Fórmula con subíndices para mostrar (sin pasar por text-transform) */
+  function formulaVisible(f) {
+    const span = document.createElement('span');
+    span.style.textTransform = 'none';
+    span.textContent = f.replace(/([A-Za-z)\]])(\d+)/g, function (_, a, n) {
+      return a + n.replace(/\d/g, function (d) { return '₀₁₂₃₄₅₆₇₈₉'[d]; });
+    });
+    return span;
   }
 
   /* ── Funciones de UI ────────────────────────────────────── */
   function mostrarResultado(valor, descripcion, lineasDesglose) {
     valor = conComa(valor);
-    if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, descripcion);
+    if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, 'Masa molar de ' + descripcion);
     bloqueResultado.classList.remove('resultado--error');
-    etiquetaResultado.textContent = descripcion;
+    etiquetaResultado.textContent = 'Masa molar de ';
+    etiquetaResultado.appendChild(formulaVisible(descripcion));
     valorResultado.textContent    = valor;
     formulaResultado.textContent  = '';
 
