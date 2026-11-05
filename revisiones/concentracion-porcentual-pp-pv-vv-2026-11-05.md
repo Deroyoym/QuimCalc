@@ -163,28 +163,29 @@ Se multiplica por 10, porque 1 % p/v son 1 g en 100 mL, es decir, 10 g en un lit
 Depende del contexto. En reactivos líquidos concentrados suele ser % p/p; en soluciones clínicas y biológicas, % p/v; y en alcoholes y bebidas, % v/v. Si la etiqueta no lo aclara, hay que consultar la ficha técnica o el certificado de análisis antes de hacer cualquier cálculo con ese valor.
 
 ## 7. Checklist de aplicación
-- [ ] Title A (53 con sufijo) en `<title>`, `og:title`, `twitter:title` y `posts.json`
-- [ ] Meta A (133) en description, OG, Twitter, Article y `posts.json`
-- [ ] Respuesta directa al principio, con las 3 fórmulas y un enlace a `concentracion-pp`
-- [ ] Quitar el encabezado «Introducción»; reestructurar los H2 según S5
-- [ ] 🔢 T1: corregir la descripción de la calculadora
-- [ ] 🔢 T2: corregir la explicación del factor 10
-- [ ] T3: cambiar a «solución salina» y agregar el aviso de uso de laboratorio
-- [ ] 🔢 T4: dejar enfriar a 20 °C (más la nota opcional de los 182 mL con etanol al 96 %)
-- [ ] 🔢 T5: masa molar 98,07 g/mol en el Ejemplo 4 y en la FAQ
-- [ ] T6, T7 y T8: notas breves (etiqueta del lote, % p/v > 100, seguridad del NaOH)
-- [ ] E1–E20: correcciones de estilo
-- [ ] Fórmulas en `div.post-formula`
-- [ ] Enlaces internos: convertir a rutas relativas y agregar los faltantes (reactivo comercial, conversor de concentración, masa molar, molaridad, ppm, C₁V₁)
-- [ ] FAQ de 5 preguntas en H3, igual en el JSON-LD `FAQPage`
-- [ ] Schema Article (headline = H1); decidir si se agrega BreadcrumbList
-- [ ] Imagen destacada .webp + tarjeta OG (`og_highlight` «9,1 % p/p»)
-- [ ] Entrada en `data/posts.json` y `sync_indexes.py`
-- [ ] Enlaces entrantes desde la calculadora y desde los 4 posts
-- [ ] Post de LinkedIn: L1–L9 (decidir tuteo o voseo)
+Aplicado el 2026-11-05 («Aplicar todo y maquetar»):
+- [x] Title A (53 con sufijo) en `<title>`, `og:title`, `twitter:title`; `posts.json` usa el H1, como el resto de los posts
+- [x] Meta A (133) en description, OG, Twitter, Article y `posts.json`
+- [x] Respuesta directa al principio, con las 3 fórmulas y un enlace a `concentracion-pp`
+- [x] Se quitó el encabezado «Introducción»; H2 reestructurados según S5
+- [x] 🔢 T1: descripción de la calculadora corregida (CTA)
+- [x] 🔢 T2: explicación del factor 10 corregida
+- [x] T3: cambiado a «solución salina fisiológica» + aviso de uso de laboratorio
+- [x] 🔢 T4: dejar enfriar a 20 °C + nota de 182 mL con etanol al 96 % (verificado: 70 × 250 / 96 = 182,3)
+- [x] 🔢 T5: masa molar 98,07 g/mol en el Ejemplo 4 y en la FAQ (18,4 M sin cambios)
+- [x] T6–T10: etiqueta del lote, % p/v > 100, seguridad del NaOH, evaporación, fracción másica
+- [x] E1–E20 aplicadas (E17 con M<sub>m</sub>; E19 con comillas «»)
+- [x] Fórmulas en `div.post-formula`
+- [x] Enlaces internos relativos + los faltantes (reactivo comercial, conversor de concentración, masa molar, molaridad, ppm, C₁V₁). `normalidad-vs-molaridad` (opcional) no se agregó
+- [x] FAQ de 5 preguntas en H3, generada igual en el JSON-LD `FAQPage`
+- [x] Schema Article (headline = H1) + BreadcrumbList (primera del sitio; ítem Blog = `/blog/index.html`, como en el sitemap)
+- [ ] Imagen destacada .webp + tarjeta OG: **pendiente de la imagen**. El alt está escrito para el prompt entregado; ajustarlo si la imagen difiere
+- [x] Entrada en `data/posts.json` y `sync_indexes.py`
+- [x] Enlaces entrantes: calculadora `concentracion-pp` (Para profundizar), `que-es-la-molaridad`, `formula-dilucion-c1v1-c2v2`, `como-preparar-hcl-1m-desde-hcl-37` (texto + sidebar), `que-son-las-ppm-y-como-convertirlas` (solo la FAQ visible; la del JSON-LD es texto plano)
+- [x] Post de LinkedIn: L1–L9 aplicadas, en tuteo neutro (decisión por «Aplicar todo»)
 
 **Fuera del artículo (notas del redactor):**
-- [ ] Portada: «21 herramientas» → 24 (FAQ visible y JSON-LD de `index.html`). Confirmado.
+- [x] Portada: «21 herramientas» → 24 (FAQ visible y JSON-LD de `index.html`). Confirmado.
 - [ ] Índice del blog con enlaces `/posts/...`: en el código los enlaces son relativos (`posts/…`) e iguales para los 19 posts. Solo fallarían si se entra por `/blog` sin barra final. Verificar en producción.
 
 ## Anexos: informes originales

@@ -168,9 +168,9 @@ Con el mismo procedimiento, el HCl al 37 % p/p (ρ = 1,19 g/mL; M = 36,46 g/mol)
 
 Si partes de un sólido con pureza menor al 100 %, usa también la calculadora [Solución desde sólido con pureza](https://quimcalc.com/herramientas/solucion-desde-solido.html). Para preparar soluciones de trabajo, repasa [Cómo preparar soluciones estándar correctamente](https://quimcalc.com/blog/posts/como-preparar-soluciones-estandar-correctamente.html).
 
-## Idea de post para LinkedIn
+## Idea de post para LinkedIn (corregido tras la revisión del 2026-11-05)
 
-Formato sugerido: texto corto con una pregunta de enganche. Sumar un carrusel de 3 placas con las fórmulas es opcional. Publicar sin link y pegarlo en el primer comentario.
+Formato sugerido: texto corto con una pregunta de enganche. Sumar un carrusel de 3 imágenes con las fórmulas es opcional. Publicar sin enlace y pegarlo en el primer comentario.
 
 > ¿10 g de sal en 100 g de agua es una solución al 10 %?
 >
@@ -178,16 +178,20 @@ Formato sugerido: texto corto con una pregunta de enganche. Sumar un carrusel de
 >
 > Es uno de los errores más comunes cuando preparamos soluciones: dividir por el solvente en vez de por la solución. La solución pesa 110 g, no 100.
 >
-> Y no es el único. “Al 37 %”, “al 0,9 %” y “70 % vol” parecen lo mismo, pero no lo son:
+> Y no es el único. «Al 37 %», «al 0,9 %» y «70 % vol» parecen lo mismo, pero no lo son:
 >
-> → % p/p: gramos de soluto cada 100 g de solución. No cambia con la temperatura. Es el de los ácidos comerciales. → % p/v: gramos cada 100 mL de solución. Truco: 1 % p/v = 10 g/L. → % v/v: mL cada 100 mL. Ojo, los volúmenes no se suman: 50 mL de etanol + 50 mL de agua dan unos 96 mL.
+> → % p/p: gramos de soluto por cada 100 g de solución. No cambia con la temperatura. Es el de los ácidos comerciales.
 >
-> ¿Y para pasar de p/p a molaridad? Necesitás la densidad. El H₂SO₄ al 98 % p/p (1,84 g/mL) es unos 18,4 mol/L.
+> → % p/v: gramos de soluto por cada 100 mL de solución. Truco: 1 % p/v = 10 g/L.
 >
-> Armamos una guía con fórmulas, ejemplos resueltos paso a paso y una calculadora gratis para que no tengas que despejar a mano. Te dejo el link en los comentarios. 👇
+> → % v/v: mL de soluto por cada 100 mL de solución. Ojo, los volúmenes no se suman: 50 mL de etanol + 50 mL de agua dan unos 96 mL.
 >
-> ¿Cuál de estos errores viste más en el laboratorio o en clase?
+> ¿Y para pasar de p/p a molaridad? Hace falta la densidad. El H₂SO₄ al 98 % p/p (1,84 g/mL) es unos 18,4 mol/L.
+>
+> Preparamos una guía con fórmulas, ejemplos resueltos paso a paso y una calculadora gratis para que no tengas que despejar a mano. Dejamos el enlace en el primer comentario. 👇
+>
+> ¿Cuál de estos errores ves más en el laboratorio o en clase?
 >
 > \#Química #Laboratorio #QuímicaAnalítica #Estudiantes #ControlDeCalidad
 
-**Primer comentario:** “Acá está la guía completa con la calculadora 👉 \[URL del artículo cuando esté publicado\]”
+**Primer comentario:** «Aquí está la guía completa con la calculadora 👉 https://quimcalc.com/blog/posts/concentracion-porcentual-pp-pv-vv.html»
