@@ -68,6 +68,12 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
+    /* En °F el cero absoluto es −459,67 */
+    if (de === 'F' && valor < -459.67) {
+      mostrarError('El valor en °F no puede ser menor a −459,67 (cero absoluto).');
+      return;
+    }
+
     let resultado, formula, unidadResultado;
 
     /* ── Conversiones desde °C ── */

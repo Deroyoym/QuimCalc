@@ -39,10 +39,10 @@ document.addEventListener('DOMContentLoaded', function () {
     { codigo: 'ppm',   nombre: 'ppm CaCO₃',           factor: 1       },
     { codigo: 'mmol',  nombre: 'mmol/L CaCO₃',        factor: 100.09  },
     { codigo: 'meq',   nombre: 'mEq/L',               factor: 50.045  },
-    { codigo: 'fr',    nombre: '°F (grados franceses)',factor: 10      },
-    { codigo: 'de',    nombre: '°d (grados alemanes)', factor: 17.85   },
-    { codigo: 'en',    nombre: '°e (grados ingleses)', factor: 14.25   },
-    { codigo: 'gpg',   nombre: 'gpg (grains/gallon)', factor: 17.12   },
+    { codigo: 'fr',    nombre: '°fH (grados franceses)', factor: 10    },
+    { codigo: 'de',    nombre: '°dH (grados alemanes)', factor: 17.848 },  /* 10 mg/L CaO */
+    { codigo: 'en',    nombre: '°e (grados ingleses, Clark)', factor: 14.254 },  /* 1 grano/galón imperial */
+    { codigo: 'gpg',   nombre: 'gpg (grains/gallon EE. UU.)', factor: 17.118 },
   ];
 
   botonCalcular.addEventListener('click', function () {
@@ -78,11 +78,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     bloqueResultado.classList.remove('resultado--error');
     etiquetaResultado.textContent = conComa(`${valorOrig} ${nombreOrig} en todas las unidades`);
-    valorResultado.textContent    = conComa(`${valorBase.toFixed(4)} mg/L CaCO₃`);
+    valorResultado.textContent    = QCFormato.num(valorBase, 5, true) + ' mg/L CaCO₃';
     formulaResultado.textContent  = `Valor base de referencia: mg/L CaCO₃`;
     bloqueResultado.classList.add('visible');
 
-    /* Clasificación de dureza según OMS */
+    /* Clasificación habitual (USGS; también citada por la OMS) */
     let clasificacion = '';
     if      (valorBase < 60)  clasificacion = '💧 Agua blanda (< 60 mg/L CaCO₃)';
     else if (valorBase < 120) clasificacion = '💧 Agua moderadamente dura (60–120 mg/L CaCO₃)';
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /* Construimos la tabla */
     let tablaHTML = `
       <div class="clasificacion-dureza" role="note">
-        <strong>Clasificación OMS:</strong> ${clasificacion}
+        <strong>Clasificación:</strong> ${clasificacion}
       </div>
       <table class="tabla-dureza" role="table" aria-label="Conversión de dureza del agua">
         <thead>
@@ -123,10 +123,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* Formatea con decimales apropiados según la magnitud */
   function formatearValor(valor) {
-    if (valor === 0) return '0';
-    if (valor >= 100)  return conComa(valor.toFixed(2));
-    if (valor >= 1)    return conComa(valor.toFixed(4));
-    return conComa(valor.toExponential(4));
+    /* 5 cifras significativas (antes 0,5 mmol/L salía «5,0000e-1») */
+    return QCFormato.num(valor, 5, true);
   }
 
   function mostrarError(mensaje) {

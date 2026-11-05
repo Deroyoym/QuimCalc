@@ -181,6 +181,7 @@
               <label for="masa-molar">Masa molar (g/mol)</label>
               <input type="number" id="masa-molar" min="0" step="0.01"
                      placeholder="ej: 58.44 (NaCl)" aria-required="true">
+              <span class="ayuda">Solo hace falta si la concentración está en mol/L.</span>
             </div>
 
             <div class="campo-grupo">
@@ -244,8 +245,8 @@
           <div class="ejemplo-bloque">
             <strong>Ejemplo resuelto — NaCl 0,1 mol/L en 500 mL, pureza 99,5 %</strong>
             <p>Masa teórica (pureza 100 %) = 0,1 × 0,5 × 58,44 = 2,922 g</p>
-            <p>Masa corregida = 2,922 / (99,5 / 100) = <strong>2,936 g</strong></p>
-            <p>La diferencia es solo 14 mg, pero en análisis de alta precisión es crítica.</p>
+            <p>Masa corregida = 2,922 / (99,5 / 100) = <strong>2,937 g</strong></p>
+            <p>La diferencia es de solo 15 mg, pero en análisis de alta precisión es crítica.</p>
           </div>
 
           <div class="faq-item">
@@ -267,8 +268,8 @@
 
         <div class="bloque-blog-relacionado">
           <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
-          <a href="calculadora-molaridad.html" class="bloque-blog-relacionado__titulo">Molaridad y masa (sin pureza)</a>
-          <p class="bloque-blog-relacionado__descripcion">Si tu reactivo es de pureza 100 %, usá esta herramienta más simple.</p>
+          <a href="calculadora-molaridad.html" class="bloque-blog-relacionado__titulo">Calculadora de molaridad</a>
+          <p class="bloque-blog-relacionado__descripcion">Versión rápida: concentración en mol/L, volumen, masa molar y pureza en una sola línea de resultado.</p>
         </div>
 
         <div class="bloque-blog-relacionado" style="margin-top:var(--espacio-md)">
@@ -306,6 +307,7 @@
   <script src="../js/compartir.js"></script>
   <script src="../js/copiar-resultado.js"></script>
 
+  <script src="../js/formato-numero.js"></script>
   <script src="./js/solucion-desde-solido.js"></script>
 
 </body>

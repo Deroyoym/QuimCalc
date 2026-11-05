@@ -119,12 +119,12 @@
       </div>
 
       <!-- Filtro por anión -->
-      <div class="filtro-barra" role="group" aria-label="Filtrar por solubilidad">
-        <span class="filtro-barra__etiqueta">Mostrar solo:</span>
-        <button class="filtro-btn activo" data-filtro="todos">Todos</button>
-        <button class="filtro-btn" data-filtro="s">Solubles (S)</button>
-        <button class="filtro-btn" data-filtro="i">Insolubles (I)</button>
-        <button class="filtro-btn" data-filtro="lp">Ligeramente solubles</button>
+      <div class="filtro-barra" role="group" aria-label="Resaltar por solubilidad">
+        <span class="filtro-barra__etiqueta">Resaltar:</span>
+        <button class="filtro-btn activo" data-filtro="todos" aria-pressed="true">Todos</button>
+        <button class="filtro-btn" data-filtro="s" aria-pressed="false">Solubles (S)</button>
+        <button class="filtro-btn" data-filtro="i" aria-pressed="false">Insolubles (I)</button>
+        <button class="filtro-btn" data-filtro="lp" aria-pressed="false">Ligeramente solubles</button>
       </div>
 
       <!-- Leyenda -->
@@ -168,18 +168,18 @@
             <!--
               Datos por fila: catión + 10 valores (orden igual al encabezado)
               Valores: s = soluble, i = insoluble, lp = ligeramente soluble, d = no aplica
-              Fuentes: CRC Handbook 103ª ed., Merck Index, NIST WebBook
+              Fuentes: CRC Handbook 103.ª ed., Merck Index; revisado 2026-11 (Ag₂O, Ag₂CrO₄, sales de Hg, sulfuros alcalinotérreos, yoduros redox)
             -->
 
             <!-- Metales alcalinos -->
             <tr data-cation="litio li">
-              <td>Li⁺ <small class="el-nombre">Litio</small></td>
+              <th scope="row">Li⁺ <small class="el-nombre">Litio</small></th>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--lp">LP</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
-              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
@@ -187,7 +187,7 @@
             </tr>
 
             <tr data-cation="sodio na">
-              <td>Na⁺ <small class="el-nombre">Sodio</small></td>
+              <th scope="row">Na⁺ <small class="el-nombre">Sodio</small></th>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
@@ -201,7 +201,7 @@
             </tr>
 
             <tr data-cation="potasio k">
-              <td>K⁺ <small class="el-nombre">Potasio</small></td>
+              <th scope="row">K⁺ <small class="el-nombre">Potasio</small></th>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
@@ -215,7 +215,7 @@
             </tr>
 
             <tr data-cation="amonio nh4">
-              <td>NH₄⁺ <small class="el-nombre">Amonio</small></td>
+              <th scope="row">NH₄⁺ <small class="el-nombre">Amonio</small></th>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
@@ -230,78 +230,78 @@
 
             <!-- Metales alcalinotérreos -->
             <tr data-cation="magnesio mg">
-              <td>Mg²⁺ <small class="el-nombre">Magnesio</small></td>
+              <th scope="row">Mg²⁺ <small class="el-nombre">Magnesio</small></th>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--d">—</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
             </tr>
 
             <tr data-cation="calcio ca">
-              <td>Ca²⁺ <small class="el-nombre">Calcio</small></td>
+              <th scope="row">Ca²⁺ <small class="el-nombre">Calcio</small></th>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--lp">LP</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--lp">LP</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--s">S</span></td>
-              <td><span class="pastilla pastilla--lp">LP</span></td>
-              <td><span class="pastilla pastilla--s">S</span></td>
-            </tr>
-
-            <tr data-cation="bario ba">
-              <td>Ba²⁺ <small class="el-nombre">Bario</small></td>
-              <td><span class="pastilla pastilla--s">S</span></td>
-              <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--s">S</span></td>
-              <td><span class="pastilla pastilla--s">S</span></td>
-              <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--s">S</span></td>
-              <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--s">S</span></td>
-            </tr>
-
-            <!-- Metales de transición comunes -->
-            <tr data-cation="hierro fe2 ferroso">
-              <td>Fe²⁺ <small class="el-nombre">Hierro (II)</small></td>
-              <td><span class="pastilla pastilla--s">S</span></td>
-              <td><span class="pastilla pastilla--s">S</span></td>
-              <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--s">S</span></td>
-              <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--d">—</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
             </tr>
 
-            <tr data-cation="hierro fe3 ferrico">
-              <td>Fe³⁺ <small class="el-nombre">Hierro (III)</small></td>
+            <tr data-cation="bario ba">
+              <th scope="row">Ba²⁺ <small class="el-nombre">Bario</small></th>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <!-- Metales de transición y otros -->
+            <tr data-cation="hierro fe2 ferroso hierro ii">
+              <th scope="row">Fe²⁺ <small class="el-nombre">Hierro (II)</small></th>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--d">—</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+            </tr>
+
+            <tr data-cation="hierro fe3 ferrico hierro iii">
+              <th scope="row">Fe³⁺ <small class="el-nombre">Hierro (III)</small></th>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--d">—</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--d">—</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
-              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--d">—</span></td>
             </tr>
 
-            <tr data-cation="cobre cu2 cuprico">
-              <td>Cu²⁺ <small class="el-nombre">Cobre (II)</small></td>
+            <tr data-cation="cobre cu2 cuprico cobre ii">
+              <th scope="row">Cu²⁺ <small class="el-nombre">Cobre (II)</small></th>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
@@ -311,11 +311,11 @@
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--d">—</span></td>
             </tr>
 
-            <tr data-cation="zinc zn">
-              <td>Zn²⁺ <small class="el-nombre">Zinc</small></td>
+            <tr data-cation="zinc cinc zn">
+              <th scope="row">Zn²⁺ <small class="el-nombre">Zinc</small></th>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
@@ -324,12 +324,12 @@
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
-              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
             </tr>
 
             <tr data-cation="plomo pb">
-              <td>Pb²⁺ <small class="el-nombre">Plomo</small></td>
+              <th scope="row">Pb²⁺ <small class="el-nombre">Plomo</small></th>
               <td><span class="pastilla pastilla--lp">LP</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
@@ -337,27 +337,27 @@
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
             </tr>
 
             <tr data-cation="plata ag">
-              <td>Ag⁺ <small class="el-nombre">Plata</small></td>
+              <th scope="row">Ag⁺ <small class="el-nombre">Plata</small></th>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--lp">LP</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
-              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
-              <td><span class="pastilla pastilla--lp">LP</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
             </tr>
 
             <tr data-cation="aluminio al">
-              <td>Al³⁺ <small class="el-nombre">Aluminio</small></td>
+              <th scope="row">Al³⁺ <small class="el-nombre">Aluminio</small></th>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--d">—</span></td>
@@ -371,7 +371,7 @@
             </tr>
 
             <tr data-cation="manganeso mn">
-              <td>Mn²⁺ <small class="el-nombre">Manganeso</small></td>
+              <th scope="row">Mn²⁺ <small class="el-nombre">Manganeso</small></th>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
@@ -385,7 +385,7 @@
             </tr>
 
             <tr data-cation="niquel ni">
-              <td>Ni²⁺ <small class="el-nombre">Níquel</small></td>
+              <th scope="row">Ni²⁺ <small class="el-nombre">Níquel</small></th>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
@@ -398,15 +398,29 @@
               <td><span class="pastilla pastilla--s">S</span></td>
             </tr>
 
-            <tr data-cation="mercurio hg2">
-              <td>Hg²⁺ <small class="el-nombre">Mercurio (II)</small></td>
-              <td><span class="pastilla pastilla--lp">LP</span></td>
-              <td><span class="pastilla pastilla--lp">LP</span></td>
+            <tr data-cation="mercurio hg2 mercurio ii mercurico">
+              <th scope="row">Hg²⁺ <small class="el-nombre">Mercurio (II)</small></th>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--d">—</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--s">S</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+            </tr>
+
+            <tr data-cation="mercurio hg22 mercurio i mercurioso">
+              <th scope="row">Hg₂²⁺ <small class="el-nombre">Mercurio (I)</small></th>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--d">—</span></td>
+              <td><span class="pastilla pastilla--s">S</span></td>
+              <td><span class="pastilla pastilla--i">I</span></td>
+              <td><span class="pastilla pastilla--d">—</span></td>
               <td><span class="pastilla pastilla--lp">LP</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
               <td><span class="pastilla pastilla--i">I</span></td>
@@ -423,7 +437,7 @@
         <strong>LP</strong> (ligeramente soluble) = 0,1–1 g/100 mL ·
         <strong>I</strong> (insoluble) = &lt; 0,1 g/100 mL ·
         <strong>—</strong> = el compuesto no existe estable en solución acuosa o se hidroliza completamente.<br>
-        <strong>Fuentes:</strong> CRC Handbook of Chemistry and Physics, 103.ª ed.; Merck Index, 15.ª ed.; NIST WebBook (webbook.nist.gov).
+        <strong>Fuentes:</strong> CRC Handbook of Chemistry and Physics, 103.ª ed.; Merck Index, 15.ª ed. El AgOH no existe como tal: precipita Ag₂O (insoluble). CuI₂ y FeI₃ no existen porque Cu²⁺ y Fe³⁺ oxidan el yoduro (se forman CuI e I₂). Los sulfuros de Mg y Ca se hidrolizan.
         Los datos corresponden a ~25 °C y 1 atm. La solubilidad puede variar significativamente con la temperatura y el pH.
       </div>
 
@@ -449,9 +463,9 @@
           <li><strong>Sales de Na⁺, K⁺, NH₄⁺:</strong> casi todas son solubles.</li>
           <li><strong>Cloruros (Cl⁻):</strong> solubles excepto AgCl, PbCl₂ y Hg₂Cl₂.</li>
           <li><strong>Sulfatos (SO₄²⁻):</strong> solubles excepto BaSO₄, PbSO₄ y CaSO₄ (LP).</li>
-          <li><strong>Hidróxidos (OH⁻):</strong> insolubles excepto los de metales alcalinos, Ba²⁺ y NH₄⁺.</li>
+          <li><strong>Hidróxidos (OH⁻):</strong> insolubles excepto los de metales alcalinos, Ba²⁺ y NH₄⁺; el de Ca²⁺ es ligeramente soluble. La plata no forma AgOH estable: precipita Ag₂O.</li>
           <li><strong>Carbonatos (CO₃²⁻) y fosfatos (PO₄³⁻):</strong> insolubles excepto los de Na⁺, K⁺ y NH₄⁺.</li>
-          <li><strong>Sulfuros (S²⁻):</strong> insolubles excepto los de metales alcalinos, alcalinotérreos y NH₄⁺.</li>
+          <li><strong>Sulfuros (S²⁻):</strong> insolubles excepto los de metales alcalinos, NH₄⁺ y Ba²⁺; los de Mg²⁺ y Ca²⁺ se hidrolizan en agua.</li>
         </ul>
 
         <h2>Aplicaciones en el laboratorio</h2>

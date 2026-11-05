@@ -91,9 +91,22 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      descripcion = 'pH del buffer';
+      descripcion = 'pH del buffer (Henderson-Hasselbalch)';
       formula     = `pH = ${pKa} + log(${cBase} / ${cAcido}) = ${pKa} + log(${relacion.toFixed(4)}) = ${pKa} + (${logRel.toFixed(4)})`;
-      mostrarResultado(`pH = ${resultado.toFixed(4)}`, descripcion, formula);
+
+      /* Control de validez: pH exacto por balance de carga (25 °C).
+         H-H supone que [HA] y [A⁻] no cambian al disolverse; falla con
+         soluciones muy diluidas, relaciones extremas o pKa muy bajos/altos. */
+      const exacto = pHExacto(pKa, cAcido, cBase);
+      const avisos = [];
+      if (exacto !== null && Math.abs(exacto - resultado) > 0.05) {
+        avisos.push(`⚠️ Henderson-Hasselbalch no es válida con estos datos: el pH exacto (balance de carga, 25 °C) es ${exacto.toFixed(2)}`);
+      }
+      if (relacion < 0.1 || relacion > 10) {
+        avisos.push('⚠️ La relación [A⁻]/[HA] está fuera de 0,1–10: la capacidad amortiguadora es baja');
+      }
+      if (avisos.length) descripcion += ' — ' + avisos.join(' · ');
+      mostrarResultado(`pH = ${resultado.toFixed(2)}`, descripcion, formula);
     }
 
     /* ── Calcular pKa ────────────────────────────────────────
@@ -108,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
       resultado      = pH - Math.log10(relacion);
       descripcion    = 'pKa del ácido';
       formula        = `pKa = pH − log([A⁻]/[HA]) = ${pH} − log(${relacion.toFixed(4)})`;
-      mostrarResultado(`pKa = ${resultado.toFixed(4)}`, descripcion, formula);
+      mostrarResultado(`pKa = ${resultado.toFixed(2)}`, descripcion, formula);
     }
 
     /* ── Calcular relación [A⁻]/[HA] necesaria ───────────────
@@ -132,11 +145,30 @@ document.addEventListener('DOMContentLoaded', function () {
         relacionTexto = `1 : ${(1/resultado).toFixed(4)}  (más ácido que base)`;
       }
 
-      mostrarResultado(`[A⁻]/[HA] = ${resultado.toFixed(4)}`, descripcion + ` — ${relacionTexto}`, formula);
+      if (Math.abs(exponente) > 1) {
+        relacionTexto += ' — ⚠️ el pH está a más de 1 unidad del pKa: elegí un ácido con pKa más cercano al pH buscado';
+      }
+      mostrarResultado(`[A⁻]/[HA] = ${QCFormato.num(resultado, 4)}`, descripcion + ` — ${relacionTexto}`, formula);
     }
   });
 
   /* ── Funciones auxiliares ───────────────────────────────── */
+
+  /* pH exacto de una mezcla HA (Ca) + NaA (Cb), Kw = 1,0e-14 (25 °C).
+     Balance de carga: [H⁺] + [Na⁺] = [A⁻] + [OH⁻], con [Na⁺] = Cb y
+     [A⁻] = (Ca + Cb)·Ka / (Ka + [H⁺]). Se resuelve por bisección en log[H⁺]. */
+  function pHExacto(pKa, Ca, Cb) {
+    const Ka = Math.pow(10, -pKa), Kw = 1e-14, Ct = Ca + Cb;
+    const f = function (h) { return h + Cb - Ct * Ka / (Ka + h) - Kw / h; };
+    let lo = -16, hi = 1;   /* log10[H⁺] */
+    if (f(Math.pow(10, lo)) > 0 || f(Math.pow(10, hi)) < 0) return null;
+    for (let i = 0; i < 200; i++) {
+      const mid = (lo + hi) / 2;
+      if (f(Math.pow(10, mid)) > 0) hi = mid; else lo = mid;
+    }
+    return -(lo + hi) / 2;
+  }
+
   function mostrarResultado(valor, descripcion, formula) {
     valor = conComa(valor); descripcion = conComa(descripcion); formula = conComa(formula);
     if (window.QuimCalcHistorial) window.QuimCalcHistorial.registrar(valor, formula);

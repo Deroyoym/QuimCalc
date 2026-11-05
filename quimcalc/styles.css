@@ -2136,3 +2136,13 @@ tr.oculta { display: none; }
 .cta-herramienta__btn:hover {
   text-decoration: none;
 }
+
+/* ── Copiar resultado: copiar el texto tal como se escribió ── */
+.copiando-sin-mayusculas,
+.copiando-sin-mayusculas * { text-transform: none !important; }
+
+/* ── Campo numérico inválido («1.000,5», «1,2,3») ── */
+input[aria-invalid="true"] {
+  border-color: #b91c1c !important;
+  box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.15);
+}

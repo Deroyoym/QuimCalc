@@ -28,7 +28,11 @@
 
   btn.addEventListener('click', function () {
     // Texto del resultado, sin el propio texto del botón
+    // innerText respeta text-transform (copiaba la etiqueta en MAYÚSCULAS):
+    // se desactiva un instante mientras se lee el texto
+    cont.classList.add('copiando-sin-mayusculas');
     var texto = (cont.innerText || '').replace(ETIQUETA, '').trim();
+    cont.classList.remove('copiando-sin-mayusculas');
     // Evita copiar el placeholder vacío
     if (!texto || texto === '—' || texto.replace(/[—\s]/g, '') === '') return;
 

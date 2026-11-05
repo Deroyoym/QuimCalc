@@ -15,6 +15,11 @@
       var pct = Math.min(100, Math.max(0, parseFloat(val) || 0));
       var bar  = document.getElementById('pureza-bar');
       var lbl  = document.getElementById('pureza-label');
+      if (parseFloat(val) > 100) {
+        bar.style.setProperty('--pureza-pct', '100%');
+        lbl.textContent = 'La pureza no puede superar el 100 %';
+        return;
+      }
       bar.style.setProperty('--pureza-pct', pct + '%');
       var impurezas = (100 - pct).toFixed(1);
       lbl.textContent = 'Pureza: ' + conComa(pct.toFixed(1)) + ' %  —  Impurezas: ' + conComa(impurezas) + ' %';
@@ -31,6 +36,12 @@
       r.querySelector('.resultado__etiqueta').textContent = 'Error';
       r.querySelector('.resultado__valor').textContent    = msg;
       r.querySelector('.resultado__formula').textContent  = '';
+      /* No dejar a la vista valores de un cálculo anterior */
+      ['res-masa-pura', 'res-extra'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = '—';
+      });
+      document.getElementById('pasos').classList.remove('visible');
     }
 
     function calcular() {
@@ -44,15 +55,15 @@
       /* Validaciones */
       if (isNaN(cDeseada)  || cDeseada  <= 0)               return mostrarError('Ingresá una concentración válida (> 0).');
       if (isNaN(vFinal)    || vFinal    <= 0)               return mostrarError('Ingresá un volumen válido (> 0).');
-      if (isNaN(masaMolar) || masaMolar <= 0)               return mostrarError('Ingresá una masa molar válida (> 0).');
+      if (unidadC === 'mol/L' && (isNaN(masaMolar) || masaMolar <= 0)) return mostrarError('Ingresá una masa molar válida (> 0).');
+      if (unidadC === 'g/L' && !isNaN(masaMolar) && masaMolar <= 0) return mostrarError('La masa molar debe ser mayor que 0 (o dejala vacía: en g/L no hace falta).');
       if (isNaN(pureza)    || pureza <= 0 || pureza > 100)  return mostrarError('La pureza debe estar entre 0 y 100 %.');
 
       /* Conversiones */
-      var cMolL = unidadC === 'mol/L' ? cDeseada : cDeseada / masaMolar;
       var vL    = unidadV === 'mL'    ? vFinal / 1000 : vFinal;
 
-      /* Cálculo */
-      var masaPura    = cMolL * vL * masaMolar;           // g de sustancia pura
+      /* Cálculo (en g/L la masa molar no interviene: m = C × V) */
+      var masaPura    = unidadC === 'mol/L' ? cDeseada * vL * masaMolar : cDeseada * vL;   // g de sustancia pura
       var masaReact   = masaPura / (pureza / 100);         // g de reactivo a pesar
       var masaExtra   = masaReact - masaPura;              // g de impurezas
 
@@ -60,21 +71,21 @@
       var r = document.getElementById('resultado');
       r.className = 'resultado visible';
       r.querySelector('.resultado__etiqueta').textContent = 'Masa a pesar del reactivo';
-      r.querySelector('.resultado__valor').textContent    = conComa(formatNum(masaReact)) + ' g';
-      r.querySelector('.resultado__formula').textContent  = conComa(
-        'm = (C × V × M) / (P/100) = (' + cMolL.toFixed(4) + ' mol/L × ' +
-        (vL * 1000).toFixed(1) + ' mL × ' + masaMolar.toFixed(2) + ' g/mol) / ' +
-        (pureza / 100).toFixed(4));
+      r.querySelector('.resultado__valor').textContent    = QCFormato.masa(masaReact);
+      r.querySelector('.resultado__formula').textContent  = conComa(unidadC === 'mol/L'
+        ? 'm = (C × V × M) / (P/100) = (' + cDeseada + ' mol/L × ' + vL + ' L × ' +
+          masaMolar + ' g/mol) / ' + (pureza / 100)
+        : 'm = (C × V) / (P/100) = (' + cDeseada + ' g/L × ' + vL + ' L) / ' + (pureza / 100));
 
-      document.getElementById('res-masa-pura').textContent = conComa(formatNum(masaPura)) + ' g';
-      document.getElementById('res-extra').textContent     = conComa(formatNum(masaExtra)) + ' g';
+      document.getElementById('res-masa-pura').textContent = QCFormato.masa(masaPura);
+      document.getElementById('res-extra').textContent     = QCFormato.masa(masaExtra);
 
       /* Pasos de preparación */
       var vLabel = conComa(unidadV === 'mL' ? vFinal + ' mL' : vFinal + ' L');
       var pasos  = document.getElementById('lista-pasos');
 
       pasos.innerHTML = [
-        'Pesá <strong>' + conComa(formatNum(masaReact)) + ' g</strong> del reactivo en una balanza analítica usando un recipiente seco y tarado.',
+        'Pesá <strong>' + QCFormato.masa(masaReact) + '</strong> del reactivo en una balanza analítica usando un recipiente seco y tarado.',
         'Disolvé el reactivo en un vaso de precipitados con aproximadamente el 70–80 % del volumen final de agua destilada. Agitá hasta disolución completa.',
         'Trasvasá cuantitativamente al matraz aforado de <strong>' + vLabel + '</strong>.',
         'Enjuagá el vaso de precipitados 2 o 3 veces con porciones pequeñas de agua destilada y agregá los enjuagues al matraz.',
@@ -86,12 +97,6 @@
       document.getElementById('pasos').classList.add('visible');
     }
 
-    function formatNum(n) {
-      if (n >= 100)  return n.toFixed(2);
-      if (n >= 10)   return n.toFixed(3);
-      if (n >= 1)    return n.toFixed(4);
-      return n.toFixed(4);
-    }
 
 /* ── Wiring de eventos (reemplaza los on* inline del HTML) ── */
 document.addEventListener('DOMContentLoaded', function () {

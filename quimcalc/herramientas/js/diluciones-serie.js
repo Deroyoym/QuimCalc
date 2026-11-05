@@ -39,14 +39,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const C0     = parseFloat(inputConcInicial.value);
     const factor = parseFloat(inputFactor.value);
-    const pasos  = parseInt(inputPasos.value);
+    const pasos  = Number(inputPasos.value);
     const vFinal = parseFloat(inputVolFinal.value);
     const unidad = selectUnidadConc.value;
 
     /* ── Validaciones ─────────────────────────────────────── */
     if (isNaN(C0) || C0 <= 0)              { mostrarError('La concentración inicial debe ser mayor a cero.'); return; }
     if (isNaN(factor) || factor <= 1)      { mostrarError('El factor de dilución debe ser mayor a 1 (ej: 10 para 1:10).'); return; }
-    if (isNaN(pasos) || pasos < 1 || pasos > 20) { mostrarError('El número de pasos debe estar entre 1 y 20.'); return; }
+    if (!Number.isInteger(pasos) || pasos < 1 || pasos > 20) { mostrarError('El número de pasos debe ser un entero entre 1 y 20.'); return; }
     if (isNaN(vFinal) || vFinal <= 0)      { mostrarError('El volumen final de cada tubo debe ser mayor a cero.'); return; }
 
     /* ── Cálculo de la serie ──────────────────────────────── */
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
     etiquetaResultado.textContent = conComa(`Serie generada — Factor 1:${factor} · ${filas.length - 1} pasos`);
     valorResultado.textContent    = `${filas.length - 1} diluciones`;
     formulaResultado.textContent  = conComa(
-      `Volumen de transferencia: ${vTransf.toFixed(2)} mL · Volumen de solvente: ${vSolv.toFixed(2)} mL`);
+      `Volumen de transferencia: ${QCFormato.volumen(vTransf, 4)} · Volumen de solvente: ${QCFormato.volumen(vSolv, 4)}`);
     bloqueResultado.classList.add('visible');
 
     /* Construimos la tabla */
@@ -108,8 +108,8 @@ document.addEventListener('DOMContentLoaded', function () {
           <th scope="col">Tubo</th>
           <th scope="col">Concentración (${unidad})</th>
           <th scope="col">Factor acumulado</th>
-          <th scope="col">Tomar (mL)</th>
-          <th scope="col">Agregar solvente (mL)</th>
+          <th scope="col">Tomar</th>
+          <th scope="col">Agregar solvente</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -127,14 +127,14 @@ document.addEventListener('DOMContentLoaded', function () {
       /* Formateamos el volumen de transferencia */
       const vTransfFormateado = fila.vTransferencia === '—'
         ? '—'
-        : parseFloat(fila.vTransferencia).toFixed(2);
+        : QCFormato.volumen(fila.vTransferencia, 4);
 
       tr.innerHTML = conComa(`
         <td>${fila.tubo}</td>
         <td>${concFormateada}</td>
         <td>1:${fmtFactor(fila.factorAcum)}</td>
         <td>${vTransfFormateado}</td>
-        <td>${fila.vSolvente === '—' ? '—' : parseFloat(fila.vSolvente).toFixed(2)}</td>
+        <td>${fila.vSolvente === '—' ? '—' : QCFormato.volumen(fila.vSolvente, 4)}</td>
       `);
       tbody.appendChild(tr);
     });
@@ -148,12 +148,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* Formatea números muy pequeños en notación científica legible */
   function formatearConc(valor) {
-    if (valor === 0) return '0';
-    if (valor >= 0.001) return valor.toPrecision(4);
-    /* Notación científica manual para mayor legibilidad */
-    const exp = Math.floor(Math.log10(valor));
-    const base = valor / Math.pow(10, exp);
-    return `${base.toFixed(3)} × 10^${exp}`;
+    /* 4 cifras significativas; «× 10ⁿ» fuera de [10⁻³, 10⁶). Antes, «1,000e+4» se leía como 1 */
+    return QCFormato.num(valor, 4);
   }
 
   function mostrarError(mensaje) {

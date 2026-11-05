@@ -68,7 +68,8 @@
     }
 
     /* Columna sticky del catión (primera columna) */
-    .tabla-solubilidad tbody td:first-child {
+    .tabla-solubilidad tbody th {
+      text-align: left;
       position: sticky;
       left: 0;
       background-color: var(--color-fondo);
@@ -80,11 +81,11 @@
     }
 
     /* Cuando la fila es par, la celda sticky también cambia */
-    .tabla-solubilidad tbody tr:nth-child(even) td:first-child {
+    .tabla-solubilidad tbody tr:nth-child(even) th {
       background-color: var(--color-fondo-card);
     }
 
-    .tabla-solubilidad tbody tr:hover td:first-child {
+    .tabla-solubilidad tbody tr:hover th {
       background-color: var(--color-acento-claro);
     }
 
@@ -133,8 +134,11 @@
     /* D — Se descompone o no existe en solución (gris) */
     .pastilla--d {
       background-color: #F1F5F9;
-      color: #64748B;
+      color: #475569;
     }
+
+    /* Filtro «Resaltar»: atenúa las celdas que no coinciden */
+    .pastilla.atenuada { opacity: 0.18; }
 
     /* ── LEYENDA ──────────────────────────────────────────── */
     .leyenda {

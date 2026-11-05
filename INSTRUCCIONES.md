@@ -378,6 +378,40 @@ Los scripts compartidos (historial, copiar resultado, compartir, cookies, instal
 [ ] Agregar bloque en quimcalc/index.html (sección #herramientas)
 [ ] Agregar entrada en data/tools.json
 [ ] python scripts/sync_indexes.py
-[ ] Verificar en navegador
+[ ] Números con QCFormato (js/formato-numero.js), nunca toFixed en resultados
+[ ] Casos nuevos en scripts/test_calculadoras.mjs
+[ ] node scripts/test_calculadoras.mjs → 0 fallos
 [ ] git add + git commit + git push
 ```
+
+> Con Claude Code, el comando `/nueva-herramienta <idea>` sigue este checklist completo, y `/revisar-herramienta <slug>` audita una herramienta existente (cálculos, datos, pruebas y SEO).
+
+---
+
+## 7. Pruebas de las herramientas
+
+`scripts/test_calculadoras.mjs` abre cada herramienta en Chromium y comprueba:
+
+- **Todas las páginas de herramientas** (español e inglés): sin errores de JavaScript y sin scroll horizontal en un celular (375 px).
+- **Casos por calculadora:** datos de entrada → resultado esperado. Incluye valores muy chicos (que no salgan «0,0000»), entradas inválidas («1.000,5», negativos, fórmulas en minúsculas) y los avisos.
+- **Coma decimal:** ningún resultado en español con punto decimal.
+- **Datos:** las masas de la tabla periódica coinciden con `herramientas/js/masas-atomicas.js`, la fuente única de masas atómicas (CIAAW/IUPAC) que usa la calculadora de masa molar.
+
+```bash
+node scripts/test_calculadoras.mjs              # todo (≈ 2 min)
+node scripts/test_calculadoras.mjs masa-molar   # solo una herramienta
+```
+
+Requiere Playwright, igual que el script de tarjetas OG (`npm i --no-save playwright && npx playwright install chromium`).
+
+**Cuándo correrlo:** antes de cada merge a `main` que toque `quimcalc/herramientas/` o `quimcalc/js/`. Cada bug corregido suma un caso, así no vuelve a aparecer.
+
+**Archivos compartidos de las herramientas:**
+
+| Archivo | Qué hace |
+|---|---|
+| `js/formato-numero.js` | `QCFormato.num/masa/volumen`: cifras significativas, «× 10ⁿ», coma decimal y paso automático a mg/µg/µL |
+| `js/entrada-decimal.js` | Campos con coma decimal, validación estricta («1.000,5» da error) y Enter para calcular |
+| `herramientas/js/masas-atomicas.js` | Masas atómicas de los 118 elementos |
+| `js/copiar-resultado.js` | Botón «Copiar resultado» |
+
