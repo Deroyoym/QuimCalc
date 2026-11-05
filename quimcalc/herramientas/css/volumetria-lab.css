@@ -1,0 +1,92 @@
+/* ============================================================
+   Estilos compartidos: Karl Fischer, normalidad y factor de
+   corrección (herramientas de volumetría de laboratorio)
+   ============================================================ */
+
+/* Tabla de réplicas con campos */
+.tabla-replicas {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--espacio-sm) 0 var(--espacio-md);
+}
+.tabla-replicas th {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-texto-suave);
+  text-align: left;
+  padding: 4px 6px;
+}
+.tabla-replicas td { padding: 4px 6px; vertical-align: middle; }
+.tabla-replicas td:first-child {
+  width: 2.2rem;
+  font-weight: 600;
+  color: var(--color-texto-suave);
+}
+.tabla-replicas input {
+  width: 100%;
+  min-width: 0;
+  font-family: var(--fuente-principal);
+  font-size: 1rem;
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+  border: 1.5px solid var(--color-borde);
+  border-radius: var(--radio-sm);
+  padding: 8px 10px;
+  min-height: 44px;
+  outline: none;
+}
+.tabla-replicas input:focus { border-color: var(--color-acento); }
+
+/* Fórmulas químicas dentro de etiquetas en mayúsculas («NaOH», no «NAOH») */
+.sin-mayus { text-transform: none; }
+
+/* Resultados secundarios */
+.resultados-grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--espacio-md);
+  margin-top: var(--espacio-md);
+}
+.resultado-mini {
+  background-color: var(--color-fondo);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  padding: var(--espacio-md);
+}
+.resultado-mini__etiqueta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--color-texto-suave);
+  margin-bottom: 4px;
+}
+.resultado-mini__valor {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-texto);
+  overflow-wrap: anywhere;
+}
+
+/* Detalle por réplica */
+.detalle-replicas {
+  margin-top: var(--espacio-md);
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+}
+.detalle-replicas li { margin: 2px 0; }
+
+/* Avisos (no son errores: el cálculo se hizo) */
+.aviso-calculo {
+  margin-top: var(--espacio-md);
+  padding: var(--espacio-sm) var(--espacio-md);
+  border-left: 4px solid #b45309;
+  background-color: #fffbeb;
+  color: #78350f;
+  border-radius: var(--radio-sm, 4px);
+  font-size: 0.9rem;
+}
+
+/* Bloques que cambian según el modo */
+.bloque-modo[hidden] { display: none; }
+
+#resultado-valor { overflow-wrap: anywhere; }

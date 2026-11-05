@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Karl Fischer: factor y % de agua | QuimCalc</title>
+  <meta name="description" content="Calculá el factor del reactivo Karl Fischer con agua, tartrato o estándar, y el % de agua por KF volumétrico o coulométrico, con réplicas y CV %.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quimcalc.com/herramientas/calculadora-karl-fischer.html">
+  <meta property="og:title" content="Calculadora Karl Fischer: factor y % de agua | QuimCalc">
+  <meta property="og:description" content="Calculá el factor del reactivo Karl Fischer con agua, tartrato o estándar, y el % de agua por KF volumétrico o coulométrico, con réplicas y CV %.">
+  <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta property="og:site_name" content="QuimCalc">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Calculadora Karl Fischer: factor y % de agua | QuimCalc">
+  <meta name="twitter:description" content="Calculá el factor del reactivo Karl Fischer con agua, tartrato o estándar, y el % de agua por KF volumétrico o coulométrico, con réplicas y CV %.">
+  <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/herramientas/calculadora-karl-fischer.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="css/volumetria-lab.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "dateModified": "2026-11-05",
+    "name": "Calculadora de Karl Fischer",
+    "description": "Factor del reactivo Karl Fischer (agua pura, tartrato sódico dihidratado o estándar líquido) y % de agua por titulación volumétrica o coulométrica.",
+    "url": "https://quimcalc.com/herramientas/calculadora-karl-fischer.html",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "isAccessibleForFree": true,
+    "inLanguage": "es",
+    "featureList": [
+      "Factor del reactivo con réplicas, desvío y CV %",
+      "% de agua por KF volumétrico con blanco",
+      "% de agua por KF coulométrico",
+      "Resultado en % y en mg/kg"
+    ],
+    "provider": {
+      "@type": "Organization",
+      "name": "QuimCalc",
+      "url": "https://quimcalc.com"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-11-05",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Qué patrón conviene usar para el factor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El tartrato sódico dihidratado es sólido, estable y tiene un contenido de agua conocido (15,66 %), así que se pesa con facilidad. El agua pura es el patrón más directo, pero hay que pesar gotas de 10 a 30 mg con mucho cuidado. Los estándares líquidos certificados, con 1 o 10 mg de agua por gramo, son los más prácticos para reactivos de factor bajo y para el método coulométrico."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuándo usar Karl Fischer volumétrico y cuándo coulométrico?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El volumétrico sirve para muestras con contenidos de agua medios y altos, desde alrededor de 0,01 % hasta 100 %. El coulométrico es para trazas, desde unos pocos mg/kg hasta alrededor de 1 %, porque genera el yodo por electrólisis y no depende de un factor. Si la muestra tiene mucha agua, el coulométrico se vuelve lento y conviene el volumétrico."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cada cuánto hay que determinar el factor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El reactivo pierde título con el tiempo por la humedad ambiente y la luz. Lo habitual es determinarlo al empezar la jornada o cada vez que se cambia o se abre el reactivo, siempre por duplicado o triplicado. La frecuencia exacta la define el procedimiento del laboratorio."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Para qué sirve el blanco o la deriva?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El solvente de la celda y la humedad que entra al sistema también consumen reactivo. El blanco (en mL, volumétrico) o la deriva acumulada (en µg, coulométrico) se restan para que el resultado corresponda solo al agua de la muestra."
+        }
+      }
+    ]
+  }
+  </script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <!-- Google tag (gtag.js) + Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // Consent Mode v2: denegado por defecto hasta que la persona acepte
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-JPQ3QTH9BN');
+  </script>
+  <script src="../js/consent-banner.js" defer></script>
+  <script src="../js/entrada-decimal.js" defer></script>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas" class="activo">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="pagina-herramienta">
+      <div class="contenedor">
+
+        <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+          <a href="../index.html">Inicio</a>
+          <span aria-hidden="true">›</span>
+          <a href="../index.html#herramientas">Herramientas</a>
+          <span aria-hidden="true">›</span>
+          <span>Karl Fischer</span>
+        </nav>
+
+        <div class="pagina-herramienta__encabezado">
+          <h1 class="pagina-herramienta__titulo">Calculadora de Karl Fischer</h1>
+          <p class="pagina-herramienta__descripcion">
+            Calculá el factor del reactivo Karl Fischer a partir de agua pura, tartrato sódico dihidratado o un estándar líquido, y el contenido de agua de tu muestra por titulación volumétrica o coulométrica.
+          </p>
+        </div>
+
+        <div class="calculadora" role="form" aria-label="Calculadora de Karl Fischer">
+
+          <div class="campo-grupo">
+            <label for="modo">¿Qué querés calcular?</label>
+            <select id="modo">
+              <option value="factor">Factor (título) del reactivo</option>
+              <option value="volumetrico">% de agua: KF volumétrico</option>
+              <option value="coulometrico">% de agua: KF coulométrico</option>
+            </select>
+          </div>
+
+          <fieldset class="bloque-modo" data-modo="factor" style="border:none;padding:0;margin:0 0 var(--espacio-lg);">
+            <legend class="rotulo-seccion rotulo-seccion--fuerte">Estandarización del reactivo</legend>
+            <div class="campo-grupo">
+              <label for="patron">Patrón</label>
+              <select id="patron">
+                <option value="agua">Agua pura</option>
+                <option value="tartrato">Tartrato sódico dihidratado (15,66 % de agua)</option>
+                <option value="estandar">Estándar líquido certificado</option>
+              </select>
+            </div>
+            <div class="campo-grupo" id="campo-contenido" hidden>
+              <label for="contenido">Contenido de agua del estándar (mg/g)</label>
+              <input type="number" id="contenido" step="any" placeholder="ej: 10,0">
+              <span class="ayuda">Figura en el certificado del estándar (por ejemplo, 1,0 o 10,0 mg/g).</span>
+            </div>
+            <p class="rotulo-seccion rotulo-seccion--sm">Réplicas (hasta 3)</p>
+            <table class="tabla-replicas">
+              <thead><tr><th scope="col">#</th><th scope="col">Masa del patrón (mg)</th><th scope="col">Volumen gastado (mL)</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td><input type="number" id="rep-m-1" step="any" aria-label="Masa del patrón (mg), réplica 1" placeholder="ej: 150,0"></td><td><input type="number" id="rep-v-1" step="any" aria-label="Volumen gastado (mL), réplica 1" placeholder="ej: 4,70"></td></tr>
+                <tr><td>2</td><td><input type="number" id="rep-m-2" step="any" aria-label="Masa del patrón (mg), réplica 2"></td><td><input type="number" id="rep-v-2" step="any" aria-label="Volumen gastado (mL), réplica 2"></td></tr>
+                <tr><td>3</td><td><input type="number" id="rep-m-3" step="any" aria-label="Masa del patrón (mg), réplica 3"></td><td><input type="number" id="rep-v-3" step="any" aria-label="Volumen gastado (mL), réplica 3"></td></tr>
+              </tbody>
+            </table>
+          </fieldset>
+
+          <fieldset class="bloque-modo" data-modo="volumetrico" style="border:none;padding:0;margin:0 0 var(--espacio-lg);" hidden>
+            <legend class="rotulo-seccion rotulo-seccion--fuerte">Muestra (volumétrico)</legend>
+            <div class="campo-grupo">
+              <label for="vol-factor">Factor del reactivo (mg/mL)</label>
+              <input type="number" id="vol-factor" step="any" placeholder="ej: 4,998">
+              <span class="ayuda">Si no lo tenés, calculalo primero en el modo «Factor».</span>
+            </div>
+            <div class="campo-grupo">
+              <label for="vol-v">Volumen de reactivo gastado (mL)</label>
+              <input type="number" id="vol-v" step="any" placeholder="ej: 2,35">
+            </div>
+            <div class="campo-grupo">
+              <label for="vol-blanco">Blanco del solvente (mL), opcional</label>
+              <input type="number" id="vol-blanco" step="any" placeholder="ej: 0,05">
+            </div>
+            <div class="campo-grupo">
+              <label for="vol-masa">Masa de muestra (g)</label>
+              <input type="number" id="vol-masa" step="any" placeholder="ej: 1,0000">
+            </div>
+          </fieldset>
+
+          <fieldset class="bloque-modo" data-modo="coulometrico" style="border:none;padding:0;margin:0 0 var(--espacio-lg);" hidden>
+            <legend class="rotulo-seccion rotulo-seccion--fuerte">Muestra (coulométrico)</legend>
+            <div class="campo-grupo">
+              <label for="cou-ug">Agua medida por el equipo (µg)</label>
+              <input type="number" id="cou-ug" step="any" placeholder="ej: 1250">
+            </div>
+            <div class="campo-grupo">
+              <label for="cou-blanco">Blanco o deriva acumulada (µg), opcional</label>
+              <input type="number" id="cou-blanco" step="any" placeholder="ej: 15">
+            </div>
+            <div class="campo-grupo">
+              <label for="cou-masa">Masa de muestra (g)</label>
+              <input type="number" id="cou-masa" step="any" placeholder="ej: 0,5000">
+            </div>
+          </fieldset>
+
+          <button class="btn btn--primario" id="btn-calcular" type="button">Calcular</button>
+
+          <div class="resultado" id="resultado" role="status" aria-live="polite">
+            <p class="resultado__etiqueta" id="resultado-etiqueta">Resultado</p>
+            <p class="resultado__valor" id="resultado-valor">—</p>
+            <p class="resultado__formula" id="resultado-formula"></p>
+            <div id="resultado-extra"></div>
+          </div>
+        </div><!-- /calculadora -->
+
+        <div class="seccion-educativa">
+
+          <h2>Cómo se calcula el factor del reactivo</h2>
+          <p>
+            El factor (o título) F indica cuántos miligramos de agua reaccionan con cada mililitro de reactivo Karl Fischer. Se determina titulando una cantidad conocida de agua:
+          </p>
+          <div class="ejemplo-bloque">
+            <strong>Factor del reactivo</strong>
+            <p>F (mg/mL) = m<sub>agua</sub> (mg) / V (mL)</p>
+            <p>Con tartrato sódico dihidratado: m<sub>agua</sub> = m<sub>tartrato</sub> × 0,1566 (2 × 18,015 / 230,08)</p>
+          </div>
+
+          <h2>Cómo se calcula el % de agua</h2>
+          <div class="ejemplo-bloque">
+            <strong>Volumétrico</strong>
+            <p>% H₂O = (V − V<sub>blanco</sub>) × F / (10 × m<sub>muestra</sub>)</p>
+            <p>V en mL, F en mg/mL y m en g. Para expresarlo en mg/kg (ppm), multiplicá el % por 10 000.</p>
+          </div>
+          <div class="ejemplo-bloque">
+            <strong>Coulométrico</strong>
+            <p>% H₂O = (µg<sub>agua</sub> − µg<sub>blanco</sub>) / (m<sub>muestra</sub> × 10⁴)</p>
+            <p>El equipo genera el yodo por electrólisis y da directamente los µg de agua.</p>
+          </div>
+
+          <div class="ejemplo-bloque">
+            <strong>Ejemplo resuelto</strong>
+            <p>Se titulan 150,0 mg de tartrato sódico dihidratado y se gastan 4,70 mL: F = 150,0 × 0,1566 / 4,70 = <strong>4,998 mg/mL</strong>.</p>
+            <p>Con ese reactivo, 1,0000 g de muestra gastan 2,35 mL: % H₂O = 2,35 × 4,998 / (10 × 1,0000) = <strong>1,175 %</strong> (11 745 mg/kg).</p>
+          </div>
+
+          <h2>Preguntas frecuentes</h2>
+
+          <div class="faq-item">
+            <h3>¿Qué patrón conviene usar para el factor?</h3>
+            <p>El tartrato sódico dihidratado es sólido, estable y tiene un contenido de agua conocido (15,66 %), así que se pesa con facilidad. El agua pura es el patrón más directo, pero hay que pesar gotas de 10 a 30 mg con mucho cuidado. Los estándares líquidos certificados, con 1 o 10 mg de agua por gramo, son los más prácticos para reactivos de factor bajo y para el método coulométrico.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Cuándo usar Karl Fischer volumétrico y cuándo coulométrico?</h3>
+            <p>El volumétrico sirve para muestras con contenidos de agua medios y altos, desde alrededor de 0,01 % hasta 100 %. El coulométrico es para trazas, desde unos pocos mg/kg hasta alrededor de 1 %, porque genera el yodo por electrólisis y no depende de un factor. Si la muestra tiene mucha agua, el coulométrico se vuelve lento y conviene el volumétrico.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Cada cuánto hay que determinar el factor?</h3>
+            <p>El reactivo pierde título con el tiempo por la humedad ambiente y la luz. Lo habitual es determinarlo al empezar la jornada o cada vez que se cambia o se abre el reactivo, siempre por duplicado o triplicado. La frecuencia exacta la define el procedimiento del laboratorio.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Para qué sirve el blanco o la deriva?</h3>
+            <p>El solvente de la celda y la humedad que entra al sistema también consumen reactivo. El blanco (en mL, volumétrico) o la deriva acumulada (en µg, coulométrico) se restan para que el resultado corresponda solo al agua de la muestra.</p>
+          </div>
+
+        </div>
+
+        <div class="bloque-blog-relacionado">
+          <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
+          <ul class="otras-conversiones">
+            <li><a href="factor-correccion-estandarizacion.html">Factor de corrección de soluciones valoradas</a>: para estandarizar NaOH, HCl, EDTA y otros titulantes.</li>
+            <li><a href="estadistica-laboratorio.html">Estadística para laboratorio</a>: media, desvío y prueba de valores anómalos para tus réplicas.</li>
+          </ul>
+        </div>
+
+        <div class="bloque-blog-relacionado bloque-profundizar">
+          <p class="bloque-blog-relacionado__etiqueta">Para profundizar</p>
+          <ul class="otras-conversiones">
+            <li><a href="../blog/posts/calculo-karl-fischer-humedad-factor.html">Cálculo de Karl Fischer: humedad y factor</a>: el principio del método, la estandarización y un ejemplo resuelto.</li>
+            <li><a href="../blog/posts/como-armar-presupuesto-incertidumbre-volumetria.html">Cómo armar un presupuesto de incertidumbre en volumetría</a>: qué fuentes de error sumar en una titulación.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/formato-numero.js"></script>
+  <script src="./js/calculadora-karl-fischer.js"></script>
+  <script type="module" src="../js/init-speed-insights.js"></script>
+  <script src="../js/pwa-register.js"></script>
+  <script src="../js/historial.js"></script>
+  <script src="../js/compartir.js"></script>
+  <script src="../js/copiar-resultado.js"></script>
+
+</body>
+</html>
