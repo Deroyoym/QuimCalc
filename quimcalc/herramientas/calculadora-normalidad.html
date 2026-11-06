@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora de normalidad y peso equivalente | QuimCalc</title>
-  <meta name="description" content="Convertí entre normalidad y molaridad, calculá el peso equivalente y cuánto pesar para preparar una solución N. Con H₂SO₄, KMnO₄, Na₂CO₃ y más.">
+  <title>Calculadora de normalidad: N, M y gramos a pesar | QuimCalc</title>
+  <meta name="description" content="¿Cuánto pesar para 250 mL de Na₂CO₃ 0,1 N? Calcula la normalidad, el factor de equivalencia y el peso equivalente de 15 reactivos, gratis.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://quimcalc.com/herramientas/calculadora-normalidad.html">
-  <meta property="og:title" content="Calculadora de normalidad y peso equivalente | QuimCalc">
-  <meta property="og:description" content="Convertí entre normalidad y molaridad, calculá el peso equivalente y cuánto pesar para preparar una solución N. Con H₂SO₄, KMnO₄, Na₂CO₃ y más.">
+  <meta property="og:title" content="Calculadora de normalidad: N, M y gramos a pesar | QuimCalc">
+  <meta property="og:description" content="¿Cuánto pesar para 250 mL de Na₂CO₃ 0,1 N? Calcula la normalidad, el factor de equivalencia y el peso equivalente de 15 reactivos, gratis.">
   <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
   <meta property="og:site_name" content="QuimCalc">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Calculadora de normalidad y peso equivalente | QuimCalc">
-  <meta name="twitter:description" content="Convertí entre normalidad y molaridad, calculá el peso equivalente y cuánto pesar para preparar una solución N. Con H₂SO₄, KMnO₄, Na₂CO₃ y más.">
+  <meta name="twitter:title" content="Calculadora de normalidad: N, M y gramos a pesar | QuimCalc">
+  <meta name="twitter:description" content="¿Cuánto pesar para 250 mL de Na₂CO₃ 0,1 N? Calcula la normalidad, el factor de equivalencia y el peso equivalente de 15 reactivos, gratis.">
   <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
   <meta name="author" content="QuimCalc">
   <link rel="canonical" href="https://quimcalc.com/herramientas/calculadora-normalidad.html">
@@ -46,8 +46,13 @@
       "Conversión N ↔ M",
       "Peso equivalente",
       "Masa a pesar con corrección por pureza",
-      "Reactivos precargados con su factor de equivalencia"
+      "15 reactivos precargados con su factor de equivalencia"
     ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
     "provider": {
       "@type": "Organization",
       "name": "QuimCalc",
@@ -63,6 +68,14 @@
     "mainEntity": [
       {
         "@type": "Question",
+        "name": "¿Cómo se calcula la normalidad de una solución?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Se dividen los equivalentes de soluto por el volumen de solución en litros. En la práctica se calcula la molaridad y se multiplica por el factor de equivalencia: N = M × f. Por ejemplo, 4,904 g de H₂SO₄ (98,072 g/mol) en 1 L dan 0,05000 M; con f = 2 en una titulación ácido-base, la solución es 0,1000 N."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "¿Cuál es la diferencia entre normalidad y molaridad?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -71,10 +84,10 @@
       },
       {
         "@type": "Question",
-        "name": "¿Por qué el H₃PO₄ puede tener tres normalidades distintas?",
+        "name": "¿Por qué el H₃PO₄ puede tener distintas normalidades?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Porque no siempre cede sus tres protones. Si se titula hasta el primer punto de equivalencia (pH ≈ 4,5) reacciona un H⁺ y f = 1; hasta el segundo (pH ≈ 9,7), f = 2. Una solución 0,1 M puede ser 0,1 N, 0,2 N o 0,3 N según el método."
+          "text": "Porque no siempre cede todos sus protones. Si se titula hasta el primer punto de equivalencia (pH ≈ 4,7) reacciona un H⁺ y f = 1; hasta el segundo (pH ≈ 9,7), f = 2. El tercer H⁺ (pKa₃ ≈ 12,35) no se titula directamente en agua, así que f = 3 solo vale en reacciones donde reaccionan los tres, como la precipitación de Ag₃PO₄."
         }
       },
       {
@@ -90,7 +103,7 @@
         "name": "¿Se sigue usando la normalidad?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "La IUPAC desaconseja la normalidad y recomienda expresar todo en mol/L con la estequiometría de la reacción. Aun así, muchos métodos clásicos de titulación (acidez, alcalinidad, permanganometría) y farmacopeas antiguas la siguen usando, y por eso conviene saber convertirla."
+          "text": "La IUPAC desaconseja la normalidad y recomienda expresar todo en mol/L con la estequiometría de la reacción. Aun así, muchos métodos clásicos de titulación (acidez, alcalinidad, permanganometría) y algunas farmacopeas, como la USP–NF, la siguen usando, y por eso conviene saber convertirla."
         }
       }
     ]
@@ -151,7 +164,7 @@
         <div class="pagina-herramienta__encabezado">
           <h1 class="pagina-herramienta__titulo">Calculadora de normalidad y peso equivalente</h1>
           <p class="pagina-herramienta__descripcion">
-            Elegí el reactivo, revisá su factor de equivalencia y convertí entre normalidad y molaridad, o calculá cuánto pesar para preparar una solución de normalidad conocida.
+            Elige el reactivo, revisa su factor de equivalencia y convierte normalidad (eq/L) a molaridad (mol/L), o calcula los gramos a pesar para preparar una solución (disolución) normal.
           </p>
         </div>
 
@@ -184,6 +197,7 @@
             <div class="campo-grupo">
               <label for="masa-molar">Masa molar (g/mol)</label>
               <input type="number" id="masa-molar" step="any" placeholder="ej: 98,072">
+              <span class="ayuda">Para otros reactivos, calcúlala con la <a href="masa-molar.html">calculadora de masa molar</a>.</span>
             </div>
             <div class="campo-grupo">
               <label for="feq">Factor de equivalencia f (H⁺, OH⁻ o e⁻ por mol)</label>
@@ -192,7 +206,7 @@
           </fieldset>
 
           <div class="campo-grupo">
-            <label for="modo">¿Qué querés calcular?</label>
+            <label for="modo">¿Qué quieres calcular?</label>
             <select id="modo">
               <option value="convertir">Convertir entre normalidad y molaridad</option>
               <option value="preparar">Masa a pesar para preparar una solución N</option>
@@ -230,7 +244,7 @@
             <div class="campo-grupo">
               <label for="pureza">Pureza del reactivo (%)</label>
               <input type="number" id="pureza" step="any" placeholder="ej: 99,5">
-              <span class="ayuda">Si la dejás vacía, se toma 100 %.</span>
+              <span class="ayuda">Si la dejas vacía, se toma 100 %.</span>
             </div>
           </fieldset>
 
@@ -246,9 +260,9 @@
 
         <div class="seccion-educativa">
 
-          <h2>Normalidad, molaridad y peso equivalente</h2>
+          <h2 id="formula-normalidad">Cómo calcular la normalidad</h2>
           <p>
-            La normalidad (N) expresa equivalentes de soluto por litro de solución. Un equivalente es la cantidad que reacciona con un mol de H⁺ (ácido-base), un mol de electrones (redox) o un mol de carga (precipitación). Por eso la normalidad depende de la reacción, y la molaridad no.
+            La normalidad se calcula como N = M × f, donde f es el número de H⁺, OH⁻ o electrones que intercambia cada mol del reactivo. Expresa equivalentes (o equivalentes-gramo) de soluto por litro de solución (disolución); en análisis de rutina también se usan los miliequivalentes por litro (meq/L). Como depende de la reacción, la normalidad cambia según el método, y la molaridad no: lo explicamos en detalle en las <a href="../blog/posts/normalidad-vs-molaridad.html">diferencias entre normalidad y molaridad</a>.
           </p>
           <div class="ejemplo-bloque">
             <strong>Fórmulas</strong>
@@ -258,14 +272,19 @@
             <p>f = H⁺, OH⁻ o electrones que intercambia cada mol en la reacción; M<sub>m</sub> = masa molar; P = pureza (%).</p>
           </div>
 
+          <h2 id="ejemplos-resueltos">Ejemplos resueltos</h2>
           <div class="ejemplo-bloque">
-            <strong>Ejemplos resueltos</strong>
-            <p>H₂SO₄ (M<sub>m</sub> = 98,072 g/mol; f = 2): PE = 98,072 / 2 = <strong>49,036 g/eq</strong>.</p>
-            <p>250 mL de Na₂CO₃ 0,1 N (f = 2, titulado hasta CO₂): m = 0,1 × 0,250 × 105,988 / 2 = <strong>1,3249 g</strong>.</p>
-            <p>1 L de KMnO₄ 0,1 N en medio ácido (f = 5): m = 0,1 × 1 × 158,032 / 5 = <strong>3,1606 g</strong>.</p>
+            <p>H<sub>2</sub>SO<sub>4</sub> (M<sub>m</sub> = 98,072 g/mol; f = 2): PE = 98,072 / 2 = <strong>49,036 g/eq</strong>.</p>
+            <p>250 mL de Na<sub>2</sub>CO<sub>3</sub> 0,1 N (f = 2, titulado hasta CO<sub>2</sub>): m = 0,1 × 0,250 × 105,988 / 2 = <strong>1,3249 g</strong>.</p>
+            <p>1 L de KMnO<sub>4</sub> 0,1 N en medio ácido (f = 5): m = 0,1 × 1 × 158,032 / 5 = <strong>3,1606 g</strong>. Como el KMnO<sub>4</sub> no es patrón primario, después se estandariza con la <a href="factor-correccion-estandarizacion.html">calculadora de factor de corrección</a>.</p>
           </div>
 
-          <h2>Preguntas frecuentes</h2>
+          <h2 id="preguntas-frecuentes">Preguntas frecuentes</h2>
+
+          <div class="faq-item">
+            <h3>¿Cómo se calcula la normalidad de una solución?</h3>
+            <p>Se dividen los equivalentes de soluto por el volumen de solución en litros. En la práctica se calcula la molaridad y se multiplica por el factor de equivalencia: N = M × f. Por ejemplo, 4,904 g de H₂SO₄ (98,072 g/mol) en 1 L dan 0,05000 M; con f = 2 en una titulación ácido-base, la solución es 0,1000 N.</p>
+          </div>
 
           <div class="faq-item">
             <h3>¿Cuál es la diferencia entre normalidad y molaridad?</h3>
@@ -273,8 +292,8 @@
           </div>
 
           <div class="faq-item">
-            <h3>¿Por qué el H₃PO₄ puede tener tres normalidades distintas?</h3>
-            <p>Porque no siempre cede sus tres protones. Si se titula hasta el primer punto de equivalencia (pH ≈ 4,5) reacciona un H⁺ y f = 1; hasta el segundo (pH ≈ 9,7), f = 2. Una solución 0,1 M puede ser 0,1 N, 0,2 N o 0,3 N según el método.</p>
+            <h3>¿Por qué el H₃PO₄ puede tener distintas normalidades?</h3>
+            <p>Porque no siempre cede todos sus protones. Si se titula hasta el primer punto de equivalencia (pH ≈ 4,7) reacciona un H⁺ y f = 1; hasta el segundo (pH ≈ 9,7), f = 2. El tercer H⁺ (pKa₃ ≈ 12,35) no se titula directamente en agua, así que f = 3 solo vale en reacciones donde reaccionan los tres, como la precipitación de Ag₃PO₄.</p>
           </div>
 
           <div class="faq-item">
@@ -284,7 +303,7 @@
 
           <div class="faq-item">
             <h3>¿Se sigue usando la normalidad?</h3>
-            <p>La IUPAC desaconseja la normalidad y recomienda expresar todo en mol/L con la estequiometría de la reacción. Aun así, muchos métodos clásicos de titulación (acidez, alcalinidad, permanganometría) y farmacopeas antiguas la siguen usando, y por eso conviene saber convertirla.</p>
+            <p>La IUPAC desaconseja la normalidad y recomienda expresar todo en mol/L con la estequiometría de la reacción. Aun así, muchos métodos clásicos de titulación (acidez, alcalinidad, permanganometría) y algunas farmacopeas, como la USP–NF, la siguen usando, y por eso conviene saber convertirla.</p>
           </div>
 
         </div>
@@ -293,7 +312,8 @@
           <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
           <ul class="otras-conversiones">
             <li><a href="factor-correccion-estandarizacion.html">Factor de corrección de soluciones valoradas</a>: para conocer la concentración real después de preparar la solución.</li>
-            <li><a href="diluciones-reactivo-comercial.html">Dilución desde reactivo comercial</a>: para ácidos líquidos concentrados (usá M = N / f).</li>
+            <li><a href="diluciones-reactivo-comercial.html">Dilución desde reactivo comercial</a>: para ácidos líquidos concentrados (usa M = N / f).</li>
+            <li><a href="solucion-desde-solido.html">Solución desde sólido con pureza</a>: si la concentración está en mol/L o g/L.</li>
             <li><a href="calculadora-titulacion.html">Titulación volumétrica</a>: para calcular la concentración de una muestra con N₁V₁ = N₂V₂.</li>
           </ul>
         </div>
@@ -302,6 +322,7 @@
           <p class="bloque-blog-relacionado__etiqueta">Para profundizar</p>
           <ul class="otras-conversiones">
             <li><a href="../blog/posts/normalidad-vs-molaridad.html">Normalidad vs. molaridad</a>: diferencias, factores de equivalencia y cuándo usar cada una.</li>
+            <li><a href="../blog/posts/como-preparar-hcl-1m-desde-hcl-37.html">Cómo preparar HCl 1 M desde HCl al 37 %</a>: incluido el caso de una receta en normalidad.</li>
             <li><a href="../blog/posts/errores-comunes-titulacion.html">Los 5 errores más comunes en titulaciones</a>: y cómo evitarlos.</li>
           </ul>
         </div>

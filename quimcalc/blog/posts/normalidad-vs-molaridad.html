@@ -76,7 +76,7 @@
         "name": "¿Por qué el KMnO₄ tiene f_eq diferente en distintos medios?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Porque el permanganato se reduce a distintos productos según el pH del medio. En medio ácido (Mn⁷⁺ → Mn²⁺): gana 5 e⁻, f_eq = 5. En medio neutro o básico (Mn⁷⁺ → MnO₂): gana 3 e⁻, f_eq = 3. El método de análisis siempre especifica el medio de reacción, lo que define el f_eq a usar."
+          "text": "Porque el permanganato se reduce a distintos productos según el pH del medio. En medio ácido (Mn(VII) → Mn²⁺): gana 5 e⁻, f_eq = 5. En medio neutro o básico (Mn(VII) → MnO₂): gana 3 e⁻, f_eq = 3. El método de análisis siempre especifica el medio de reacción, lo que define el f_eq a usar."
         }
       }
     ]
@@ -224,7 +224,7 @@
               <strong>Tabla de factores de equivalencia comunes</strong>
               <p>HCl → f_eq = 1 &nbsp;(cede 1 H⁺) &nbsp;→ 1 M = 1 N</p>
               <p>H₂SO₄ → f_eq = 2 (cede 2 H⁺) → 1 M = 2 N</p>
-              <p>H₃PO₄ → f_eq = 3 (cede 3 H⁺) → 1 M = 3 N (si reacciona completa)</p>
+              <p>H₃PO₄ → f_eq = 1 o 2 en titulaciones ácido-base (el tercer H⁺ no se titula en agua); f_eq = 3 solo si reaccionan los tres</p>
               <p>NaOH → f_eq = 1 &nbsp;(libera 1 OH⁻) → 1 M = 1 N</p>
               <p>Ca(OH)₂ → f_eq = 2 (libera 2 OH⁻) → 1 M = 2 N</p>
               <p>KMnO₄ (medio ácido) → f_eq = 5 (gana 5 e⁻) → 1 M = 5 N</p>
@@ -239,13 +239,13 @@
             </p>
 
             <ul>
-              <li>Si titulamos hasta el primer punto de equivalencia (pH ≈ 4.5): f_eq = 1 → N = M</li>
-              <li>Si titulamos hasta el segundo punto de equivalencia (pH ≈ 9.7): f_eq = 2 → N = 2M</li>
-              <li>Si titulamos hasta el tercer punto de equivalencia: f_eq = 3 → N = 3M</li>
+              <li>Si titulamos hasta el primer punto de equivalencia (pH ≈ 4,7): f_eq = 1 → N = M</li>
+              <li>Si titulamos hasta el segundo punto de equivalencia (pH ≈ 9,7): f_eq = 2 → N = 2M</li>
+              <li>El tercer H⁺ (pK<sub>a3</sub> ≈ 12,35) es tan débil que no da un punto de equivalencia titulable en agua; f_eq = 3 solo vale en reacciones donde reaccionan los tres, como la precipitación de Ag₃PO₄ → N = 3M</li>
             </ul>
 
             <p>
-              Una solución de H₃PO₄ 0.1 M es simultáneamente 0.1 N, 0.2 N o 0.3 N dependiendo de la reacción en la que la usemos. Esto muestra por qué la normalidad no es una propiedad absoluta del compuesto sino del sistema reacción-compuesto.
+              Una solución de H₃PO₄ 0,1 M es simultáneamente 0,1 N, 0,2 N o 0,3 N dependiendo de la reacción en la que la usemos. Esto muestra por qué la normalidad no es una propiedad absoluta del compuesto sino del sistema reacción-compuesto.
             </p>
 
             <h2 id="cuando-usar">¿Cuándo usar molaridad y cuándo normalidad?</h2>
@@ -287,16 +287,16 @@
             <div class="ejemplo-bloque">
               <strong>Comparación: titular NaOH con H₂SO₄</strong>
               <p><strong>Con normalidad:</strong> N(H₂SO₄) × V(H₂SO₄) = N(NaOH) × V(NaOH)</p>
-              <p>Si H₂SO₄ 0.05 N gasta 20 mL para titular 10 mL de NaOH:</p>
-              <p>N(NaOH) = (0.05 × 20) / 10 = <strong>0.1 N</strong></p>
-              <p><br><strong>Con molaridad:</strong> habría que escribir 2×M(NaOH)×V = M(H₂SO₄)×V porque la estequiometría es H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O</p>
+              <p>Si H₂SO₄ 0,05 N gasta 20 mL para titular 10 mL de NaOH:</p>
+              <p>N(NaOH) = (0,05 × 20) / 10 = <strong>0,1 N</strong></p>
+              <p><br><strong>Con molaridad:</strong> habría que escribir M(NaOH)×V(NaOH) = 2×M(H₂SO₄)×V(H₂SO₄), porque la estequiometría es H₂SO₄ + 2 NaOH → Na₂SO₄ + 2 H₂O (cada mol de ácido consume 2 mol de base)</p>
               <p>La normalidad elimina ese paso automáticamente.</p>
             </div>
 
             <h2 id="conversion">Conversión entre molaridad y normalidad</h2>
 
             <p>
-              La conversión es directa una vez que conocés el factor de equivalencia:
+              La conversión es directa una vez que conocés el factor de equivalencia, o con la <a href="../../herramientas/calculadora-normalidad.html">calculadora de normalidad</a>, que ya trae el factor de cada reactivo:
             </p>
 
             <div class="post-formula">
@@ -304,15 +304,15 @@
             </div>
 
             <div class="ejemplo-bloque">
-              <strong>Ejemplo 1: H₂SO₄ 0.5 M → Normalidad en titulación ácido-base</strong>
+              <strong>Ejemplo 1: H₂SO₄ 0,5 M → Normalidad en titulación ácido-base</strong>
               <p>f_eq = 2 (cede 2 H⁺)</p>
-              <p>N = 0.5 M × 2 = <strong>1.0 N</strong></p>
+              <p>N = 0,5 M × 2 = <strong>1,0 N</strong></p>
             </div>
 
             <div class="ejemplo-bloque">
-              <strong>Ejemplo 2: KMnO₄ 0.02 N en medio ácido → Molaridad</strong>
-              <p>f_eq = 5 (Mn⁷⁺ → Mn²⁺, gana 5 electrones)</p>
-              <p>M = 0.02 N / 5 = <strong>0.004 M</strong></p>
+              <strong>Ejemplo 2: KMnO₄ 0,02 N en medio ácido → Molaridad</strong>
+              <p>f_eq = 5 (Mn(VII) → Mn²⁺, gana 5 electrones)</p>
+              <p>M = 0,02 N / 5 = <strong>0,004 M</strong></p>
             </div>
 
             <h2 id="faq">Preguntas frecuentes</h2>
@@ -334,14 +334,14 @@
             <div class="faq-item">
               <h3>¿Por qué el KMnO₄ tiene f_eq diferente en distintos medios?</h3>
               <p>
-                Porque el permanganato se reduce a distintos productos según el pH del medio. En medio ácido (Mn⁷⁺ → Mn²⁺): gana 5 e⁻, f_eq = 5. En medio neutro o básico (Mn⁷⁺ → MnO₂): gana 3 e⁻, f_eq = 3. El método de análisis siempre especifica el medio de reacción, lo que define el f_eq a usar.
+                Porque el permanganato se reduce a distintos productos según el pH del medio. En medio ácido (Mn(VII) → Mn²⁺): gana 5 e⁻, f_eq = 5. En medio neutro o básico (Mn(VII) → MnO₂): gana 3 e⁻, f_eq = 3. El método de análisis siempre especifica el medio de reacción, lo que define el f_eq a usar.
               </p>
             </div>
 
           </div>
           <div class="cta-herramienta">
-            <p class="cta-herramienta__texto">Convertí molaridad a normalidad (y al revés) indicando la valencia.</p>
-            <a href="../../herramientas/conversor-ppm-mgl.html" class="btn btn--primario cta-herramienta__btn">Convertir con el conversor M ↔ N →</a>
+            <p class="cta-herramienta__texto">Convierte normalidad y molaridad con el factor de equivalencia de 15 reactivos y calcula cuánto pesar.</p>
+            <a href="../../herramientas/calculadora-normalidad.html" class="btn btn--primario cta-herramienta__btn">Calcular con la calculadora de normalidad →</a>
           </div>
 
                     <!-- Botones de compartir -->
@@ -425,7 +425,8 @@
           <div class="sidebar-card">
             <p class="sidebar-card__titulo">Herramientas relacionadas</p>
             <ul class="herramientas-relacionadas" role="list">
-              <li><a href="../../herramientas/conversor-ppm-mgl.html">→ Conversor Molaridad ↔ Normalidad</a></li>
+              <li><a href="../../herramientas/calculadora-normalidad.html">→ Calculadora de normalidad y peso equivalente</a></li>
+              <li><a href="../../herramientas/factor-correccion-estandarizacion.html">→ Factor de corrección (estandarización)</a></li>
               <li><a href="../../herramientas/calculadora-molaridad.html">→ Calculadora de molaridad y masa</a></li>
               <li><a href="../../herramientas/calculadora-diluciones.html">→ Diluciones C₁V₁ = C₂V₂</a></li>
               <li><a href="../../herramientas/calculadora-titulacion.html">→ Calculadora de titulación</a></li>

@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora Karl Fischer: factor y % de agua | QuimCalc</title>
-  <meta name="description" content="Calculá el factor del reactivo Karl Fischer con agua, tartrato o estándar, y el % de agua por KF volumétrico o coulométrico, con réplicas y CV %.">
+  <title>Calculadora Karl Fischer: % de humedad y factor | QuimCalc</title>
+  <meta name="description" content="Calcula gratis el factor (título) del reactivo Karl Fischer con agua, tartrato o estándar, y el % de humedad volumétrico o coulométrico, con CV %.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://quimcalc.com/herramientas/calculadora-karl-fischer.html">
-  <meta property="og:title" content="Calculadora Karl Fischer: factor y % de agua | QuimCalc">
-  <meta property="og:description" content="Calculá el factor del reactivo Karl Fischer con agua, tartrato o estándar, y el % de agua por KF volumétrico o coulométrico, con réplicas y CV %.">
+  <meta property="og:title" content="Calculadora Karl Fischer: % de humedad y factor | QuimCalc">
+  <meta property="og:description" content="Calcula gratis el factor (título) del reactivo Karl Fischer con agua, tartrato o estándar, y el % de humedad volumétrico o coulométrico, con CV %.">
   <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
   <meta property="og:site_name" content="QuimCalc">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Calculadora Karl Fischer: factor y % de agua | QuimCalc">
-  <meta name="twitter:description" content="Calculá el factor del reactivo Karl Fischer con agua, tartrato o estándar, y el % de agua por KF volumétrico o coulométrico, con réplicas y CV %.">
+  <meta name="twitter:title" content="Calculadora Karl Fischer: % de humedad y factor | QuimCalc">
+  <meta name="twitter:description" content="Calcula gratis el factor (título) del reactivo Karl Fischer con agua, tartrato o estándar, y el % de humedad volumétrico o coulométrico, con CV %.">
   <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
   <meta name="author" content="QuimCalc">
   <link rel="canonical" href="https://quimcalc.com/herramientas/calculadora-karl-fischer.html">
@@ -35,8 +35,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "dateModified": "2026-11-05",
-    "name": "Calculadora de Karl Fischer",
-    "description": "Factor del reactivo Karl Fischer (agua pura, tartrato sódico dihidratado o estándar líquido) y % de agua por titulación volumétrica o coulométrica.",
+    "name": "Calculadora de Karl Fischer: factor del reactivo y % de humedad",
+    "description": "Factor (título) del reactivo Karl Fischer con agua pura, tartrato sódico dihidratado o estándar líquido, y % de humedad por titulación volumétrica o coulométrica.",
     "url": "https://quimcalc.com/herramientas/calculadora-karl-fischer.html",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Web",
@@ -44,10 +44,15 @@
     "inLanguage": "es",
     "featureList": [
       "Factor del reactivo con réplicas, desvío y CV %",
-      "% de agua por KF volumétrico con blanco",
-      "% de agua por KF coulométrico",
+      "% de humedad por KF volumétrico con blanco",
+      "% de humedad por KF coulométrico",
       "Resultado en % y en mg/kg"
     ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
     "provider": {
       "@type": "Organization",
       "name": "QuimCalc",
@@ -63,10 +68,18 @@
     "mainEntity": [
       {
         "@type": "Question",
+        "name": "¿Cómo se calcula el % de humedad por Karl Fischer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Al volumen de reactivo gastado se le resta el blanco, se multiplica por el factor del reactivo (mg de agua por mL) y se divide por la masa de muestra en miligramos; multiplicado por 100 da el % de agua. Por ejemplo, 2,35 mL × 4,998 mg/mL / 1000 mg × 100 = 1,175 %. Para expresarlo en mg/kg se multiplica el % por 10 000."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "¿Qué patrón conviene usar para el factor?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "El tartrato sódico dihidratado es sólido, estable y tiene un contenido de agua conocido (15,66 %), así que se pesa con facilidad. El agua pura es el patrón más directo, pero hay que pesar gotas de 10 a 30 mg con mucho cuidado. Los estándares líquidos certificados, con 1 o 10 mg de agua por gramo, son los más prácticos para reactivos de factor bajo y para el método coulométrico."
+          "text": "El tartrato sódico dihidratado es sólido, estable y tiene un contenido de agua conocido (15,66 %), así que se pesa con facilidad. El agua pura es el patrón más directo, pero hay que pesar gotas de 10 a 30 mg con mucho cuidado. Los estándares líquidos certificados (0,1, 1 o 10 mg de agua por gramo) son prácticos para reactivos de factor bajo y para verificar el coulómetro mediante un ensayo de recuperación."
         }
       },
       {
@@ -74,7 +87,7 @@
         "name": "¿Cuándo usar Karl Fischer volumétrico y cuándo coulométrico?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "El volumétrico sirve para muestras con contenidos de agua medios y altos, desde alrededor de 0,01 % hasta 100 %. El coulométrico es para trazas, desde unos pocos mg/kg hasta alrededor de 1 %, porque genera el yodo por electrólisis y no depende de un factor. Si la muestra tiene mucha agua, el coulométrico se vuelve lento y conviene el volumétrico."
+          "text": "El volumétrico sirve para muestras con contenidos de agua medios y altos, desde alrededor de 0,01 % hasta 100 %. El coulométrico es para trazas, desde 1 mg/kg hasta un 1–5 % (lo óptimo es por debajo de 1 %), porque genera el yodo por electrólisis y no depende de un factor. Si la muestra tiene mucha agua, el coulométrico se vuelve lento y conviene el volumétrico."
         }
       },
       {
@@ -90,7 +103,7 @@
         "name": "¿Para qué sirve el blanco o la deriva?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "El solvente de la celda y la humedad que entra al sistema también consumen reactivo. El blanco (en mL, volumétrico) o la deriva acumulada (en µg, coulométrico) se restan para que el resultado corresponda solo al agua de la muestra."
+          "text": "El solvente de la celda y la humedad que entra al sistema también consumen reactivo. El blanco (en mL, volumétrico) o la deriva acumulada (en µg, coulométrico) se restan para que el resultado corresponda solo al agua de la muestra. Muchos coulómetros ya descuentan la deriva automáticamente: en ese caso no hay que restarla otra vez."
         }
       }
     ]
@@ -149,20 +162,20 @@
         </nav>
 
         <div class="pagina-herramienta__encabezado">
-          <h1 class="pagina-herramienta__titulo">Calculadora de Karl Fischer</h1>
+          <h1 class="pagina-herramienta__titulo">Calculadora de Karl Fischer: factor del reactivo y % de humedad</h1>
           <p class="pagina-herramienta__descripcion">
-            Calculá el factor del reactivo Karl Fischer a partir de agua pura, tartrato sódico dihidratado o un estándar líquido, y el contenido de agua de tu muestra por titulación volumétrica o coulométrica.
+            Calcula el factor (título) del reactivo Karl Fischer con agua pura, tartrato sódico dihidratado o un estándar líquido, y el % de humedad de la muestra por titulación volumétrica o coulométrica, en % y en mg/kg.
           </p>
         </div>
 
-        <div class="calculadora" role="form" aria-label="Calculadora de Karl Fischer">
+        <div class="calculadora" role="form" aria-label="Calculadora de Karl Fischer: factor del reactivo y % de humedad">
 
           <div class="campo-grupo">
-            <label for="modo">¿Qué querés calcular?</label>
+            <label for="modo">¿Qué quieres calcular?</label>
             <select id="modo">
               <option value="factor">Factor (título) del reactivo</option>
-              <option value="volumetrico">% de agua: KF volumétrico</option>
-              <option value="coulometrico">% de agua: KF coulométrico</option>
+              <option value="volumetrico">% de humedad: KF volumétrico</option>
+              <option value="coulometrico">% de humedad: KF coulométrico</option>
             </select>
           </div>
 
@@ -175,11 +188,12 @@
                 <option value="tartrato">Tartrato sódico dihidratado (15,66 % de agua)</option>
                 <option value="estandar">Estándar líquido certificado</option>
               </select>
+              <span class="ayuda">Si el certificado del tartrato indica otro contenido de agua, elige «Estándar líquido certificado» e ingresa ese valor en mg/g (15,66 % = 156,6 mg/g).</span>
             </div>
             <div class="campo-grupo" id="campo-contenido" hidden>
               <label for="contenido">Contenido de agua del estándar (mg/g)</label>
               <input type="number" id="contenido" step="any" placeholder="ej: 10,0">
-              <span class="ayuda">Figura en el certificado del estándar (por ejemplo, 1,0 o 10,0 mg/g).</span>
+              <span class="ayuda">Figura en el certificado del estándar (habitualmente 0,1, 1,0 o 10,0 mg/g).</span>
             </div>
             <p class="rotulo-seccion rotulo-seccion--sm">Réplicas (hasta 3)</p>
             <table class="tabla-replicas">
@@ -197,7 +211,7 @@
             <div class="campo-grupo">
               <label for="vol-factor">Factor del reactivo (mg/mL)</label>
               <input type="number" id="vol-factor" step="any" placeholder="ej: 4,998">
-              <span class="ayuda">Si no lo tenés, calculalo primero en el modo «Factor».</span>
+              <span class="ayuda">Si no lo tienes, calcúlalo primero en el modo «Factor».</span>
             </div>
             <div class="campo-grupo">
               <label for="vol-v">Volumen de reactivo gastado (mL)</label>
@@ -222,6 +236,7 @@
             <div class="campo-grupo">
               <label for="cou-blanco">Blanco o deriva acumulada (µg), opcional</label>
               <input type="number" id="cou-blanco" step="any" placeholder="ej: 15">
+              <span class="ayuda">Solo si el equipo no la resta automáticamente: la mayoría de los coulómetros ya informan los µg con la deriva descontada.</span>
             </div>
             <div class="campo-grupo">
               <label for="cou-masa">Masa de muestra (g)</label>
@@ -241,9 +256,9 @@
 
         <div class="seccion-educativa">
 
-          <h2>Cómo se calcula el factor del reactivo</h2>
+          <h2 id="factor-reactivo">Cómo se calcula el factor del reactivo</h2>
           <p>
-            El factor (o título) F indica cuántos miligramos de agua reaccionan con cada mililitro de reactivo Karl Fischer. Se determina titulando una cantidad conocida de agua:
+            El factor (también llamado título o equivalente de agua) indica cuántos miligramos de agua reaccionan con cada mililitro de reactivo Karl Fischer. Se determina titulando una cantidad conocida de agua:
           </p>
           <div class="ejemplo-bloque">
             <strong>Factor del reactivo</strong>
@@ -251,34 +266,40 @@
             <p>Con tartrato sódico dihidratado: m<sub>agua</sub> = m<sub>tartrato</sub> × 0,1566 (2 × 18,015 / 230,08)</p>
           </div>
 
-          <h2>Cómo se calcula el % de agua</h2>
+          <h2 id="porcentaje-humedad">Cómo se calcula el % de humedad</h2>
           <div class="ejemplo-bloque">
             <strong>Volumétrico</strong>
-            <p>% H₂O = (V − V<sub>blanco</sub>) × F / (10 × m<sub>muestra</sub>)</p>
-            <p>V en mL, F en mg/mL y m en g. Para expresarlo en mg/kg (ppm), multiplicá el % por 10 000.</p>
+            <p>% H<sub>2</sub>O = (V − V<sub>blanco</sub>) × F / (10 × m<sub>muestra</sub>)</p>
+            <p>V en mL, F en mg/mL y m en g. Para expresarlo en mg/kg, multiplica el % por 10&#8239;000; si necesitas pasar a otras unidades, usa el <a href="conversor-ppm-mgl.html">conversor de ppm a mg/L</a>.</p>
           </div>
           <div class="ejemplo-bloque">
             <strong>Coulométrico</strong>
-            <p>% H₂O = (µg<sub>agua</sub> − µg<sub>blanco</sub>) / (m<sub>muestra</sub> × 10⁴)</p>
+            <p>% H<sub>2</sub>O = (µg<sub>agua</sub> − µg<sub>blanco</sub>) / (m<sub>muestra</sub> × 10<sup>4</sup>)</p>
             <p>El equipo genera el yodo por electrólisis y da directamente los µg de agua.</p>
           </div>
 
+          <h2 id="ejemplo-resuelto">Ejemplo resuelto</h2>
           <div class="ejemplo-bloque">
-            <strong>Ejemplo resuelto</strong>
             <p>Se titulan 150,0 mg de tartrato sódico dihidratado y se gastan 4,70 mL: F = 150,0 × 0,1566 / 4,70 = <strong>4,998 mg/mL</strong>.</p>
-            <p>Con ese reactivo, 1,0000 g de muestra gastan 2,35 mL: % H₂O = 2,35 × 4,998 / (10 × 1,0000) = <strong>1,175 %</strong> (11 745 mg/kg).</p>
+            <p>Con ese reactivo, 1,0000 g de muestra gastan 2,35 mL: % H<sub>2</sub>O = 2,35 × 4,998 / (10 × 1,0000) = <strong>1,175 %</strong> (11&#8239;745 mg/kg).</p>
+            <p>Para el principio químico del método y otro ejemplo con agua pura, consulta el <a href="../blog/posts/calculo-karl-fischer-humedad-factor.html">cálculo de Karl Fischer paso a paso</a>.</p>
           </div>
 
-          <h2>Preguntas frecuentes</h2>
+          <h2 id="preguntas-frecuentes">Preguntas frecuentes</h2>
+
+          <div class="faq-item">
+            <h3>¿Cómo se calcula el % de humedad por Karl Fischer?</h3>
+            <p>Al volumen de reactivo gastado se le resta el blanco, se multiplica por el factor del reactivo (mg de agua por mL) y se divide por la masa de muestra en miligramos; multiplicado por 100 da el % de agua. Por ejemplo, 2,35 mL × 4,998 mg/mL / 1000 mg × 100 = 1,175 %. Para expresarlo en mg/kg se multiplica el % por 10 000.</p>
+          </div>
 
           <div class="faq-item">
             <h3>¿Qué patrón conviene usar para el factor?</h3>
-            <p>El tartrato sódico dihidratado es sólido, estable y tiene un contenido de agua conocido (15,66 %), así que se pesa con facilidad. El agua pura es el patrón más directo, pero hay que pesar gotas de 10 a 30 mg con mucho cuidado. Los estándares líquidos certificados, con 1 o 10 mg de agua por gramo, son los más prácticos para reactivos de factor bajo y para el método coulométrico.</p>
+            <p>El tartrato sódico dihidratado es sólido, estable y tiene un contenido de agua conocido (15,66 %), así que se pesa con facilidad. El agua pura es el patrón más directo, pero hay que pesar gotas de 10 a 30 mg con mucho cuidado. Los estándares líquidos certificados (0,1, 1 o 10 mg de agua por gramo) son prácticos para reactivos de factor bajo y para verificar el coulómetro mediante un ensayo de recuperación.</p>
           </div>
 
           <div class="faq-item">
             <h3>¿Cuándo usar Karl Fischer volumétrico y cuándo coulométrico?</h3>
-            <p>El volumétrico sirve para muestras con contenidos de agua medios y altos, desde alrededor de 0,01 % hasta 100 %. El coulométrico es para trazas, desde unos pocos mg/kg hasta alrededor de 1 %, porque genera el yodo por electrólisis y no depende de un factor. Si la muestra tiene mucha agua, el coulométrico se vuelve lento y conviene el volumétrico.</p>
+            <p>El volumétrico sirve para muestras con contenidos de agua medios y altos, desde alrededor de 0,01 % hasta 100 %. El coulométrico es para trazas, desde 1 mg/kg hasta un 1–5 % (lo óptimo es por debajo de 1 %), porque genera el yodo por electrólisis y no depende de un factor. Si la muestra tiene mucha agua, el coulométrico se vuelve lento y conviene el volumétrico.</p>
           </div>
 
           <div class="faq-item">
@@ -288,7 +309,7 @@
 
           <div class="faq-item">
             <h3>¿Para qué sirve el blanco o la deriva?</h3>
-            <p>El solvente de la celda y la humedad que entra al sistema también consumen reactivo. El blanco (en mL, volumétrico) o la deriva acumulada (en µg, coulométrico) se restan para que el resultado corresponda solo al agua de la muestra.</p>
+            <p>El solvente de la celda y la humedad que entra al sistema también consumen reactivo. El blanco (en mL, volumétrico) o la deriva acumulada (en µg, coulométrico) se restan para que el resultado corresponda solo al agua de la muestra. Muchos coulómetros ya descuentan la deriva automáticamente: en ese caso no hay que restarla otra vez.</p>
           </div>
 
         </div>
@@ -298,6 +319,7 @@
           <ul class="otras-conversiones">
             <li><a href="factor-correccion-estandarizacion.html">Factor de corrección de soluciones valoradas</a>: para estandarizar NaOH, HCl, EDTA y otros titulantes.</li>
             <li><a href="estadistica-laboratorio.html">Estadística para laboratorio</a>: media, desvío y prueba de valores anómalos para tus réplicas.</li>
+            <li><a href="incertidumbre.html">Incertidumbre de medición</a>: para estimar la incertidumbre del resultado.</li>
           </ul>
         </div>
 
