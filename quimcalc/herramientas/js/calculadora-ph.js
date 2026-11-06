@@ -37,10 +37,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const ayuda = campoKa.querySelector('.ayuda');
     if (tipo === 'acido-debil') {
       label.textContent = 'Ka (constante de acidez)';
-      ayuda.innerHTML = 'Ej: Ka del ácido acético = 1,8 × 10⁻⁵ → escribí 0,000018 o 1,8e-5';
+      ayuda.innerHTML = 'Ej: Ka del ácido acético = 1,8 × 10⁻⁵ → escribe 0,000018 o 1,8e-5';
     } else {
       label.textContent = 'Kb (constante de basicidad)';
-      ayuda.innerHTML = 'Ej: Kb del amoniaco = 1,8 × 10⁻⁵ → escribí 0,000018 o 1,8e-5';
+      ayuda.innerHTML = 'Ej: Kb del amoniaco = 1,8 × 10⁻⁵ → escribe 0,000018 o 1,8e-5';
     }
 
     bloqueResultado.classList.remove('visible');
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* Validación de concentración */
     if (isNaN(C) || C <= 0) {
-      mostrarError('Ingresá una concentración mayor a cero.');
+      mostrarError('Ingresa una concentración mayor a cero.');
       return;
     }
 
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const esAcido = tipo === 'acido-debil';
       const K = parseFloat(inputKa.value);
       if (isNaN(K) || K <= 0) {
-        mostrarError(`Ingresá un valor de ${esAcido ? 'Ka' : 'Kb'} válido (mayor a cero).`);
+        mostrarError(`Ingresa un valor de ${esAcido ? 'Ka' : 'Kb'} válido (mayor a cero).`);
         return;
       }
       /* Solución exacta del equilibrio (balance de carga con Kw) */
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* Verificación de rango (pH debe estar entre 0 y 14) */
     if (pH < 0 || pH > 14) {
-      mostrarError(`El pH calculado es ${pH.toFixed(4)}, fuera del rango 0–14. Verificá los datos ingresados.`);
+      mostrarError(`El pH calculado es ${pH.toFixed(4)}, fuera del rango 0–14. Verifica los datos ingresados.`);
       return;
     }
 

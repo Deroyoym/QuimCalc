@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const formula = inputFormula.value.trim();
 
     if (!formula) {
-      mostrarError('Ingresá una fórmula química. Ej: H2SO4, Ca(OH)2, CuSO4·5H2O');
+      mostrarError('Ingresa una fórmula química. Ej: H2SO4, Ca(OH)2, CuSO4·5H2O');
       return;
     }
 
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const total = {};
     const partes = limpio.split(/[·•*.]/);
     if (partes.some(function (p) { return p === ''; })) {
-      throw new Error('Revisá los separadores de hidrato: deben ir entre dos partes de la fórmula (ej: CuSO4·5H2O).');
+      throw new Error('Revisa los separadores de hidrato: deben ir entre dos partes de la fórmula (ej: CuSO4·5H2O).');
     }
 
     partes.forEach(function (parte) {
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (c === '(') {
           pos++;
           const sub = grupo(true);
-          if (f[pos] !== ')') throw new Error('Falta cerrar un paréntesis. Revisá la fórmula.');
+          if (f[pos] !== ')') throw new Error('Falta cerrar un paréntesis. Revisa la fórmula.');
           pos++;
           const k = numero();
           for (const el in sub) conteo[el] = (conteo[el] || 0) + sub[el] * k;
@@ -129,18 +129,18 @@ document.addEventListener('DOMContentLoaded', function () {
           let simbolo = c;
           if (/[a-z]/.test(f[pos + 1] || '')) simbolo += f[pos + 1];
           if (!(simbolo in MASAS_ATOMICAS)) {
-            throw new Error(`Elemento no reconocido: «${simbolo}». Verificá el símbolo (ej: Fe, Cl, Ca).`);
+            throw new Error(`Elemento no reconocido: «${simbolo}». Verifica el símbolo (ej: Fe, Cl, Ca).`);
           }
           pos += simbolo.length;
           const k = numero();
           conteo[simbolo] = (conteo[simbolo] || 0) + k;
           vacio = false;
         } else if (/[a-z]/.test(c)) {
-          throw new Error(`Los símbolos empiezan con mayúscula: revisá «${c}» (ej: Fe, no fe; H2O, no h2o).`);
+          throw new Error(`Los símbolos empiezan con mayúscula: revisa «${c}» (ej: Fe, no fe; H2O, no h2o).`);
         } else if (/\d/.test(c)) {
           throw new Error('Hay un número en un lugar inesperado. Los subíndices van después del símbolo o del paréntesis (ej: H2O, Ca(OH)2).');
         } else {
-          throw new Error(`Carácter no válido: «${c}». Usá letras, números, paréntesis o corchetes, y «·» para los hidratos.`);
+          throw new Error(`Carácter no válido: «${c}». Usa letras, números, paréntesis o corchetes, y «·» para los hidratos.`);
         }
       }
       if (vacio) throw new Error(dentro ? 'Hay un paréntesis vacío.' : 'No se encontró ningún elemento en la fórmula.');

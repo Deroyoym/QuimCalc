@@ -377,7 +377,7 @@
     featureCard.classList.remove('volteada');
     featureZona.classList.add('visible');
     instruccion.style.display = 'none';
-    flipHint.textContent = 'Hacé clic en la tarjeta para ver la configuración electrónica y más detalles';
+    flipHint.textContent = 'Haz clic en la tarjeta para ver la configuración electrónica y más detalles';
 
     // Scroll suave hacia la tarjeta
     setTimeout(() => {
@@ -390,8 +390,8 @@
     featureCard.classList.toggle('volteada');
     const volteada = featureCard.classList.contains('volteada');
     flipHint.textContent = volteada
-      ? 'Hacé clic para volver a la vista básica'
-      : 'Hacé clic en la tarjeta para ver la configuración electrónica y más detalles';
+      ? 'Haz clic para volver a la vista básica'
+      : 'Haz clic en la tarjeta para ver la configuración electrónica y más detalles';
   });
 
   featureCard.addEventListener('keydown', ev => {

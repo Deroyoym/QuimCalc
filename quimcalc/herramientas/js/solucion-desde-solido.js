@@ -53,10 +53,10 @@
       var unidadV   = document.getElementById('unidad-v').value;
 
       /* Validaciones */
-      if (isNaN(cDeseada)  || cDeseada  <= 0)               return mostrarError('Ingresá una concentración válida (> 0).');
-      if (isNaN(vFinal)    || vFinal    <= 0)               return mostrarError('Ingresá un volumen válido (> 0).');
-      if (unidadC === 'mol/L' && (isNaN(masaMolar) || masaMolar <= 0)) return mostrarError('Ingresá una masa molar válida (> 0).');
-      if (unidadC === 'g/L' && !isNaN(masaMolar) && masaMolar <= 0) return mostrarError('La masa molar debe ser mayor que 0 (o dejala vacía: en g/L no hace falta).');
+      if (isNaN(cDeseada)  || cDeseada  <= 0)               return mostrarError('Ingresa una concentración válida (> 0).');
+      if (isNaN(vFinal)    || vFinal    <= 0)               return mostrarError('Ingresa un volumen válido (> 0).');
+      if (unidadC === 'mol/L' && (isNaN(masaMolar) || masaMolar <= 0)) return mostrarError('Ingresa una masa molar válida (> 0).');
+      if (unidadC === 'g/L' && !isNaN(masaMolar) && masaMolar <= 0) return mostrarError('La masa molar debe ser mayor que 0 (o déjala vacía: en g/L no hace falta).');
       if (isNaN(pureza)    || pureza <= 0 || pureza > 100)  return mostrarError('La pureza debe estar entre 0 y 100 %.');
 
       /* Conversiones */
@@ -85,13 +85,13 @@
       var pasos  = document.getElementById('lista-pasos');
 
       pasos.innerHTML = [
-        'Pesá <strong>' + QCFormato.masa(masaReact) + '</strong> del reactivo en una balanza analítica usando un recipiente seco y tarado.',
-        'Disolvé el reactivo en un vaso de precipitados con aproximadamente el 70–80 % del volumen final de agua destilada. Agitá hasta disolución completa.',
-        'Trasvasá cuantitativamente al matraz aforado de <strong>' + vLabel + '</strong>.',
-        'Enjuagá el vaso de precipitados 2 o 3 veces con porciones pequeñas de agua destilada y agregá los enjuagues al matraz.',
-        'Si la disolución generó calor, esperá que vuelva a temperatura ambiente.',
-        'Completá con agua destilada hasta la marca del matraz. Tapá e invertí varias veces para homogeneizar.',
-        'Etiquetá: nombre del reactivo, concentración, fecha, pureza usada y operador.'
+        'Pesa <strong>' + QCFormato.masa(masaReact) + '</strong> del reactivo en una balanza analítica usando un recipiente seco y tarado.',
+        'Disuelve el reactivo en un vaso de precipitados con aproximadamente el 70–80 % del volumen final de agua destilada. Agita hasta disolución completa.',
+        'Trasvasa cuantitativamente al matraz aforado de <strong>' + vLabel + '</strong>.',
+        'Enjuaga el vaso de precipitados 2 o 3 veces con porciones pequeñas de agua destilada y agrega los enjuagues al matraz.',
+        'Si la disolución generó calor, espera que vuelva a temperatura ambiente.',
+        'Completa con agua destilada hasta la marca del matraz. Tapa e invierte varias veces para homogeneizar.',
+        'Etiqueta: nombre del reactivo, concentración, fecha, pureza usada y operador.'
       ].map(function (p) { return '<li>' + p + '</li>'; }).join('');
 
       document.getElementById('pasos').classList.add('visible');

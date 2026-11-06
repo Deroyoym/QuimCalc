@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* Si hay campos inválidos, mostramos el error y detenemos el cálculo */
     if (camposInvalidos.length > 0) {
-      mostrarError('Revisá los siguientes campos: ' + camposInvalidos.join(', ') + '.');
-      return; /* "return" detiene la función acá */
+      mostrarError('Revisa los siguientes campos: ' + camposInvalidos.join(', ') + '.');
+      return; /* "return" detiene la función aquí */
     }
 
     /* ── Conversión de unidades ──────────────────────────────

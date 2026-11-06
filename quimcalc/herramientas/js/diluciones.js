@@ -41,12 +41,12 @@ document.addEventListener('DOMContentLoaded', function () {
        Necesitamos exactamente 3 conocidas para resolver la 1 incógnita.
        ──────────────────────────────────────────────────────── */
     if (vacios.length === 0) {
-      mostrarError('Dejá exactamente un campo vacío para que la calculadora encuentre la incógnita.');
+      mostrarError('Deja exactamente un campo vacío para que la calculadora encuentre la incógnita.');
       return;
     }
 
     if (vacios.length > 1) {
-      mostrarError(`Hay ${vacios.length} campos vacíos (${vacios.join(', ')}). Necesitás completar todos menos uno.`);
+      mostrarError(`Hay ${vacios.length} campos vacíos (${vacios.join(', ')}). Necesitas completar todos menos uno.`);
       return;
     }
 
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* Una dilución no puede aumentar la concentración */
     if (c2 > c1 * (1 + 1e-9)) {
-      mostrarError('C₂ no puede ser mayor que C₁: al diluir, la concentración baja. Revisá si invertiste los valores.');
+      mostrarError('C₂ no puede ser mayor que C₁: al diluir, la concentración baja. Revisa si invertiste los valores.');
       return;
     }
 

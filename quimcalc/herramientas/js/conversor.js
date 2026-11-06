@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const dir   = selectDirPpm.value; /* "ppm-a-mgl" o "mgl-a-ppm" */
 
       if (isNaN(valor) || valor < 0) {
-        mostrarError('Ingresá un valor numérico válido (mayor o igual a cero).');
+        mostrarError('Ingresa un valor numérico válido (mayor o igual a cero).');
         return;
       }
 
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (String(inputDensidad.value).trim() !== '') {
         densidad = parseFloat(inputDensidad.value);
         if (isNaN(densidad) || densidad <= 0) {
-          mostrarError('La densidad debe ser un número mayor que 0 (o dejala vacía para usar 1 g/mL).');
+          mostrarError('La densidad debe ser un número mayor que 0 (o déjala vacía para usar 1 g/mL).');
           return;
         }
       }
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const dir      = selectDirNorm.value;
 
       if (isNaN(valor) || valor < 0) {
-        mostrarError('Ingresá un valor numérico válido para la concentración.');
+        mostrarError('Ingresa un valor numérico válido para la concentración.');
         return;
       }
 

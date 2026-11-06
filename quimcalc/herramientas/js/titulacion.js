@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     campoVtit.querySelector('label').textContent =
       modo === 'conc'
         ? 'Volumen de titulante gastado (mL)'
-        : 'Volumen de titulante a calcular — dejá vacío';
+        : 'Volumen de titulante a calcular — deja vacío';
 
     if (modo === 'vtit') {
       inputVtit.value = '';
@@ -76,9 +76,9 @@ document.addEventListener('DOMContentLoaded', function () {
        ──────────────────────────────────────────────────────── */
     if (modo === 'conc') {
 
-      if (isNaN(Ntit) || Ntit <= 0)    { mostrarError('Ingresá la normalidad del titulante (mayor a cero).'); return; }
-      if (isNaN(Vtit) || Vtit <= 0)    { mostrarError('Ingresá el volumen de titulante gastado.'); return; }
-      if (isNaN(Vmuestra) || Vmuestra <= 0) { mostrarError('Ingresá el volumen de la muestra.'); return; }
+      if (isNaN(Ntit) || Ntit <= 0)    { mostrarError('Ingresa la normalidad del titulante (mayor a cero).'); return; }
+      if (isNaN(Vtit) || Vtit <= 0)    { mostrarError('Ingresa el volumen de titulante gastado.'); return; }
+      if (isNaN(Vmuestra) || Vmuestra <= 0) { mostrarError('Ingresa el volumen de la muestra.'); return; }
 
       const Nanalito = (Ntit * Vtit) / Vmuestra;
       const formula  = `N(analito) = (${Ntit} N × ${Vtit} mL) / ${Vmuestra} mL`;
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if ((isNaN(valencia) || valencia <= 0) && (!isNaN(PM) || !isNaN(masaMuestra))) {
         extras.push({
           titulo: 'Falta la valencia del analito',
-          valor:  'Completá la valencia para calcular la molaridad, la masa y el %.',
+          valor:  'Completa la valencia para calcular la molaridad, la masa y el %.',
           formula: 'M = N / valencia',
         });
       }
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const usaMatraz  = !isNaN(vMatraz) && vMatraz > 0;
             if (usaMatraz && vMatraz < Vmuestra) {
               extras.push({
-                titulo: 'Revisá el volumen del matraz',
+                titulo: 'Revisa el volumen del matraz',
                 valor:  'El volumen del matraz no puede ser menor que el de la alícuota titulada.',
                 formula: '',
               });
@@ -159,9 +159,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const Nanalito = parseFloat(document.getElementById('n-analito-conocida').value);
 
-      if (isNaN(Ntit) || Ntit <= 0)       { mostrarError('Ingresá la normalidad del titulante.'); return; }
-      if (isNaN(Nanalito) || Nanalito <= 0) { mostrarError('Ingresá la normalidad del analito.'); return; }
-      if (isNaN(Vmuestra) || Vmuestra <= 0) { mostrarError('Ingresá el volumen de la muestra.'); return; }
+      if (isNaN(Ntit) || Ntit <= 0)       { mostrarError('Ingresa la normalidad del titulante.'); return; }
+      if (isNaN(Nanalito) || Nanalito <= 0) { mostrarError('Ingresa la normalidad del analito.'); return; }
+      if (isNaN(Vmuestra) || Vmuestra <= 0) { mostrarError('Ingresa el volumen de la muestra.'); return; }
 
       const VtitCalc = (Nanalito * Vmuestra) / Ntit;
       const formula  = `V(tit) = (${Nanalito} N × ${Vmuestra} mL) / ${Ntit} N`;
