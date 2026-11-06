@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de normalidad: N, M y gramos a pesar | QuimCalc</title>
+  <meta name="description" content="¿Cuánto pesar para 250 mL de Na₂CO₃ 0,1 N? Calcula la normalidad, el factor de equivalencia y el peso equivalente de 15 reactivos, gratis.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quimcalc.com/herramientas/calculadora-normalidad.html">
+  <meta property="og:title" content="Calculadora de normalidad: N, M y gramos a pesar | QuimCalc">
+  <meta property="og:description" content="¿Cuánto pesar para 250 mL de Na₂CO₃ 0,1 N? Calcula la normalidad, el factor de equivalencia y el peso equivalente de 15 reactivos, gratis.">
+  <meta property="og:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta property="og:site_name" content="QuimCalc">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Calculadora de normalidad: N, M y gramos a pesar | QuimCalc">
+  <meta name="twitter:description" content="¿Cuánto pesar para 250 mL de Na₂CO₃ 0,1 N? Calcula la normalidad, el factor de equivalencia y el peso equivalente de 15 reactivos, gratis.">
+  <meta name="twitter:image" content="https://quimcalc.com/assets/og-image.png">
+  <meta name="author" content="QuimCalc">
+  <link rel="canonical" href="https://quimcalc.com/herramientas/calculadora-normalidad.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="css/volumetria-lab.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <meta name="theme-color" content="#1C2E22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="QuimCalc">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "dateModified": "2026-11-05",
+    "name": "Calculadora de normalidad y peso equivalente",
+    "description": "Conversión entre normalidad y molaridad, peso equivalente y masa a pesar para preparar soluciones normales, con reactivos ácido-base y redox precargados.",
+    "url": "https://quimcalc.com/herramientas/calculadora-normalidad.html",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "isAccessibleForFree": true,
+    "inLanguage": "es",
+    "featureList": [
+      "Conversión N ↔ M",
+      "Peso equivalente",
+      "Masa a pesar con corrección por pureza",
+      "15 reactivos precargados con su factor de equivalencia"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": "QuimCalc",
+      "url": "https://quimcalc.com"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-11-05",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Cómo se calcula la normalidad de una solución?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Se dividen los equivalentes de soluto por el volumen de solución en litros. En la práctica se calcula la molaridad y se multiplica por el factor de equivalencia: N = M × f. Por ejemplo, 4,904 g de H₂SO₄ (98,072 g/mol) en 1 L dan 0,05000 M; con f = 2 en una titulación ácido-base, la solución es 0,1000 N."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuál es la diferencia entre normalidad y molaridad?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La molaridad cuenta moles de soluto por litro y no depende de la reacción. La normalidad cuenta equivalentes por litro y sí depende: es la molaridad multiplicada por el factor de equivalencia f. Para HCl o NaOH (f = 1) ambas coinciden; para H₂SO₄ (f = 2), una solución 1 M es 2 N."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Por qué el H₃PO₄ puede tener distintas normalidades?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Porque no siempre cede todos sus protones. Si se titula hasta el primer punto de equivalencia (pH ≈ 4,7) reacciona un H⁺ y f = 1; hasta el segundo (pH ≈ 9,7), f = 2. El tercer H⁺ (pKa₃ ≈ 12,35) no se titula directamente en agua, así que f = 3 solo vale en reacciones donde reaccionan los tres, como la precipitación de Ag₃PO₄."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo se calcula el factor de equivalencia en una reacción redox?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Es el número de electrones que gana o pierde cada mol del reactivo. El permanganato en medio ácido pasa de Mn(VII) a Mn(II) y gana 5 electrones, así que f = 5; el dicromato pasa de 2 Cr(VI) a 2 Cr(III) y gana 6, así que f = 6."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Se sigue usando la normalidad?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La IUPAC desaconseja la normalidad y recomienda expresar todo en mol/L con la estequiometría de la reacción. Aun así, muchos métodos clásicos de titulación (acidez, alcalinidad, permanganometría) y algunas farmacopeas, como la USP–NF, la siguen usando, y por eso conviene saber convertirla."
+        }
+      }
+    ]
+  }
+  </script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <!-- Google tag (gtag.js) + Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPQ3QTH9BN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // Consent Mode v2: denegado por defecto hasta que la persona acepte
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-JPQ3QTH9BN');
+  </script>
+  <script src="../js/consent-banner.js" defer></script>
+  <script src="../js/entrada-decimal.js" defer></script>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="contenedor">
+      <div class="header__inner">
+        <a href="../index.html" class="header__logo">Quim<span>Calc</span></a>
+        <nav class="header__nav" aria-label="Navegación principal">
+          <a href="../index.html#herramientas" class="activo">Herramientas</a>
+          <a href="../blog/index.html">Blog</a>
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../contacto.html">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="pagina-herramienta">
+      <div class="contenedor">
+
+        <nav class="breadcrumb" aria-label="Ubicación en el sitio">
+          <a href="../index.html">Inicio</a>
+          <span aria-hidden="true">›</span>
+          <a href="../index.html#herramientas">Herramientas</a>
+          <span aria-hidden="true">›</span>
+          <span>Normalidad y peso equivalente</span>
+        </nav>
+
+        <div class="pagina-herramienta__encabezado">
+          <h1 class="pagina-herramienta__titulo">Calculadora de normalidad y peso equivalente</h1>
+          <p class="pagina-herramienta__descripcion">
+            Elige el reactivo, revisa su factor de equivalencia y convierte normalidad (eq/L) a molaridad (mol/L), o calcula los gramos a pesar para preparar una solución (disolución) normal.
+          </p>
+        </div>
+
+        <div class="calculadora" role="form" aria-label="Calculadora de normalidad y peso equivalente">
+
+          <fieldset style="border:none;padding:0;margin:0 0 var(--espacio-lg);">
+            <legend class="rotulo-seccion rotulo-seccion--fuerte">Reactivo</legend>
+            <div class="campo-grupo">
+              <label for="reactivo">Reactivo</label>
+              <select id="reactivo">
+                <option value="hcl">HCl (ácido clorhídrico)</option>
+                <option value="hno3">HNO₃ (ácido nítrico)</option>
+                <option value="h2so4">H₂SO₄ (ácido sulfúrico)</option>
+                <option value="h3po4">H₃PO₄ (ácido fosfórico)</option>
+                <option value="acetico">CH₃COOH (ácido acético)</option>
+                <option value="oxalico">H₂C₂O₄·2H₂O (ácido oxálico dihidratado)</option>
+                <option value="naoh">NaOH (hidróxido de sodio)</option>
+                <option value="koh">KOH (hidróxido de potasio)</option>
+                <option value="caoh2">Ca(OH)₂ (hidróxido de calcio)</option>
+                <option value="na2co3">Na₂CO₃ (carbonato de sodio)</option>
+                <option value="kmno4">KMnO₄ (permanganato de potasio)</option>
+                <option value="k2cr2o7">K₂Cr₂O₇ (dicromato de potasio)</option>
+                <option value="tiosulf">Na₂S₂O₃·5H₂O (tiosulfato de sodio)</option>
+                <option value="iodo">I₂ (yodo)</option>
+                <option value="agno3">AgNO₃ (nitrato de plata)</option>
+                <option value="otro">Otro reactivo</option>
+              </select>
+              <span class="ayuda" id="nota-reactivo" aria-live="polite"></span>
+            </div>
+            <div class="campo-grupo">
+              <label for="masa-molar">Masa molar (g/mol)</label>
+              <input type="number" id="masa-molar" step="any" placeholder="ej: 98,072">
+              <span class="ayuda">Para otros reactivos, calcúlala con la <a href="masa-molar.html">calculadora de masa molar</a>.</span>
+            </div>
+            <div class="campo-grupo">
+              <label for="feq">Factor de equivalencia f (H⁺, OH⁻ o e⁻ por mol)</label>
+              <input type="number" id="feq" step="any" placeholder="ej: 2">
+            </div>
+          </fieldset>
+
+          <div class="campo-grupo">
+            <label for="modo">¿Qué quieres calcular?</label>
+            <select id="modo">
+              <option value="convertir">Convertir entre normalidad y molaridad</option>
+              <option value="preparar">Masa a pesar para preparar una solución N</option>
+            </select>
+          </div>
+
+          <fieldset class="bloque-modo" data-modo="convertir" style="border:none;padding:0;margin:0 0 var(--espacio-lg);">
+            <div class="campo-grupo">
+              <label for="conc">Concentración conocida</label>
+              <div class="campo-fila">
+                <input type="number" id="conc" step="any" placeholder="ej: 0,1">
+                <select id="unidad-conc" aria-label="Unidad de la concentración">
+                  <option value="M">mol/L (M)</option>
+                  <option value="N">eq/L (N)</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="bloque-modo" data-modo="preparar" style="border:none;padding:0;margin:0 0 var(--espacio-lg);" hidden>
+            <div class="campo-grupo">
+              <label for="n-deseada">Normalidad deseada (eq/L)</label>
+              <input type="number" id="n-deseada" step="any" placeholder="ej: 0,1">
+            </div>
+            <div class="campo-grupo">
+              <label for="v-prep">Volumen a preparar</label>
+              <div class="campo-fila">
+                <input type="number" id="v-prep" step="any" placeholder="ej: 250">
+                <select id="unidad-v" aria-label="Unidad de volumen">
+                  <option value="mL">mL</option>
+                  <option value="L">L</option>
+                </select>
+              </div>
+            </div>
+            <div class="campo-grupo">
+              <label for="pureza">Pureza del reactivo (%)</label>
+              <input type="number" id="pureza" step="any" placeholder="ej: 99,5">
+              <span class="ayuda">Si la dejas vacía, se toma 100 %.</span>
+            </div>
+          </fieldset>
+
+          <button class="btn btn--primario" id="btn-calcular" type="button">Calcular</button>
+
+          <div class="resultado" id="resultado" role="status" aria-live="polite">
+            <p class="resultado__etiqueta" id="resultado-etiqueta">Resultado</p>
+            <p class="resultado__valor" id="resultado-valor">—</p>
+            <p class="resultado__formula" id="resultado-formula"></p>
+            <div id="resultado-extra"></div>
+          </div>
+        </div><!-- /calculadora -->
+
+        <div class="seccion-educativa">
+
+          <h2 id="formula-normalidad">Cómo calcular la normalidad</h2>
+          <p>
+            La normalidad se calcula como N = M × f, donde f es el número de H⁺, OH⁻ o electrones que intercambia cada mol del reactivo. Expresa equivalentes (o equivalentes-gramo) de soluto por litro de solución (disolución); en análisis de rutina también se usan los miliequivalentes por litro (meq/L). Como depende de la reacción, la normalidad cambia según el método, y la molaridad no: lo explicamos en detalle en las <a href="../blog/posts/normalidad-vs-molaridad.html">diferencias entre normalidad y molaridad</a>.
+          </p>
+          <div class="ejemplo-bloque">
+            <strong>Fórmulas</strong>
+            <p>N = M × f</p>
+            <p>PE (g/eq) = M<sub>m</sub> / f</p>
+            <p>masa a pesar (g) = N × V (L) × PE / (P / 100)</p>
+            <p>f = H⁺, OH⁻ o electrones que intercambia cada mol en la reacción; M<sub>m</sub> = masa molar; P = pureza (%).</p>
+          </div>
+
+          <h2 id="ejemplos-resueltos">Ejemplos resueltos</h2>
+          <div class="ejemplo-bloque">
+            <p>H<sub>2</sub>SO<sub>4</sub> (M<sub>m</sub> = 98,072 g/mol; f = 2): PE = 98,072 / 2 = <strong>49,036 g/eq</strong>.</p>
+            <p>250 mL de Na<sub>2</sub>CO<sub>3</sub> 0,1 N (f = 2, titulado hasta CO<sub>2</sub>): m = 0,1 × 0,250 × 105,988 / 2 = <strong>1,3249 g</strong>.</p>
+            <p>1 L de KMnO<sub>4</sub> 0,1 N en medio ácido (f = 5): m = 0,1 × 1 × 158,032 / 5 = <strong>3,1606 g</strong>. Como el KMnO<sub>4</sub> no es patrón primario, después se estandariza con la <a href="factor-correccion-estandarizacion.html">calculadora de factor de corrección</a>.</p>
+          </div>
+
+          <h2 id="preguntas-frecuentes">Preguntas frecuentes</h2>
+
+          <div class="faq-item">
+            <h3>¿Cómo se calcula la normalidad de una solución?</h3>
+            <p>Se dividen los equivalentes de soluto por el volumen de solución en litros. En la práctica se calcula la molaridad y se multiplica por el factor de equivalencia: N = M × f. Por ejemplo, 4,904 g de H₂SO₄ (98,072 g/mol) en 1 L dan 0,05000 M; con f = 2 en una titulación ácido-base, la solución es 0,1000 N.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Cuál es la diferencia entre normalidad y molaridad?</h3>
+            <p>La molaridad cuenta moles de soluto por litro y no depende de la reacción. La normalidad cuenta equivalentes por litro y sí depende: es la molaridad multiplicada por el factor de equivalencia f. Para HCl o NaOH (f = 1) ambas coinciden; para H₂SO₄ (f = 2), una solución 1 M es 2 N.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Por qué el H₃PO₄ puede tener distintas normalidades?</h3>
+            <p>Porque no siempre cede todos sus protones. Si se titula hasta el primer punto de equivalencia (pH ≈ 4,7) reacciona un H⁺ y f = 1; hasta el segundo (pH ≈ 9,7), f = 2. El tercer H⁺ (pKa₃ ≈ 12,35) no se titula directamente en agua, así que f = 3 solo vale en reacciones donde reaccionan los tres, como la precipitación de Ag₃PO₄.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Cómo se calcula el factor de equivalencia en una reacción redox?</h3>
+            <p>Es el número de electrones que gana o pierde cada mol del reactivo. El permanganato en medio ácido pasa de Mn(VII) a Mn(II) y gana 5 electrones, así que f = 5; el dicromato pasa de 2 Cr(VI) a 2 Cr(III) y gana 6, así que f = 6.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Se sigue usando la normalidad?</h3>
+            <p>La IUPAC desaconseja la normalidad y recomienda expresar todo en mol/L con la estequiometría de la reacción. Aun así, muchos métodos clásicos de titulación (acidez, alcalinidad, permanganometría) y algunas farmacopeas, como la USP–NF, la siguen usando, y por eso conviene saber convertirla.</p>
+          </div>
+
+        </div>
+
+        <div class="bloque-blog-relacionado">
+          <p class="bloque-blog-relacionado__etiqueta">Herramientas relacionadas</p>
+          <ul class="otras-conversiones">
+            <li><a href="factor-correccion-estandarizacion.html">Factor de corrección de soluciones valoradas</a>: para conocer la concentración real después de preparar la solución.</li>
+            <li><a href="diluciones-reactivo-comercial.html">Dilución desde reactivo comercial</a>: para ácidos líquidos concentrados (usa M = N / f).</li>
+            <li><a href="solucion-desde-solido.html">Solución desde sólido con pureza</a>: si la concentración está en mol/L o g/L.</li>
+            <li><a href="calculadora-titulacion.html">Titulación volumétrica</a>: para calcular la concentración de una muestra con N₁V₁ = N₂V₂.</li>
+          </ul>
+        </div>
+
+        <div class="bloque-blog-relacionado bloque-profundizar">
+          <p class="bloque-blog-relacionado__etiqueta">Para profundizar</p>
+          <ul class="otras-conversiones">
+            <li><a href="../blog/posts/normalidad-vs-molaridad.html">Normalidad vs. molaridad</a>: diferencias, factores de equivalencia y cuándo usar cada una.</li>
+            <li><a href="../blog/posts/como-preparar-hcl-1m-desde-hcl-37.html">Cómo preparar HCl 1 M desde HCl al 37 %</a>: incluido el caso de una receta en normalidad.</li>
+            <li><a href="../blog/posts/errores-comunes-titulacion.html">Los 5 errores más comunes en titulaciones</a>: y cómo evitarlos.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="contenedor">
+      <div class="footer__inner">
+        <p class="footer__texto">© 2026 QuimCalc — Herramientas para laboratorio químico.</p>
+        <nav class="footer__links" aria-label="Links del pie de página">
+          <a href="../sobre-el-proyecto.html">Sobre el proyecto</a>
+          <a href="../politicas-de-privacidad.html">Privacidad</a>
+          <a href="../terminos-de-uso.html">Términos de uso</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/formato-numero.js"></script>
+  <script src="./js/masas-atomicas.js"></script>
+  <script src="./js/calculadora-normalidad.js"></script>
+  <script type="module" src="../js/init-speed-insights.js"></script>
+  <script src="../js/pwa-register.js"></script>
+  <script src="../js/historial.js"></script>
+  <script src="../js/compartir.js"></script>
+  <script src="../js/copiar-resultado.js"></script>
+
+</body>
+</html>

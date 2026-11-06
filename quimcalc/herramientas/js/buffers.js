@@ -78,16 +78,16 @@ document.addEventListener('DOMContentLoaded', function () {
        pH = pKa + log([A⁻] / [HA])
        ──────────────────────────────────────────────────────── */
     if (incognita === 'ph') {
-      if (isNaN(pKa))           { mostrarError('Ingresá el pKa del ácido débil.'); return; }
-      if (isNaN(cBase) || cBase <= 0)  { mostrarError('Ingresá la concentración de la base conjugada [A⁻] (mayor a cero).'); return; }
-      if (isNaN(cAcido) || cAcido <= 0) { mostrarError('Ingresá la concentración del ácido débil [HA] (mayor a cero).'); return; }
+      if (isNaN(pKa))           { mostrarError('Ingresa el pKa del ácido débil.'); return; }
+      if (isNaN(cBase) || cBase <= 0)  { mostrarError('Ingresa la concentración de la base conjugada [A⁻] (mayor a cero).'); return; }
+      if (isNaN(cAcido) || cAcido <= 0) { mostrarError('Ingresa la concentración del ácido débil [HA] (mayor a cero).'); return; }
 
       const relacion = cBase / cAcido;
       const logRel   = Math.log10(relacion);
       resultado      = pKa + logRel;
 
       if (resultado < 0 || resultado > 14) {
-        mostrarError(`El pH calculado (${resultado.toFixed(4)}) está fuera del rango 0–14. Verificá los datos.`);
+        mostrarError(`El pH calculado (${resultado.toFixed(4)}) está fuera del rango 0–14. Verifica los datos.`);
         return;
       }
 
@@ -113,9 +113,9 @@ document.addEventListener('DOMContentLoaded', function () {
        pKa = pH - log([A⁻] / [HA])
        ──────────────────────────────────────────────────────── */
     else if (incognita === 'pka') {
-      if (isNaN(pH) || pH < 0 || pH > 14) { mostrarError('Ingresá un pH válido entre 0 y 14.'); return; }
-      if (isNaN(cBase) || cBase <= 0)  { mostrarError('Ingresá la concentración de la base conjugada [A⁻].'); return; }
-      if (isNaN(cAcido) || cAcido <= 0) { mostrarError('Ingresá la concentración del ácido débil [HA].'); return; }
+      if (isNaN(pH) || pH < 0 || pH > 14) { mostrarError('Ingresa un pH válido entre 0 y 14.'); return; }
+      if (isNaN(cBase) || cBase <= 0)  { mostrarError('Ingresa la concentración de la base conjugada [A⁻].'); return; }
+      if (isNaN(cAcido) || cAcido <= 0) { mostrarError('Ingresa la concentración del ácido débil [HA].'); return; }
 
       const relacion = cBase / cAcido;
       resultado      = pH - Math.log10(relacion);
@@ -129,8 +129,8 @@ document.addEventListener('DOMContentLoaded', function () {
        [A⁻]/[HA] = 10^(pH - pKa)
        ──────────────────────────────────────────────────────── */
     else if (incognita === 'relacion') {
-      if (isNaN(pH) || pH < 0 || pH > 14) { mostrarError('Ingresá un pH válido entre 0 y 14.'); return; }
-      if (isNaN(pKa)) { mostrarError('Ingresá el pKa del ácido débil.'); return; }
+      if (isNaN(pH) || pH < 0 || pH > 14) { mostrarError('Ingresa un pH válido entre 0 y 14.'); return; }
+      if (isNaN(pKa)) { mostrarError('Ingresa el pKa del ácido débil.'); return; }
 
       const exponente = pH - pKa;
       resultado       = Math.pow(10, exponente);
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       if (Math.abs(exponente) > 1) {
-        relacionTexto += ' — ⚠️ el pH está a más de 1 unidad del pKa: elegí un ácido con pKa más cercano al pH buscado';
+        relacionTexto += ' — ⚠️ el pH está a más de 1 unidad del pKa: elige un ácido con pKa más cercano al pH buscado';
       }
       mostrarResultado(`[A⁻]/[HA] = ${QCFormato.num(resultado, 4)}`, descripcion + ` — ${relacionTexto}`, formula);
     }

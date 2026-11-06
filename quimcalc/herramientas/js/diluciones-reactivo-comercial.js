@@ -30,23 +30,23 @@
       graduada: 'a graduated pipette of suitable capacity',
       probeta: 'a graduated cylinder of suitable capacity (or a burette, if you need better accuracy).'
     } : {
-      errDensidad: 'Ingresá una densidad válida (> 0).',
+      errDensidad: 'Ingresa una densidad válida (> 0).',
       errPureza: 'La pureza debe estar entre 0 y 100 %.',
-      errMasaMolar: 'Ingresá una masa molar válida (> 0).',
-      errCFinal: 'Ingresá una concentración deseada válida (> 0).',
-      errVFinal: 'Ingresá un volumen final válido (> 0).',
+      errMasaMolar: 'Ingresa una masa molar válida (> 0).',
+      errCFinal: 'Ingresa una concentración deseada válida (> 0).',
+      errVFinal: 'Ingresa un volumen final válido (> 0).',
       errSupera: function (cf, cs) {
         return 'La concentración deseada (' + cf + ' mol/L) supera la concentración del reactivo puro (' + cs + ' mol/L). No es posible esta dilución.';
       },
       etiqueta: 'Volumen a tomar del reactivo comercial',
       pasos: function (v, material, vFinalLabel) {
         return [
-          'Dentro de la campana, medí ' + v + ' mL del reactivo con ' + material,
-          'Vertí aproximadamente la mitad del agua destilada en el matraz aforado de ' + vFinalLabel + '.',
-          'Agregá el reactivo <strong>lentamente</strong> al agua, con agitación constante.',
-          'Si la mezcla se calienta, esperá que vuelva a temperatura ambiente (≈ 20 °C, la de calibración del matraz) antes de continuar.',
-          'Completá con agua destilada hasta la marca del matraz aforado.',
-          'Tapá el matraz y homogeneizá invirtiendo varias veces. Etiquetá con el nombre del reactivo, la concentración, la fecha y tu nombre.',
+          'Dentro de la campana, mide ' + v + ' mL del reactivo con ' + material,
+          'Vierte aproximadamente la mitad del agua destilada en el matraz aforado de ' + vFinalLabel + '.',
+          'Agrega el reactivo <strong>lentamente</strong> al agua, con agitación constante.',
+          'Si la mezcla se calienta, espera que vuelva a temperatura ambiente (≈ 20 °C, la de calibración del matraz) antes de continuar.',
+          'Completa con agua destilada hasta la marca del matraz aforado.',
+          'Tapa el matraz y homogeneiza invirtiendo varias veces. Etiqueta con el nombre del reactivo, la concentración, la fecha y tu nombre.',
           'La concentración obtenida es <strong>nominal</strong>: la riqueza real del frasco puede diferir de la etiqueta. Si la solución se va a usar como titulante, valorala frente a un patrón primario antes de usarla.'
         ];
       },
@@ -55,7 +55,7 @@
       micro: 'una micropipeta calibrada. Un volumen tan pequeño tiene mucho error relativo: ' +
              'conviene preparar primero una dilución intermedia y diluir a partir de ella.',
       graduada: 'una pipeta graduada de capacidad adecuada',
-      probeta: 'una probeta de capacidad adecuada (o una bureta, si necesitás más exactitud).'
+      probeta: 'una probeta de capacidad adecuada (o una bureta, si necesitas más exactitud).'
     };
 
     /* Coma decimal para todo número que se muestra (en inglés, punto: sin cambios) */

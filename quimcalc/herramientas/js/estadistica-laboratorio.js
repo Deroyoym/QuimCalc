@@ -29,7 +29,7 @@
       outlierSiFin: '. Check for an assignable cause before discarding it.',
       outlierNo: 'no significant outliers were detected. '
     } : {
-      errVacio: 'Ingresá al menos 3 valores para calcular.',
+      errVacio: 'Ingresa al menos 3 valores para calcular.',
       errPocos: 'Se necesitan al menos 3 valores válidos.',
       nSub: 'valores válidos',
       media: 'Media (x̄)', mediaSub: 'promedio aritmético',
@@ -46,7 +46,7 @@
       nombreTest: function (t) { return 'Test de ' + t; },
       simbolo: function (t) { return t.charAt(0); },
       outlierSi: function (v) { return 'el valor <strong>' + v + '</strong> es un posible outlier. '; },
-      outlierSiFin: '. Verificá si hay una causa asignable antes de descartarlo.',
+      outlierSiFin: '. Verifica si hay una causa asignable antes de descartarlo.',
       outlierNo: 'no se detectaron outliers significativos. '
     };
 

@@ -52,11 +52,11 @@ document.addEventListener('DOMContentLoaded', function () {
     copiaManual: 'Copy the text (Ctrl+A, Ctrl+C):'
   } : {
     compDefecto: n => `Componente ${n}`,
-    errPocasLecturas: 'Para una componente Tipo A necesitás al menos 2 lecturas.',
-    errSemirango: 'Ingresá un semirango (a) mayor a cero.',
-    errU: 'No se pudo calcular la incertidumbre del componente. Verificá los datos.',
-    errSinComp: 'Agregá al menos una componente de incertidumbre.',
-    errCalcula: 'Calculá primero.',
+    errPocasLecturas: 'Para una componente Tipo A necesitas al menos 2 lecturas.',
+    errSemirango: 'Ingresa un semirango (a) mayor a cero.',
+    errU: 'No se pudo calcular la incertidumbre del componente. Verifica los datos.',
+    errSinComp: 'Agrega al menos una componente de incertidumbre.',
+    errCalcula: 'Calcula primero.',
     tipo: 'Tipo',
     distrib: {
       normal: 'Normal (k=1)',
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
     expDetalle: 'Detalle de componentes:',
     copiado: '✓ Copiado al portapapeles',
     btnExportar: 'Exportar presupuesto de incertidumbre',
-    copiaManual: 'Copiá el texto (Ctrl+A, Ctrl+C):'
+    copiaManual: 'Copia el texto (Ctrl+A, Ctrl+C):'
   };
 
   /* Coma decimal para todo texto visible (solo en español) */

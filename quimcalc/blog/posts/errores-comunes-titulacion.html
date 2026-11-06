@@ -149,18 +149,18 @@
             <div class="ejemplo-bloque">
               <strong>Ejemplo del impacto</strong>
               <p>Si preparás NaOH 0.1 M pero la concentración real es 0.098 M (2% menos), en una muestra que debería dar 10.00 mL de gasto, vas a registrar 10.20 mL. El error es 2% en cada resultado, en todos los ensayos, sin ninguna señal de alarma.</p>
-              <p><strong>Corrección:</strong> siempre estandarizá el titulante contra un patrón primario (biftalato de potasio para bases, oxalato de sodio para KMnO₄, dicromato de potasio para tiosulfato) y calculá el factor de corrección.</p>
+              <p><strong>Corrección:</strong> siempre estandarizá el titulante contra un patrón primario (biftalato de potasio para bases, oxalato de sodio para KMnO₄, dicromato de potasio para tiosulfato) y <a href="../../herramientas/factor-correccion-estandarizacion.html">calculá el factor de corrección</a>.</p>
             </div>
 
             <h3>Cómo estandarizar correctamente</h3>
 
             <p>
-              Pesá el patrón primario en balanza analítica, disolvé en agua destilada fresca y titulá por triplicado. Calculá la concentración real del titulante promediando los tres factores. Si el CV% entre los triplicados supera el 0.3%, repetí la estandarización. Anotá la fecha: una solución bien conservada puede durar semanas, pero re-estandarizala si pasaron más de 15 días o si hubo cambios de temperatura importantes.
+              Pesá el patrón primario en balanza analítica, disolvé en agua destilada fresca y titulá por triplicado. Calculá la concentración real del titulante promediando los tres factores. Si el CV% entre los triplicados supera el 0,2 % (criterio orientativo frecuente para estandarizar titulantes; seguí el de tu procedimiento), repetí la estandarización. Anotá la fecha: una solución bien conservada puede durar semanas, pero re-estandarizala si pasaron más de 15 días o si hubo cambios de temperatura importantes.
             </p>
 
             <div class="post-formula" role="note" aria-label="Fórmula">
               Factor de corrección (f) = Concentración real / Concentración nominal<br>
-              Concentración real = (masa patrón / PM patrón) / Volumen titulante gastado (L)
+              Concentración real = (masa patrón × pureza/100 / M patrón) × r / Volumen titulante gastado (L)<br>r = mol de titulante por mol de patrón (1 para NaOH con biftalato; 2 para HCl con Na₂CO₃)
             </div>
 
             <h2 id="error-2">Error 2: Lectura incorrecta de la bureta</h2>
@@ -277,7 +277,7 @@
 
             <div class="faq-item">
               <h3>¿Cuántos triplicados son suficientes?</h3>
-              <p>Para análisis de rutina, tres réplicas son suficientes si el coeficiente de variación (CV%) entre ellas es menor al 0.5%. Si alguna réplica difiere más del 1% del promedio, descartala y agregá una cuarta. En métodos acreditados bajo ISO 17025, el criterio de aceptación lo define el procedimiento normalizado del laboratorio.</p>
+              <p>Para análisis de rutina, tres réplicas son suficientes si el coeficiente de variación (CV%) entre ellas es menor al 0,5 % (para estandarizar el titulante conviene un criterio más estricto, como 0,2 %). Si alguna réplica difiere más del 1 % del promedio, descartala y agregá una cuarta. En métodos acreditados bajo ISO 17025, el criterio de aceptación lo define el procedimiento normalizado del laboratorio.</p>
             </div>
 
             <div class="faq-item">
@@ -378,6 +378,7 @@
             <p class="sidebar-card__titulo">Herramientas relacionadas</p>
             <ul class="herramientas-relacionadas" role="list">
               <li><a href="../../herramientas/calculadora-titulacion.html">→ Titulación volumétrica</a></li>
+              <li><a href="../../herramientas/factor-correccion-estandarizacion.html">→ Factor de corrección</a></li>
               <li><a href="../../herramientas/calculadora-molaridad.html">→ Molaridad y masa</a></li>
               <li><a href="../../herramientas/calculadora-diluciones.html">→ Diluciones C₁V₁=C₂V₂</a></li>
               <li><a href="../../herramientas/calculadora-ph.html">→ Calculadora de pH</a></li>

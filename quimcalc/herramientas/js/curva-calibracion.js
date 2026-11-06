@@ -49,15 +49,15 @@ document.addEventListener('DOMContentLoaded', function () {
     exportar: 'Export for report',
     copiaManual: 'Copy the text (Ctrl+A, Ctrl+C):'
   } : {
-    errValores: 'Ingresá valores numéricos válidos en ambos campos.',
+    errValores: 'Ingresa valores numéricos válidos en ambos campos.',
     sinPuntos: 'Todavía no hay puntos ingresados',
     eliminar: n => `Eliminar punto ${n}`,
-    errMinPuntos: 'Necesitás al menos 3 puntos para calcular la curva.',
-    errInterpPuntos: 'Primero ingresá al menos 3 puntos y calculá la curva.',
-    errSenal: 'Ingresá un valor numérico de señal.',
+    errMinPuntos: 'Necesitas al menos 3 puntos para calcular la curva.',
+    errInterpPuntos: 'Primero ingresa al menos 3 puntos y calcula la curva.',
+    errSenal: 'Ingresa un valor numérico de señal.',
     errPendiente: 'La pendiente es prácticamente cero. La curva no permite interpolar.',
     extrapolacion: ' ⚠️ Valor fuera del rango de la curva (extrapolación)',
-    errExportar: 'Primero calculá la curva.',
+    errExportar: 'Primero calcula la curva.',
     ejeX: 'Concentración',
     ejeY: 'Señal',
     locale: 'es',
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
     expResiduales: 'RESIDUALES (y − ŷ)',
     copiado: '✓ Copiado al portapapeles',
     exportar: 'Exportar para informe',
-    copiaManual: 'Copiá el texto (Ctrl+A, Ctrl+C):'
+    copiaManual: 'Copia el texto (Ctrl+A, Ctrl+C):'
   };
 
   /* Coma decimal para todo texto visible (solo en español) */

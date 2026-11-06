@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const unidadDe   = selectUnidadDe.value;
 
     if (isNaN(valor) || valor < 0) {
-      mostrarError('Ingresá un valor numérico válido (mayor o igual a cero).');
+      mostrarError('Ingresa un valor numérico válido (mayor o igual a cero).');
       return;
     }
 

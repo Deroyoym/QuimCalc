@@ -46,13 +46,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const a     = selectA.value;
 
     if (isNaN(valor)) {
-      mostrarError('Ingresá un valor numérico válido.');
+      mostrarError('Ingresa un valor numérico válido.');
       return;
     }
 
     /* Validamos que no sea la misma unidad */
     if (de === a) {
-      mostrarError('Elegí unidades diferentes de origen y destino.');
+      mostrarError('Elige unidades diferentes de origen y destino.');
       return;
     }
 

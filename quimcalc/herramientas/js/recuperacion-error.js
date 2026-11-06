@@ -26,7 +26,7 @@
       phNominal: 'ej: 5.00',
       phMedido: 'ej: 4.83',
       quitar: 'Quitar fila',
-      errPocos: 'Ingresá al menos 2 pares de valores para calcular el resumen estadístico.',
+      errPocos: 'Ingresa al menos 2 pares de valores para calcular el resumen estadístico.',
       lblN: 'n (muestras)',
       lblMedia: 'Media de rec. %',
       lblSd: 'Desv. est. (s)',

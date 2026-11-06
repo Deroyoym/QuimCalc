@@ -35,19 +35,19 @@ document.addEventListener('DOMContentLoaded', function () {
   /* Textos y unidades de cada modo */
   const MODOS = {
     pp: {
-      soluto:  ['Masa del soluto (g)', 'Masa de la sustancia que disolvés (el reactivo, sal, etc.)', 'g'],
-      segundo: ['Masa del solvente (g)', 'Masa del líquido en que disolvés (agua, etanol, etc.), sin el soluto', 'g'],
+      soluto:  ['Masa del soluto (g)', 'Masa de la sustancia que disuelves (el reactivo, sal, etc.)', 'g'],
+      segundo: ['Masa del solvente (g)', 'Masa del líquido en que disuelves (agua, etanol, etc.), sin el soluto', 'g'],
       porc:    ['% p/p (peso/peso)', 'Gramos de soluto cada 100 g de solución. Entre 0 y 100'],
       nombre:  '% p/p',
     },
     pv: {
-      soluto:  ['Masa del soluto (g)', 'Masa de la sustancia que disolvés', 'g'],
+      soluto:  ['Masa del soluto (g)', 'Masa de la sustancia que disuelves', 'g'],
       segundo: ['Volumen de la solución (mL)', 'Volumen final, una vez enrasado (soluto + solvente)', 'mL'],
       porc:    ['% p/v (peso/volumen)', 'Gramos de soluto cada 100 mL de solución'],
       nombre:  '% p/v',
     },
     vv: {
-      soluto:  ['Volumen del soluto (mL)', 'Volumen del líquido que diluís (etanol, ácido acético, etc.)', 'mL'],
+      soluto:  ['Volumen del soluto (mL)', 'Volumen del líquido que diluyes (etanol, ácido acético, etc.)', 'mL'],
       segundo: ['Volumen de la solución (mL)', 'Volumen final, una vez enrasado', 'mL'],
       porc:    ['% v/v (volumen/volumen)', 'mL de soluto cada 100 mL de solución. Entre 0 y 100'],
       nombre:  '% v/v',
@@ -84,11 +84,11 @@ document.addEventListener('DOMContentLoaded', function () {
     ].filter(Boolean);
 
     if (vacios.length === 0) {
-      mostrarError('Dejá exactamente un campo vacío para calcular la incógnita.');
+      mostrarError('Deja exactamente un campo vacío para calcular la incógnita.');
       return;
     }
     if (vacios.length > 1) {
-      mostrarError('Completá dos campos y dejá vacío solo el que querés calcular.');
+      mostrarError('Completa dos campos y deja vacío solo el que quieres calcular.');
       return;
     }
 

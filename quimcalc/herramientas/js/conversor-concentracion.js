@@ -89,7 +89,7 @@
 
       if (!valStr || isNaN(val) || val < 0) {
         if (valStr && (isNaN(val) || val < 0)) {
-          document.getElementById('error-texto').textContent = 'Ingresá una concentración válida, mayor o igual a cero.';
+          document.getElementById('error-texto').textContent = 'Ingresa una concentración válida, mayor o igual a cero.';
           errorDiv.style.display = 'block';
         }
         renderGrid(null, null, false);
@@ -161,9 +161,9 @@
 
       /* Nota equivalencias */
       if (soloMasa) {
-        html += '<p class="conv-nota">Sin masa molar se convierte solo entre unidades de masa. Ingresá la masa molar para ver también mol/L, mmol/L y µmol/L.</p>';
+        html += '<p class="conv-nota">Sin masa molar se convierte solo entre unidades de masa. Ingresa la masa molar para ver también mol/L, mmol/L y µmol/L.</p>';
       } else if (tieneMolar) {
-        html += '<p class="conv-nota">Las unidades ppm, ppb, µg/mL y mg/L son equivalentes para soluciones acuosas diluidas (ρ ≈ 1 g/mL). Hacé clic en cualquier resultado para copiarlo.</p>';
+        html += '<p class="conv-nota">Las unidades ppm, ppb, µg/mL y mg/L son equivalentes para soluciones acuosas diluidas (ρ ≈ 1 g/mL). Haz clic en cualquier resultado para copiarlo.</p>';
       }
 
       grid.innerHTML = html;
