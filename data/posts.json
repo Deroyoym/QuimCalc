@@ -66,7 +66,7 @@
   {
     "slug": "como-documentar-validacion-metodo-interno",
     "title": "Cómo documentar la validación de un método interno paso a paso",
-    "description": "Documentá la validación de un método interno paso a paso: parámetros, ejemplo resuelto y estructura del informe para auditorías ISO 17025.",
+    "description": "Documenta la validación de un método interno paso a paso: parámetros, ejemplo resuelto y estructura del informe para auditorías ISO 17025.",
     "category": "Normativa y calidad",
     "category_color": "#DC2626",
     "date": "Julio 2026",
@@ -78,7 +78,7 @@
   {
     "slug": "que-son-las-ppm-y-como-convertirlas",
     "title": "Qué son las PPM y cómo convertirlas a mg/L o g/L fácilmente",
-    "description": "Convertí ppm a mg/L y g/L sin errores: qué significan, la fórmula exacta y ejemplos de laboratorio resueltos paso a paso.",
+    "description": "Convierte ppm a mg/L y g/L sin errores: qué significan, la fórmula exacta y ejemplos de laboratorio resueltos paso a paso.",
     "category": "Química básica",
     "category_color": "#1A5C38",
     "date": "Julio 2026",
@@ -90,7 +90,7 @@
   {
     "slug": "calculo-karl-fischer-humedad-factor",
     "title": "Cálculo de Karl Fischer: Determinación de humedad y factor",
-    "description": "Aprendé a calcular el factor de equivalencia en Karl Fischer y optimizá la determinación de humedad en tu laboratorio industrial con ejemplos prácticos.",
+    "description": "Aprende a calcular el factor de equivalencia en Karl Fischer y optimiza la determinación de humedad en tu laboratorio industrial con ejemplos prácticos.",
     "category": "Laboratorio industrial",
     "category_color": "#0369A1",
     "date": "Julio 2026",
@@ -102,7 +102,7 @@
   {
     "slug": "dixon-o-grubbs-test-valores-anomalos",
     "title": "¿Dixon o Grubbs? Test para descartar valores anómalos",
-    "description": "Aprendé a elegir entre el test de Dixon y Grubbs para eliminar outliers en tu laboratorio según el tamaño de muestra y las normas ISO 5725.",
+    "description": "Aprende a elegir entre el test de Dixon y Grubbs para eliminar outliers en tu laboratorio según el tamaño de muestra y las normas ISO 5725.",
     "category": "Normativa y calidad",
     "category_color": "#DC2626",
     "date": "Julio 2026",
@@ -114,7 +114,7 @@
   {
     "slug": "como-armar-presupuesto-incertidumbre-volumetria",
     "title": "Cómo armar un presupuesto de incertidumbre en volumetría",
-    "description": "Aprendé a calcular el presupuesto de incertidumbre paso a paso para tus titulaciones en el laboratorio según la guía GUM y asegura tus resultados.",
+    "description": "Aprende a calcular el presupuesto de incertidumbre paso a paso para tus titulaciones en el laboratorio según la guía GUM y asegura tus resultados.",
     "category": "Normativa y calidad",
     "category_color": "#DC2626",
     "date": "Junio 2026",
@@ -126,7 +126,7 @@
   {
     "slug": "como-calibrar-material-de-vidrio-volumetrico",
     "title": "Cómo calibrar material de vidrio volumétrico en tu laboratorio",
-    "description": "Aprendé a verificar y calibrar matraces, pipetas y buretas mediante gravimetría. Guía práctica paso a paso según la norma ISO 4787 para laboratorios.",
+    "description": "Aprende a verificar y calibrar matraces, pipetas y buretas mediante gravimetría. Guía práctica paso a paso según la norma ISO 4787 para laboratorios.",
     "category": "Normativa y calidad",
     "category_color": "#DC2626",
     "date": "Junio 2026",
@@ -138,7 +138,7 @@
   {
     "slug": "como-preparar-soluciones-estandar-correctamente",
     "title": "Cómo preparar soluciones estándar correctamente",
-    "description": "Evitá errores de enrase y pesada. Descubrí la guía paso a paso para preparar soluciones estándar con la precisión y rigurosidad que exige la ISO 17025.",
+    "description": "Evita errores de enrase y pesada. Descubre la guía paso a paso para preparar soluciones estándar con la precisión y rigurosidad que exige la ISO 17025.",
     "category": "Química básica",
     "category_color": "#1A5C38",
     "date": "Mayo 2026",
@@ -150,7 +150,7 @@
   {
     "slug": "que-es-el-limite-de-deteccion",
     "title": "¿Qué es el límite de detección y cómo se calcula?",
-    "description": "Guía práctica sobre LOD y LOQ en química analítica. Aprendé qué significan, cómo diferenciarlos y cuáles son los 3 métodos estadísticos más utilizados para calcularlos con precisión en tu laboratorio.",
+    "description": "Guía práctica sobre LOD y LOQ en química analítica. Aprende qué significan, cómo diferenciarlos y cuáles son los 3 métodos estadísticos más utilizados para calcularlos con precisión en tu laboratorio.",
     "category": "Normativa y calidad",
     "category_color": "#DC2626",
     "date": "Mayo 2026",
@@ -162,7 +162,7 @@
   {
     "slug": "como-construir-curva-de-calibracion",
     "title": "Cómo construir una curva de calibración paso a paso",
-    "description": "Dominá la preparación y el análisis de tus curvas de calibración. Una guía paso a paso para ingresar datos correctamente, evaluar el coeficiente de correlación (R²), interpolar muestras y asegurar la trazabilidad.",
+    "description": "Domina la preparación y el análisis de tus curvas de calibración. Una guía paso a paso para ingresar datos correctamente, evaluar el coeficiente de correlación (R²), interpolar muestras y asegurar la trazabilidad.",
     "category": "Instrumentación",
     "category_color": "#7C3AED",
     "date": "Mayo 2026",

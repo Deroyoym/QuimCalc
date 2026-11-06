@@ -3,7 +3,7 @@
 // ============================================================
 // Este script registra el Service Worker y maneja
 // la lógica del banner "Instalar app".
-// Incluilo en TODAS las páginas del sitio (al final del <body>).
+// Inclúyelo en TODAS las páginas del sitio (al final del <body>).
 // ============================================================
 
 (function () {
@@ -22,7 +22,7 @@
             const swNuevo = registro.installing;
             swNuevo.addEventListener('statechange', () => {
               if (swNuevo.state === 'installed' && navigator.serviceWorker.controller) {
-                console.log('[QuimCalc PWA] Nueva versión disponible. Recargá la página.');
+                console.log('[QuimCalc PWA] Nueva versión disponible. Recarga la página.');
               }
             });
           });

@@ -55,7 +55,7 @@
             'You can accept or reject them. More information in our ' +
             '<a href="' + POLITICA + '" class="consent-banner__link">privacy policy</a>.'
           : 'Usamos Google Analytics con cookies para medir el uso del sitio de forma anónima. ' +
-            'Podés aceptarlas o rechazarlas. Más información en nuestra ' +
+            'Puedes aceptarlas o rechazarlas. Más información en nuestra ' +
             '<a href="' + POLITICA + '" class="consent-banner__link">política de privacidad</a>.') +
       '</p>' +
       '<div class="consent-banner__acciones">' +

@@ -77,7 +77,7 @@
 
     // Microcopy con intención
     var et = bloque.querySelector('.compartir__etiqueta');
-    if (et) et.textContent = EN ? 'Found it useful? Share it with your team' : '¿Te sirvió? Compartilo con tu equipo';
+    if (et) et.textContent = EN ? 'Found it useful? Share it with your team' : '¿Te sirvió? Compártelo con tu equipo';
 
     // (Re)armar los enlaces de cada red
     var mapa = {
