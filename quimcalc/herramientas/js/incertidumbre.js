@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     errPocasLecturas: 'A Type A component needs at least 2 readings.',
     errSemirango: 'Enter a half-width (a) greater than zero.',
     errU: 'The standard uncertainty of this component could not be calculated. Check the data.',
+    errCi: 'The sensitivity coefficient must be a non-zero number (leave it empty to use 1).',
     errSinComp: 'Add at least one uncertainty component.',
     errCalcula: 'Calculate first.',
     tipo: 'Type',
@@ -55,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     errPocasLecturas: 'Para una componente Tipo A necesitas al menos 2 lecturas.',
     errSemirango: 'Ingresa un semirango (a) mayor a cero.',
     errU: 'No se pudo calcular la incertidumbre del componente. Verifica los datos.',
+    errCi: 'El coeficiente de sensibilidad debe ser un número distinto de 0 (déjalo vacío para usar 1).',
     errSinComp: 'Agrega al menos una componente de incertidumbre.',
     errCalcula: 'Calcula primero.',
     tipo: 'Tipo',
@@ -140,7 +142,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tipo    = selectTipoComp.value;
     const nombre  = document.getElementById('nombre-componente').value.trim() || T.compDefecto(componenteIdCounter + 1);
-    const ci      = parseFloat(document.getElementById('coef-sensibilidad').value) || 1;
+    /* Vacío = 1. Un valor inválido o 0 es un error, no un 1 silencioso (puede ser negativo: entra al cuadrado) */
+    const ciTxt   = String(document.getElementById('coef-sensibilidad').value).trim();
+    const ci      = ciTxt === '' ? 1 : Number(ciTxt.replace(',', '.'));
+    if (!isFinite(ci) || ci === 0) {
+      alert(T.errCi);
+      return;
+    }
 
     let u, descripcion;
 
