@@ -25,7 +25,8 @@
   // Botón de WhatsApp
   var btnWa = document.getElementById('btn-whatsapp');
   if (btnWa && whatsapp) {
-    var texto = encodeURIComponent('Hola, te contacto desde QuimCalc.');
+    var en = document.documentElement.lang === 'en';
+    var texto = encodeURIComponent(en ? 'Hi, I am contacting you from QuimCalc.' : 'Hola, te contacto desde QuimCalc.');
     btnWa.setAttribute('href', 'https://wa.me/' + whatsapp + '?text=' + texto);
   }
 

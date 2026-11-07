@@ -8,7 +8,10 @@
 //   2. Casos por calculadora: entrada → resultado esperado, incluidos
 //      valores muy chicos, entradas inválidas y avisos.
 //   3. En español, ningún resultado con punto decimal ni «0,0000»
-//      cuando el valor esperado no es cero.
+//      cuando el valor esperado no es cero. En inglés, ningún
+//      resultado con coma decimal ni texto en español.
+//   3b. Todas las páginas de /en/: sin restos en español en el texto
+//      visible, title, description, alt, aria-label, placeholder ni JSON-LD.
 //   4. Datos: las masas de la tabla periódica coinciden con
 //      herramientas/js/masas-atomicas.js (fuente única, CIAAW/IUPAC).
 //
@@ -21,6 +24,8 @@
 // o, con un Chromium ya instalado: CHROMIUM_PATH=/ruta/al/chrome node scripts/…
 //
 // Para agregar un caso: sumarlo a CASOS con los pasos y lo esperado.
+// En CALC, la página es el slug de herramientas/ ('calculadora-molaridad')
+// o la ruta inglesa sin .html ('en/tools/lod-loq-calculator').
 // Correr antes de cada merge a main. Sale con código 1 si algo falla.
 // ============================================================
 
@@ -71,6 +76,31 @@ const select = (sel, v) => ['select', sel, v];
 const click = (sel = '#btn-calcular') => ['click', sel];
 const press = (sel, tecla) => ['press', sel, tecla];
 const RV = '#resultado-valor';
+const esEN = (pagina) => pagina.startsWith('en/');
+const rutaDe = (pagina) => esEN(pagina) ? `${pagina}.html` : `herramientas/${pagina}.html`;
+
+// Restos en español en una página inglesa: tildes, ñ, ¿¡ o palabras muy
+// frecuentes. Se ignoran los elementos marcados con lang="es" (selector ES,
+// enlaces a la versión en español).
+const ESPANOL = /[áéíóúñÁÉÍÓÚÑ¿¡]|\b(el|los|las|del|para|con|una|que|calculadora|resultado|herramienta|ingresa|ingrese|valor|muestra|solución|ejemplo)\b/i;
+async function restosEspanol(page) {
+  return page.evaluate((src) => {
+    const re = new RegExp(src, 'i');
+    const hallados = [];
+    const mirar = (donde, txt) => { const m = txt && txt.match(re); if (m) hallados.push(`${donde}: «${m[0]}» en «${txt.trim().slice(0, 80)}»`); };
+    const clon = document.body.cloneNode(true);
+    clon.querySelectorAll('[lang="es"], script, style, noscript, svg').forEach(e => e.remove());
+    // textContent incluye bloques ocultos (otros modos, avisos) que también deben estar en inglés
+    clon.querySelectorAll('*').forEach(e => {
+      for (const n of e.childNodes) if (n.nodeType === 3) mirar('texto', n.textContent);
+      for (const a of ['alt', 'aria-label', 'placeholder', 'title']) if (e.hasAttribute(a)) mirar(a, e.getAttribute(a));
+    });
+    mirar('title', document.title);
+    mirar('description', document.querySelector('meta[name="description"]')?.content);
+    document.querySelectorAll('script[type="application/ld+json"]').forEach(s => mirar('JSON-LD', s.textContent));
+    return hallados.slice(0, 5);
+  }, ESPANOL.source);
+}
 
 const CASOS = [
   // Molaridad
@@ -400,10 +430,17 @@ async function abrir(ruta) {
   return { page, errores };
 }
 
-// 1. Controles comunes en todas las páginas de herramientas
+// 1. Controles comunes en todas las herramientas y en todas las páginas de /en/
+function htmlEn(dir) {
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir).flatMap(f => {
+    const full = join(dir, f);
+    return statSync(full).isDirectory() ? htmlEn(full) : f.endsWith('.html') ? [full.slice(SITE.length + 1).split('\\').join('/')] : [];
+  });
+}
 const paginas = [
   ...readdirSync(resolve(SITE, 'herramientas')).filter(f => f.endsWith('.html')).map(f => `herramientas/${f}`),
-  ...(existsSync(resolve(SITE, 'en/tools')) ? readdirSync(resolve(SITE, 'en/tools')).filter(f => f.endsWith('.html')).map(f => `en/tools/${f}`) : []),
+  ...htmlEn(resolve(SITE, 'en')).sort(),
 ].filter(p => p.includes(FILTRO));
 
 for (const ruta of paginas) {
@@ -412,13 +449,17 @@ for (const ruta of paginas) {
   if (errores.length) falla(`${ruta}: errores de JS`, errores.join(' | '));
   else if (ancho > 0) falla(`${ruta}: scroll horizontal a 375 px`, `${ancho} px de más`);
   else ok(`${ruta}: carga sin errores ni scroll horizontal`);
+  if (esEN(ruta)) {
+    const restos = await restosEspanol(page);
+    restos.length ? falla(`${ruta}: restos en español`, restos.join(' | ')) : ok(`${ruta}: sin restos en español`);
+  }
   await page.close();
 }
 
 // 2. Casos por calculadora
 for (const c of CASOS.filter(c => c.pagina.includes(FILTRO))) {
   const nombre = `${c.pagina} — ${c.nombre}`;
-  const { page, errores } = await abrir(`herramientas/${c.pagina}.html`);
+  const { page, errores } = await abrir(rutaDe(c.pagina));
   try {
     for (const [acc, sel, val] of c.pasos) {
       if (acc === 'fill') await page.fill(sel, val);
@@ -436,11 +477,18 @@ for (const c of CASOS.filter(c => c.pagina.includes(FILTRO))) {
       if (e.clase && !(await loc.getAttribute('class') || '').includes(e.clase)) fallos.push(`«${e.sel}» no tiene la clase ${e.clase}`);
       if (e.aria && (await loc.getAttribute(e.aria[0])) !== e.aria[1]) fallos.push(`«${e.sel}» no tiene ${e.aria[0]}="${e.aria[1]}"`);
     }
-    // Reglas generales para los resultados en español
+    // Reglas generales para los resultados
     const valor = (await page.locator(RV).first().innerText().catch(() => '')) || '';
-    if (/\d\.\d/.test(valor)) fallos.push(`resultado con punto decimal: «${valor}»`);
-    if (/\b0,0+\b(?! ×)/.test(valor) && !/resultado--error/.test(await page.locator('#resultado').first().getAttribute('class').catch(() => '') || '')) {
-      fallos.push(`resultado «0,000…»: «${valor}»`);
+    if (esEN(c.pagina)) {
+      if (/\d,(?!\d{3}(?:\D|$))\d/.test(valor)) fallos.push(`resultado con coma decimal en inglés: «${valor}»`);
+      const texto = ((await page.locator('#resultado').first().textContent().catch(() => '')) || '').replace(/\s+/g, ' ');
+      const m = texto.match(ESPANOL);
+      if (m) fallos.push(`resultado con texto en español («${m[0]}»): «${texto.slice(0, 160)}»`);
+    } else {
+      if (/\d\.\d/.test(valor)) fallos.push(`resultado con punto decimal: «${valor}»`);
+      if (/\b0,0+\b(?! ×)/.test(valor) && !/resultado--error/.test(await page.locator('#resultado').first().getAttribute('class').catch(() => '') || '')) {
+        fallos.push(`resultado «0,000…»: «${valor}»`);
+      }
     }
     if (errores.length) fallos.push('errores de JS: ' + errores.join(' | '));
     fallos.length ? falla(nombre, fallos.join('; ')) : ok(nombre);

@@ -339,6 +339,9 @@ El sitio en inglés vive en `quimcalc/en/` y reutiliza el mismo CSS y el mismo J
 |---|---|
 | `/index.html` | `/en/index.html` |
 | `/politicas-de-privacidad.html` | `/en/privacy.html` |
+| `/terminos-de-uso.html` | `/en/terms.html` |
+| `/sobre-el-proyecto.html` | `/en/about.html` |
+| `/contacto.html` | `/en/contact.html` |
 | `/herramientas/<slug>.html` | `/en/tools/<slug-en>.html` |
 | `/blog/posts/<slug>.html` | `/en/blog/<slug-en>.html` |
 
@@ -350,6 +353,10 @@ El sitio en inglés vive en `quimcalc/en/` y reutiliza el mismo CSS y el mismo J
 4. Corré `python3 scripts/build_layout.py --write` y `python3 scripts/sync_indexes.py`.
 
 El script agrega solo el selector ES/EN en ambas páginas, los `hreflang` (es, en, x-default → español), las entradas del sitemap con sus alternates y la tarjeta en `/en/index.html`. Un par solo se activa cuando el archivo en inglés existe.
+
+Las páginas fijas (privacidad, términos, about, contacto) están en `FIJAS` de `scripts/i18n.py`. La cabecera inglesa muestra About y Contact, y el pie, About, Privacy y Terms, cuando esos archivos existen.
+
+Para traducir una herramienta, usa `/traducir-herramienta <slug>`, que sigue estos pasos con pruebas y revisión SEO. La batería controla en todas las páginas de `/en/` que no queden restos en español (texto, atributos, title, description y JSON-LD) y que los resultados no tengan coma decimal. Los casos de las páginas inglesas van en `CASOS` con la ruta `'en/tools/<slug-en>'`.
 
 Los scripts compartidos (historial, copiar resultado, compartir, cookies, instalar) detectan el idioma solos. Glosario y estilo: `revisiones/investigacion-ingles-2026-10-25.md`.
 
