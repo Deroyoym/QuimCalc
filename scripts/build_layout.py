@@ -59,6 +59,12 @@ def build_header_en(file_abs, pares):
     if os.path.exists(os.path.join(SITE, 'en/blog/index.html')):
         a_blog = ' class="activo"' if rel_site.startswith('en/blog/') else ''
         blog = f'          <a href="{rel(d, "en/blog/index.html")}"{a_blog}>Blog</a>\n'
+    # About y Contact solo si existen sus versiones en inglés
+    extra = ''
+    for ruta, texto in (('en/about.html', 'About'), ('en/contact.html', 'Contact')):
+        if os.path.exists(os.path.join(SITE, ruta)):
+            act = ' class="activo"' if rel_site == ruta else ''
+            extra += f'          <a href="{rel(d, ruta)}"{act}>{texto}</a>\n'
     return (
         '  <header class="header">\n'
         '    <div class="contenedor">\n'
@@ -66,7 +72,7 @@ def build_header_en(file_abs, pares):
         f'        <a href="{logo}" class="header__logo">Quim<span>Calc</span></a>\n'
         '        <nav class="header__nav" aria-label="Main navigation">\n'
         f'          <a href="{tools}"{a_tools}>Tools</a>\n'
-        + blog
+        + blog + extra
         + selector_idioma(file_abs, pares) +
         '        </nav>\n'
         '      </div>\n'
@@ -78,15 +84,22 @@ def build_header_en(file_abs, pares):
 def build_footer_en(file_abs):
     d = os.path.dirname(file_abs)
     priv = rel(d, 'en/privacy.html')
-    term = rel(d, 'terminos-de-uso.html')
+    if os.path.exists(os.path.join(SITE, 'en/terms.html')):
+        term = f'<a href="{rel(d, "en/terms.html")}">Terms of use</a>'
+    else:
+        term = f'<a href="{rel(d, "terminos-de-uso.html")}" hreflang="es">Terms of use (Spanish)</a>'
+    about = ''
+    if os.path.exists(os.path.join(SITE, 'en/about.html')):
+        about = f'          <a href="{rel(d, "en/about.html")}">About</a>\n'
     return (
         '  <footer class="footer">\n'
         '    <div class="contenedor">\n'
         '      <div class="footer__inner">\n'
         '        <p class="footer__texto">© 2026 QuimCalc — Tools for the chemistry lab.</p>\n'
         '        <nav class="footer__links" aria-label="Footer links">\n'
+        + about +
         f'          <a href="{priv}">Privacy</a>\n'
-        f'          <a href="{term}" hreflang="es">Terms of use (Spanish)</a>\n'
+        f'          {term}\n'
         '        </nav>\n'
         '      </div>\n'
         '    </div>\n'

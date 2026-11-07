@@ -9,6 +9,9 @@
 # Estructura de URLs:
 #   ES  /index.html                       ↔ EN  /en/index.html
 #   ES  /politicas-de-privacidad.html     ↔ EN  /en/privacy.html
+#   ES  /terminos-de-uso.html             ↔ EN  /en/terms.html
+#   ES  /sobre-el-proyecto.html           ↔ EN  /en/about.html
+#   ES  /contacto.html                    ↔ EN  /en/contact.html
 #   ES  /herramientas/<slug>.html         ↔ EN  /en/tools/<en.slug>.html
 #   ES  /blog/posts/<slug>.html           ↔ EN  /en/blog/<en.slug>.html
 #
@@ -29,6 +32,9 @@ DOMINIO = 'https://quimcalc.com'
 FIJAS = {
     'index.html': 'en/index.html',
     'politicas-de-privacidad.html': 'en/privacy.html',
+    'terminos-de-uso.html': 'en/terms.html',
+    'sobre-el-proyecto.html': 'en/about.html',
+    'contacto.html': 'en/contact.html',
 }
 
 
