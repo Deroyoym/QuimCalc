@@ -44,7 +44,7 @@
       tcrit: 't crítico (95 %)',
       sinTest: 'Los datos son todos iguales o insuficientes para el test de outliers.',
       nombreTest: function (t) { return 'Test de ' + t; },
-      simbolo: function (t) { return t.charAt(0); },
+      simbolo: function (t) { return t === 'Grubbs' ? 'G' : 'Q'; },
       outlierSi: function (v) { return 'el valor <strong>' + v + '</strong> es un posible outlier. '; },
       outlierSiFin: '. Verifica si hay una causa asignable antes de descartarlo.',
       outlierNo: 'no se detectaron outliers significativos. '
@@ -74,10 +74,19 @@
       25:2.060, 30:2.042, 40:2.021, 60:2.000, 120:1.980
     };
 
+    /* Valor crítico para n (o gl). Entre dos claves de la tabla interpola en 1/n,
+       casi lineal para t, G y Q; antes tomaba la clave siguiente, y con gl 21–24
+       usaba t = 2,060 (gl 25) y el IC salía algo angosto. Fuera de la tabla, el extremo. */
     function getCrit(tabla, n) {
       var keys = Object.keys(tabla).map(Number).sort(function(a,b){return a-b;});
-      for (var i = 0; i < keys.length; i++) {
-        if (n <= keys[i]) return tabla[keys[i]];
+      if (n <= keys[0]) return tabla[keys[0]];
+      for (var i = 1; i < keys.length; i++) {
+        if (n === keys[i]) return tabla[keys[i]];
+        if (n < keys[i]) {
+          var a = keys[i - 1], b = keys[i];
+          var f = (1 / a - 1 / n) / (1 / a - 1 / b);
+          return tabla[a] + f * (tabla[b] - tabla[a]);
+        }
       }
       return tabla[keys[keys.length - 1]];
     }
