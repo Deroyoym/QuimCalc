@@ -350,6 +350,166 @@ const CASOS = [
   CALC('calculadora-ph', 'Ácido acético 0,1 M → pH 2,88',
     [select('#tipo-sustancia', 'acido-debil'), fill('#concentracion', '0,1'), fill('#ka', '1,8e-5'), click()],
     [{ sel: RV, contiene: '2,875' }]),
+  // Curva de calibración (ES/EN). Sin #resultado-valor: lo esperado va en los ids reales.
+  ...(() => {
+    const X = [0, 1, 2, 3, 4, 5], Y = ['0.002', '0.101', '0.205', '0.298', '0.402', '0.499'];
+    const puntos = (coma) => X.flatMap((x, i) => [fill('#input-x', x), fill('#input-y', coma ? Y[i].replace('.', ',') : Y[i]), click('#btn-agregar')]);
+    return [
+      CALC('curva-calibracion', 'Seis puntos: recta, R², Se, LOD/LOQ e interpolación',
+        [...puntos(true), click(), fill('#senal-desconocida', '0,25'), click('#btn-interpolar')],
+        [{ sel: '#res-ecuacion', contiene: 'y = 0,099457x + 0,002524' }, { sel: '#res-r2', contiene: '0,999852' },
+         { sel: '#res-r', contiene: '0,999926' }, { sel: '#res-se', contiene: '0,002534' },
+         { sel: '#res-lod', contiene: '0,08406' }, { sel: '#res-loq', contiene: '0,2547' },
+         { sel: '#interp-concentracion', contiene: '2,488270' }]),
+      CALC('curva-calibracion', 'Punto «1,2,3»: no se agrega',
+        [fill('#input-x', '1,2,3'), fill('#input-y', '0,1'), click('#btn-agregar')],
+        [{ sel: '#tabla-puntos', contiene: 'Todavía no hay puntos ingresados' }, { sel: '#input-x', aria: ['aria-invalid', 'true'] }]),
+      CALC('en/tools/calibration-curve-calculator', 'Seis puntos (EN): recta, R², LOD e interpolación',
+        [...puntos(false), click(), fill('#senal-desconocida', '0.25'), click('#btn-interpolar')],
+        [{ sel: '#res-ecuacion', contiene: 'y = 0.099457x + 0.002524' }, { sel: '#res-r2', contiene: '0.999852' },
+         { sel: '#res-se', contiene: '0.002534' }, { sel: '#res-lod', contiene: '0.08406' }, { sel: '#res-loq', contiene: '0.2547' },
+         { sel: '#interp-concentracion', contiene: '2.488270' }]),
+      CALC('en/tools/calibration-curve-calculator', 'Dos puntos (EN): no calcula la curva',
+        [fill('#input-x', 0), fill('#input-y', '0.002'), click('#btn-agregar'), fill('#input-x', 1), fill('#input-y', '0.101'), click('#btn-agregar'), click()],
+        [{ sel: '#res-ecuacion', contiene: '—' }, { sel: '#tabla-puntos', contiene: '0.101' }]),
+    ];
+  })(),
+
+  // LOD y LOQ (ES/EN)
+  CALC('lod-loq', 'Método del blanco: 10 lecturas con coma decimal',
+    [select('#metodo', 'blanco'), fill('#lecturas-blanco', '0,0021\n0,0019\n0,0023\n0,0018\n0,0022\n0,0020\n0,0024\n0,0019\n0,0021\n0,0020'), click()],
+    [{ sel: '#valor-lod', contiene: '0,002637 mg/L' }, { sel: '#valor-loq', contiene: '0,003959 mg/L' }]),
+  CALC('lod-loq', 'Curva (ICH Q2): LOD = 3,3·Se/m y LOQ = 10·Se/m',
+    [select('#metodo', 'curva'), select('#unidad-resultado', 'µg/L'), fill('#pendiente', '0,04523'), fill('#se-regresion', '0,00124'), click()],
+    [{ sel: '#valor-lod', contiene: '0,090471 µg/L' }, { sel: '#valor-loq', contiene: '0,274154 µg/L' }]),
+  CALC('lod-loq', 'Menos de 5 lecturas del blanco: error',
+    [select('#metodo', 'blanco'), fill('#lecturas-blanco', '0,0021; 0,0019; 0,0023'), click()],
+    [{ sel: '#resultado', clase: 'resultado--error' }, { sel: '#valor-lod', contiene: 'ingresaste 3' }]),
+  CALC('lod-loq', 'Pendiente «1,2,3»: error',
+    [select('#metodo', 'curva'), fill('#pendiente', '1,2,3'), fill('#se-regresion', '0,00124'), click()],
+    [{ sel: '#resultado', clase: 'resultado--error' }, { sel: '#pendiente', aria: ['aria-invalid', 'true'] }]),
+  CALC('en/tools/lod-loq-calculator', 'Método del blanco (EN): lecturas con punto decimal',
+    [select('#metodo', 'blanco'), fill('#lecturas-blanco', '0.0021, 0.0019, 0.0023, 0.0018, 0.0022, 0.0020, 0.0024, 0.0019, 0.0021, 0.0020'), click()],
+    [{ sel: '#valor-lod', contiene: '0.002637 mg/L' }, { sel: '#valor-loq', contiene: '0.003959 mg/L' }]),
+  CALC('en/tools/lod-loq-calculator', 'Señal/ruido (EN): LOD = 3·h/m',
+    [select('#metodo', 'sn'), fill('#ruido', '0.0015'), fill('#pendiente-sn', '0.04523'), click()],
+    [{ sel: '#valor-lod', contiene: '0.099491 mg/L' }, { sel: '#valor-loq', contiene: '0.331638 mg/L' }]),
+  CALC('en/tools/lod-loq-calculator', 'Se negativo (EN): error',
+    [select('#metodo', 'curva'), fill('#pendiente', '0.04523'), fill('#se-regresion', '-0.001'), click()],
+    [{ sel: '#resultado', clase: 'resultado--error' }, { sel: '#valor-lod', contiene: 'standard error of the regression' }]),
+
+  // Incertidumbre de medición (ES/EN)
+  CALC('incertidumbre', 'Tipo A (6 lecturas) + Tipo B rectangular ±0,01, k = 2',
+    [select('#tipo-componente', 'A'), fill('#lecturas-tipo-a', '10,23; 10,25; 10,22; 10,24; 10,26; 10,23'), click('#btn-agregar-componente'),
+     select('#tipo-componente', 'B'), fill('#semirango', '0,01'), select('#distribucion', 'rectangular'), click('#btn-agregar-componente'),
+     select('#factor-cobertura', '2'), click()],
+    [{ sel: '#res-uc', contiene: '0,008333' }, { sel: '#res-u', contiene: '0,016667' }, { sel: '#res-nivel', contiene: '~95%' },
+     { sel: '#tabla-desglose', contiene: '52,0%' }, { sel: '#tabla-desglose', contiene: '0,005774' }]),
+  CALC('incertidumbre', 'Semirango 0: la componente no se agrega',
+    [select('#tipo-componente', 'B'), fill('#semirango', 0), click('#btn-agregar-componente')],
+    [{ sel: '#lista-componentes', contiene: 'Todavía no hay componentes agregados' }]),
+  CALC('incertidumbre', 'Coeficiente de sensibilidad 0: error, no se usa 1 en silencio',
+    [select('#tipo-componente', 'B'), fill('#semirango', '0,01'), fill('#coef-sensibilidad', 0), click('#btn-agregar-componente')],
+    [{ sel: '#lista-componentes', contiene: 'Todavía no hay componentes agregados' }]),
+  CALC('en/tools/measurement-uncertainty-calculator', 'Tipo A + Tipo B (EN), k = 3',
+    [select('#tipo-componente', 'A'), fill('#lecturas-tipo-a', '10.23, 10.25, 10.22, 10.24, 10.26, 10.23'), click('#btn-agregar-componente'),
+     select('#tipo-componente', 'B'), fill('#semirango', '0.01'), select('#distribucion', 'rectangular'), click('#btn-agregar-componente'),
+     select('#factor-cobertura', '3'), click()],
+    [{ sel: '#res-uc', contiene: '0.008333' }, { sel: '#res-u', contiene: '0.025000' }, { sel: '#res-nivel', contiene: '~99.7%' },
+     { sel: '#tabla-desglose', contiene: '48.0%' }]),
+  CALC('en/tools/measurement-uncertainty-calculator', 'Una sola lectura Tipo A (EN): no se agrega',
+    [select('#tipo-componente', 'A'), fill('#lecturas-tipo-a', '10.23'), click('#btn-agregar-componente'), click()],
+    [{ sel: '#lista-componentes', contiene: 'No components added yet' }, { sel: '#res-uc', contiene: '—' }]),
+  // Dilución desde reactivo comercial (ES/EN). El resultado está en #res-volumen.
+  CALC('diluciones-reactivo-comercial', 'HCl 37 %, ρ 1,19: 1 M × 1 L → 82,81 mL',
+    [fill('#densidad', '1,19'), fill('#pureza', 37), fill('#masa-molar', '36,46'), fill('#c-final', 1), fill('#v-final', 1000), click()],
+    [{ sel: '#res-volumen', contiene: '82,81 mL' }, { sel: '#res-stock-mol', contiene: '12,0762 mol/L' },
+     { sel: '#res-stock-g', contiene: '440,30 g/L' }, { sel: '#res-formula', contiene: '(1,0000 mol/L × 1000,0 mL) / 12,0762 mol/L' },
+     { sel: '#lista-pasos', contiene: 'mide 82,81 mL' }]),
+  CALC('diluciones-reactivo-comercial', 'H₂SO₄ 96 %, ρ 1,84: 0,5 M × 250 mL → 6,941 mL',
+    [fill('#densidad', '1,84'), fill('#pureza', 96), fill('#masa-molar', '98,08'), fill('#c-final', '0,5'), fill('#v-final', 250), click()],
+    [{ sel: '#res-volumen', contiene: '6,941 mL' }, { sel: '#res-stock-mol', contiene: '18,0098 mol/L' },
+     { sel: '#alerta-seguridad', clase: 'visible' }]),
+  CALC('diluciones-reactivo-comercial', 'C deseada > C del reactivo: error',
+    [fill('#densidad', '1,84'), fill('#pureza', 96), fill('#masa-molar', '98,08'), fill('#c-final', 20), fill('#v-final', 100), click()],
+    [{ sel: '#resultado', clase: 'resultado--error' }, { sel: '#res-volumen', contiene: '18,0098 mol/L' }]),
+  CALC('diluciones-reactivo-comercial', 'Pureza 120 %: error',
+    [fill('#densidad', '1,19'), fill('#pureza', 120), fill('#masa-molar', '36,46'), fill('#c-final', 1), fill('#v-final', 1000), click()],
+    [{ sel: '#resultado', clase: 'resultado--error' }]),
+  CALC('en/tools/concentrated-acid-dilution-calculator', 'HCl 37 %, ρ 1.19: 1 M × 1 L → 82.81 mL (EN)',
+    [fill('#densidad', '1.19'), fill('#pureza', 37), fill('#masa-molar', '36.46'), fill('#c-final', 1), fill('#v-final', 1000), click()],
+    [{ sel: '#res-volumen', contiene: '82.81 mL' }, { sel: '#res-stock-mol', contiene: '12.0762 mol/L' },
+     { sel: '#res-stock-g', contiene: '440.30 g/L' }, { sel: '#lista-pasos', contiene: 'measure 82.81 mL' }]),
+  CALC('en/tools/concentrated-acid-dilution-calculator', 'C deseada > C del reactivo: error en inglés (EN)',
+    [fill('#densidad', '1.84'), fill('#pureza', 96), fill('#masa-molar', '98.08'), fill('#c-final', 20), fill('#v-final', 100), click()],
+    [{ sel: '#resultado', clase: 'resultado--error' }, { sel: '#res-volumen', contiene: 'stock reagent (18.0098 mol/L)' }]),
+
+  // Estadística de laboratorio: Dixon Q (n ≤ 10) y Grubbs (n > 10) (ES/EN).
+  // Los errores salen por alert(): se comprueba que no aparezcan resultados.
+  CALC('estadistica-laboratorio', 'Ejemplo con outlier: Dixon Q = 0,8571 > 0,466',
+    [click('#btn-ejemplo-outlier'), click()],
+    [{ sel: '#outlier-bloque', clase: 'warn' }, { sel: '#outlier-bloque', contiene: 'el valor 5,87 es un posible outlier' },
+     { sel: '#outlier-bloque', contiene: 'Q-stat = 0,8571 > Q-crit = 0,466' }, { sel: '#stats-grid', contiene: '5,46' },
+     { sel: '#stats-grid', contiene: '2,668 %' }]),
+  CALC('estadistica-laboratorio', 'Ejemplo sin outlier: Q = 0,1429 ≤ 0,466',
+    [click('#btn-ejemplo-normal'), click()],
+    [{ sel: '#outlier-bloque', clase: 'ok' }, { sel: '#outlier-bloque', contiene: 'Q-stat = 0,1429 ≤ Q-crit = 0,466' },
+     { sel: '#stats-grid', contiene: '5,415' }]),
+  CALC('estadistica-laboratorio', 'Grubbs con n = 12 y coma decimal: G = 2,9312 > 2,412',
+    [fill('#datos', '10,1\n10,3\n9,9\n10,0\n10,2\n10,1\n9,8\n10,0\n10,2\n10,1\n11,2\n10,0'), click()],
+    [{ sel: '#outlier-bloque', clase: 'warn' }, { sel: '#outlier-bloque', contiene: 'el valor 11,2 es un posible outlier' },
+     { sel: '#outlier-bloque', contiene: 'G-stat = 2,9312 > G-crit = 2,412' }, { sel: '#stats-grid', contiene: '10,158' },
+     { sel: '#stats-grid', contiene: '0,35537' }, { sel: '#stats-grid', contiene: '3,498 %' }]),
+  CALC('estadistica-laboratorio', 'Menos de 3 valores: no calcula',
+    [fill('#datos', '5,42\n5,38'), click()],
+    [{ sel: '#seccion-resultados:not(.visible)', clase: 'seccion-resultados' }, { sel: '#stats-grid', no: '5,4' }]),
+  CALC('en/tools/grubbs-dixon-outlier-test', 'Grubbs con n = 12: G = 2.9312 > 2.412 (EN)',
+    [fill('#datos', '10.1, 10.3, 9.9, 10.0, 10.2, 10.1, 9.8, 10.0, 10.2, 10.1, 11.2, 10.0'), click()],
+    [{ sel: '#outlier-bloque', clase: 'warn' }, { sel: '#outlier-bloque', contiene: "Grubbs' test (α = 0.05): the value 11.2 is a possible outlier" },
+     { sel: '#outlier-bloque', contiene: 'G-stat = 2.9312 > G-crit = 2.412' }, { sel: '#stats-grid', contiene: '10.158' },
+     { sel: '#stats-grid', contiene: '3.498 %' }]),
+  CALC('en/tools/grubbs-dixon-outlier-test', 'Ejemplo con outlier: Dixon Q = 0.8571 (EN)',
+    [click('#btn-ejemplo-outlier'), click()],
+    [{ sel: '#outlier-bloque', contiene: "Dixon's Q test (α = 0.05): the value 5.87 is a possible outlier" },
+     { sel: '#outlier-bloque', contiene: 'Q-stat = 0.8571 > Q-crit = 0.466' }, { sel: '#stats-grid', contiene: '2.668 %' }]),
+  CALC('en/tools/grubbs-dixon-outlier-test', 'Menos de 3 valores: no calcula (EN)',
+    [fill('#datos', '5.42, 5.38'), click()],
+    [{ sel: '#seccion-resultados:not(.visible)', clase: 'seccion-resultados' }]),
+
+  // % Recuperación y error sistemático (ES/EN). Filas creadas por JS: #fila-N.
+  CALC('recuperacion-error', 'Tres pares: media 99,20 %, s 2,706, CV 2,73 %, bias −0,80',
+    [fill('#fila-1 td:nth-child(3) input', 5), fill('#fila-1 td:nth-child(4) input', '4,83'),
+     fill('#fila-2 td:nth-child(3) input', 5), fill('#fila-2 td:nth-child(4) input', '4,95'),
+     fill('#fila-3 td:nth-child(3) input', 5), fill('#fila-3 td:nth-child(4) input', '5,10'), click()],
+    [{ sel: '#rec-1', contiene: '96,60 %' }, { sel: '#eabs-1', contiene: '-0,1700' }, { sel: '#erel-1', contiene: '-3,40 %' },
+     { sel: '#resumen-grid', contiene: '99,20' }, { sel: '#resumen-grid', contiene: '2,706' }, { sel: '#resumen-grid', contiene: '2,73' },
+     { sel: '#resumen-grid', contiene: '-0,80' }, { sel: '#evaluacion', clase: 'ok' }, { sel: '#evaluacion', contiene: 'cumple los criterios' }]),
+  CALC('recuperacion-error', 'Recuperación 75 %: fuera de rango (sesgo)',
+    [fill('#fila-1 td:nth-child(3) input', 10), fill('#fila-1 td:nth-child(4) input', '7,5'),
+     fill('#fila-2 td:nth-child(3) input', 10), fill('#fila-2 td:nth-child(4) input', '7,6'),
+     fill('#fila-3 td:nth-child(3) input', 10), fill('#fila-3 td:nth-child(4) input', '7,4'), click()],
+    [{ sel: '#evaluacion', clase: 'warn' }, { sel: '#evaluacion', contiene: 'recuperación media (75,00 %) está fuera del rango 80–120 %' },
+     { sel: '#resumen-grid', contiene: '-25,00' }]),
+  CALC('recuperacion-error', 'Límite inferior 0 se respeta (antes volvía a 80)',
+    [fill('#lim-inf', 0), fill('#fila-1 td:nth-child(3) input', 10), fill('#fila-1 td:nth-child(4) input', '7,5'),
+     fill('#fila-2 td:nth-child(3) input', 10), fill('#fila-2 td:nth-child(4) input', '7,6'),
+     fill('#fila-3 td:nth-child(3) input', 10), fill('#fila-3 td:nth-child(4) input', '7,4'), click()],
+    [{ sel: '#evaluacion', clase: 'ok' }]),
+  CALC('recuperacion-error', 'Un solo par: no calcula el resumen',
+    [fill('#fila-1 td:nth-child(3) input', 5), fill('#fila-1 td:nth-child(4) input', '4,83'), click()],
+    [{ sel: '#seccion-resultados:not(.visible)', clase: 'seccion-resultados' }, { sel: '#rec-1', contiene: '96,60 %' }]),
+  CALC('en/tools/recovery-bias-calculator', 'Tres pares: mean 99.20 %, CV 2.73 %, bias −0.80 (EN)',
+    [fill('#fila-1 td:nth-child(3) input', 5), fill('#fila-1 td:nth-child(4) input', '4.83'),
+     fill('#fila-2 td:nth-child(3) input', 5), fill('#fila-2 td:nth-child(4) input', '4.95'),
+     fill('#fila-3 td:nth-child(3) input', 5), fill('#fila-3 td:nth-child(4) input', '5.10'), click()],
+    [{ sel: '#rec-1', contiene: '96.60 %' }, { sel: '#erel-1', contiene: '-3.40 %' },
+     { sel: '#resumen-grid', contiene: '99.20' }, { sel: '#resumen-grid', contiene: '2.706' }, { sel: '#resumen-grid', contiene: '-0.80' },
+     { sel: '#evaluacion', contiene: 'meets the acceptance criteria' }]),
+  CALC('en/tools/recovery-bias-calculator', 'Recuperación 75 %: fuera de rango (EN)',
+    [fill('#fila-1 td:nth-child(3) input', 10), fill('#fila-1 td:nth-child(4) input', '7.5'),
+     fill('#fila-2 td:nth-child(3) input', 10), fill('#fila-2 td:nth-child(4) input', '7.6'),
+     fill('#fila-3 td:nth-child(3) input', 10), fill('#fila-3 td:nth-child(4) input', '7.4'), click()],
+    [{ sel: '#evaluacion', clase: 'warn' }, { sel: '#evaluacion', contiene: 'mean recovery (75.00 %) is outside the 80–120 % range' }]),
 ];
 
 // ── Casos de tablas de referencia ────────────────────────────
@@ -471,22 +631,25 @@ for (const c of CASOS.filter(c => c.pagina.includes(FILTRO))) {
     for (const e of c.espera) {
       const loc = page.locator(e.sel).first();
       // textContent (no innerText): no depende del text-transform del CSS
-      const texto = ((await loc.textContent().catch(() => '')) || '').replace(/\s+/g, ' ');
+      const texto = ((await loc.textContent({ timeout: 5000 }).catch(() => '')) || '').replace(/\s+/g, ' ');
       if (e.contiene && !texto.includes(e.contiene)) fallos.push(`«${e.sel}» no contiene «${e.contiene}» (dice: «${texto.slice(0, 160)}»)`);
       if (e.no && texto.includes(e.no)) fallos.push(`«${e.sel}» contiene «${e.no}»`);
       if (e.clase && !(await loc.getAttribute('class') || '').includes(e.clase)) fallos.push(`«${e.sel}» no tiene la clase ${e.clase}`);
       if (e.aria && (await loc.getAttribute(e.aria[0])) !== e.aria[1]) fallos.push(`«${e.sel}» no tiene ${e.aria[0]}="${e.aria[1]}"`);
     }
     // Reglas generales para los resultados
-    const valor = (await page.locator(RV).first().innerText().catch(() => '')) || '';
+    // Sin espera: varias herramientas (curva, LOD, estadística…) no tienen #resultado-valor
+    // y Playwright esperaría 30 s a que aparezca.
+    const leerYa = async (sel, fn) => (await page.$(sel)) ? fn(page.locator(sel).first()) : '';
+    const valor = (await leerYa(RV, l => l.innerText())) || '';
     if (esEN(c.pagina)) {
       if (/\d,(?!\d{3}(?:\D|$))\d/.test(valor)) fallos.push(`resultado con coma decimal en inglés: «${valor}»`);
-      const texto = ((await page.locator('#resultado').first().textContent().catch(() => '')) || '').replace(/\s+/g, ' ');
+      const texto = ((await leerYa('#resultado', l => l.textContent())) || '').replace(/\s+/g, ' ');
       const m = texto.match(ESPANOL);
       if (m) fallos.push(`resultado con texto en español («${m[0]}»): «${texto.slice(0, 160)}»`);
     } else {
       if (/\d\.\d/.test(valor)) fallos.push(`resultado con punto decimal: «${valor}»`);
-      if (/\b0,0+\b(?! ×)/.test(valor) && !/resultado--error/.test(await page.locator('#resultado').first().getAttribute('class').catch(() => '') || '')) {
+      if (/\b0,0+\b(?! ×)/.test(valor) && !/resultado--error/.test(await leerYa('#resultado', l => l.getAttribute('class')) || '')) {
         fallos.push(`resultado «0,000…»: «${valor}»`);
       }
     }

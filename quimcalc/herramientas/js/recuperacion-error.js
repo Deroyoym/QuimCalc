@@ -44,6 +44,12 @@
     /* Coma decimal para todo texto visible (solo en español) */
     function conComa(s) { return EN ? String(s) : String(s).replace(/(\d)\.(\d)/g, '$1,$2'); }
 
+    /* Límite de aceptación: vacío o inválido = valor por defecto; 0 es un valor válido */
+    function limite(id, porDefecto) {
+      var v = parseFloat(document.getElementById(id).value);
+      return isFinite(v) ? v : porDefecto;
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
       /* Comenzar con 5 filas vacías */
       for (var i = 0; i < 5; i++) agregarFila();
@@ -87,8 +93,8 @@
       var nominal = parseFloat(inputs[0].value);
       var medido  = parseFloat(inputs[1].value);
 
-      var limInf = parseFloat(document.getElementById('lim-inf').value) || 80;
-      var limSup = parseFloat(document.getElementById('lim-sup').value) || 120;
+      var limInf = limite('lim-inf', 80);
+      var limSup = limite('lim-sup', 120);
 
       if (!isNaN(nominal) && !isNaN(medido) && nominal !== 0) {
         var rec  = (medido / nominal) * 100;
@@ -142,9 +148,9 @@
       var cv   = Math.abs(mean) > 0 ? (sd / mean) * 100 : 0;
       var bias = mean - 100;
 
-      var limInf = parseFloat(document.getElementById('lim-inf').value) || 80;
-      var limSup = parseFloat(document.getElementById('lim-sup').value) || 120;
-      var limCV  = parseFloat(document.getElementById('lim-cv').value)  || 5;
+      var limInf = limite('lim-inf', 80);
+      var limSup = limite('lim-sup', 120);
+      var limCV  = limite('lim-cv', 5);
 
       var recovOk = mean >= limInf && mean <= limSup;
       var cvOk    = cv <= limCV;
